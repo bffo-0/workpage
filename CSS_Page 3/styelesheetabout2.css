@@ -1,0 +1,71 @@
+/* Sidebar per About che si apre a sinistra */
+.about-sidebar {
+  height: 70vh;
+  width: 0vh; /* Larghezza iniziale 0 */
+  position: fixed;
+  z-index: 1;
+  top: 100px;
+  left: 0; /* Apertura a sinistra */
+  background-color: #c6c6c616;
+  background-repeat: no-repeat;
+  overflow-x: hidden;
+  padding-top: 60px;
+  transition: 0.5s; /* Transizione più lenta */
+  transform: translateX(-5%);
+  text-align: left;
+}
+
+.about-sidebar a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 2vw;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.about-sidebar a:hover {
+  color: #0ede68;
+  transition: font-size 0.3s ease;
+}
+
+.openbtn {
+    font-family: ABCDiatype-Medium, sans-serif;
+      letter-spacing: 1px;
+        display: block;
+        margin-right: 5px;
+        margin-bottom: 2px;
+        z-index: 1000;
+  font-weight: bold;
+  font-size: 0.8vw;
+  
+  font-family:sans-serif;
+    cursor: pointer;
+    background-color: inherit;
+    
+    padding: 10px 15px;
+    border: none;
+  }
+.about-sidebar .closebtn {
+  position: absolute;
+  margin-left: 10px;
+  top: 0;
+  left: 80px;
+  font-size: 25px;
+  margin-left: 50px;
+}
+
+@media (max-width: 768px) {
+  .about-sidebar {
+    width: 50vw;
+  }
+
+  .about-sidebar a {
+    font-size: 1vw;
+  }
+}
+
+#aboutSidebar.open {
+  width: 15vw; /* Larghezza sidebar aperta */
+  transform: translateX(0); /* Porta sidebar nella posizione visibile */
+}

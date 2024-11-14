@@ -1,0 +1,1252 @@
+
+<!DOCTYPE html>
+<Html>
+    <head>
+      <link rel=stylesheet type="text/css" href="CSS_Page 3/reset.css" />
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+      <link rel="icon" SIZE="180x180" href="FAVICONE32X32.png" type="image/png">
+      <link rel="apple-touch-icon" sizes="180x180" href="favicono_180.png">
+      <title>Tommaso Massimiliano Alfì</title>
+        <link rel=stylesheet type="text/css" href="CSS_Page 3/Stylesheet3.css" />
+        <link rel=stylesheet type="text/css" href="CSS_Page 3/Stylesheet3.1.css"/>
+        <link rel=stylesheet type="text/css" href="CSS_Page 3/Stylesheet3.2.css"/>
+        <link rel=stylesheet type="text/css" href="CSS_Page 3/Stylesheet3.3.css"/>
+        <link rel=stylesheet type="text/css" href="CSS_Page 3/Stylesheet3.4.css"/>
+        <link rel=stylesheet type="text/css" href="CSS_Page 3/StylesheetAbout.css"/>
+        <link rel=stylesheet type="text/css" href="CSS_Page 3/contactstylesheet.css" />
+        <link rel=stylesheet type="text/css" href="CSS_Page 3/stylesheetcontainer.css" />
+        <link rel=stylesheet type="text/css" href="CSS_Page 3/stylesheetinfo.css" />
+
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+/* Contenitore corpo */
+
+
+
+body {
+  background-color: rgba(211, 211, 211, 0.093);
+    background-image: url(IMG_page3/back3new4.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    background-attachment: fixed;
+    max-width: 100%;
+}
+
+
+  
+/* Testo e intestazioni */
+    
+
+
+/* Contenitore individuale per ogni link */
+.name-container {
+  display: inline-block;
+  
+  background-color: #c6c6c616;
+  padding: 8px 88px; /* Ridotto padding per contenitore più piccolo */
+  border: 0.5px solid rgba(220, 220, 220, 0.965);
+
+  letter-spacing: -.1vw;
+  color: rgb(0, 0, 0);
+
+  
+  position: relative;
+  overflow: hidden; /* Assicurati che l'immagine non fuoriesca dal contenitore */
+  width: auto; /* Lascia che il contenitore si adatti al contenuto */
+  max-width: 400px; /* Imposta una larghezza massima per ogni contenitore */
+  font-family: ABCDiatype-Medium, sans-serif;
+  
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+/* Utilizziamo ::before per gestire l'immagine di sfondo */
+.name::before {
+  content: ''; /* L'elemento pseudo non ha contenuto */
+  position: absolute; /* Posiziona l'elemento pseudo assolutamente */
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background-image: url('../IMG_page3/containerimgpiccolname.png');
+  background-size: 50%;
+  
+  background-repeat: no-repeat;
+  opacity: 1; /* Applica l'opacità solo all'immagine di sfondo */
+  z-index: -1; /* Assicurati che l'immagine stia dietro al testo */
+  filter: blur(30px);
+}
+
+/*role container*/
+
+
+/* Contenitore individuale per ogni link */
+.light {
+  display: inline-block;
+  font-weight: lighter; 
+  font-style: italic;
+  letter-spacing: -.1vw;
+  color: rgb(0, 0, 0);
+  position: relative;
+  overflow: hidden; /* Assicurati che l'immagine non fuoriesca dal contenitore */
+  width: auto; /* Lascia che il contenitore si adatti al contenuto */
+  max-width: 500px; /* Imposta una larghezza massima per ogni contenitore */
+  font-family: ABCDiatype-Medium, sans-serif;
+  margin-top: 100%;
+  margin-left: 1.5vw;
+  font-size: 0.8vw;
+}
+
+
+/* Contenitore testo */
+#wrapper {
+        width: 400px;
+        margin: 0 auto;
+        top: 1%;
+        margin-left: 24px;
+    }
+
+
+  
+  
+  .image1 {
+                display: block;
+                position: fixed;
+                max-width: 20%;
+                bottom: 20px; /* Spazio dal fondo */
+    left: 20px; 
+    z-index: 1000;
+                width: 3vw;;
+                height: auto;
+                z-index: 30;
+                
+                content:url(HomeBack.png);
+               
+                &:hover {
+                    content:url(HomeBack2.png);
+
+   
+  }
+  animation: spin 5s linear infinite;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+
+}
+
+
+/* Immagini con posizionamento assoluto */
+.imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5, .imgmovie6, .imgmovie7 {
+  position: fixed;
+  max-width: 9.9vw;
+  height: auto;
+  transition: opacity 0.5s ease-in-out;
+  opacity: 0.2; /* Opacità iniziale */
+  transform: translate(-50%, -50%);
+}
+
+.imgmovie:hover, .imgmovie2:hover, .imgmovie3:hover, .imgmovie4:hover, .imgmovie5:hover, .imgmovie6:hover, .imgmovie7:hover { 
+  opacity: 1; /* Opacità al passaggio del mouse */
+}
+
+/* Posizionamento specifico delle immagini */
+.imgmovie {
+  top: 35vh;
+  left: 43vw; /* Posizione a sinistra */
+}
+
+.imgmovie2 {
+  top: 66vh;
+  left: 60vw; /* Spostata a destra rispetto alla prima */
+}
+
+.imgmovie3 {
+  top: 35vh;
+  left: 55vw; /* Posizionata ancora più a destra */
+}
+
+.imgmovie4 {
+  top: 64vh;
+  left: 48vw; /* Vicino al bordo destro */
+}
+
+.imgmovie5 {
+  top: 60vh;
+  left: 36vw; /* Posizionata al centro */
+}
+/* Posizionamento specifico delle immagini */
+.imgmovie6 {
+  top: 35vh;
+  left: 31vw; /* Posizione a sinistra */
+}
+
+.imgmovie7 {
+  top: 36vh;
+  left: 67vw; /* Posizione a sinistra */
+}
+@media (max-width: 1440px) {
+  .imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5 {
+    
+    max-width: 11vw; /* Ancora più piccole su schermi molto stretti */
+  }
+  .imgmovie{
+    left: 43%;
+     }
+  .imgmovie2{
+    top: 63%;
+    left: 62%;
+     }
+     .imgmovie3{
+    left: 56%;
+     }
+     .imgmovie4{
+    top: 65%;
+     }
+     .imgmovie5{
+      left: 33%;
+    top: 60%;
+     }
+     
+     /* Posizionamento specifico delle immagini */
+.imgmovie6 {
+  top: 35vh;
+  left: 30vw; /* Posizione a sinistra */
+}
+
+.imgmovie7 {
+  top: 35vh;
+  left: 69vw; /* Posizione a sinistra */
+}
+p.InfoMovie {
+  
+  margin-top: -13%;
+}
+
+.player7{
+left: 3%;
+}
+.blur {
+    filter: blur(30px); /* Applica un blur di 5px, regolabile secondo le tue preferenze */
+    transition: filter 10s ease; /* Transizione per un effetto graduale */
+  }
+  /* Rimuovi l'effetto blur quando si passa il mouse sopra l'immagine */
+  .blur:hover {
+    transition: filter 1s;
+    filter: none;
+  }
+/* SidebarBiografico */
+.about-sidebar p,
+.work-sidebar p {
+margin-top: -3.7%;
+  font-size: 0.8vw;
+  
+}
+.work-sidebar p {
+  margin-top: -2%;
+}
+.work-sidebar h5 {
+  margin-top: 2%;
+}
+
+.about-sidebar h2,
+.work-sidebar h2 {
+  top: 7.5%;
+  font-size: 1vw;
+}
+.sidebar-img {
+  max-width: 35%;
+  top: 28.5%;
+}
+.caption {
+  bottom: 3%;
+}
+.installation-sidebar h2 {
+  font-size: 0.8vw;
+}
+.installation-sidebar p {
+  font-size: 0.7vw;
+}
+
+
+.about-sidebar,
+.work-sidebar {
+  top: 6.3%;
+  height: 84%;
+  width: 500px;
+}
+.work-sidebar {
+  width:500px;
+}
+.line,.line2{
+  max-width: 35%;
+  top: 11%;
+}
+.line2{
+  top: 139px;
+}
+/* Link, nome */
+h1.name {
+  font-size: 1.2vw; 
+  font-weight: bold;
+}
+p.light {
+  margin-top: 3% ;
+  font-size: 1.1vw;
+}
+.about-link,
+.work-link, #contactLink {
+  font-size: 0.9vw;
+  
+  
+}
+
+  
+
+
+
+/*Sidebar Film*/
+.sidebar, .Sidebar2, .Sidebar3, .Sidebar4, .Sidebar5, .Sidebar6, .Sidebar7 {
+top: 10px;
+height: 88vh;
+}
+.video_0, .video_2, .video3, .video4, .video5, .video6, .video7  {
+top:13%;
+}
+/* piccole info*/
+p.InfoMovie{
+  margin-top: -15%;
+  font-size: 0.7vw;
+}
+p.movie, p.movie2, p.movie3, p.movie4, p.movie5, p.movie6, p.movie7{
+top:-10%;
+font-size: 1vw;
+}
+a.Title, a.Title2, a.Title3, a.Title4, a.Title5, a.Title6, a.Title7{
+  top:-9%;
+  font-size: 1vw;
+}
+.linemovie{
+  top: -13.5%
+}
+.player, .player2, .player3, .player4, .player5, .player6, .player7 {
+  max-width: 100%;
+  height: auto;
+  top: 47%;
+  left: 18%;
+}
+.player7{
+  left: 3%;
+}
+.sidebar .closebtn, .Sidebar2 .closebtn2, .Sidebar3 .closebtn3, .Sidebar4 .closebtn4, .Sidebar5 .closebtn5, .Sidebar6 .closebtn6, .Sidebar7 .closebtn7 {
+  font-size: 20px;
+}
+/*Sidebar Portfolio*/
+p.aligned-text1, p.aligned-text2, p.aligned-text3, p.aligned-text4, p.aligned-text5, p.aligned-text6, p.aligned-text7, p.aligned-text8, p.aligned-text9, p.aligned-text10, p.aligned-text11 {
+  font-size: 0.9vw;
+  margin: 20px;
+  margin-left:59px;
+}
+
+}
+
+/* Regole per schermi più piccoli */
+@media (max-width: 1024px) {
+    
+  .imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5 {
+    max-width: 14vw; /* Riduci la larghezza delle immagini */
+   
+  }
+  .imgmovie{
+    top: 32vh;
+    left: 41vw;
+  }
+  .imgmovie2{
+    top: 55vh;
+    left: 65vw;
+
+  }
+  .imgmovie3 {
+  top: 32vh;
+  
+}
+  .imgmovie4{
+    top: 60vh;
+  }
+  .imgmovie5{
+    left:31vw;
+    top: 55vh;
+  }
+}
+
+@media (max-width: 768px) {
+  .imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5 {
+    opacity: 0.1;
+    max-width: 20vw; /* Ancora più piccole su schermi molto stretti */
+  }
+  .imgmovie{
+    left: 35%;
+  }
+  .imgmovie2{
+    top: 58%;
+    left: 75%;
+    max-width: 19%;
+  }
+
+  .imgmovie3{
+    
+    left: 59%;
+  }
+  .imgmovie4{
+    top: 64%;
+    left: 50%;
+  }
+  .imgmovie5{
+    top: 58%;
+    left: 24%;
+  }
+  .imgmovie:hover, .imgmovie2:hover, .imgmovie3:hover, .imgmovie4:hover, .imgmovie5:hover {
+  opacity: 1; /* Opacità al passaggio del mouse */
+}
+
+}
+
+@media (max-width: 480px) {
+  .imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5 {
+    max-width: 30vw; /* Su schermi molto piccoli */
+  }
+  
+  .imgmovie{
+    left: 30%;
+  }
+  .imgmovie2{
+    top: 52.4%;
+    left: 83%;
+    max-width: 28vw;
+  }
+  .imgmovie3{
+    top: 35%;
+    left: 70%;
+  }
+  .imgmovie4{
+    top: 60%;
+    left: 50%;
+
+  }
+  .imgmovie5{
+    top: 55%;
+    left: 17%;
+  }
+}
+@media (max-width: 320px) {
+  .imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5 {
+    max-width: 30vw; /* Su schermi molto piccoli */
+  }
+  
+  .imgmovie{
+    left: 30%;
+  }
+  .imgmovie2{
+    left: 83%;
+  }
+  .imgmovie3{
+    left: 70%;
+  }
+  .imgmovie4{
+    top: 55%;
+    left: 50%;
+
+  }
+  .imgmovie5{
+    top: 49%;
+    left: 17%;
+  }
+}
+
+
+
+</style>
+</head>
+<body>
+ 
+
+
+<!-- Sidebar "About" nascosta di default -->
+<div id="aboutSidebar" class="about-sidebar">
+  <a href="javascript:void(0)" class="closebtn" onclick="toggleAboutSidebar()">×</a>
+  
+    <img src="IMG_page3/dariya_trubina_klas_txt_jordidevetten_low_res_1.jpg(mediaclass-landscape-large.faad41e29864068b6df57a9a947d42ec2b39ccbe).png"
+      alt="Immagine Sidebar" class="sidebar-img" onclick="toggleInstallationSidebar()">
+
+  <p class="caption">[threaded or shredded] une fois de plus, sans: Exhibition View - PH: Jordi de Vetten</p>
+    <h2>About:</h2>
+    <div class="line"></div>
+    <p>Tommaso Massimiliano Alfì is a composer and sound designer based in Turin. <br>
+    
+    He has collaborated with various musicians and artists in the fields of music, video art, and cinema. <br>
+    
+    His approach is influenced by his main project, "MVRGN," which explores a contemporary, hybrid, and electronic
+    compositional language.
+    
+    In his most recent works, he collaborated with artist and friend dariya trubina on the visual and sound installation
+    "[threaded or shredded] une fois de plus, sans":
+    a four-channel structure of contemporary composed music and sound design <br>
+    installed for the Gerrit Rietveld Academie. 
+    
+   </p>
+  
+   
+   
+</div>
+<!-- Sidebar aggiuntiva "Installation" -->
+<div id="installationSidebar" class="installation-sidebar">
+  <a href="javascript:void(0)" class="closebtn" onclick="toggleInstallationSidebar()"></a>
+  <div class="section">
+  <h2>[threaded or shredded] une fois de plus, sans</h2>
+  
+  <p>on tenter hooks
+  
+  [threaded or shredded] une fois de plus, sans. She uses the plain weave, the strongest, simplest and most ancient of weaving techniques. She occasionally intervenes in
+  it, pulling at the threads, un-evening the pattern and adjusting the shape in a way that is both patient and slightly
+  violent, challenging its pre-determined form.
+  
+  Treating material as language and language as material, she is interested in translation, taking systems of organisation
+  and shifting them just slightly, lightly curving their learned meaning.
+  
+  Tenter hooks [from Medieval Latin tentōrium, from Latin tendere to stretch] were used in the process of making woollen
+  or linen cloth which needed to be washed, stretched and dried under tension, to retain its shape and size. The wet cloth
+  was stretched over a wooden frame - a tenter - using the hooks (nails), and left to dry. Over the centuries of using
+  this method of controlled drying, the expression 'to be on tenterhooks' acquired a figurative meaning in English. It is
+  used to describe a state of uneasiness, anxiety, pressure, or suspense. This expression is often misinterpreted as
+  "tender hooks", creating an eggcorn — a substitution of an element as people try to make sense of a phrase that uses a
+  term unfamiliar to them.
+  
+  In double weaving one layer covers another, preventing access to a part of the process. Tension, errors, gaps can be
+  checked by using a small mirror, placed in the opening between the upper and the lower layers of the weave. An indirect
+  ingress: a material and temporal reflection of the process. A rear view. A translation.
+  
+  dariya likes to rearrange glossaries, grids and gaps in her close readings of architecture and built environments. She
+  indicates the performative potential of space, working with object-based compositions, voice, sound and movement.
+  Stretching the codes of repetition. </p>
+  
+  <audio id = "installation audio" src="Audio Page3/2.dariyasd_proj_quadraphonic_Front.wav" controls></audio>
+</div>
+</div>
+
+<!-- Sidebar "Work" nascosta di default -->
+<div id="workSidebar" class="work-sidebar">
+  <a href="javascript:void(0)" class="closebtn" onclick="toggleWorkSidebar()">×</a>
+  <img src="IMG_page3/imgwork.png"
+    alt="Immagine workSidebar" class="worksidebar-img">
+  <div class="container">
+  <h2>Works:</h2>
+  
+  <h3>Type:</h3>
+  <h4> Title, Role:</h4>
+  <h5> Year:</h5>
+  <div class="line2"></div>
+  
+  <p class="aligned-text1" data-film="film1" onclick="toggleFilmInfoSidebar(this)">
+    <i class="fas fas fa-star"></i>[threaded or shredded] une fois de plus, sans - Music Composer &
+    Sound Designer <span class="right-align">2024</span>
+  </p>
+  
+  <p class="aligned-text2" data-film="film2" onclick="toggleFilmInfoSidebar(this)">
+    <i class="fas fa-film"></i> Night Shift - Music Composer & Sound Designer
+    <span class="right-align2">2024</span>
+  </p>
+  
+  <p class="aligned-text3" data-film="film3" onclick="toggleFilmInfoSidebar(this)">
+    <i class="fas fa-film"></i> Zanskar 6000 - Music Composer & Sound Designer<span
+      class="right-align3">2024</span>
+  </p>
+
+            
+              <p class="aligned-text4"  data-film="film4" onclick="toggleFilmInfoSidebar(this)"><i class="fas fas fa-headphones"></i>Unrelible Object - Music Composer & Sound Designer
+              <span class="right-align4">2023</span></p>
+
+                  <p class="aligned-text5" data-film="film5" onclick="toggleFilmInfoSidebar(this)"><i class="fas fa-film"></i>Suspended Lives - Music Composer <span
+                      class="right-align5">2023</span></p>
+
+                      <p class="aligned-text6" data-film="film6" onclick="toggleFilmInfoSidebar(this)"> <i class="fas fa-film"></i> Sleeping Close - Music Composer <span
+                          class="right-align6">2023</span></p>
+                          
+                          <p class="aligned-text7"data-film="film7" onclick="toggleFilmInfoSidebar(this)"><i class="fas fa-film"></i>Burden Of Proof - Music Composer <span
+                              class="right-align7">2022</span></p>
+                              
+                              <p class="aligned-text8" data-film="film8" onclick="toggleFilmInfoSidebar(this)"> <i class="fas fa-film"></i> Once And For All - Music Composer <span
+                                  class="right-align8">2022</span></p>
+
+                                  <p class="aligned-text9" data-film="film9" onclick="toggleFilmInfoSidebar(this)" ><i class="fas fa-star"></i> A Little Order, A Little Grace - Music Composer<span
+                                      class="right-align9">2022</span></p>
+                                      
+                                      <p class="aligned-text10" data-film="film10" onclick="toggleFilmInfoSidebar(this)"><i class="fas fa-film"></i> Despite The Facts - Music Composer <span
+                                          class="right-align10">2022</span></p>
+
+                                            <p class="aligned-text11" data-film="film11" onclick="toggleFilmInfoSidebar(this)"><i class="fas fa-film"></i> Donne che viaggiano sole - Music Composer & Sound Designer <span class="right-align11">2019</span></p>
+  
+</div>
+</div>
+<!-- Sidebar per il film1 -->
+<div id="film1" class="infoSidebar">
+  <span class="closebtn">×</span>
+  <a href="https://rietveldacademie.nl/page/1028292/dariya-trubina" target="_blank">
+    <img src="IMG_page3/[threaded or shredded] une fois de plus, sans2.jpg"alt="Immagine threaded" class="threaded-img">
+    </a>
+  <div class="sidebar-content">
+    <h2>[threaded or shredded] une fois de plus, sans</h2>
+    <p>Projects by: dariya trubina</p>
+    <p>Music Composed and Sound Designer by Tommaso Massimiliano Alfì</p>
+    <p>Exhibition at Gerrit Rietveld Academie</p>
+    <p>Amsterdam, 2024</p>
+  </div>
+</div>
+
+<!-- Sidebar per il film2 -->
+<div id="film2" class="infoSidebar">
+  <span class="closebtn">×</span>
+  <div class="sidebar-content">
+    <h2>Night Shift</h2>
+    <p>Nino works the night shift as a receptionist in a 2-star hotel.
+    He is torn between insomnia, a harmful routine, and nostalgia for easier times.
+    Besides brief and eerie encounters with customers, he spends the night trying to find ways to stay awake.
+    When he is not lost in scrolling, binge-watching, or drinking coffee, he walks around the hotel experiencing the
+    nocturnal oddities that flow through rooms and corridors.
+    Grey walls, rotten interiors, and empty spaces seem to translate the palette of emotions shared by all the inhabitants
+    of the hotel.
+    Using the very same digital tools that force him into alienation, Nino records and listens to his most intimate
+    confessions.
+    This acoustic diary will be his only lighthouse in a hazy and lonely dimension.</p>
+    <p> A film by Patrick Frunzio</p>
+    <p>Music Composer & Sound Designer by Tommaso Massimiliano Alfì</p>
+    <p>Italy,2024</p>
+  </div>
+</div>
+
+<!-- Sidebar per il film3 -->
+<div id="film3" class="infoSidebar">
+  <span class="closebtn">×</span>
+  <img src="Movies/zanskar6000.png" alt="Immagine Zanskar" class="zanskar-img">
+</a>
+  <div class="sidebar-content">
+    <h2>Zanskar 6000</h2>
+    <p>“Zanskar 6000”
+    
+    Italy, 2024, 19’15’’, 16:9, Full HD, stereo sound
+    
+    v.o. Italian/English, with english subtitles</p>
+    
+   <p> A film by Giada Ripa <p>
+    
+    <p>Expedition concept by Aimone Ripa Di Meana
+    
+    Coordination by Aimone Ripa Di Meana, Rimo Expedition Agency
+    
+    With Edward Cooper, Adriano Ferrero, Simon Lorenz, Aimone Ripa Di Meana, Giada Ripa, Ollie Ullrich
+    
+    Sherpas Dorjee, Norbu & their team 
+    
+    Liason Officer Amresh Kumar Jha </p>
+    
+    <p> Editing by Virginia Garra </p>
+    
+    <p>Music and Sound Design by Tommaso Massimiliano Alfì </p>
+    
+    <p>VFX and Animation by Thomas Pilani </p>
+    
+    <p>Durung Durung Glacier, Zanskar Valley, India.
+    Peak reached: Mt. Aiseo 6028 m </p>
+    
+   <p> Shoot in 2008, released in 2024.</p>
+    <p>2024</p>
+  </div>
+</div>
+
+<!-- Sidebar per il film4 -->
+<div id="film4" class="infoSidebar">
+  <span class="closebtn">×</span>
+  <a href="https://lumpenstation.art/archive/show/ohh-unreliable-object" target="_blank">
+  <img src="IMG_page3/unrelibleobject.jpg" 
+  alt="Immagine unrelibleobject" class="unrelibleobject-img">
+  </a>
+  <div class="sidebar-content">
+    <h2>Unrelible Object</h2>
+
+    <p>Otters holding hands is curated by Ambra Viviani and co-production Lumpen Station
+    Unreliable Object by Federico Pozuelo has been released in may 2023</p>
+    <p>"Unreliable Object is a radio drama that explores our perception of
+    reality through a story of love, contraband, and science fiction."</p>
+    <p>Narrated by Francesca Flora</p>
+    <p>Original soundtrack and sound design by MVRGN</p>
+    <p>2023</p>
+    <p>Italian, English</p>
+  </div>
+</div>
+
+<!-- Sidebar per il film5 -->
+<div id="film5" class="infoSidebar">
+  <span class="closebtn">×</span>
+  <img src="IMG_page3/viteinsospesoimg.png" alt="Immagine viteinsospeso" class="viteinsospeso-img">
+  <div class="sidebar-content">
+    <h2> Suspended Lives</h2>
+    <p>Written by Chiara Valenti</p>
+    <p> Directed By Chiara Valenti & Patrick Frunzio</p>
+    <p>Executive Production by Eccetera SaS</p>
+    <p>Music Composer Tommaso Massimiliano Alfi</p>
+    <p>Italy,2023</p>
+  </div>
+</div>
+
+<!-- Sidebar per il film6 -->
+<div id="film6" class="infoSidebar">
+  <span class="closebtn">×</span>
+  <a href="https://www.imdb.com/title/tt29376130/" target="_blank">
+    <img src="IMG_page3/SELEEPING.png" alt="Immagine sleepingclose" class="sleepingclose-img">
+  </a>
+  <div class="sidebar-content">
+    <h2> Sleeping Close</h2>
+    <p>"Sleeping Close" Italy, France 2023, 109', 2:1, Full HD, stereo sound, v.o Italian, with english subtitles</p>
+    <p>In human adversities, there are 'topoi' that recur like variations of the same melody. Growth, pain, sacrifice, choices
+    and, above all, love, are present in everyone's existence in a thousand forms, similar and yet unique. With the
+    fragments of many lives, it would be possible to compose a single one in which to find the echo of all the others. In
+    the chapters of 'Sleeping close', a woman experiences the stages of her own evolution through the changing features of
+    fourteen female protagonists. She dies a symbolic death, only to be resurrected at the end with all those women who have
+    gone before. A poetic journey into the inner world of the human being, in which seemingly insignificant reveal to us the
+    submerged stream of a fragile humanity in search of itfself.</p>
+    
+    <p>A film by Giulio Pereno</p>
+    <p> Produced by Giulio Pereno & Olivia Paola Longoni</p>
+    <p>Music Composed by Tommaso Massimiliano Alfì</p>
+    <p>2023</p>
+  </div>
+</div>
+
+<!-- Sidebar per il film7 -->
+<div id="film7" class="infoSidebar">
+  <span class="closebtn">×</span>
+  <a href="https://www.imdb.com/title/tt33291155/ " target="_blank">
+    <img src="Movies/burdernframe.jpg" alt="Immagine burden" class="burden-img">
+  </a>
+  <div class="sidebar-content">
+    <h2> Burden Of Proof</h2>
+    <p>Looped Video HD and photo series- 2022</p>
+    <p>Through a video shot in a disused Oscar Niemeyer building, "Burden of Proof" reflects on the relationship between
+    science and political violence using a circular narrative structure. The project also includes a series of photographs
+    that explore forensic languages and the imaginary of crime cinema.</p>
+    <p>2022</p>
+    <p> Director: Federico Pozuelo</p>
+    <p> Music Composed by Tommaso Massimiliano Alfì</p>
+  </div>
+</div>  
+
+<!-- Sidebar per il film8 -->
+<div id="film8" class="infoSidebar">
+  <span class="closebtn">×</span>
+  <a>
+  <img src="IMG_page3/ONCEIMG.png" alt="Immagine once" class="once-img"> 
+  </a>
+  <div class="sidebar-content">
+    <h2> Once And For All</h2>
+    <p>“Once And For All” Italy, 2022, 19’15’’, 16:9, Full HD,</p>
+    <p> A film by Federico Pozuelo & Javier Ruiz</p>
+    <p> Written By Federico Pozuelo & Javier Ruiz</p>
+    <p>Music Composed by Tommaso Massimiliano Alfì</p>
+    <p>2022</p>
+  </div>    
+</div>
+
+<!-- Sidebar per il film9 -->
+<div id="film9" class="infoSidebar">
+  <span class="closebtn">×</span>
+  <img src="IMG_page3/como.jpg" alt="Immagine Como" class="Como-img">
+  <div class="sidebar-content">
+    
+    <h2> A Little Order, A Little Grace</h2>
+    <p>Project and video's by Germana Frattini</p>
+    
+   <p> Music Composed  by Tommaso Massimiliano Alfì</p>
+    
+    <p>Exhibition at Como Contemporanea</p>
+    
+    <p>Como, 2022</p>
+    <p>2024</p>
+  </div>    
+</div>
+
+<!-- Sidebar per il film10 -->
+<div id="film10" class="infoSidebar">
+  <span class="closebtn">×</span>
+  <a href="https://www.federicopozuelo.com/despite-the-facts.html " target="_blank">
+    <img src="IMG_page3/despitepic.jpg" alt="Immagine despite" class="despite-img">
+  </a>
+  <div class="sidebar-content">
+    <h2> Despite The Facts</h2>
+    <p>Through the narrative of a fictional political crime, the project explores the construction of the cultural, political
+    and historical narratives in northen Italy during the Years of Lead.</p>
+    <p> A film by Fedirico Pozuelo</p>
+    <p> Music Composed by Tommaso Massimiliano Alfì</p>
+    <p>2022</p>
+  </div>    
+</div>
+
+<!-- Sidebar per il film11 -->
+<div id="film11" class="infoSidebar">
+  <span class="closebtn">×</span>
+  <a href="https://m.imdb.com/title/tt21608742/?ref_=nv_sr_srsg_0_tt_1_nm_0_in_0_q_donne%2520che%2520viaggiano%2520sole " target="_blank">
+    <img src="IMG_page3/donneche2img.png" alt="Immagine donnecheviaggianosole" class="donneche-img">
+  </a>
+  <div class="sidebar-content">
+    <h2> Donne che viaggiano sole</h2>
+    <p>Written, edited and directed by Giulio Pereno</p>
+    <p>with dariya trubina</p>
+    <p>Music Composed and Sound Designer by Tommaso Massimiliano Alfì</p>
+    <p>Cinematography: Jalal Albess
+    2nd Cinematography: Moreno Elia Hebling, Giulio Pereno, Claudio Pereno (final scene)</p>
+    
+    <p> 75', ITA-DE-FRA, 2019, 2:1, 16:9, Full HD, stereo sound, v.o italian, english, with english and italiansubtitles</p>
+    <p>2019</p>
+  </div>    
+</div>
+
+<!-- Title Name-->
+<div class="name-container">
+<h1 class="name">Tommaso Massimiliano Alfì</h1>
+</div>
+   <div id="textContent">
+    <!-- Text info -->
+    <a href="http://127.0.0.1:5500/index.html">
+    <img id="img" src="HomeBack.png" class="image1" alt="Home" style="max-width:100%;" >
+    </a>
+    
+    
+    
+    <div id="wrapper">
+    <div id="aboutText">
+    <p class="light">film music composer, sound designer, sound engineering.
+    </p>
+  </div>
+    </div>
+    
+<!-- Contenitore principale che conterrà i link orizzontali -->
+<div class="links-container">
+  
+  <!-- Contenitore per il link "About" -->
+  <div class="link-container">
+    <span class="about-link" id="aboutLink" onclick="toggleAboutSidebar()"><span class="arrow2">➣</span>ABOUT<span class="arrow2">➣</span></span>
+    
+  </div>
+
+  <!-- Contenitore per il link "Work" con freccia -->
+  <div class="link-container">
+    <span class="work-link" id="workLink" onclick="toggleWorkSidebar()">
+      <span class="arrow2">➣</span>WORKS<span class="arrow">➣</span>
+    </span>
+  </div>
+
+  <!-- Contenitore per il link "Contact" -->
+  <div class="link-container">
+    <span id="contactLink"><span class="arrow2">➣</span>CONTACT<span class="arrow2">➣</span></span>
+  </div>
+
+</div>
+    <div class="grid-container">
+
+  <!-- Sidebar -->
+  <!-- Sidebar Film 1 -->
+    <div id="main"> 
+      <button class="openbtn" onclick="OpenOrClose1('mySidebar')">  
+     <img id="imgmovie" src="Movies/dormiamo insieme locandina.jpg" class="imgmovie">
+    </button> 
+
+    <div id="mySidebar" class="sidebar">
+      <a href="javascript:void(0)" class="closebtn" onclick="OpenOrClose1()"> &times; </a> 
+      
+      <a href="https://tommasomassimilianoalfi.bandcamp.com/" target="_blank">
+        <img id="imgmovie" src="Movies/dormiamo insieme locandina.jpg" class="imgmovie">
+      
+            </a>
+            <p class="movie"> Movie:</p> <a class="Title"  a href="https://www.imdb.com/title/tt29376130/" target="_blank"> Sleeping Close</a> 
+      <video src="Movies/Acqua.mp4" controls="true" class="video_0">
+        your browser does not support the video tag
+        </video>
+        <div class="linemovie"></div>
+        <p class="InfoMovie"> "Sleeping Close" Italy, France 2023, 109', 2:1, Full HD, stereo sound, v.o Italian, with english subtitles. A Film by Giulio Pereno</p>
+                    
+       
+                   
+         
+          <iframe style="border: none; width: 250px; height: 500px;" src="https://bandcamp.com/EmbeddedPlayer/album=1265036739/size=large/bgcol=ffffff/linkcol=333333/artwork=none/transparent=true/" class="player">
+            <a href="https://tommasomassimilianoalfi.bandcamp.com/album/sleeping-close-soundtrack">Sleeping Close - Soundtrack by Tommaso Massimiliano Alfi</a></iframe>
+  </div>
+                                  <!-- Sidebar Film 2 -->
+                                  <div id="main2">
+                                    <button class="openbtn2" onclick="OpenOrClose2('mySidebar2')">
+                                    <img id="imgmovie2" src="Movies/donneche.png" class="imgmovie2">
+                                  </button>
+                                
+                                  <div class="Sidebar2" id="mySidebar2">
+                                    <a href="javascript:void(0)" class="closebtn2" onclick="OpenOrClose2()"> &times; </a> 
+                                    <a href="https://tommasomassimilianoalfi.bandcamp.com/" target="_blank">
+                                   
+                                  </a>
+                                  <p class="movie2"> Movie:</p> <a class="Title2"  a href="https://www.imdb.com/title/tt21608742/" target="_blank"> Donne Che Viaggiano Sole</a>
+                                    <video src="Movies/donneche.mp4" controls="true" class="video_2"></video>
+                                <div class="linemovie"></div>
+                                <p class="InfoMovie"> 75', ITA-DE-FRA, 2019, 2:1, 16:9, Full HD, stereo sound, v.o italian, english, with english and italiansubtitles. A Film By Giulio Pereno</p>
+                                  </div>
+                                                    <!-- Sidebar Film 3 -->
+                                                        <div id="main3">
+                                                        <button class="openbtn3" onclick="OpenOrClose3('mySidebar3')">
+                                                          <img id="imgmovie3" src="Movies/Burden.png" class="imgmovie3">
+                                                      </button>
+                                                      
+                                                      <div class="Sidebar3" id="mySidebar3">
+                                                        <a href="javascript:void(0)" class="closebtn3" onclick="OpenOrClose3()"> &times; </a> 
+                                                        <a href="https://tommasomassimilianoalfi.bandcamp.com/" target="_blank">
+                                                      </a>
+                                                      <p class="movie3"> Movie:</p> <a class="Title3"  a href="https://www.imdb.com/title/tt33291155/" target="_blank"> Burden Of Proof</a>
+                                                        <video src="Movies/Burden.mov" controls="true" class="video3"></video>
+                                                        <div class="ol_Movie5"></div>
+                                                      <div class="linemovie"></div>
+                                                      <p class="InfoMovie"> Burden Of Proof
+                                                      Looped Video HD and photo series- 2022 Italy
+                                                        A Film by Federico Pozuelo</p>
+                                                      <iframe style="border: 0; width: 250px; height: 450px;" src="https://bandcamp.com/EmbeddedPlayer/album=2034586078/size=large/bgcol=ffffff/linkcol=0687f5/artwork=small/transparent=true/" class="player3">
+                                                        <a href="https://tommasomassimilianoalfi.bandcamp.com/album/burden-of-proof-original-motion-picture-soundtrack">Burden Of Proof - Original Motion Picture Soundtrack by Tommaso Massimiliano Alfì</a></iframe>
+                                              </div>
+                                                      </div>
+                                                                      <!-- Sidebar Film 4 -->
+                                                                       <div id="main4">
+                                                                      <button class="openbtn4" onclick="OpenOrClose4('mySidebar4')">
+                                                                        <img id="imgmovie4" src="Movies/Despite.png" class="imgmovie4">
+                                                                    </button>
+                                                                    
+                                                                    <div class="Sidebar4" id="mySidebar4">
+                                                                      <a href="javascript:void(0)" class="closebtn4" onclick="OpenOrClose4()"> &times; </a> 
+                                                                      <a href="https://tommasomassimilianoalfi.bandcamp.com/" target="_blank">
+                                                                    </a>
+                                                                    <p class="movie4"> Movie:</p> <a class="Title4"  a href="https://www.rtve.es/television/20220418/metropolis-injuve-2022/2333780.shtml" target="_blank"> Despite The Facts</a>
+                                                                      <video src="Movies/DespiteTheFacts.mov" controls="true" class="video4"></video>
+                                                                      <div class="linemovie"></div>
+                                                                      <p class="InfoMovie">Despite The Facts, Short Movie 2022 Italy
+                                                                        A Film by Federico Pozuelo</p>
+                                                                    <iframe style="border: 0; width: 250px; height: 450px;" src="https://bandcamp.com/EmbeddedPlayer/album=1256480392/size=large/bgcol=ffffff/linkcol=0687f5/artwork=none/transparent=true/" class="player4">
+                                                                      <a href="https://tommasomassimilianoalfi.bandcamp.com/album/despite-the-fact-original-motion-picture-soundtrack">Despite The Facts - Original Motion Picture Soundtrack by Tommaso Massimiliano Alfì</a></iframe>
+                                                            </div>
+                                                                                        </div>
+                                                                                        <!-- Sidebar Film 5 -->
+                                                                                        <div id="main5">
+                                                                                          <button class="openbtn5" onclick="OpenOrClose5('mySidebar5')">
+                                                                                            <img id="imgmovie5" src="Movies/onceandforall.png" class="imgmovie5">
+                                                                                        </button>
+                                                                                        
+                                                                                        <div class="Sidebar5" id="mySidebar5">
+                                                                                          <a href="javascript:void(0)" class="closebtn5" onclick="OpenOrClose5()"> &times; </a> 
+                                                                                          <a href="https://tommasomassimilianoalfi.bandcamp.com/" target="_blank">
+                                                                                        </a>
+                                                                                        <p class="movie5"> Movie:</p> <a class="Title5"  a href="https://www.rtve.es/television/20220418/metropolis-injuve-2022/2333780.shtml" target="_blank"> Once And For All</a>
+                                                                                          <video src="Movies/OnceAndFor.mov" controls="true" class="video5"></video>
+                                                                                          <div class="linemovie"></div>
+                                                                                        <p class="InfoMovie">Once And For All, Short Movie 2022 Italy
+                                                                                          A Film by Federico Pozuelo & Javier Ruiz</p>
+                                                                                        <div class="ol_Movie10"></div>
+                                                                                        <iframe style="border: 0; width: 250px; height: 450px;" src="https://bandcamp.com/EmbeddedPlayer/album=4130254768/size=large/bgcol=ffffff/linkcol=0687f5/artwork=none/transparent=true/" class="player5">
+                                                                                          <a href="https://tommasomassimilianoalfi.bandcamp.com/album/once-and-for-all-original-motion-picture-soundtrack">Once And For All - Original Motion Picture Soundtrack by Tommaso Massimiliano Alfì</a></iframe>
+                                                                                          </div>
+                                                                                        </div>
+                                                                                        </div>
+                                                                                                                 <!-- Sidebar per il film6 -->
+                                                                                                                <div id="main6">
+                                                                                                                  <button class="openbtn6" onclick="OpenOrClose6('mySidebar6')">
+                                                                                                                    <img id="imgmovie6" src="Movies/zanskar.png" class="imgmovie6">
+                                                                                                                  </button>
+                                                                                                                
+                                                                                                                  <div class="Sidebar6" id="mySidebar6">
+                                                                                                                    <a href="javascript:void(0)" class="closebtn6" onclick="OpenOrClose6()"> &times; </a>
+                                                                                                                    <a href="https://tommasomassimilianoalfi.bandcamp.com/" target="_blank">
+                                                                                                                    </a>
+                                                                                                                    <p class="movie6"> Movie:</p> <a class="Title6" a
+                                                                                                                      href="https://www.rtve.es/television/20220418/metropolis-injuve-2022/2333780.shtml" target="_blank"> Zanskar 6000</a>
+                                                                                                                    <video src="Movies/ZANSKAR 6000 music_02.mp4" controls="true" class="video6"></video>
+                                                                                                                    <div class="linemovie"></div>
+                                                                                                                    <p class="InfoMovie"> "“Zanskar 6000” Italy, 2024, 19’15’’, 16:9, Full HD, stereo sound v.o. Italian/English, with english subtitles.
+                                                                                                                    
+                                                                                                                    A film by Giada Ripa</p>
+                                                                                                                    
+                                                                                                                   
+                                                                                                                    <iframe style="border: 0; width: 250px; height: 450px;"
+                                                                                                                      src="https://bandcamp.com/EmbeddedPlayer/album=4130254768/size=large/bgcol=ffffff/linkcol=0687f5/artwork=none/transparent=true/"
+                                                                                                                      class="player5">
+                                                                                                                      <a href="https://tommasomassimilianoalfi.bandcamp.com/album/once-and-for-all-original-motion-picture-soundtrack">Once
+                                                                                                                        And For All - Original Motion Picture Soundtrack by Tommaso Massimiliano Alfì</a></iframe>
+                                                                                                                  </div>
+                                                                                                                </div>
+                                                                                                                </div>
+                                                                                                                            <!-- Sidebar per il film7 -->
+                                                                                                                          <div id="main7">
+                                                                                                                            <button class="openbtn7" onclick="OpenOrClose7('mySidebar7')">
+                                                                                                                              <img id="imgmovie7" src="IMG_page3/Suspendedimg.PNG" class="imgmovie7">
+                                                                                                                            </button>
+                                                                                                                          
+                                                                                                                            <div class="Sidebar7" id="mySidebar7">
+                                                                                                                              <a href="javascript:void(0)" class="closebtn7" onclick="OpenOrClose7()"> &times; </a>
+                                                                                                                              <a href="https://tommasomassimilianoalfi.bandcamp.com/" target="_blank">
+                                                                                                                              </a>
+                                                                                                                              <p class="movie7"> Movie:</p> <a class="Title7" a
+                                                                                                                                href="https://www.rtve.es/television/20220418/metropolis-injuve-2022/2333780.shtml" target="_blank"> Suspended Lives
+                                                                                                                                </a>
+                                                                                                                              <video src="Movies/suspended.mp4" controls="true" class="video7"></video>
+                                                                                                                              <div class="linemovie"></div>
+                                                                                                                              <p class="InfoMovie"> "Suspended Lives" Italy, 2023, 29', 2:1, Full HD, stereo sound, v.o Italian, with english
+                                                                                                                                subtitles. A Film by Chiara Valenti & Patrick Frunzio</p>
+                                                                                                                              
+                                                                                                                              
+                                                                                                                               
+                                                                                                                            <iframe style="border: 0; width: 90%; height: 120px;"
+                                                                                                                              src="https://bandcamp.com/EmbeddedPlayer/track=1106786924/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=none/transparent=true/"
+                                                                                                                              seamless class="player7"><a href="https://tommasomassimilianoalfi.bandcamp.com/track/suspended-lives-theme-soundtrack">Suspended Lives
+                                                                                                                                - Theme Soundtrack by Tommaso Massimiliano Alfì</a></iframe>
+                                                                                                                            </div>
+                                                                                                                          </div>
+                                                                                                                          </div>
+<!-- CONTACT -->
+
+
+
+
+<!-- Overlay del form -->
+<div id="contactFormOverlay">
+  <div id="contactFormContainer">
+    <span id="closeForm">&times;</span>
+    
+    <form action="mailto:alfi.tommasomassimiliano@proton.me" method="post" enctype="text/plain">
+      <label for="email">Mail:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="message">Your Message</label>
+      <textarea id="message" name="message" rows="4" required></textarea>
+
+      <button type="submit" id="submitBtn">Send</button>
+    </form>
+  </div>
+</div>
+</div>
+
+<script>
+  // JavaScript per gestire l'apertura e chiusura del form
+  const contactLink = document.getElementById('contactLink');
+  const contactFormOverlay = document.getElementById('contactFormOverlay');
+  const closeForm = document.getElementById('closeForm');
+
+  // Mostra il form al clic sul link "Contact"
+  contactLink.addEventListener('click', () => {
+    contactFormOverlay.style.display = 'flex';
+  });
+
+  // Nasconde il form al clic sulla X
+  closeForm.addEventListener('click', () => {
+    contactFormOverlay.style.display = 'none';
+  });
+
+  // Chiude il form al clic al di fuori del contenuto del form
+  window.addEventListener('click', (event) => {
+    if (event.target === contactFormOverlay) {
+      contactFormOverlay.style.display = 'none';
+    }
+  });
+  
+ // Funzione per aprire e chiudere la sidebar "About"
+  function toggleAboutSidebar() {
+    const aboutSidebar = document.getElementById("aboutSidebar");
+    const workSidebar = document.getElementById("workSidebar");
+    const textContent = document.getElementById("textContent");
+    const aboutLink = document.getElementById("aboutLink");
+    const workLink = document.getElementById("workLink");
+
+    // Controllo lo stato della sidebar "About"
+    if (aboutSidebar.style.left === "-600px" || aboutSidebar.style.left === "") {
+      // Apre la sidebar "About" e chiude "Work" se aperta
+      aboutSidebar.style.left = "20px";
+      workSidebar.style.left = "-600px";
+
+      // Nasconde il contenuto principale e i link
+      textContent.classList.add("hide-content");
+      aboutLink.style.visibility = "hidden";
+      workLink.style.visibility = "hidden";
+    } else {
+      // Chiude la sidebar "About"
+      aboutSidebar.style.left = "-600px";
+
+      // Ripristina il contenuto principale e i link
+      textContent.classList.remove("hide-content");
+      aboutLink.style.visibility = "visible";
+      workLink.style.visibility = "visible";
+    }
+  }
+
+  // Funzione per aprire e chiudere la sidebar "Work"
+  function toggleWorkSidebar() {
+    const workSidebar = document.getElementById("workSidebar");
+    const aboutSidebar = document.getElementById("aboutSidebar");
+    const textContent = document.getElementById("textContent");
+    const aboutLink = document.getElementById("aboutLink");
+    const workLink = document.getElementById("workLink");
+
+    // Controlla lo stato della sidebar "Work"
+    if (workSidebar.style.left === "-600px" || workSidebar.style.left === "") {
+      // Apre la sidebar "Work" e chiude "About" se aperta
+      workSidebar.style.left = "20px";
+      aboutSidebar.style.left = "-600px";
+
+      // Nasconde il contenuto principale e i link
+      textContent.classList.add("hide-content");
+      aboutLink.style.visibility = "hidden";
+      workLink.style.visibility = "hidden";
+    } else {
+      // Chiude la sidebar "Work"
+      workSidebar.style.left = "-600px";
+
+      // Ripristina il contenuto principale e i link
+      textContent.classList.remove("hide-content");
+      aboutLink.style.visibility = "visible";
+      workLink.style.visibility = "visible";
+    }
+  }
+
+  /// Funzione per aprire e chiudere la sidebar "Installation" e controllare l'audio
+function toggleInstallationSidebar() {
+  const installationSidebar = document.getElementById("installationSidebar");
+  const audio = document.getElementById("installation audio");
+
+  // Controlla la larghezza dello schermo
+  const isSmallScreen = window.innerWidth <= 1400;
+
+  // Imposta la posizione di apertura in base alla larghezza dello schermo
+  const openPosition = isSmallScreen ? "520px" : "620px";
+  const closedPosition = "-600px";
+
+  // Controllo lo stato della sidebar "Installation"
+  if (installationSidebar.style.left === closedPosition || installationSidebar.style.left === "") {
+    // Apre la sidebar "Installation"
+    installationSidebar.style.left = openPosition;
+    audio.play(); // Avvia l'audio
+  } else {
+    // Chiude la sidebar "Installation"
+    installationSidebar.style.left = closedPosition;
+    audio.pause(); // Ferma l'audio
+    audio.currentTime = 0; // Riporta l'audio all'inizio
+  }
+}
+
+  // Funzione per chiudere le sidebar e ripristinare la visibilità degli elementi al clic fuori
+  document.addEventListener('click', function (event) {
+    const aboutSidebar = document.getElementById("aboutSidebar");
+    const workSidebar = document.getElementById("workSidebar");
+    const installationSidebar = document.getElementById("installationSidebar");
+    const textContent = document.getElementById("textContent");
+    const aboutLink = document.getElementById("aboutLink");
+    const workLink = document.getElementById("workLink");
+    const audio = document.getElementById("installation audio");
+
+    // Non interferire con il clic sull'immagine per aprire la sidebar "Installation"
+    if (event.target.classList.contains("sidebar-img")) {
+      return; // Non fare nulla se il clic è sull'immagine
+    }
+
+    // Se il clic è fuori dalla sidebar "About" e dal link "About", chiudi la sidebar
+    if (!aboutSidebar.contains(event.target) && !aboutLink.contains(event.target)) {
+      aboutSidebar.style.left = "-600px"; // Chiude la sidebar
+    }
+
+    // Se il clic è fuori dalla sidebar "Work" e dal link "Work", chiudi la sidebar
+    if (!workSidebar.contains(event.target) && !workLink.contains(event.target)) {
+      workSidebar.style.left = "-600px"; // Chiude la sidebar
+    }
+
+    // Se il clic è fuori dalla sidebar "Installation", chiudi la sidebar e ferma l'audio
+    if (!installationSidebar.contains(event.target)) {
+      installationSidebar.style.left = "-600px"; // Chiude la sidebar
+      audio.pause(); // Ferma l'audio
+      audio.currentTime = 0; // Riporta l'audio all'inizio
+    }
+
+    // Ripristina il contenuto principale e i link se tutte le sidebar sono chiuse
+    if (aboutSidebar.style.left === "-600px" && workSidebar.style.left === "-600px" && installationSidebar.style.left === "-600px") {
+      textContent.classList.remove("hide-content"); // Ripristina il contenuto principale
+      aboutLink.style.visibility = "visible"; // Rendi visibile il link "About"
+      workLink.style.visibility = "visible"; // Rendi visibile il link "Work"
+    }
+  });
+                                                                                       // Funzione per aprire e chiudere la sidebar "Film Info"
+                                                                                        function toggleFilmInfoSidebar(element) {
+                                                                                          // Ottieni l'ID della sidebar dal data-film dell'elemento cliccato
+                                                                                          const filmId = element.getAttribute("data-film");
+
+                                                                                          // Seleziona la sidebar corrispondente
+                                                                                          const targetSidebar = document.getElementById(filmId);
+
+                                                                                          // Controlla la larghezza dello schermo
+                                                                                          const isSmallScreen = window.innerWidth <= 1400;
+
+                                                                                          // Imposta la posizione di apertura in base alla larghezza dello schermo
+                                                                                          const openPosition = isSmallScreen ? "520px" : "620px";
+                                                                                          const closedPosition = "-600px";
+
+                                                                                          // Chiudi tutte le altre sidebar
+                                                                                          const allSidebars = document.querySelectorAll('.infoSidebar');
+                                                                                          allSidebars.forEach(sidebar => {
+                                                                                            if (sidebar !== targetSidebar) {
+                                                                                              sidebar.style.left = closedPosition;  // Chiudi le altre sidebar
+                                                                                            }
+                                                                                          });
+
+                                                                                          // Se la sidebar è già aperta, la chiudiamo
+                                                                                          if (targetSidebar.style.left === openPosition) {
+                                                                                            targetSidebar.style.left = closedPosition;
+                                                                                          } else {
+                                                                                            // Altrimenti la apriamo
+                                                                                            targetSidebar.style.left = openPosition;
+                                                                                          }
+                                                                                        }
+
+                                                                                        // Funzione per chiudere la sidebar al clic sulla "x"
+                                                                                          document.querySelectorAll('.closebtn').forEach(btn => {
+                                                                                            btn.addEventListener('click', function (event) {
+                                                                                              event.stopPropagation(); // Impedisce che il clic sulla "x" venga propagato e attivi la funzione di clic esterno
+
+                                                                                              const sidebar = btn.closest('.infoSidebar'); // Trova la sidebar da chiudere
+                                                                                              sidebar.style.left = "-600px"; // Chiudi solo questa sidebar
+                                                                                            });
+                                                                                          });
+
+                                                                                        // Funzione per chiudere le sidebar se si clicca fuori di esse
+                                                                                        document.addEventListener('click', function (event) {
+                                                                                          // Verifica se il clic è fuori dalle sidebar
+                                                                                          const allSidebars = document.querySelectorAll('.infoSidebar');
+                                                                                          allSidebars.forEach(sidebar => {
+                                                                                            // Se il clic non è all'interno della sidebar e neanche sul suo trigger, chiudi la sidebar
+                                                                                            if (!sidebar.contains(event.target) && !event.target.closest('[data-film]')) {
+                                                                                              sidebar.style.left = "-600px"; // Chiudi la sidebar
+                                                                                            }
+                                                                                          });
+                                                                                        });
+
+
+
+                                                                                          
+                                                                                          
+
+
+</script>
+
+<script src="script3.js"> </script>
+     
+</body>
+</Html>
+
+
+
+  

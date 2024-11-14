@@ -1,0 +1,42 @@
+.container {
+  font-family: ABCDiatype-Medium, sans-serif;
+  margin: 20px;
+}
+
+.fas.fa-film {
+    position: absolute;
+  font-size: .9vw;
+  color: #000000;
+  /* Colore rosso per l'icona */
+  margin-left:  -37px;
+}
+.fa-star, .fas.fa-headphones {
+  position: absolute;
+  font-size: .9vw;
+  color: #000000;
+  /* Colore rosso per l'icona */
+  margin-left:  -37px;
+}
+.aligned-text2, .aligned-text3, .aligned-text4, .aligned-text5, .aligned-text6, .aligned-text7, .aligned-text8, .aligned-text9, .aligned-text10, .aligned-text11 {
+    display: flex;
+    /* Utilizza flexbox per disporre gli elementi in una riga */
+    justify-content: space-between;
+    /* Spinge il contenuto ai bordi */
+    align-items: center;
+    /* Allinea verticalmente il contenuto */
+}
+.aligned-text1 {
+    display: flex;
+    /* Utilizza flexbox per disporre gli elementi in una riga */
+    justify-content: space-between;
+    /* Spinge il contenuto ai bordi */
+    align-items: center;
+    /* Allinea verticalmente il contenuto */
+  }
+    
+.right-align {
+    margin-left: auto;
+    /* Spinge l'elemento a destra */
+}
+
+

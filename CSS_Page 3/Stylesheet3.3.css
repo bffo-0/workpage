@@ -1,0 +1,156 @@
+/* The sidebar menu */
+.Sidebar4 {
+  
+  right: 0px;
+    height: 90vh;
+    /* 100% Full-height */
+    width: 0vw;
+    /* 0 width - change this with JavaScript */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Stay on top */
+    top: 30px;
+  
+    background-color: #c6c6c616;
+    /* Black*/
+  background-image: url(/IMG_page3/imagpage3.4.png);
+  background-size: 60%;
+  background-repeat: no-repeat;
+  background-position: center;
+    overflow-x: hidden;
+    /* Disable horizontal scroll */
+    padding-top: 60px;
+    /* Place content 60px from the top */
+    transition: 0.1s;
+    /* 0.5 second transition effect to slide in the sidebar */
+    transform: translateX(5%);
+    text-align: left;
+    border: 0.5px solid rgba(220, 220, 220, 0.965);
+
+  
+}
+
+/* The sidebar links */
+.Sidebar4 a {
+  
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+  
+}
+
+/* When you mouse over the navigation links, change their color */
+.Sidebar4 a:hover {
+  color: #0ede68;
+}
+
+/* Position and style the close button (top right corner) */
+.Sidebar4 .closebtn4 {
+  position: absolute;
+    text-align: right;
+    top: 0;
+    right: 28px;
+    font-size: 25px;
+    margin-left: 50px;
+}
+
+/* The button used to open the sidebar */
+.openbtn4 {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: inherit;
+  margin-left: -800px;
+  padding: 10px 15px;
+  border: none;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main4 {
+  margin-right: 14px;
+  transition: margin-right 10s; /* If you want a transition effect */
+  padding: 20px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .Sidebar4 {padding-top: 15px;}
+  .Sidebar4 a {font-size: 18px;}
+}
+
+#main4.open{ margin-right:250px; }
+#mySidebar4.open{ width:330px; }
+#mySidebar4.openbtn {display: block;}
+
+                                                                            .video4 {
+                                                                              position: absolute;
+                                                                              justify-content: center;
+                                                                              align-content: center;
+                                                                              top: 10%;
+                                                                              width: 100%;
+                                                                            }
+                                      
+                                                                            p.movie4 {
+                                                                              position: relative;
+                                                                              padding-left: 5px;
+                                                                              font-family: ABCDiatype-Medium, sans-serif;
+                                                                              color: rgb(0, 0, 0);
+                                                                              font-weight: bold;
+                                                                              font-size: 0.8vw;
+                                                                              text-align: center;
+                                                                              top: -6%;
+                                                                            }
+                                      
+                                                                            .linemovie {
+                                                                              position: relative;
+                                                                              height: 1px;
+                                                                              width: 100%;
+                                                                              top: -8.5%;
+                                                                              align-items: center;
+                                                                              background-color: rgb(0, 0, 0);
+                                                                            }
+                                      
+                                                                            a.Title4 {
+                                                                              position: relative;
+                                                                              padding-left: 5px;
+                                                                              font-family: ABCDiatype-Medium, sans-serif;
+                                                                              font-weight: bold;
+                                                                              color: rgb(0, 0, 0);
+                                                                              font-size: 0.7vw;
+                                                                              text-align: center;
+                                                                              top: -5%;
+                                      
+                                                                            }
+                                      
+                                                                            p.InfoMovie {
+                                                                              position: relative;
+                                                                              padding-right: 25px;
+                                                                              font-family: ABCDiatype-Medium, sans-serif;
+                                                                              text-align: center;
+                                                                              font-size: 0.5vw;
+                                                                              margin-top: -10%;
+                                      
+                                      
+                                      
+                                                                            }
+                                      
+                                                                            .lineverticalmovie {
+                                                                              position: relative;
+                                                                              height: 65%;
+                                                                              width: 1px;
+                                                                              top: 32%;
+                                                                              left: 55%;
+                                                                              background-color: rgb(0, 0, 0);
+                                                                            }
+                                      
+                                                                            .player4 {
+                                                                              position: absolute;
+                                                                                top: 43%;
+                                                                                left: 22%;
+                                                                                justify-content: center;
+                                                                                align-items: center;
+                                      
+                                                                            }
