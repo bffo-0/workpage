@@ -112,30 +112,55 @@ body {
 
   
   
-  .image1 {
-                display: block;
-                position: fixed;
-                max-width: 20%;
-                bottom: 20px; /* Spazio dal fondo */
-    left: 20px; 
+ /* Contenitore per l'immagine e il tooltip */
+.tooltip {
+    position: fixed; /* Rende il tooltip ancorato come l'immagine */
+    bottom: 20px; /* Spazio dal fondo, allineato con l’immagine */
+    left: 20px; /* Allineato a sinistra con l’immagine */
+    display: inline-block;
     z-index: 1000;
-                width: 3vw;;
-                height: auto;
-                z-index: 30;
-                
-                content:url(HomeBack.png);
-               
-                &:hover {
-                    content:url(HomeBack2.png);
-
-   
-  }
-  animation: spin 5s linear infinite;
 }
+
+/* Stile per l'immagine */
+.image1 {
+    max-width: 100%;
+    width: 3vw;
+    height: auto;
+    animation: spin 5s linear infinite;
+    content: url(HomeBack.png);
+}
+
+/* Cambia l'immagine al passaggio del mouse */
+.image1:hover {
+    content: url(HomeBack2.png);
+}
+
+/* Stile per il messaggio tooltip */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 100px;
+    
+    color: #000000;
+    text-align: center;
+    padding: 5px;
+    position: absolute;
+    z-index: 1001;
+    top: 10%; /* Centra verticalmente rispetto all’immagine */
+    left: 50%;
+    transform: translate(-50%, -150%); /* Sposta il tooltip sopra l’immagine */
+    opacity: 0;
+    transition: opacity 0.8s;
+}
+
+/* Mostra il tooltip quando passi con il mouse */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
-
 }
 
 
@@ -1009,9 +1034,10 @@ p.aligned-text1, p.aligned-text2, p.aligned-text3, p.aligned-text4, p.aligned-te
 </div>
    <div id="textContent">
     <!-- Text info -->
-    <a href="http://127.0.0.1:5500/index.html">
-    <img id="img" src="HomeBack.png" class="image1" alt="Home" style="max-width:100%;" >
-    </a>
+    <a href="http://127.0.0.1:5500/index.html" class="tooltip">
+      <img id="img" src="HomeBack.png" class="image1" alt="Home">
+      <span class="tooltiptext">not yet 😞</span>
+  </a>
     
     
     
