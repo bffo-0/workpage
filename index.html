@@ -16,6 +16,7 @@
         <link rel=stylesheet type="text/css" href="CSS_Page 3/contactstylesheet.css" />
         <link rel=stylesheet type="text/css" href="CSS_Page 3/stylesheetcontainer.css" />
         <link rel=stylesheet type="text/css" href="CSS_Page 3/stylesheetinfo.css" />
+        <link rel=stylesheet type="text/css" href="CSS_Page 3/cssmediaqueryphone.css" />
 
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,17 +26,17 @@
 
 
 body {
-  background-color: rgba(211, 211, 211, 0.093);
-    background-image: url(IMG_page3/back3new4.png);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    position: relative;
-    background-attachment: fixed;
-    max-width: 100%;
+    background-color: rgba(211, 211, 211, 0.093); /* Colore di sfondo leggero */
+    background-image: url(IMG_page3/back3new4.png); /* Immagine di sfondo */
+    background-size: cover; /* Rende l'immagine di sfondo che copre l'intero schermo */
+    background-position: center; /* Centra l'immagine di sfondo */
+    background-repeat: no-repeat; /* Evita che l'immagine di sfondo si ripeta */
+    position: relative; /* Posizionamento relativo per elementi figli */
+    background-attachment: fixed; /* Fissa l'immagine di sfondo durante lo scrolling */
+    max-width: 100%; /* Evita che il body ecceda la larghezza del viewport */
+    min-height: 100vh; /* Assicura che il body copra tutta l'altezza dello schermo */
+    overflow-x: hidden; /* Impedisce lo scroll orizzontale */
 }
-
-
   
 /* Testo e intestazioni */
     
@@ -80,34 +81,35 @@ body {
   filter: blur(30px);
 }
 
-/*role container*/
-
-
-/* Contenitore individuale per ogni link */
-.light {
-  display: inline-block;
-  font-weight: lighter; 
-  font-style: italic;
-  letter-spacing: -.1vw;
-  color: rgb(0, 0, 0);
-  position: relative;
-  overflow: hidden; /* Assicurati che l'immagine non fuoriesca dal contenitore */
-  width: auto; /* Lascia che il contenitore si adatti al contenuto */
-  max-width: 500px; /* Imposta una larghezza massima per ogni contenitore */
-  font-family: ABCDiatype-Medium, sans-serif;
-  margin-top: 100%;
-  margin-left: 1.5vw;
-  font-size: 0.8vw;
+/* Contenitore #aboutText */
+#aboutText {
+    width: 100%; /* Fa sì che il contenitore #aboutText occupi tutta la larghezza di #wrapper */
+    text-align: center; /* Centra il testo al suo interno */
+    margin-top: -2%;
+  }
+/* Contenitore principale #wrapper */
+#wrapper {
+    width: 68vw; /* Larghezza coerente con altri elementi centrati */
+    margin-left: 0; /* Centro orizzontalmente */
+    position: relative;
+    top: 0%; /* Spazio dal top */
 }
 
-
-/* Contenitore testo */
-#wrapper {
-        width: 400px;
-        margin: 0 auto;
-        top: 1%;
-        margin-left: 24px;
-    }
+/* Contenitore di testo .light */
+.light {
+    display: block; /* Cambia a block per un comportamento più prevedibile */
+    font-weight: lighter; 
+    font-style: italic;
+    letter-spacing: -.1vw;
+    color: rgb(0, 0, 0);
+    font-family: ABCDiatype-Medium, sans-serif;
+    font-size: 1.1vw;
+    text-align: left; /* Centra il testo */
+    
+    margin-left: 4.5%; /* Centro orizzontalmente */
+    margin-right: auto; /* Centro orizzontalmente */
+    width: 100%; /* Riempie l'intera larghezza del suo contenitore */
+}
 
 
   
@@ -166,7 +168,7 @@ body {
 
 /* Immagini con posizionamento assoluto */
 .imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5, .imgmovie6, .imgmovie7 {
-  position: fixed;
+  position: absolute; /* Posizionamento assoluto per essere in una posizione specifica */
   max-width: 9.9vw;
   height: auto;
   transition: opacity 0.5s ease-in-out;
@@ -178,40 +180,40 @@ body {
   opacity: 1; /* Opacità al passaggio del mouse */
 }
 
-/* Posizionamento specifico delle immagini */
+/* Posizionamento delle immagini (prima versione in verticale) */
 .imgmovie {
   top: 35vh;
-  left: 43vw; /* Posizione a sinistra */
+  left: 20vw; /* Posizionamento a sinistra */
 }
 
 .imgmovie2 {
   top: 66vh;
-  left: 60vw; /* Spostata a destra rispetto alla prima */
+  left: 40vw; /* Posizionata a destra rispetto alla prima */
 }
 
 .imgmovie3 {
   top: 35vh;
-  left: 55vw; /* Posizionata ancora più a destra */
+  left: 60vw; /* Posizionata ancora più a destra */
 }
 
 .imgmovie4 {
   top: 64vh;
-  left: 48vw; /* Vicino al bordo destro */
+  left: 48vw; /* Posizionamento a destra */
 }
 
 .imgmovie5 {
   top: 60vh;
-  left: 36vw; /* Posizionata al centro */
+  left: 50vw; /* Posizionamento al centro */
 }
-/* Posizionamento specifico delle immagini */
+
 .imgmovie6 {
-  top: 35vh;
-  left: 31vw; /* Posizione a sinistra */
+  top: 50vh;
+  left: 30vw; /* Posizione a sinistra */
 }
 
 .imgmovie7 {
-  top: 36vh;
-  left: 67vw; /* Posizione a sinistra */
+  top: 50vh;
+  left: 70vw; /* Posizione a destra */
 }
 @media (max-width: 1440px) {
   .imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5 {
@@ -266,7 +268,7 @@ left: 3%;
 /* SidebarBiografico */
 .about-sidebar p,
 .work-sidebar p {
-margin-top: -3.7%;
+margin-top: 9%;
   font-size: 0.8vw;
   
 }
@@ -276,22 +278,37 @@ margin-top: -3.7%;
 .work-sidebar h5 {
   margin-top: 2%;
 }
+.work-sidebar h4{
+  margin-top: 1%;
+}
+.work-sidebar h3{
+  margin-top: 13%;
+}
+
 
 .about-sidebar h2,
 .work-sidebar h2 {
   top: 7.5%;
   font-size: 1vw;
 }
+.work-sidebar h2 {
+  top: 2%;
+  font-size: 1vw;
+}
+
+
 .about-sidebar h2{
   top:8.1%;
 }
 .sidebar-img {
   max-width: 35vw;
-  top: 30%;
+  top: 26%;
 }
-.caption {
-  font-size: 0.5vw;
-  bottom: 1.4%;
+p.caption {
+  
+ left: 12%;
+  font-size: 0.7vw;
+  bottom: -1%;
 }
 .installation-sidebar h2 {
   font-size: 0.8vw;
@@ -304,7 +321,7 @@ margin-top: -3.7%;
 .about-sidebar,
 .work-sidebar {
   top: 6.8%;
-  height: 82%;
+  height: 90%;
   width: 500px;
 }
 .work-sidebar {
@@ -318,7 +335,7 @@ margin-top: -3.7%;
   top: 12%;
 }
 .line2{
-  top: 139px;
+  top: 17%;
 }
 /* Link, nome */
 h1.name {
@@ -473,191 +490,7 @@ p.aligned-text1, p.aligned-text2, p.aligned-text3, p.aligned-text4, p.aligned-te
     left: 17%;
   }
 }
-/*iphone 8*/
-@media only screen 
-    and (device-width : 375px) 
-    and (device-height : 667px) 
-    and (-webkit-device-pixel-ratio : 2) {
-      .imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5, .imgmovie6, .imgmovie7 {
-    
-    max-width: 20vw; /* Ancora più piccole su schermi molto stretti */
-  }
-  .imgmovie{
-    left: 43%;
-     }
-  .imgmovie2{
-    top: 63%;
-    left: 62%;
-     }
-     .imgmovie3{
-      top: 34%;
-    left: 63%;
-     }
-     .imgmovie4{
-    top: 65%;
-     }
-     .imgmovie5{
-      left: 33%;
-    top: 60%;
-     }
-     
-     /* Posizionamento specifico delle immagini */
-.imgmovie6 {
-  top: 39vh;
-  left: 24vw; /* Posizione a sinistra */
-}
 
-.imgmovie7 {
-  top: 35vh;
-  left: 92vw; /* Posizione a sinistra */
-}
-p.InfoMovie {
-  
-  margin-top: -13%;
-}
-
-.player7{
-left: 3%;
-}
-.blur {
-    filter: blur(30px); /* Applica un blur di 5px, regolabile secondo le tue preferenze */
-    transition: filter 10s ease; /* Transizione per un effetto graduale */
-  }
-  /* Rimuovi l'effetto blur quando si passa il mouse sopra l'immagine */
-  .blur:hover {
-    transition: filter 1s;
-    filter: none;
-  }
-/* SidebarBiografico */
-.about-sidebar p,
-.work-sidebar p {
-margin-top: -3.7%;
-  font-size: 0.8vw;
-  
-}
-.work-sidebar p {
-  margin-top: -2%;
-}
-.work-sidebar h5 {
-  margin-top: 2%;
-}
-
-.about-sidebar h2,
-.work-sidebar h2 {
-  top: 7.5%;
-  font-size: 1vw;
-}
-.about-sidebar h2{
-  top:8.1%;
-}
-.sidebar-img {
-  max-width: 35vw;
-  top: 30%;
-}
-.caption {
-  font-size: 0.5vw;
-  bottom: 1.4%;
-}
-.installation-sidebar h2 {
-  font-size: 0.8vw;
-}
-.installation-sidebar p {
-  font-size: 0.7vw;
-}
-
-
-.about-sidebar,
-.work-sidebar {
-  top: 6.8%;
-  height: 82%;
-  width: 500px;
-}
-.work-sidebar {
-  width:500px;
-}
-.infoSidebar{
-  top: 25.5%;
-}
-.line,.line2{
-  max-width: 35%;
-  top: 12%;
-}
-.line2{
-  top: 139px;
-}
-.name-container {
-  margin-left: 15%;
-}
-/* Link, nome */
-h1.name {
-  font-size: 3vw; 
-  font-weight: bold;
-}
-p.light {
-  margin-top: 3% ;
-  font-size: 2.1vw;
-  margin-left: 23%;
-}
-.about-link,
-.work-link, #contactLink {
-  font-size: 2.9vw;
-}
-
-.links-container, .link-container{
-  align-items: center;
-  text-align: center;
-  left: 8%;
-  margin-top: -1%;
-}
-
-  
-
-
-
-/*Sidebar Film*/
-.sidebar, .Sidebar2, .Sidebar3, .Sidebar4, .Sidebar5, .Sidebar6, .Sidebar7 {
-top: 10px;
-height: 88vh;
-}
-.video_0, .video_2, .video3, .video4, .video5, .video6, .video7  {
-top:13%;
-}
-/* piccole info*/
-p.InfoMovie{
-  margin-top: -15%;
-  font-size: 0.7vw;
-}
-p.movie, p.movie2, p.movie3, p.movie4, p.movie5, p.movie6, p.movie7{
-top:-10%;
-font-size: 1vw;
-}
-a.Title, a.Title2, a.Title3, a.Title4, a.Title5, a.Title6, a.Title7{
-  top:-9%;
-  font-size: 1vw;
-}
-.linemovie{
-  top: -13.5%
-}
-.player, .player2, .player3, .player4, .player5, .player6, .player7 {
-  max-width: 100%;
-  height: auto;
-  top: 47%;
-  left: 18%;
-}
-.player7{
-  left: 3%;
-}
-.sidebar .closebtn, .Sidebar2 .closebtn2, .Sidebar3 .closebtn3, .Sidebar4 .closebtn4, .Sidebar5 .closebtn5, .Sidebar6 .closebtn6, .Sidebar7 .closebtn7 {
-  font-size: 20px;
-}
-/*Sidebar Portfolio*/
-p.aligned-text1, p.aligned-text2, p.aligned-text3, p.aligned-text4, p.aligned-text5, p.aligned-text6, p.aligned-text7, p.aligned-text8, p.aligned-text9, p.aligned-text10, p.aligned-text11 {
-  font-size: 0.9vw;
-  margin: 20px;
-  margin-left:59px;
-}
-
-     }
 @media (max-width: 320px) {
   .imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5 {
     max-width: 30vw; /* Su schermi molto piccoli */
@@ -767,43 +600,43 @@ p.aligned-text1, p.aligned-text2, p.aligned-text3, p.aligned-text4, p.aligned-te
   <div class="line2"></div>
   
   <p class="aligned-text1" data-film="film1" onclick="toggleFilmInfoSidebar(this)">
-    <i class="fas fas fa-star"></i>[threaded or shredded] une fois de plus, sans - Music Composer &
-    Sound Designer <span class="right-align">2024</span>
+    <i class="fas fas fa-star"></i><span class="highlighted-text1">[threaded or shredded] une fois de plus, sans - Music Composer &
+    Sound Designer</span> <span class="right-align">2024</span>
   </p>
   
   <p class="aligned-text2" data-film="film2" onclick="toggleFilmInfoSidebar(this)">
-    <i class="fas fa-film"></i> Night Shift - Music Composer & Sound Designer
+    <i class="fas fa-film"></i><span class="highlighted-text2"> Night Shift - Music Composer & Sound Designer</span>
     <span class="right-align2">2024</span>
   </p>
   
   <p class="aligned-text3" data-film="film3" onclick="toggleFilmInfoSidebar(this)">
-    <i class="fas fa-film"></i> Zanskar 6000 - Music Composer & Sound Designer<span
+    <i class="fas fa-film"></i> <span class="highlighted-text3">Zanskar 6000 - Music Composer & Sound Designer</span><span
       class="right-align3">2024</span>
   </p>
 
             
-              <p class="aligned-text4"  data-film="film4" onclick="toggleFilmInfoSidebar(this)"><i class="fas fas fa-headphones"></i>Unrelible Object - Music Composer & Sound Designer
+              <p class="aligned-text4"  data-film="film4" onclick="toggleFilmInfoSidebar(this)"><i class="fas fas fa-headphones"></i><span class="highlighted-text4">Unrelible Object - Music Composer & Sound Designer</span>
               <span class="right-align4">2023</span></p>
 
-                  <p class="aligned-text5" data-film="film5" onclick="toggleFilmInfoSidebar(this)"><i class="fas fa-film"></i>Suspended Lives - Music Composer <span
+                  <p class="aligned-text5" data-film="film5" onclick="toggleFilmInfoSidebar(this)"><i class="fas fa-film"></i><span class="highlighted-text5">Suspended Lives - Music Composer</span> <span
                       class="right-align5">2023</span></p>
 
-                      <p class="aligned-text6" data-film="film6" onclick="toggleFilmInfoSidebar(this)"> <i class="fas fa-film"></i> Sleeping Close - Music Composer <span
+                      <p class="aligned-text6" data-film="film6" onclick="toggleFilmInfoSidebar(this)"> <i class="fas fa-film"></i> <span class="highlighted-text6">Sleeping Close - Music Composer </span><span
                           class="right-align6">2023</span></p>
                           
-                          <p class="aligned-text7"data-film="film7" onclick="toggleFilmInfoSidebar(this)"><i class="fas fa-film"></i>Burden Of Proof - Music Composer <span
+                          <p class="aligned-text7"data-film="film7" onclick="toggleFilmInfoSidebar(this)"><i class="fas fa-film"></i><span class="highlighted-text7">Burden Of Proof - Music Composer</span> <span
                               class="right-align7">2022</span></p>
                               
-                              <p class="aligned-text8" data-film="film8" onclick="toggleFilmInfoSidebar(this)"> <i class="fas fa-film"></i> Once And For All - Music Composer <span
+                              <p class="aligned-text8" data-film="film8" onclick="toggleFilmInfoSidebar(this)"> <i class="fas fa-film"></i> <span class="highlighted-text8">Once And For All - Music Composer</span> <span
                                   class="right-align8">2022</span></p>
 
-                                  <p class="aligned-text9" data-film="film9" onclick="toggleFilmInfoSidebar(this)" ><i class="fas fa-star"></i> A Little Order, A Little Grace - Music Composer<span
+                                  <p class="aligned-text9" data-film="film9" onclick="toggleFilmInfoSidebar(this)" ><i class="fas fa-star"></i> <span class="highlighted-text9">A Little Order, A Little Grace - Music Composer<span
                                       class="right-align9">2022</span></p>
                                       
-                                      <p class="aligned-text10" data-film="film10" onclick="toggleFilmInfoSidebar(this)"><i class="fas fa-film"></i> Despite The Facts - Music Composer <span
+                                      <p class="aligned-text10" data-film="film10" onclick="toggleFilmInfoSidebar(this)"><i class="fas fa-film"></i> <span class="highlighted-text10">Despite The Facts - Music Composer</span> <span
                                           class="right-align10">2022</span></p>
 
-                                            <p class="aligned-text11" data-film="film11" onclick="toggleFilmInfoSidebar(this)"><i class="fas fa-film"></i> Donne che viaggiano sole - Music Composer & Sound Designer <span class="right-align11">2019</span></p>
+                                            <p class="aligned-text11" data-film="film11" onclick="toggleFilmInfoSidebar(this)"><i class="fas fa-film"></i><span class="highlighted-text10">Donne che viaggiano sole - Music Composer & Sound Designer</span> <span class="right-align11">2019</span></p>
   
 </div>
 </div>
@@ -1277,73 +1110,99 @@ p.aligned-text1, p.aligned-text2, p.aligned-text3, p.aligned-text4, p.aligned-te
   });
   
  // Funzione per aprire e chiudere la sidebar "About"
-  function toggleAboutSidebar() {
-    const aboutSidebar = document.getElementById("aboutSidebar");
-    const workSidebar = document.getElementById("workSidebar");
-    const textContent = document.getElementById("textContent");
-    const aboutLink = document.getElementById("aboutLink");
-    const workLink = document.getElementById("workLink");
+function toggleAboutSidebar() {
+  const aboutSidebar = document.getElementById("aboutSidebar");
+  const workSidebar = document.getElementById("workSidebar");
+  const textContent = document.getElementById("textContent");
+  const aboutLink = document.getElementById("aboutLink");
+  const workLink = document.getElementById("workLink");
 
-    // Controllo lo stato della sidebar "About"
-    if (aboutSidebar.style.left === "-600px" || aboutSidebar.style.left === "") {
-      // Apre la sidebar "About" e chiude "Work" se aperta
-      aboutSidebar.style.left = "20px";
-      workSidebar.style.left = "-600px";
+  // Verifica la larghezza dello schermo
+  const screenWidth = window.innerWidth;
 
-      // Nasconde il contenuto principale e i link
-      textContent.classList.add("hide-content");
-      aboutLink.style.visibility = "hidden";
-      workLink.style.visibility = "hidden";
-    } else {
-      // Chiude la sidebar "About"
-      aboutSidebar.style.left = "-600px";
+  // Imposta la larghezza della sidebar in base alla larghezza dello schermo
+  const sidebarWidth = (screenWidth < 599) ? "88vw" : ""; // 34vw per schermi più piccoli, altrimenti usa il valore predefinito
+  
+  // Controllo lo stato della sidebar "About"
+  if (aboutSidebar.style.left === "-600px" || aboutSidebar.style.left === "") {
+    // Apre la sidebar "About" con margine da sinistra di 20px
+    aboutSidebar.style.left = "20px"; // Imposta la posizione a 20px da sinistra
+    aboutSidebar.style.width = sidebarWidth; // Imposta la larghezza della sidebar
+    workSidebar.style.left = "-600px"; // Chiude la sidebar "Work"
 
-      // Ripristina il contenuto principale e i link
-      textContent.classList.remove("hide-content");
-      aboutLink.style.visibility = "visible";
-      workLink.style.visibility = "visible";
-    }
+    // Nasconde il contenuto principale e i link
+    textContent.classList.add("hide-content");
+    aboutLink.style.visibility = "hidden";
+    workLink.style.visibility = "hidden";
+  } else {
+    // Chiude la sidebar "About"
+    aboutSidebar.style.left = "-600px"; // Ripristina la posizione di chiusura della sidebar
+    aboutSidebar.style.width = "0"; // Ripristina la larghezza della sidebar a 0 quando è chiusa
+
+    // Ripristina il contenuto principale e i link
+    textContent.classList.remove("hide-content");
+    aboutLink.style.visibility = "visible";
+    workLink.style.visibility = "visible";
   }
+}
 
   // Funzione per aprire e chiudere la sidebar "Work"
-  function toggleWorkSidebar() {
-    const workSidebar = document.getElementById("workSidebar");
-    const aboutSidebar = document.getElementById("aboutSidebar");
-    const textContent = document.getElementById("textContent");
-    const aboutLink = document.getElementById("aboutLink");
-    const workLink = document.getElementById("workLink");
+function toggleWorkSidebar() {
+  const workSidebar = document.getElementById("workSidebar");
+  const aboutSidebar = document.getElementById("aboutSidebar");
+  const textContent = document.getElementById("textContent");
+  const aboutLink = document.getElementById("aboutLink");
+  const workLink = document.getElementById("workLink");
 
-    // Controlla lo stato della sidebar "Work"
-    if (workSidebar.style.left === "-600px" || workSidebar.style.left === "") {
-      // Apre la sidebar "Work" e chiude "About" se aperta
-      workSidebar.style.left = "20px";
-      aboutSidebar.style.left = "-600px";
-
-      // Nasconde il contenuto principale e i link
-      textContent.classList.add("hide-content");
-      aboutLink.style.visibility = "hidden";
-      workLink.style.visibility = "hidden";
-    } else {
-      // Chiude la sidebar "Work"
-      workSidebar.style.left = "-600px";
-
-      // Ripristina il contenuto principale e i link
-      textContent.classList.remove("hide-content");
-      aboutLink.style.visibility = "visible";
-      workLink.style.visibility = "visible";
-    }
+  // Controlla se lo schermo è a 599px o meno e imposta la larghezza solo in quel caso
+  if (window.innerWidth <= 599) {
+    workSidebar.style.width = "88vw"; // Larghezza per schermi piccoli
   }
 
-  /// Funzione per aprire e chiudere la sidebar "Installation" e controllare l'audio
+  // Controlla lo stato della sidebar "Work" per aprirla o chiuderla
+  if (workSidebar.style.left === "-600px" || workSidebar.style.left === "") {
+    // Apre la sidebar "Work" e chiude "About" se aperta
+    workSidebar.style.left = "20px";
+    aboutSidebar.style.left = "-600px";
+
+    // Nasconde il contenuto principale e i link
+    textContent.classList.add("hide-content");
+    aboutLink.style.visibility = "hidden";
+    workLink.style.visibility = "hidden";
+  } else {
+    // Chiude la sidebar "Work"
+    workSidebar.style.left = "-600px";
+
+    // Ripristina il contenuto principale e i link
+    textContent.classList.remove("hide-content");
+    aboutLink.style.visibility = "visible";
+    workLink.style.visibility = "visible";
+  }
+}
+
+
+// Funzione per aprire e chiudere la sidebar "Installation" e controllare l'audio
 function toggleInstallationSidebar() {
   const installationSidebar = document.getElementById("installationSidebar");
   const audio = document.getElementById("installation audio");
 
   // Controlla la larghezza dello schermo
-  const isSmallScreen = window.innerWidth <= 1400;
+  const screenWidth = window.innerWidth;
 
   // Imposta la posizione di apertura in base alla larghezza dello schermo
-  const openPosition = isSmallScreen ? "520px" : "620px";
+  let openPosition;
+
+  if (screenWidth <= 599) {
+    // Se la larghezza dello schermo è inferiore o uguale a 599px, la sidebar si apre a 34vw dal margine sinistro
+    openPosition = "0vw";
+  } else if (screenWidth <= 1400) {
+    // Se la larghezza dello schermo è inferiore o uguale a 1400px, la sidebar si apre a 520px
+    openPosition = "520px";
+  } else {
+    // Se lo schermo è maggiore di 1400px, la sidebar si apre a 620px
+    openPosition = "620px";
+  }
+
   const closedPosition = "-600px";
 
   // Controllo lo stato della sidebar "Installation"

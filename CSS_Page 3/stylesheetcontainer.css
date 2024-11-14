@@ -35,6 +35,7 @@
   }
     
 .right-align {
+  position: relative;
     margin-left: auto;
     /* Spinge l'elemento a destra */
 }

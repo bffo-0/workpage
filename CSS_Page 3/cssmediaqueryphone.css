@@ -1,0 +1,373 @@
+
+/* Smartphone medi (es. iPhone 6/7/8, Galaxy S5, S6) */
+@media only screen and (max-width: 599px) {
+
+  body {
+    background-attachment: fixed; /* Mantieni l'immagine fissa anche su smartphone */
+        background-position: center center; /* Centra l'immagine di sfondo */
+        background-size: cover; /* Mantieni l'immagine che copre l'intero schermo */
+        min-height: 100vh; /* Assicura che l'altezza sia almeno pari alla visibilità dello schermo */
+        overflow-y: hidden; /* Impedisce lo scroll verticale */
+}
+ /* Contenitore del nome */
+ .name-container {
+  display: block; /* Imposta il contenitore come blocco per facilitare il centraggio */
+  background-color: #c6c6c616;
+  padding: 8px 10vw; /* Usa vw per adattare il padding alla larghezza del viewport */
+  border: 0.5px solid rgba(220, 220, 220, 0.965);
+  letter-spacing: -.1vw;
+  color: rgb(0, 0, 0);
+  position: relative;
+  overflow: hidden; /* Assicurati che l'immagine non fuoriesca dal contenitore */
+  width: 68vw; /* La larghezza del contenitore è 80% della larghezza del viewport */
+  max-width: 90vw; /* Imposta una larghezza massima del 90% del viewport */
+  font-family: ABCDiatype-Medium, sans-serif;
+  margin-top: 10px;
+  margin-left: 20; /* Centro orizzontalmente */
+  margin-right: auto; /* Centro orizzontalmente */
+}
+    /* Nome Mio */
+  h1.name {
+    font-size: 3vw;  /* Usa vw per adattare la dimensione del font al viewport */
+    font-weight: bold;
+    margin: 0; /* Rimuove margini predefiniti per evitare spazi indesiderati */
+    text-align: center; /* Centra il testo all'interno del contenitore */
+  }
+
+  /* Link, nome */
+  h1.name {
+    font-size: 3vw; 
+    font-weight: bold;
+  }
+  p.light {
+    margin-top: 3% ;
+    font-size: 2.1vw;
+    margin-left: 23%;
+  }
+ /*regola tutta la scritto di cosa faccio*/
+/* Contenitore principale #wrapper */
+#wrapper {
+  width: 68vw; /* Larghezza coerente con altri elementi centrati */
+  margin-left: 0; /* Centro orizzontalmente */
+  position: relative;
+  top: 1%; /* Spazio dal top */
+}
+
+/* Contenitore di testo .light */
+.light {
+  display: block; /* Cambia a block per un comportamento più prevedibile */
+  font-weight: lighter; 
+  font-style: italic;
+  letter-spacing: -.1vw;
+  color: rgb(0, 0, 0);
+  font-family: ABCDiatype-Medium, sans-serif;
+  font-size: 1.1vw;
+  text-align: center; /* Centra il testo */
+  margin-top: 35%; /* Spazio sopra */
+  margin-left: auto; /* Centro orizzontalmente */
+  margin-right: auto; /* Centro orizzontalmente */
+  width: 100%; /* Riempie l'intera larghezza del suo contenitore */
+}
+
+  /* Contenitore #aboutText */
+  #aboutText {
+    width: 100%; /* Fa sì che il contenitore #aboutText occupi tutta la larghezza di #wrapper */
+    text-align: center; /* Centra il testo al suo interno */
+    margin-top: 5%;
+  }
+/*contenitori dei link*/
+
+ /* Contenitore individuale per ogni link */
+ .link-container {
+  display: block; /* Imposta il contenitore come blocco per un allineamento più facile */
+  text-shadow: #000000bb 0px 0px 2px;
+  background-color: #c6c6c616;
+  padding: 8px 4vw; /* Ridotto padding per contenitore più piccolo, usando vw per adattarsi al dispositivo */
+  border: 0.5px solid rgba(220, 220, 220, 0.965);
+  cursor: pointer;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  width: 90vw; /* Imposta la larghezza al 90% del viewport */
+  max-width: 40vw; /* Imposta una larghezza massima del 40% del viewport */
+  margin: 0 auto; /* Centra il contenitore orizzontalmente */
+  margin-top: -1%;
+  
+}
+
+/* Utilizziamo ::before per gestire l'immagine di sfondo */
+.link-container::before {
+  content: ''; /* L'elemento pseudo non ha contenuto */
+  position: absolute; /* Posiziona l'elemento pseudo assolutamente */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../IMG_page3/containerimgpiccol.png');
+  background-size: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 1;
+  z-index: -1; /* Assicurati che l'immagine stia dietro al testo */
+  filter: blur(25px);
+}
+
+/* Link specifici */
+.about-link, .work-link, #contactLink {
+  font-family: ABCDiatype-Medium, sans-serif;
+  font-size: 3vw; /* Imposta la dimensione del font relativa alla larghezza del viewport */
+}
+
+
+ .imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5, .imgmovie6, .imgmovie7 {
+    
+    max-width: 20vw; /* Ancora più piccole su schermi molto stretti */
+  }
+
+  
+    /* Stili per ciascuna immagine per allineamento orizzontale */
+     .imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5, .imgmovie6, .imgmovie7 {
+    position: fixed;
+    max-width: 20vw; /* Regola la larghezza massima per schermi piccoli */
+    margin: 10px auto; /* Allinea orizzontalmente */
+    display: inline-block; /* Posiziona le immagini una di fianco all'altra */
+    opacity: 0.2; /* Assicura che siano visibili */
+    margin-top: 10%;
+       }
+
+       /*sleeping*/
+    .imgmovie{
+      top: 35%;
+      left: 39%;
+    }
+    /*burden*/
+    .imgmovie3{
+      left: 61%;
+    }
+    /*Zanskar*/
+    .imgmovie6 {
+      top: 39vh;
+      left: 17%;
+    }
+    /*Suspended*/
+    .imgmovie7{
+      
+      left: 83%;
+    }
+    /*Despite*/
+    .imgmovie4{
+      top: 60%;
+    }
+    /*once*/
+
+    .imgmovie5{
+      left: 27%
+    }
+
+    /*donne*/
+    .imgmovie2{
+      top: 54%;
+      left: 73%;
+    }
+
+  
+  
+     
+
+
+.blur {
+    filter: blur(30px); /* Applica un blur di 5px, regolabile secondo le tue preferenze */
+    transition: filter 10s ease; /* Transizione per un effetto graduale */
+  }
+  /* Rimuovi l'effetto blur quando si passa il mouse sopra l'immagine */
+  .blur:hover {
+    transition: filter 1s;
+    filter: none;
+  }
+
+  /*Sidebar About-Work*/
+
+  .about-sidebar,
+  .work-sidebar {
+    top: 8%;
+    height: 78%;
+    width: 500px;
+    background-size: 100%;
+    padding-top: none;
+  }
+ 
+  .about-sidebar h2{
+    top: 9%;
+    font-size: 3vw;
+  }
+.closebtn {
+  font-size: 5vw;
+}
+.line{
+  position: relative;
+  max-width: 100%;
+  width: 88%;
+  top:6% ;
+  
+}  
+  
+  .infoSidebar{
+    top: 25.5%;
+  }
+  /* SidebarBiografico */
+.about-sidebar p {
+  position: absolute;
+margin-top: 10.7%;
+  font-size: 2vw;
+  
+}
+.sidebar-img {
+  position: absolute;
+  max-width: 100%;
+  width: 75vw;
+  top: 32%;
+}
+p.caption {
+  font-size: 1.5vw;
+  bottom: 1%;
+}
+
+/*Work Sidebar*/
+.work-sidebar {
+  
+  height: 78%;
+}
+/* Type, Title, Year*/
+.work-sidebar h2{
+  
+  font-size: 2.5vw;
+  top: 1%;
+  text-align: left;
+}
+.work-sidebar h3, .work-sidebar h4, .work-sidebar h5 {
+  
+  
+  margin-top: -8%;
+  font-size: 2vw;
+}
+.work-sidebar h3{
+  margin-top: 10%;
+}
+.work-sidebar h4{
+  margin-top: 2%;
+}
+.work-sidebar h5{
+  margin-top: 4%;
+}
+.line2{
+  position: absolute;
+  top: 13.3%;
+  max-width: 100%;
+  width: 78%;
+}
+
+/* Indice */
+
+.highlighted-text1, .highlighted-text2, .highlighted-text3, .highlighted-text4, .highlighted-text5, .highlighted-text6,
+.highlighted-text7, .highlighted-text8, .highlighted-text9, .highlighted-text10,.highlighted-text11 {
+  margin-top: 0.5%;
+  font-family: ABCDiatype-Medium, sans-serif;
+  font-size: 1.5vw;
+
+}
+
+.fas.fa-film, .fa-star, .fas.fa-headphones, .right-align, .right-align2, .right-align3, .right-align4,
+.right-align5, .right-align6, .right-align7, .right-align8, .right-align9, .right-align10, .right-align11 {
+  
+  font-size: 2vw;
+}
+
+p.InfoMovie {
+  
+  margin-top: -13%;
+}
+.about-sidebar.open~.installation-sidebar {
+  
+  top:100%;
+}
+
+.installation-sidebar{
+  width: 77.5vw;
+  height: 3vw;
+  margin-left: 20px;
+  border: 0.5px solid rgba(220, 220, 220, 0.965);
+  border-left: none;
+  top: 87%;
+}
+
+.installation-sidebar h2 {
+  position: relative;
+  color: rgb(252, 252, 252);
+  text-shadow: #ff10d7bb 0px 0px 10px;
+  margin-top: -3%;
+  font-size: 2.3vw;
+  margin-left: auto; /* Centro orizzontalmente */
+  margin-right: auto; /* Centro orizzontalmente */
+  text-align: center;
+}
+.installation-sidebar p {
+  
+  display: none;
+}
+#installationSidebar audio {
+  width: 100%;
+  
+}
+
+
+
+  
+
+
+
+/*Sidebar Film*/
+.sidebar, .Sidebar2, .Sidebar3, .Sidebar4, .Sidebar5, .Sidebar6, .Sidebar7 {
+top: 10px;
+height: 88vh;
+}
+.video_0, .video_2, .video3, .video4, .video5, .video6, .video7  {
+top:13%;
+}
+/* piccole info*/
+p.InfoMovie{
+  margin-top: -15%;
+  font-size: 0.7vw;
+}
+p.movie, p.movie2, p.movie3, p.movie4, p.movie5, p.movie6, p.movie7{
+top:-10%;
+font-size: 1vw;
+}
+a.Title, a.Title2, a.Title3, a.Title4, a.Title5, a.Title6, a.Title7{
+  top:-9%;
+  font-size: 1vw;
+}
+.linemovie{
+  top: -13.5%
+}
+.player, .player2, .player3, .player4, .player5, .player6, .player7 {
+  max-width: 100%;
+  height: auto;
+  top: 47%;
+  left: 18%;
+}
+.player7{
+  left: 3%;
+}
+
+.sidebar .closebtn, .Sidebar2 .closebtn2, .Sidebar3 .closebtn3, .Sidebar4 .closebtn4, .Sidebar5 .closebtn5, .Sidebar6 .closebtn6, .Sidebar7 .closebtn7 {
+  font-size: 20px;
+}
+/*Sidebar Portfolio*/
+p.aligned-text1, p.aligned-text2, p.aligned-text3, p.aligned-text4, p.aligned-text5, p.aligned-text6, p.aligned-text7, p.aligned-text8, p.aligned-text9, p.aligned-text10, p.aligned-text11 {
+  font-size: 0.9vw;
+  margin: 20px;
+  margin-left:59px;
+}
+
+     }

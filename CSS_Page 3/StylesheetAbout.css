@@ -11,7 +11,6 @@
   background-size: 60%;
   background-position: center;
   transition: 0.5s;
-  padding-top: 60px;
   color: rgb(0, 0, 0);
   z-index: 1000;
   
@@ -166,20 +165,21 @@
 #textContent {
   transition: none !important;
 }
-/* Stile per l'immagine nella sidebar */
 .sidebar-img {
   max-width: 29%;
   margin-bottom: 1px;
-  position: fixed;
+  position: absolute; /* Cambiato da fixed a absolute per allinearla rispetto alla sidebar */
   top: 27%;
-  margin-left: 18px;
+  left: 50%; /* Posiziona l'immagine al centro orizzontalmente */
+  transform: translateX(-50%); /* Aggiungi per centrare l'immagine */
   border: 0.5px solid rgba(147, 147, 147, 0.965);
   cursor: pointer;
   filter: blur(0px);
   transition: filter 2.5s ease;
-  &:hover {
-    filter: blur(10px);
-  }
+}
+
+.sidebar-img:hover {
+  filter: blur(10px);
 }
 
 .worksidebar-img {
@@ -219,13 +219,13 @@
     pointer-events: none;
 }
 /* Stile per la didascalia */
-.caption {
-  position: fixed;
+p.caption {
+  position: absolute;
   font-family: ABCDiatype-Medium, sans-serif;
   font-style: italic;
-  font-size: 14px;
+  font-size: 0.5vw;
   color: #555;
-  bottom:13%;
+  bottom: 1%;
   
 }
 /* Stile della seconda sidebar */
