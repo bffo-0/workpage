@@ -22,7 +22,7 @@
   width: 68vw; /* La larghezza del contenitore è 80% della larghezza del viewport */
   max-width: 90vw; /* Imposta una larghezza massima del 90% del viewport */
   font-family: ABCDiatype-Medium, sans-serif;
-  margin-top: 10px;
+  margin-top: 10.5px;
   margin-left: 20; /* Centro orizzontalmente */
   margin-right: auto; /* Centro orizzontalmente */
 }
