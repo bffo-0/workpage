@@ -2,8 +2,8 @@
 .work-sidebar {
   height: 80%;
   width: 600px;
-  position: fixed;
-  top: 4%;
+  position: fixed  ;
+  top: 6%;
   left: -600px;
   background-color: #c6c6c616;
   background-image: url(../IMG_page3/imgabout.png);
@@ -74,8 +74,8 @@
 }
 
 .line, .line2 { 
-    top: 129px;
-    position: fixed;
+    top: 3%;
+    position: relative;
     margin-left: 20px;
     width: 100%;
     background-color: #000000;
@@ -83,7 +83,8 @@
     width: 550px;
 } 
 .line2 {
-  top:139px ;
+  position: absolute;
+  top:11% ;
 }
 
 .about-link {
@@ -100,8 +101,8 @@
 
 .about-sidebar h2,
 .work-sidebar h2 {
-  position: fixed;
-  
+  position: relative;
+  top: 2%;
   font-weight: bold;
   text-align: left;
   margin: 5px 20px;
@@ -111,7 +112,7 @@
 }
 .work-sidebar h2 {
   position: absolute;
-  top: 50px;
+  top: 3%;
 }
 .work-sidebar h3 {
   position: relative;
@@ -121,6 +122,7 @@
   font-family: ABCDiatype-Medium, sans-serif;
   font-size: 0.6vw;
   color: #000000;
+  margin-top: 11%;
 }
 .work-sidebar h4 {
   position: relative;
@@ -142,8 +144,9 @@
   font-size: 0.6vw;
   color: #000000;
 }
-.about-sidebar p,
-.work-sidebar p {
+.about-sidebar p {
+  position: absolute;
+  top: 6%;
   margin: 13px 20px;
   font-family: ABCDiatype-Medium, sans-serif;
   font-size: 0.6vw;
@@ -152,13 +155,50 @@
 }
 
 .work-sidebar p {
-  margin-top: 20px;
-  margin-left: 60px;
-  text-shadow: #000000 0px 5px 10px;
+  
+  top: 6%;
+  margin: 13px 20px;
+  margin-left: 20%;
+  margin-top: 5%;
   font-family: ABCDiatype-Medium, sans-serif;
-  font-size: 0.6vw;
+  
   color: #000000;
   line-height: 1.6;
+}
+.highlighted-text1,
+.highlighted-text2,
+.highlighted-text3,
+.highlighted-text4,
+.highlighted-text5,
+.highlighted-text6,
+.highlighted-text7,
+.highlighted-text8,
+.highlighted-text9,
+.highlighted-text10,
+.highlighted-text11 {
+  line-height: 1.6;
+  
+  margin-top: 2%;
+  font-family: ABCDiatype-Medium, sans-serif;
+  font-size: 0.6vw;
+
+}
+
+.right-align,
+.right-align2,
+.right-align3,
+.right-align4,
+.right-align5,
+.right-align6,
+.right-align7,
+.right-align8,
+.right-align9,
+.right-align10,
+.right-align11 {
+
+  line-height: 1.6;
+  font-size: 0.6vw;
+
 }
 
 /* Stile per il contenuto principale */
@@ -166,10 +206,11 @@
   transition: none !important;
 }
 .sidebar-img {
-  max-width: 29%;
+  max-width: 100%;
+  width: 93% ;
   margin-bottom: 1px;
   position: absolute; /* Cambiato da fixed a absolute per allinearla rispetto alla sidebar */
-  top: 27%;
+  top: 25%;
   left: 50%; /* Posiziona l'immagine al centro orizzontalmente */
   transform: translateX(-50%); /* Aggiungi per centrare l'immagine */
   border: 0.5px solid rgba(147, 147, 147, 0.965);
@@ -218,15 +259,21 @@
   visibility: hidden;
     pointer-events: none;
 }
-/* Stile per la didascalia */
 p.caption {
   position: absolute;
+  /* Rimane posizionata in modo assoluto rispetto alla sidebar */
+  top: 95%;
+  /* Posizionata a 10px dal fondo della sidebar */
+  left: 32%;
+  /* Allineamento orizzontale */
+  width: 100%;
+  /* Adatta la larghezza alla sidebar */
   font-family: ABCDiatype-Medium, sans-serif;
   font-style: italic;
   font-size: 0.5vw;
   color: #555;
-  bottom: 1%;
   
+  /* Centra il testo orizzontalmente */
 }
 /* Stile della seconda sidebar */
 .installation-sidebar {

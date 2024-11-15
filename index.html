@@ -51,13 +51,11 @@ body {
   display: inline-block;
   
   background-color: #c6c6c616;
-  padding: 8px 88px; /* Ridotto padding per contenitore più piccolo */
+  padding: 0.6vw 5.5vw; /* Ridotto padding per contenitore più piccolo */
   border: 0.5px solid rgba(220, 220, 220, 0.965);
-
+  text-align: center;
   letter-spacing: -.1vw;
   color: rgb(0, 0, 0);
-
-  
   position: relative;
   overflow: hidden; /* Assicurati che l'immagine non fuoriesca dal contenitore */
   width: auto; /* Lascia che il contenitore si adatti al contenuto */
@@ -85,11 +83,19 @@ body {
   filter: blur(30px);
 }
 
+h1.name {
+  position: relative;
+  font-size: 1vw;  /* Usa vw per adattare la dimensione del font al viewport */
+  font-weight: bold;
+  margin: 0; /* Rimuove margini predefiniti per evitare spazi indesiderati */
+  text-align: center; /* Centra il testo all'interno del contenitore */
+}
+
 /* Contenitore #aboutText */
 #aboutText {
     width: 100%; /* Fa sì che il contenitore #aboutText occupi tutta la larghezza di #wrapper */
     text-align: center; /* Centra il testo al suo interno */
-    margin-top: -2%;
+    margin-top: 1%;
   }
 /* Contenitore principale #wrapper */
 #wrapper {
@@ -100,14 +106,14 @@ body {
 }
 
 /* Contenitore di testo .light */
-.light {
+p.light {
     display: block; /* Cambia a block per un comportamento più prevedibile */
     font-weight: lighter; 
     font-style: italic;
     letter-spacing: -.1vw;
     color: rgb(0, 0, 0);
     font-family: ABCDiatype-Medium, sans-serif;
-    font-size: 1.1vw;
+    font-size: 0.9vw;
     text-align: left; /* Centra il testo */
     
     margin-left: 4.5%; /* Centro orizzontalmente */
@@ -184,43 +190,54 @@ body {
   opacity: 1; /* Opacità al passaggio del mouse */
 }
 
-/* Posizionamento delle immagini (prima versione in verticale) */
-.imgmovie {
-  top: 35vh;
-  left: 20vw; /* Posizionamento a sinistra */
-}
+/* sleeping*/
+ .imgmovie{
+      top: 34%;
+      left: 43%;
+       }
 
-.imgmovie2 {
-  top: 66vh;
-  left: 40vw; /* Posizionata a destra rispetto alla prima */
-}
-
-.imgmovie3 {
-  top: 35vh;
-  left: 60vw; /* Posizionata ancora più a destra */
-}
-
-.imgmovie4 {
-  top: 64vh;
-  left: 48vw; /* Posizionamento a destra */
-}
-
-.imgmovie5 {
-  top: 60vh;
-  left: 50vw; /* Posizionamento al centro */
-}
-
-.imgmovie6 {
-  top: 50vh;
-  left: 30vw; /* Posizione a sinistra */
-}
-
-.imgmovie7 {
-  top: 50vh;
-  left: 70vw; /* Posizione a destra */
-}
+       /*donne che*/
+    .imgmovie2{
+      top: 63%;
+      left: 60%;
+       }
+       /*burden*/
+       .imgmovie3{
+        top: 34%;
+      left: 56%;
+       }
+        /*Despite*/
+       .imgmovie4{
+        left: 48%;
+      top: 66%;
+       }
+       /*once*/
+       .imgmovie5{
+        left: 36%;
+      top: 60%;
+       }
+       /*Zanskar*/
+  .imgmovie6 {
+    top: 35vh;
+    left: 30vw; /* Posizione a sinistra */
+  }
+    /*Suspended*/
+  .imgmovie7 {
+    top: 35vh;
+    left: 69vw; /* Posizione a sinistra */
+  }
+  
+  p.InfoMovie {
+    position: relative;
+    margin-top: -10%;
+  }
+  
+  .player7{
+  left: 3%;
+  }
 
 @media (min-width: 1024px) and (max-width: 1440px) {
+  
     .imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5 {
       
       max-width: 11vw; /* Ancora più piccole su schermi molto stretti */
@@ -342,9 +359,15 @@ body {
   .line2{
     top: 17%;
   }
+  
+  .name-container {
+  
+  padding: 8px 8vw; /* Ridotto padding per contenitore più piccolo */
+}
   /* Link, nome */
   h1.name {
-    font-size: 1.2vw; 
+    position: relative;
+    font-size: 1.4vw; 
     font-weight: bold;
   }
   p.light {
@@ -490,7 +513,7 @@ body {
   <div class="line2"></div>
   
   <p class="aligned-text1" data-film="film1" onclick="toggleFilmInfoSidebar(this)">
-    <i class="fas fas fa-star"></i><span class="highlighted-text1">[threaded or shredded] une fois de plus, sans - Music Composer &
+    <i class="fas fas fa-star"></i><span class="highlighted-text1" >[threaded or shredded] une fois de plus, sans - Music Composer &
     Sound Designer</span> <span class="right-align">2024</span>
   </p>
   

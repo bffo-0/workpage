@@ -19,7 +19,7 @@
   position: relative;
   overflow: hidden; /* Assicurati che l'immagine non fuoriesca dal contenitore */
   width: 68vw; /* La larghezza del contenitore è 80% della larghezza del viewport */
-  max-width: 90vw; /* Imposta una larghezza massima del 90% del viewport */
+  max-width: 100%; /* Imposta una larghezza massima del 90% del viewport */
   font-family: ABCDiatype-Medium, sans-serif;
   margin-top: 10px;
   margin-left: 20; /* Centro orizzontalmente */
@@ -119,16 +119,12 @@
 }
 
 
- .imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5, .imgmovie6, .imgmovie7 {
-    
-    max-width: 20vw; /* Ancora più piccole su schermi molto stretti */
-  }
-
   
     /* Stili per ciascuna immagine per allineamento orizzontale */
      .imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5, .imgmovie6, .imgmovie7 {
     position: fixed;
-    max-width: 20vw; /* Regola la larghezza massima per schermi piccoli */
+    max-width: 100%; /* Regola la larghezza massima per schermi piccoli */
+    width: 20%;
     margin: 10px auto; /* Allinea orizzontalmente */
     display: inline-block; /* Posiziona le immagini una di fianco all'altra */
     opacity: 0.2; /* Assicura che siano visibili */

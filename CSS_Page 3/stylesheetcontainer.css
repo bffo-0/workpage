@@ -8,14 +8,14 @@
   font-size: .9vw;
   color: #000000;
   /* Colore rosso per l'icona */
-  margin-left:  -37px;
+  margin-left:  -80px;
 }
 .fa-star, .fas.fa-headphones {
   position: absolute;
   font-size: .9vw;
   color: #000000;
   /* Colore rosso per l'icona */
-  margin-left:  -37px;
+  margin-left:  -80px;
 }
 .aligned-text2, .aligned-text3, .aligned-text4, .aligned-text5, .aligned-text6, .aligned-text7, .aligned-text8, .aligned-text9, .aligned-text10, .aligned-text11 {
     display: flex;
@@ -39,5 +39,6 @@
     margin-left: auto;
     /* Spinge l'elemento a destra */
 }
+
 
 
