@@ -1,5 +1,5 @@
 /* Smartphone medi (es. iPhone 6/7/8, Galaxy S5, S6) */
-@media (max-width: 599px) {
+@media (max-width: 736px) {
 
   body {
     background-attachment: fixed; /* Mantieni l'immagine fissa anche su smartphone */
