@@ -18,6 +18,7 @@
         <link rel=stylesheet type="text/css" href="CSS_Page 3/stylesheetcontainer.css" />
         <link rel=stylesheet type="text/css" href="CSS_Page 3/stylesheetinfo.css" />
         <link rel=stylesheet type="text/css" href="CSS_Page 3/cssmediaqueryphone.css" />
+        <link rel=stylesheet type="text/css" href="CSS_Page 3/mediaquerycss1440.css" />
 
 
         
@@ -216,47 +217,184 @@ body {
   top: 50vh;
   left: 70vw; /* Posizione a destra */
 }
-@media (max-width: 1440px) {
-  .imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5 {
-    
-    max-width: 11vw; /* Ancora più piccole su schermi molto stretti */
+
+/* Smartphone medi (es. iPhone 6/7/8, Galaxy S5, S6) */
+@media (max-width: 599px) {
+
+  body {
+    background-attachment: fixed; /* Mantieni l'immagine fissa anche su smartphone */
+        background-position: center center; /* Centra l'immagine di sfondo */
+        background-size: cover; /* Mantieni l'immagine che copre l'intero schermo */
+        min-height: 100vh; /* Assicura che l'altezza sia almeno pari alla visibilità dello schermo */
+        overflow-y: hidden; /* Impedisce lo scroll verticale */
+}
+ /* Contenitore del nome */
+ .name-container {
+  display: block; /* Imposta il contenitore come blocco per facilitare il centraggio */
+  background-color: #c6c6c616;
+  padding: 8px 10vw; /* Usa vw per adattare il padding alla larghezza del viewport */
+  border: 0.5px solid rgba(220, 220, 220, 0.965);
+  letter-spacing: -.1vw;
+  color: rgb(0, 0, 0);
+  position: relative;
+  overflow: hidden; /* Assicurati che l'immagine non fuoriesca dal contenitore */
+  width: 68vw; /* La larghezza del contenitore è 80% della larghezza del viewport */
+  max-width: 90vw; /* Imposta una larghezza massima del 90% del viewport */
+  font-family: ABCDiatype-Medium, sans-serif;
+  margin-top: 10px;
+  margin-left: 20; /* Centro orizzontalmente */
+  margin-right: auto; /* Centro orizzontalmente */
+}
+    /* Nome Mio */
+  h1.name {
+    font-size: 3vw;  /* Usa vw per adattare la dimensione del font al viewport */
+    font-weight: bold;
+    margin: 0; /* Rimuove margini predefiniti per evitare spazi indesiderati */
+    text-align: center; /* Centra il testo all'interno del contenitore */
   }
-  .imgmovie{
-    left: 43%;
-     }
-  .imgmovie2{
-    top: 63%;
-    left: 62%;
-     }
-     .imgmovie3{
-    left: 56%;
-     }
-     .imgmovie4{
-    top: 65%;
-     }
-     .imgmovie5{
-      left: 33%;
-    top: 60%;
-     }
-     
-     /* Posizionamento specifico delle immagini */
-.imgmovie6 {
-  top: 35vh;
-  left: 30vw; /* Posizione a sinistra */
+
+  /* Link, nome */
+  h1.name {
+    font-size: 3vw; 
+    font-weight: bold;
+  }
+  p.light {
+    margin-top: 3% ;
+    font-size: 2.1vw;
+    margin-left: 23%;
+  }
+ /*regola tutta la scritto di cosa faccio*/
+/* Contenitore principale #wrapper */
+#wrapper {
+  width: 68vw; /* Larghezza coerente con altri elementi centrati */
+  margin-left: 0; /* Centro orizzontalmente */
+  position: relative;
+  top: 1%; /* Spazio dal top */
 }
 
-.imgmovie7 {
-  top: 35vh;
-  left: 69vw; /* Posizione a sinistra */
+/* Contenitore di testo .light */
+.light {
+  display: block; /* Cambia a block per un comportamento più prevedibile */
+  font-weight: lighter; 
+  font-style: italic;
+  letter-spacing: -.1vw;
+  color: rgb(0, 0, 0);
+  font-family: ABCDiatype-Medium, sans-serif;
+  font-size: 1.1vw;
+  text-align: center; /* Centra il testo */
+  margin-top: 35%; /* Spazio sopra */
+  margin-left: auto; /* Centro orizzontalmente */
+  margin-right: auto; /* Centro orizzontalmente */
+  width: 100%; /* Riempie l'intera larghezza del suo contenitore */
 }
-p.InfoMovie {
+
+  /* Contenitore #aboutText */
+  #aboutText {
+    width: 100%; /* Fa sì che il contenitore #aboutText occupi tutta la larghezza di #wrapper */
+    text-align: center; /* Centra il testo al suo interno */
+    margin-top: 5%;
+  }
+/*contenitori dei link*/
+
+ /* Contenitore individuale per ogni link */
+ .link-container {
+  display: block; /* Imposta il contenitore come blocco per un allineamento più facile */
+  text-shadow: #000000bb 0px 0px 2px;
+  background-color: #c6c6c616;
+  padding: 8px 4vw; /* Ridotto padding per contenitore più piccolo, usando vw per adattarsi al dispositivo */
+  border: 0.5px solid rgba(220, 220, 220, 0.965);
+  cursor: pointer;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  width: 90vw; /* Imposta la larghezza al 90% del viewport */
+  max-width: 40vw; /* Imposta una larghezza massima del 40% del viewport */
+  margin: 0 auto; /* Centra il contenitore orizzontalmente */
+  margin-top: -1%;
   
-  margin-top: -13%;
 }
 
-.player7{
-left: 3%;
+/* Utilizziamo ::before per gestire l'immagine di sfondo */
+.link-container::before {
+  content: ''; /* L'elemento pseudo non ha contenuto */
+  position: absolute; /* Posiziona l'elemento pseudo assolutamente */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../IMG_page3/containerimgpiccol.png');
+  background-size: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 1;
+  z-index: -1; /* Assicurati che l'immagine stia dietro al testo */
+  filter: blur(25px);
 }
+
+/* Link specifici */
+.about-link, .work-link, #contactLink {
+  font-family: ABCDiatype-Medium, sans-serif;
+  font-size: 3vw; /* Imposta la dimensione del font relativa alla larghezza del viewport */
+}
+
+
+ .imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5, .imgmovie6, .imgmovie7 {
+    
+    max-width: 20vw; /* Ancora più piccole su schermi molto stretti */
+  }
+
+  
+    /* Stili per ciascuna immagine per allineamento orizzontale */
+     .imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5, .imgmovie6, .imgmovie7 {
+    position: fixed;
+    max-width: 20vw; /* Regola la larghezza massima per schermi piccoli */
+    margin: 10px auto; /* Allinea orizzontalmente */
+    display: inline-block; /* Posiziona le immagini una di fianco all'altra */
+    opacity: 0.2; /* Assicura che siano visibili */
+    margin-top: 10%;
+       }
+
+       /*sleeping*/
+    .imgmovie{
+      top: 35%;
+      left: 39%;
+    }
+    /*burden*/
+    .imgmovie3{
+      left: 61%;
+    }
+    /*Zanskar*/
+    .imgmovie6 {
+      top: 39vh;
+      left: 17%;
+    }
+    /*Suspended*/
+    .imgmovie7{
+      
+      left: 83%;
+    }
+    /*Despite*/
+    .imgmovie4{
+      top: 60%;
+    }
+    /*once*/
+
+    .imgmovie5{
+      left: 27%
+    }
+
+    /*donne*/
+    .imgmovie2{
+      top: 54%;
+      left: 73%;
+    }
+
+  
+  
+     
+
+
 .blur {
     filter: blur(30px); /* Applica un blur di 5px, regolabile secondo le tue preferenze */
     transition: filter 10s ease; /* Transizione per un effetto graduale */
@@ -266,93 +404,142 @@ left: 3%;
     transition: filter 1s;
     filter: none;
   }
-/* SidebarBiografico */
-.about-sidebar p,
-.work-sidebar p {
-margin-top: 9%;
-  font-size: 0.8vw;
+
+  /*Sidebar About-Work*/
+
+  .about-sidebar,
+  .work-sidebar {
+    top: 8%;
+    height: 78%;
+    width: 500px;
+    background-size: 100%;
+    padding-top: none;
+  }
+ 
+  .about-sidebar h2{
+    top: 9%;
+    font-size: 3vw;
+  }
+.closebtn {
+  font-size: 5vw;
+}
+.line{
+  position: relative;
+  max-width: 100%;
+  width: 88%;
+  top:6% ;
   
-}
-.work-sidebar p {
-  margin-top: -2%;
-}
-.work-sidebar h5 {
-  margin-top: 2%;
-}
-.work-sidebar h4{
-  margin-top: 1%;
-}
-.work-sidebar h3{
-  margin-top: 13%;
-}
-
-
-.about-sidebar h2,
-.work-sidebar h2 {
-  top: 7.5%;
-  font-size: 1vw;
-}
-.work-sidebar h2 {
-  top: 2%;
-  font-size: 1vw;
-}
-
-
-.about-sidebar h2{
-  top:8.1%;
+}  
+  
+  .infoSidebar{
+    top: 25.5%;
+  }
+  /* SidebarBiografico */
+.about-sidebar p {
+  position: absolute;
+margin-top: 10.7%;
+  font-size: 2vw;
+  
 }
 .sidebar-img {
-  max-width: 35vw;
-  top: 26%;
+  position: absolute;
+  max-width: 100%;
+  width: 75vw;
+  top: 32%;
 }
 p.caption {
+  font-size: 1.5vw;
+  bottom: 1%;
+}
+
+/*Work Sidebar*/
+.work-sidebar {
   
- left: 12%;
-  font-size: 0.7vw;
-  bottom: -1%;
+  height: 78%;
 }
-.installation-sidebar h2 {
-  font-size: 0.8vw;
+/* Type, Title, Year*/
+.work-sidebar h2{
+  
+  font-size: 2.5vw;
+  top: 1%;
+  text-align: left;
 }
-.installation-sidebar p {
-  font-size: 0.7vw;
+.work-sidebar h3, .work-sidebar h4, .work-sidebar h5 {
+  
+  
+  margin-top: -8%;
+  font-size: 2vw;
 }
-
-
-.about-sidebar,
-.work-sidebar {
-  top: 6.8%;
-  height: 90%;
-  width: 500px;
+.work-sidebar h3{
+  margin-top: 10%;
 }
-.work-sidebar {
-  width:500px;
+.work-sidebar h4{
+  margin-top: 2%;
 }
-.infoSidebar{
-  top: 25.5%;
-}
-.line,.line2{
-  max-width: 35%;
-  top: 12%;
+.work-sidebar h5{
+  margin-top: 4%;
 }
 .line2{
-  top: 17%;
+  position: absolute;
+  top: 13.3%;
+  max-width: 100%;
+  width: 78%;
 }
-/* Link, nome */
-h1.name {
-  font-size: 1.2vw; 
-  font-weight: bold;
+
+/* Indice */
+
+.highlighted-text1, .highlighted-text2, .highlighted-text3, .highlighted-text4, .highlighted-text5, .highlighted-text6,
+.highlighted-text7, .highlighted-text8, .highlighted-text9, .highlighted-text10,.highlighted-text11 {
+  margin-top: 0.5%;
+  font-family: ABCDiatype-Medium, sans-serif;
+  font-size: 1.5vw;
+
 }
-p.light {
-  margin-top: 3% ;
-  font-size: 1.1vw;
-}
-.about-link,
-.work-link, #contactLink {
-  font-size: 0.9vw;
+
+.fas.fa-film, .fa-star, .fas.fa-headphones, .right-align, .right-align2, .right-align3, .right-align4,
+.right-align5, .right-align6, .right-align7, .right-align8, .right-align9, .right-align10, .right-align11 {
   
+  font-size: 2vw;
+}
+
+p.InfoMovie {
+  
+  margin-top: -13%;
+}
+.about-sidebar.open~.installation-sidebar {
+  
+  top:100%;
+}
+
+.installation-sidebar{
+  width: 77.5vw;
+  height: 3vw;
+  margin-left: 20px;
+  border: 0.5px solid rgba(220, 220, 220, 0.965);
+  border-left: none;
+  top: 87%;
+}
+
+.installation-sidebar h2 {
+  position: relative;
+  color: rgb(252, 252, 252);
+  text-shadow: #ff10d7bb 0px 0px 10px;
+  margin-top: -3%;
+  font-size: 2.3vw;
+  margin-left: auto; /* Centro orizzontalmente */
+  margin-right: auto; /* Centro orizzontalmente */
+  text-align: center;
+}
+.installation-sidebar p {
+  
+  display: none;
+}
+#installationSidebar audio {
+  width: 100%;
   
 }
+
+
 
   
 
@@ -391,6 +578,7 @@ a.Title, a.Title2, a.Title3, a.Title4, a.Title5, a.Title6, a.Title7{
 .player7{
   left: 3%;
 }
+
 .sidebar .closebtn, .Sidebar2 .closebtn2, .Sidebar3 .closebtn3, .Sidebar4 .closebtn4, .Sidebar5 .closebtn5, .Sidebar6 .closebtn6, .Sidebar7 .closebtn7 {
   font-size: 20px;
 }
@@ -401,123 +589,9 @@ p.aligned-text1, p.aligned-text2, p.aligned-text3, p.aligned-text4, p.aligned-te
   margin-left:59px;
 }
 
-}
+     }
 
-/* Regole per schermi più piccoli */
-@media (max-width: 1024px) {
-    
-  .imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5 {
-    max-width: 14vw; /* Riduci la larghezza delle immagini */
-   
-  }
-  .imgmovie{
-    top: 32vh;
-    left: 41vw;
-  }
-  .imgmovie2{
-    top: 55vh;
-    left: 65vw;
-
-  }
-  .imgmovie3 {
-  top: 32vh;
   
-}
-  .imgmovie4{
-    top: 60vh;
-  }
-  .imgmovie5{
-    left:31vw;
-    top: 55vh;
-  }
-}
-
-@media (max-width: 768px) {
-  .imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5 {
-    opacity: 0.1;
-    max-width: 20vw; /* Ancora più piccole su schermi molto stretti */
-  }
-  .imgmovie{
-    left: 35%;
-  }
-  .imgmovie2{
-    top: 58%;
-    left: 75%;
-    max-width: 19%;
-  }
-
-  .imgmovie3{
-    
-    left: 59%;
-  }
-  .imgmovie4{
-    top: 64%;
-    left: 50%;
-  }
-  .imgmovie5{
-    top: 58%;
-    left: 24%;
-  }
-  .imgmovie:hover, .imgmovie2:hover, .imgmovie3:hover, .imgmovie4:hover, .imgmovie5:hover {
-  opacity: 1; /* Opacità al passaggio del mouse */
-}
-
-}
-
-@media (max-width: 480px) {
-  .imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5 {
-    max-width: 30vw; /* Su schermi molto piccoli */
-  }
-  
-  .imgmovie{
-    left: 30%;
-  }
-  .imgmovie2{
-    top: 52.4%;
-    left: 83%;
-    max-width: 28vw;
-  }
-  .imgmovie3{
-    top: 35%;
-    left: 70%;
-  }
-  .imgmovie4{
-    top: 60%;
-    left: 50%;
-
-  }
-  .imgmovie5{
-    top: 55%;
-    left: 17%;
-  }
-}
-
-@media (max-width: 320px) {
-  .imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5 {
-    max-width: 30vw; /* Su schermi molto piccoli */
-  }
-  
-  .imgmovie{
-    left: 30%;
-  }
-  .imgmovie2{
-    left: 83%;
-  }
-  .imgmovie3{
-    left: 70%;
-  }
-  .imgmovie4{
-    top: 55%;
-    left: 50%;
-
-  }
-  .imgmovie5{
-    top: 49%;
-    left: 17%;
-  }
-}
-
-
 
 </style>
 </head>

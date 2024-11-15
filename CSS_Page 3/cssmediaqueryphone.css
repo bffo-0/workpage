@@ -1,6 +1,5 @@
-
 /* Smartphone medi (es. iPhone 6/7/8, Galaxy S5, S6) */
-@media only screen and (max-width: 599px) {
+@media (max-width: 599px) {
 
   body {
     background-attachment: fixed; /* Mantieni l'immagine fissa anche su smartphone */
@@ -152,16 +151,18 @@
     }
     /*Suspended*/
     .imgmovie7{
-      
+      top: 35%;
       left: 83%;
     }
     /*Despite*/
     .imgmovie4{
-      top: 60%;
+      left: 50%;
+      top: 57%;
     }
     /*once*/
 
     .imgmovie5{
+      top: 53%;
       left: 27%
     }
 
@@ -371,3 +372,5 @@ p.aligned-text1, p.aligned-text2, p.aligned-text3, p.aligned-text4, p.aligned-te
 }
 
      }
+
+  
