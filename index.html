@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <Html>
     <head>
@@ -8,27 +7,15 @@
       <link rel="icon" SIZE="180x180" href="FAVICONE32X32.png" type="image/png">
       <link rel="apple-touch-icon" sizes="180x180" href="favicono_180.png">
       <title>Tommaso Massimiliano Alfì</title>
-        <link rel=stylesheet type="text/css" href="CSS_Page 3/Stylesheet3.css" />
-        <link rel=stylesheet type="text/css" href="CSS_Page 3/Stylesheet3.1.css"/>
-        <link rel=stylesheet type="text/css" href="CSS_Page 3/Stylesheet3.2.css"/>
-        <link rel=stylesheet type="text/css" href="CSS_Page 3/Stylesheet3.3.css"/>
-        <link rel=stylesheet type="text/css" href="CSS_Page 3/Stylesheet3.4.css"/>
-        <link rel=stylesheet type="text/css" href="CSS_Page 3/StylesheetAbout.css"/>
-        <link rel=stylesheet type="text/css" href="CSS_Page 3/contactstylesheet.css" />
+        <link rel=stylesheet type="text/css" href="CSS_Page 3/Stylesheetmoviesidebar.css" />
+        <link rel=stylesheet type="text/css" href="CSS_Page 3/Stylesheetmoviesidebar2.css"/>
+        <link rel=stylesheet type="text/css" href="CSS_Page 3/StylesheetAboutWork.css"/>
+        <link rel=stylesheet type="text/css" href="CSS_Page 3/StylesheetWorkinfo.css" />
+        <link rel=stylesheet type="text/css" href="CSS_Page 3/Stylesheetcontactform.css" />
         <link rel=stylesheet type="text/css" href="CSS_Page 3/stylesheetcontainer.css" />
-        <link rel=stylesheet type="text/css" href="CSS_Page 3/stylesheetinfo.css" />
-        <link rel=stylesheet type="text/css" href="CSS_Page 3/cssmediaqueryphone.css" />
-       
-        
-        
 
-
-        
 <style>
 /* Contenitore corpo */
-
-
-
 body {
     background-color: rgba(211, 211, 211, 0.093); /* Colore di sfondo leggero */
     background-image: url(IMG_page3/back3new4.png); /* Immagine di sfondo */
@@ -49,9 +36,8 @@ body {
 /* Contenitore individuale per ogni link */
 .name-container {
   display: inline-block;
-  
   background-color: #c6c6c616;
-  padding: 0.6vw 5.5vw; /* Ridotto padding per contenitore più piccolo */
+  padding: 0.6vw 8.7vw; /* Ridotto padding per contenitore più piccolo */
   border: 0.5px solid rgba(220, 220, 220, 0.965);
   text-align: center;
   letter-spacing: -.1vw;
@@ -59,13 +45,30 @@ body {
   position: relative;
   overflow: hidden; /* Assicurati che l'immagine non fuoriesca dal contenitore */
   width: auto; /* Lascia che il contenitore si adatti al contenuto */
-  max-width: 400px; /* Imposta una larghezza massima per ogni contenitore */
+  max-width: 100%; /* Imposta una larghezza massima per ogni contenitore */
   font-family: ABCDiatype-Medium, sans-serif;
   
   margin-top: 10.2px;
   margin-left: 20px;
 }
+@media screen and (min-width: 786px) and (max-width: 1024px) {
+  .name-container {
+    padding: 2vw 20.7vw; /* Ridotto padding per contenitore meno grande */
+    left: 50%;
+    margin-left: 0;
+    transform: translateX(-50%);
+  }
+}
 
+@media screen and (max-width: 480px) {
+  .name-container {
+    margin-top: 4%;
+    padding: 2vw 20.7vw; /* Ridotto padding per contenitore meno grande */
+    left: 50%;
+    margin-left: 0;
+    transform: translateX(-50%);
+  }
+}
 /* Utilizziamo ::before per gestire l'immagine di sfondo */
 .name::before {
   content: ''; /* L'elemento pseudo non ha contenuto */
@@ -76,7 +79,6 @@ body {
   height: 100%;
   background-image: url('../IMG_page3/containerimgpiccolname.png');
   background-size: 50%;
-  
   background-repeat: no-repeat;
   opacity: 1; /* Applica l'opacità solo all'immagine di sfondo */
   z-index: -1; /* Assicurati che l'immagine stia dietro al testo */
@@ -85,24 +87,46 @@ body {
 
 h1.name {
   position: relative;
-  font-size: 1vw;  /* Usa vw per adattare la dimensione del font al viewport */
+  font-size: 1.1vw;  /* Usa vw per adattare la dimensione del font al viewport */
   font-weight: bold;
   margin: 0; /* Rimuove margini predefiniti per evitare spazi indesiderati */
   text-align: center; /* Centra il testo all'interno del contenitore */
 }
+@media screen and (min-width: 786px) and (max-width: 1024px) {
+  h1.name {
+    font-size: 3vw; /* Usa vw per adattare la dimensione del font al viewport */
+  }
+}
 
+@media screen and (max-width: 480px) {
+  h1.name {
+    font-size: 4vw; /* Usa vw per adattare la dimensione del font al viewport */
+    letter-spacing: -.3vw;
+  }
+}
 /* Contenitore #aboutText */
 #aboutText {
     width: 100%; /* Fa sì che il contenitore #aboutText occupi tutta la larghezza di #wrapper */
     text-align: center; /* Centra il testo al suo interno */
     margin-top: 1%;
   }
+
+  
 /* Contenitore principale #wrapper */
 #wrapper {
     width: 68vw; /* Larghezza coerente con altri elementi centrati */
     margin-left: 0; /* Centro orizzontalmente */
     position: relative;
     top: 0%; /* Spazio dal top */
+}
+
+@media screen and (min-width: 480px) {
+  #wrapper {
+    width: 80vw; /* Larghezza coerente con altri elementi centrati */
+    margin-left: 0; /* Centro orizzontalmente */
+    position: relative;
+    top: 0%; /* Spazio dal top */
+}
 }
 
 /* Contenitore di testo .light */
@@ -116,13 +140,25 @@ p.light {
     font-size: 0.9vw;
     text-align: left; /* Centra il testo */
     
-    margin-left: 4.5%; /* Centro orizzontalmente */
+    margin-left: 11%; /* Centro orizzontalmente */
     margin-right: auto; /* Centro orizzontalmente */
     width: 100%; /* Riempie l'intera larghezza del suo contenitore */
 }
 
-
+@media screen and (min-width: 786px) and (max-width: 1024px) {
+  p.light {
+    margin-left: 34%;
+    font-size: 2.4vw; /* Usa vw per adattare la dimensione del font al viewport */
+  }
+}
   
+  @media screen and (max-width: 480px) {
+    p.light {
+      margin-left: 25%;
+      margin-top: 5%;
+      font-size: 2.8vw; /* Usa vw per adattare la dimensione del font al viewport */
+    }
+  }
   
  /* Contenitore per l'immagine e il tooltip */
 .tooltip {
@@ -147,6 +183,30 @@ p.light {
     content: url(HomeBack2.png);
 }
 
+@media screen and (min-width: 1280px) and (max-width:1440px) {
+  .image1{
+    width: 4vw;
+  }
+  
+}
+
+@media screen and (min-width: 1025px) and (max-width:1279px) {
+  .image1{
+    width: 4vw;
+  }
+}
+
+@media screen and (min-width: 786px) and (max-width: 1024px) {
+  .image1{
+    width: 10vw;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .image1{
+    width: 12vw;
+  }
+}
 /* Stile per il messaggio tooltip */
 .tooltip .tooltiptext {
     visibility: hidden;
@@ -185,98 +245,9 @@ p.light {
   opacity: 0.2; /* Opacità iniziale */
   transform: translate(-50%, -50%);
 }
-
-.imgmovie:hover, .imgmovie2:hover, .imgmovie3:hover, .imgmovie4:hover, .imgmovie5:hover, .imgmovie6:hover, .imgmovie7:hover { 
-  opacity: 1; /* Opacità al passaggio del mouse */
-}
-
-/* sleeping*/
- .imgmovie{
-      top: 34%;
-      left: 43%;
-       }
-
-       /*donne che*/
-    .imgmovie2{
-      top: 63%;
-      left: 60%;
-       }
-       /*burden*/
-       .imgmovie3{
-        top: 34%;
-      left: 56%;
-       }
-        /*Despite*/
-       .imgmovie4{
-        left: 48%;
-      top: 66%;
-       }
-       /*once*/
-       .imgmovie5{
-        left: 36%;
-      top: 60%;
-       }
-       /*Zanskar*/
-  .imgmovie6 {
-    top: 35vh;
-    left: 30vw; /* Posizione a sinistra */
-  }
-    /*Suspended*/
-  .imgmovie7 {
-    top: 35vh;
-    left: 69vw; /* Posizione a sinistra */
-  }
-  
-  p.InfoMovie {
-    position: relative;
-    margin-top: -10%;
-  }
-  
-  .player7{
-  left: 3%;
-  }
-
-@media (min-width: 1024px) and (max-width: 1600px) {
-  
-    .imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5 {
-      
-      max-width: 11vw; /* Ancora più piccole su schermi molto stretti */
-    }
-    .imgmovie{
-      left: 43%;
-       }
-    .imgmovie2{
-      top: 63%;
-      left: 62%;
-       }
-       .imgmovie3{
-      left: 56%;
-       }
-       .imgmovie4{
-      top: 65%;
-       }
-       .imgmovie5{
-        left: 33%;
-      top: 60%;
-       }
-       
-       /* Posizionamento specifico delle immagini */
-  .imgmovie6 {
-    top: 35vh;
-    left: 30vw; /* Posizione a sinistra */
-  }
-  
-  .imgmovie7 {
-    top: 35vh;
-    left: 69vw; /* Posizione a sinistra */
-  }
-  p.InfoMovie {
-    
-    margin-top: -13%;
-  }
-  
-  .player7{
-  left: 3%;
+@media screen and (min-width: 1280px) and (max-width:1440px) {
+  .imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5, .imgmovie6, .imgmovie7 {
+    max-width: 11vw;
   }
   .blur {
       filter: blur(30px); /* Applica un blur di 5px, regolabile secondo le tue preferenze */
@@ -287,190 +258,233 @@ p.light {
       transition: filter 1s;
       filter: none;
     }
-  /* SidebarBiografico */
-  .about-sidebar p
-   {
-    margin-top: 1%;
-    font-size: 0.8vw;
-    
-  }
-  .work-sidebar p {
-    margin-top: -2%;
-    margin-left: 130%;
-  }
-  .fas.fa-film, .fa-star, .fas.fa-headphones{
-    margin-left: -7%;
-  }
+}
 
-  .highlighted-text1,
-.highlighted-text2,
-.highlighted-text3,
-.highlighted-text4,
-.highlighted-text5,
-.highlighted-text6,
-.highlighted-text7,
-.highlighted-text8,
-.highlighted-text9,
-.highlighted-text10,
-.highlighted-text11 {
-  line-height: 1.6;
-  
-  margin-top: 2%;
-  font-family: ABCDiatype-Medium, sans-serif;
-  font-size: 0.8vw;
+@media  screen and (min-width:1025px) and (max-width: 1279px) {
+  .imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5, .imgmovie6, .imgmovie7 {
+    max-width: 11vw;
+  }
+  .blur {
+      filter: blur(30px); /* Applica un blur di 5px, regolabile secondo le tue preferenze */
+      transition: filter 10s ease; /* Transizione per un effetto graduale */
+    }
+    /* Rimuovi l'effetto blur quando si passa il mouse sopra l'immagine */
+    .blur:hover {
+      transition: filter 1s;
+      filter: none;
+    }
+}
+
+
+@media screen and (min-width: 781px) and (max-width:1024px) { 
+  .imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5, .imgmovie6, .imgmovie7 {
+    max-width: 22vw;
+  }
+  .blur {
+      filter: blur(3px); /* Applica un blur di 5px, regolabile secondo le tue preferenze */
+      transition: filter 0.3s ease; /* Transizione per un effetto graduale */
+    }
+    /* Rimuovi l'effetto blur quando si passa il mouse sopra l'immagine */
+    .blur:hover {
+      transition: filter 1s;
+      filter: none;
+    }
   
 }
 
-.right-align,
-.right-align2,
-.right-align3,
-.right-align4,
-.right-align5,
-.right-align6,
-.right-align7,
-.right-align8,
-.right-align9,
-.right-align10,
-.right-align11 {
 
-  line-height: 1.6;
-  font-size: 0.8vw;
-
-
+.imgmovie:hover, .imgmovie2:hover, .imgmovie3:hover, .imgmovie4:hover, .imgmovie5:hover, .imgmovie6:hover, .imgmovie7:hover { 
+  opacity: 1; /* Opacità al passaggio del mouse */
 }
-  .work-sidebar h5 {
-    margin-top: 2%;
-  }
-  .work-sidebar h4{
-    margin-top: 1%;
-  }
-  .work-sidebar h3{
-    margin-top: 13%;
-  }
-  
-  
-  .about-sidebar h2,
-  .work-sidebar h2 {
-    font-size: 1vw;
-  }
-  
-  
-  
 
-  p.caption {
+/* sleeping*/
+ .imgmovie{
+      top: 34%;
+      left: 43%;
+       }
+       @media screen and (min-width:781px) and (max-width:1024px) {
+        .imgmovie {
+          left: 39%;
+          top: 33%;
+        }
+      }
+      
     
-   left: 23%;
-    font-size: 0.7vw;
-    top: 97%;
-  }
-  .installation-sidebar h2 {
-    font-size: 0.8vw;
-  }
-  .installation-sidebar p {
-    font-size: 0.7vw;
-  }
+       /*donne che*/
+    .imgmovie2{
+      top: 63%;
+      left: 60%;
+       }
+       @media screen and (min-width: 1441px) and (max-width:1660px) {
+        .imgmovie2 {
+          top: 58%;
+        }
+      }
+       @media screen and (min-width: 1280px) and (max-width:1440px) {
+        .imgmovie2 {
+          top: 63%;
+        }
+      }
+      @media screen and (min-width: 1024px) and (max-width:1279px) {
+        .imgmovie2 {
+          top: 63%;
+        }
+      }
+      @media screen and (min-width: 781px) and (max-width:1024px) {
+        .imgmovie2 {
+        left: 74%;
+        top: 59%;
+      }
+    }
+
+       /*burden*/
+       .imgmovie3{
+        top: 34%;
+      left: 56%;
+       }
+       @media screen and (min-width: 1441px) and (max-width:1660px) {
+        .imgmovie3 {
+          top: 34%;
+        }
+      }
+       @media screen and (min-width: 1281px) and (max-width:1440px) {
+        .imgmovie3 {
+          top: 34%;
+        }
+      }
+      @media screen and (min-width: 1025px) and (max-width:1279px) {
+        .imgmovie3 {
+          top: 34%;
+        }
+      }
+      @media screen and (min-width: 781px) and (max-width:1024px) {
+        .imgmovie3 {
+        left: 63%;
+        top: 34%;
+      }
+    }
+
+    
+        /*Despite*/
+       .imgmovie4{
+        left: 48%;
+      top: 66%;
+      }
+
+      @media screen and (min-width: 1441px) and (max-width:1660px) {
+        .imgmovie4 {
+          top: 60%;
+        }
+      }
+      @media screen and (min-width: 1280px) and (max-width:1440px) {
+        .imgmovie4 {
+          top: 68%;
+        }
+      }
+      @media screen and (min-width: 1024px) and (max-width:1279px) {
+        .imgmovie4 {
+          top: 68%;
+        }
+      }
+      @media screen and (min-width: 781px) and (max-width:1024px) {
+        .imgmovie4 {
+          top: 62%;
+        }
+      }
+    
+       /*once*/
+       .imgmovie5{
+        left: 36%;
+      top: 61%;
+       }
+
+      @media screen and (min-width: 1441px) and (max-width:1660px) {
+        .imgmovie5 {
+          top: 55%;
+        }
+      }
+       @media screen and (min-width: 1280px) and (max-width:1440px) {
+        .imgmovie5 {
+          top: 61%;
+        }
+      }
+      @media  screen and (min-width: 1024px) and (max-width:1279px) {
+        .imgmovie5 {
+          top: 61%;
+        }
+      }
+      @media screen and (min-width: 781px) and (max-width:1024px) {
+        .imgmovie5 {
+          left: 22%;
+          top: 55%;
+        }
+      }
   
-  
-  .about-sidebar,
-  .work-sidebar {
-    top: 6.8%;
-    height: 91%;
-    width: 500px;
+       /*Zanskar*/
+  .imgmovie6 {
+    top: 35vh;
+    left: 30vw; /* Posizione a sinistra */
   }
-  .work-sidebar {
-    width:500px;
+  @media screen and (min-width:1025px) and (max-width:1279px) {
+    .imgmovie6 {
+      top: 35vh;
+      left: 30vw; /* Posizione a sinistra */
+    }
   }
-  .infoSidebar{
-    top: 25.5%;
-  }
-  .line,.line2{
-    max-width: 100%;
-    width: 91%;
-    top:2%;
-  }
-  .line2{
-    width: 85%;
-    top: 13%;
-  }
-  
-  .name-container {
-  
-  padding: 8px 8.1vw; /* Ridotto padding per contenitore più piccolo */
-}
-  /* Link, nome */
-  h1.name {
-    position: relative;
-    font-size: 1.1vw; 
-    font-weight: bold;
+  @media screen and (min-width: 781px) and (max-width:1024px) {
+    .imgmovie6 {
+      top: 35vh;
+      left: 14vw; /* Posizione a sinistra */
+    }
+    
   }
 
-  p.light {
-    margin-top: 1% ;
-    font-size: 1.1vw;
-    margin-left: 50px;
+
+    /*Suspended*/
+  .imgmovie7 {
+    top: 35vh;
+    left: 69vw; /* Posizione a sinistra */
+  }
+  @media screen and (min-width:1025px) and (max-width:1279px) {
+    .imgmovie7 {
+      top: 35vh;
+      left: 69vw; /* Posizione a sinistra */
+    }
+  }
+  @media screen and (min-width: 781px) and (max-width:1024px) {
+    .imgmovie7 {
+      top: 35vh;
+      left: 86vw; /* Posizione a sinistra */
+    }
     
   }
-  .link-container {
-  
-  padding: 8px 22.5px; /* Ridotto padding per contenitore più piccolo */
-}
-  .about-link,
-  .work-link, #contactLink {
-    font-size: 0.9vw;
-    
-    
-  }
-  
-    
-  
-  
-  
-  /*Sidebar Film*/
-  .sidebar, .Sidebar2, .Sidebar3, .Sidebar4, .Sidebar5, .Sidebar6, .Sidebar7 {
-  top: 10px;
-  height: 88vh;
-  }
-  .video_0, .video_2, .video3, .video4, .video5, .video6, .video7  {
-  top:13%;
-  }
-  /* piccole info*/
-  p.InfoMovie{
-    margin-top: -15%;
-    font-size: 0.7vw;
-  }
-  p.movie, p.movie2, p.movie3, p.movie4, p.movie5, p.movie6, p.movie7{
-  top:-10%;
-  font-size: 1vw;
-  }
-  a.Title, a.Title2, a.Title3, a.Title4, a.Title5, a.Title6, a.Title7{
-    top:-9%;
-    font-size: 1vw;
-  }
-  .linemovie{
-    top: -13.5%
-  }
-  .player, .player2, .player3, .player4, .player5, .player6, .player7 {
-    max-width: 100%;
+  /* Img Movie 480px */
+  @media screen and (max-width: 480px) {
+  .imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5, .imgmovie6, .imgmovie7 {
+    margin-top: 3vh;
+    width: 33vmin;
     height: auto;
-    top: 47%;
-    left: 18%;
+    max-width: 200px;
+    min-width: 80px;
+    object-fit: contain;
+    position: fixed;
+    opacity: 1;
+    border: 0.5px solid rgba(220, 220, 220, 0.965);
+    transition: transform 0.2s ease-out;
+    transform-origin: center center;
+    touch-action: none;
+    will-change: transform;
   }
-  .player7{
-    left: 3%;
-  }
-  .sidebar .closebtn, .Sidebar2 .closebtn2, .Sidebar3 .closebtn3, .Sidebar4 .closebtn4, .Sidebar5 .closebtn5, .Sidebar6 .closebtn6, .Sidebar7 .closebtn7 {
-    font-size: 20px;
-  }
-  /*Sidebar Portfolio*/
-  p.aligned-text1, p.aligned-text2, p.aligned-text3, p.aligned-text4, p.aligned-text5, p.aligned-text6, p.aligned-text7, p.aligned-text8, p.aligned-text9, p.aligned-text10, p.aligned-text11 {
-    font-size: 0.9vw;
-    margin: 20px;
-    margin-left:59px;
-  }
-  
-  }
-  
 
+  .blur {
+    filter: blur(3px);
+    transition: filter 0.3s ease;
+  }
+  .blur:hover {
+    transition: filter 1s;
+    filter: none;
+  }
+}
 </style>
 </head>
 <body>
@@ -483,20 +497,21 @@ p.light {
   
     <img src="IMG_page3/dariya_trubina_klas_txt_jordidevetten_low_res_1.jpg(mediaclass-landscape-large.faad41e29864068b6df57a9a947d42ec2b39ccbe).png"
       alt="Immagine Sidebar" class="sidebar-img" onclick="toggleInstallationSidebar()">
+    <a class="caption">[threaded or shredded] une fois de plus, sans: Exhibition View - PH: Jordi de Vetten</a>
 
-  <p class="caption">[threaded or shredded] une fois de plus, sans: Exhibition View - PH: Jordi de Vetten</p>
+     
     <h2>About:</h2>
     <div class="line"></div>
-    <p>Tommaso Massimiliano Alfì is a composer and sound designer based in Turin. <br>
+    <p>Tommaso Massimiliano Alfì is a composer and sound designer based in Turin. 
     
-    He has collaborated with various musicians and artists in the fields of music, video art, and cinema. <br>
+    He has collaborated with various musicians and artists in the fields of music, video art, and cinema. 
     
     His approach is influenced by his main project, "MVRGN," which explores a contemporary, hybrid, and electronic
     compositional language.
     
     In his most recent works, he collaborated with artist and friend dariya trubina on the visual and sound installation
     "[threaded or shredded] une fois de plus, sans":
-    a four-channel structure of contemporary composed music and sound design <br>
+    a four-channel structure of contemporary composed music and sound design 
     installed for the Gerrit Rietveld Academie. 
     
    </p>
@@ -542,8 +557,7 @@ p.light {
 <!-- Sidebar "Work" nascosta di default -->
 <div id="workSidebar" class="work-sidebar">
   <a href="javascript:void(0)" class="closebtn" onclick="toggleWorkSidebar()">×</a>
-  <img src="IMG_page3/imgwork.png"
-    alt="Immagine workSidebar" class="worksidebar-img">
+
   <div class="container">
   <h2>Works:</h2>
   
@@ -583,7 +597,7 @@ p.light {
                               <p class="aligned-text8" data-film="film8" onclick="toggleFilmInfoSidebar(this)"> <i class="fas fa-film"></i> <span class="highlighted-text8">Once And For All - Music Composer</span> <span
                                   class="right-align8">2022</span></p>
 
-                                  <p class="aligned-text9" data-film="film9" onclick="toggleFilmInfoSidebar(this)" ><i class="fas fa-star"></i> <span class="highlighted-text9">A Little Order, A Little Grace - Music Composer<span
+                                  <p class="aligned-text9" data-film="film9" onclick="toggleFilmInfoSidebar(this)"> <i class="fas fa-star"></i> <span class="highlighted-text9">A Little Order, A Little Grace - Music Composer</span> <span
                                       class="right-align9">2022</span></p>
                                       
                                       <p class="aligned-text10" data-film="film10" onclick="toggleFilmInfoSidebar(this)"><i class="fas fa-film"></i> <span class="highlighted-text10">Despite The Facts - Music Composer</span> <span
@@ -820,7 +834,7 @@ p.light {
 </div>
    <div id="textContent">
     <!-- Text info -->
-    <a href="http://127.0.0.1:5500/index.html" class="tooltip">
+    <a href="" class="tooltip">
       <img id="img" src="HomeBack.png" class="image1" alt="Home">
       <span class="tooltiptext">not yet 😞</span>
   </a>
@@ -869,7 +883,6 @@ p.light {
       <a href="javascript:void(0)" class="closebtn" onclick="OpenOrClose1()"> &times; </a> 
       
       <a href="https://tommasomassimilianoalfi.bandcamp.com/" target="_blank">
-        <img id="imgmovie" src="Movies/dormiamo insieme locandina.jpg" class="imgmovie">
       
             </a>
             <p class="movie"> Movie:</p> <a class="Title"  a href="https://www.imdb.com/title/tt29376130/" target="_blank"> Sleeping Close</a> 
@@ -1009,9 +1022,8 @@ p.light {
                                                                                                                               
                                                                                                                               
                                                                                                                                
-                                                                                                                            <iframe style="border: 0; width: 90%; height: 120px;"
-                                                                                                                              src="https://bandcamp.com/EmbeddedPlayer/track=1106786924/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=none/transparent=true/"
-                                                                                                                              seamless class="player7"><a href="https://tommasomassimilianoalfi.bandcamp.com/track/suspended-lives-theme-soundtrack">Suspended Lives
+                                                                                                                            <iframe style="border: 0; width: 90%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=1106786924/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=none/transparent=true/"
+                                                                                                                              class="player7"><a href="https://tommasomassimilianoalfi.bandcamp.com/track/suspended-lives-theme-soundtrack">Suspended Lives
                                                                                                                                 - Theme Soundtrack by Tommaso Massimiliano Alfì</a></iframe>
                                                                                                                             </div>
                                                                                                                           </div>
@@ -1076,12 +1088,13 @@ function toggleAboutSidebar() {
   // Imposta la larghezza della sidebar in base alla larghezza dello schermo
   const sidebarWidth = (screenWidth < 599) ? "88vw" : ""; // 34vw per schermi più piccoli, altrimenti usa il valore predefinito
   
+  
   // Controllo lo stato della sidebar "About"
-  if (aboutSidebar.style.left === "-600px" || aboutSidebar.style.left === "") {
+  if (aboutSidebar.style.left === "-100vw" || aboutSidebar.style.left === "") {
     // Apre la sidebar "About" con margine da sinistra di 20px
     aboutSidebar.style.left = "20px"; // Imposta la posizione a 20px da sinistra
     aboutSidebar.style.width = sidebarWidth; // Imposta la larghezza della sidebar
-    workSidebar.style.left = "-600px"; // Chiude la sidebar "Work"
+    workSidebar.style.left = "-100vw"; // Chiude la sidebar "Work"
 
     // Nasconde il contenuto principale e i link
     textContent.classList.add("hide-content");
@@ -1089,7 +1102,7 @@ function toggleAboutSidebar() {
     workLink.style.visibility = "hidden";
   } else {
     // Chiude la sidebar "About"
-    aboutSidebar.style.left = "-600px"; // Ripristina la posizione di chiusura della sidebar
+    aboutSidebar.style.left = "-100vw"; // Ripristina la posizione di chiusura della sidebar
     aboutSidebar.style.width = "0"; // Ripristina la larghezza della sidebar a 0 quando è chiusa
 
     // Ripristina il contenuto principale e i link
@@ -1113,10 +1126,10 @@ function toggleWorkSidebar() {
   }
 
   // Controlla lo stato della sidebar "Work" per aprirla o chiuderla
-  if (workSidebar.style.left === "-600px" || workSidebar.style.left === "") {
+  if (workSidebar.style.left === "-100vw" || workSidebar.style.left === "") {
     // Apre la sidebar "Work" e chiude "About" se aperta
     workSidebar.style.left = "20px";
-    aboutSidebar.style.left = "-600px";
+    aboutSidebar.style.left = "-100vw";
 
     // Nasconde il contenuto principale e i link
     textContent.classList.add("hide-content");
@@ -1124,7 +1137,7 @@ function toggleWorkSidebar() {
     workLink.style.visibility = "hidden";
   } else {
     // Chiude la sidebar "Work"
-    workSidebar.style.left = "-600px";
+    workSidebar.style.left = "-100vw"; // Chiude la sidebar
 
     // Ripristina il contenuto principale e i link
     textContent.classList.remove("hide-content");
@@ -1145,18 +1158,19 @@ function toggleInstallationSidebar() {
   // Imposta la posizione di apertura in base alla larghezza dello schermo
   let openPosition;
 
-  if (screenWidth <= 599) {
+  if (screenWidth <= 1024) {
     // Se la larghezza dello schermo è inferiore o uguale a 599px, la sidebar si apre a 34vw dal margine sinistro
     openPosition = "0vw";
-  } else if (screenWidth <= 1400) {
-    // Se la larghezza dello schermo è inferiore o uguale a 1400px, la sidebar si apre a 520px
-    openPosition = "520px";
-  } else {
-    // Se lo schermo è maggiore di 1400px, la sidebar si apre a 620px
-    openPosition = "620px";
+  } else if (screenWidth <= 1440) {
+    // Se la larghezza dello schermo è inferiore o uguale a 1400px, la sidebar si apre a 29.3vw
+    openPosition = "29.3vw";
+  } 
+   else {
+    // Se lo schermo è maggiore di 1400px, la sidebar si apre a 40vw
+     openPosition = "29.3vw";
   }
 
-  const closedPosition = "-600px";
+  const closedPosition = "-100vw";
 
   // Controllo lo stato della sidebar "Installation"
   if (installationSidebar.style.left === closedPosition || installationSidebar.style.left === "") {
@@ -1188,23 +1202,23 @@ function toggleInstallationSidebar() {
 
     // Se il clic è fuori dalla sidebar "About" e dal link "About", chiudi la sidebar
     if (!aboutSidebar.contains(event.target) && !aboutLink.contains(event.target)) {
-      aboutSidebar.style.left = "-600px"; // Chiude la sidebar
+      aboutSidebar.style.left = "-100vw"; // Chiude la sidebar
     }
 
     // Se il clic è fuori dalla sidebar "Work" e dal link "Work", chiudi la sidebar
     if (!workSidebar.contains(event.target) && !workLink.contains(event.target)) {
-      workSidebar.style.left = "-600px"; // Chiude la sidebar
+      workSidebar.style.left = "-100vw"; // Chiude la sidebar
     }
 
     // Se il clic è fuori dalla sidebar "Installation", chiudi la sidebar e ferma l'audio
     if (!installationSidebar.contains(event.target)) {
-      installationSidebar.style.left = "-600px"; // Chiude la sidebar
+      installationSidebar.style.left = "-100vw"; // Chiude la sidebar
       audio.pause(); // Ferma l'audio
       audio.currentTime = 0; // Riporta l'audio all'inizio
     }
 
     // Ripristina il contenuto principale e i link se tutte le sidebar sono chiuse
-    if (aboutSidebar.style.left === "-600px" && workSidebar.style.left === "-600px" && installationSidebar.style.left === "-600px") {
+    if (aboutSidebar.style.left === "-100vw" && workSidebar.style.left === "-100vw" && installationSidebar.style.left === "-100vw") {
       textContent.classList.remove("hide-content"); // Ripristina il contenuto principale
       aboutLink.style.visibility = "visible"; // Rendi visibile il link "About"
       workLink.style.visibility = "visible"; // Rendi visibile il link "Work"
@@ -1219,11 +1233,11 @@ function toggleInstallationSidebar() {
                                                                                           const targetSidebar = document.getElementById(filmId);
 
                                                                                           // Controlla la larghezza dello schermo
-                                                                                          const isSmallScreen = window.innerWidth <= 1400;
+                                                                                          const isSmallScreen = window.innerWidth <= 1250;
 
                                                                                           // Imposta la posizione di apertura in base alla larghezza dello schermo
-                                                                                          const openPosition = isSmallScreen ? "520px" : "620px";
-                                                                                          const closedPosition = "-600px";
+                                                                                          const openPosition = isSmallScreen ? "520px" : "30.5vw";
+                                                                                          const closedPosition = "-100vw";
 
                                                                                           // Chiudi tutte le altre sidebar
                                                                                           const allSidebars = document.querySelectorAll('.infoSidebar');
@@ -1264,19 +1278,188 @@ function toggleInstallationSidebar() {
                                                                                           });
                                                                                         });
 
-
-
+                                                                                        //Touch Events//
+                                                                                        document.addEventListener('DOMContentLoaded', function() {
+                                                                                          const movieImages = document.querySelectorAll('.imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5, .imgmovie6, .imgmovie7');
                                                                                           
-                                                                                          
+                                                                                          if (window.innerWidth <= 480) {
+                                                                                            movieImages.forEach(img => {
+                                                                                              let initialX = 0;
+                                                                                              let initialY = 0;
+                                                                                              let currentX = 0;
+                                                                                              let currentY = 0;
+                                                                                              let xOffset = 0;
+                                                                                              let yOffset = 0;
+                                                                                              let active = false;
+                                                                                              let isDragging = false;
+                                                                                              let touchStartTime = 0;
+                                                                                              
+                                                                                              function dragStart(e) {
+                                                                                                touchStartTime = Date.now();
+                                                                                                if (e.type === "touchstart") {
+                                                                                                  initialX = e.touches[0].clientX - xOffset;
+                                                                                                  initialY = e.touches[0].clientY - yOffset;
+                                                                                                } else {
+                                                                                                  initialX = e.clientX - xOffset;
+                                                                                                  initialY = e.clientY - yOffset;
+                                                                                                }
+                                                                                                
+                                                                                                if (e.target === img) {
+                                                                                                  active = true;
+                                                                                                  isDragging = false;
+                                                                                                  // Reset all images to base z-index
+                                                                                                  movieImages.forEach(image => {
+                                                                                                    image.style.zIndex = "1";
+                                                                                                  });
+                                                                                                  // Set extremely high z-index for selected image
+                                                                                                  img.style.zIndex = "999999";
+                                                                                                  
+                                                                                                  // Start playing the corresponding video
+                                                                                                  const video = getVideoForImage(img);
+                                                                                                  if (video) {
+                                                                                                    // Set specific start times for different videos
+                                                                                                    if (img.className === 'imgmovie') {
+                                                                                                      video.currentTime = 14; // Start at 0:14
+                                                                                                    } else if (img.className === 'imgmovie6') {
+                                                                                                      video.currentTime = 4;  // Start at 0:04
+                                                                                                    } else if (img.className === 'imgmovie3') {
+                                                                                                      video.currentTime = 16; // Start at 0:16
+                                                                                                    } else if (img.className === 'imgmovie5') {
+                                                                                                      video.currentTime = 8;  // Start at 0:08
+                                                                                                    } else {
+                                                                                                      video.currentTime = 0;  // Default start at beginning
+                                                                                                    }
+                                                                                                    video.play();
+                                                                                                  }
+                                                                                                }
+                                                                                              }
+                                                                                              
+                                                                                              function dragEnd(e) {
+                                                                                                const touchEndTime = Date.now();
+                                                                                                const touchDuration = touchEndTime - touchStartTime;
+                                                                                                
+                                                                                                initialX = currentX;
+                                                                                                initialY = currentY;
+                                                                                                active = false;
+                                                                                                
+                                                                                                // Stop video playback
+                                                                                                const video = getVideoForImage(img);
+                                                                                                if (video) {
+                                                                                                  video.pause();
+                                                                                                }
+                                                                                                
+                                                                                                // Only process boundaries if we were actually dragging
+                                                                                                if (isDragging) {
+                                                                                                  // Your existing boundary check code...
+                                                                                                  const rect = img.getBoundingClientRect();
+                                                                                                  const resistance = 0.3;
+                                                                                                  
+                                                                                                  if (rect.left < 0) {
+                                                                                                    currentX = Math.max(currentX, -rect.width * resistance);
+                                                                                                  }
+                                                                                                  if (rect.right > window.innerWidth) {
+                                                                                                    currentX = Math.min(currentX, window.innerWidth - rect.width + (rect.width * resistance));
+                                                                                                  }
+                                                                                                  if (rect.top < 0) {
+                                                                                                    currentY = Math.max(currentY, -rect.height * resistance);
+                                                                                                  }
+                                                                                                  if (rect.bottom > window.innerHeight) {
+                                                                                                    currentY = Math.min(currentY, window.innerHeight - rect.height + (rect.height * resistance));
+                                                                                                  }
+                                                                                                }
+                                                                                              }
+                                                                                              
+                                                                                              function drag(e) {
+                                                                                                if (active) {
+                                                                                                  e.preventDefault();
+                                                                                                  isDragging = true;
+                                                                                                  
+                                                                                                  if (e.type === "touchmove") {
+                                                                                                    currentX = e.touches[0].clientX - initialX;
+                                                                                                    currentY = e.touches[0].clientY - initialY;
+                                                                                                  } else {
+                                                                                                    currentX = e.clientX - initialX;
+                                                                                                    currentY = e.clientY - initialY;
+                                                                                                  }
 
+                                                                                                  // Get image boundaries
+                                                                                                  const rect = img.getBoundingClientRect();
+                                                                                                  
+                                                                                                  // Constrain movement within viewport with some resistance
+                                                                                                  const resistance = 0.3; // Lower value = more resistance
+                                                                                                  
+                                                                                                  if (rect.left < 0) {
+                                                                                                    currentX = Math.max(currentX, -rect.width * resistance);
+                                                                                                  }
+                                                                                                  if (rect.right > window.innerWidth) {
+                                                                                                    currentX = Math.min(currentX, window.innerWidth - rect.width + (rect.width * resistance));
+                                                                                                  }
+                                                                                                  if (rect.top < 0) {
+                                                                                                    currentY = Math.max(currentY, -rect.height * resistance);
+                                                                                                  }
+                                                                                                  if (rect.bottom > window.innerHeight) {
+                                                                                                    currentY = Math.min(currentY, window.innerHeight - rect.height + (rect.height * resistance));
+                                                                                                  }
 
+                                                                                                  xOffset = currentX;
+                                                                                                  yOffset = currentY;
+
+                                                                                                  requestAnimationFrame(() => {
+                                                                                                    img.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+                                                                                                  });
+                                                                                                }
+                                                                                              }
+                                                                                              
+                                                                                              // Function to get corresponding video for an image
+                                                                                              function getVideoForImage(img) {
+                                                                                                const imageClass = img.className;
+                                                                                                const sidebarId = imageClass === 'imgmovie' ? 'mySidebar' :
+                                                                                                              imageClass === 'imgmovie2' ? 'mySidebar2' :
+                                                                                                              imageClass === 'imgmovie3' ? 'mySidebar3' :
+                                                                                                              imageClass === 'imgmovie4' ? 'mySidebar4' :
+                                                                                                              imageClass === 'imgmovie5' ? 'mySidebar5' :
+                                                                                                              imageClass === 'imgmovie6' ? 'mySidebar6' :
+                                                                                                              imageClass === 'imgmovie7' ? 'mySidebar7' : null;
+                                                                                                
+                                                                                                if (sidebarId) {
+                                                                                                  const sidebar = document.getElementById(sidebarId);
+                                                                                                  return sidebar ? sidebar.querySelector('video') : null;
+                                                                                                }
+                                                                                                return null;
+                                                                                              }
+                                                                                              
+                                                                                              // Touch events
+                                                                                              img.addEventListener("touchstart", dragStart, false);
+                                                                                              img.addEventListener("touchend", dragEnd, false);
+                                                                                              img.addEventListener("touchmove", drag, false);
+                                                                                              
+                                                                                              // Mouse events for testing
+                                                                                              img.addEventListener("mousedown", dragStart, false);
+                                                                                              img.addEventListener("mouseup", dragEnd, false);
+                                                                                              img.addEventListener("mousemove", drag, false);
+                                                                                            });
+                                                                                          }
+
+                                                                                          // Handle resize events
+                                                                                          window.addEventListener('resize', function() {
+                                                                                            if (window.innerWidth > 480) {
+                                                                                              // Remove touch events and reset transforms for desktop
+                                                                                              movieImages.forEach(img => {
+                                                                                                img.style.transform = '';
+                                                                                                img.style.zIndex = '';
+                                                                                                img.removeEventListener("touchstart", dragStart);
+                                                                                                img.removeEventListener("touchend", dragEnd);
+                                                                                                img.removeEventListener("touchmove", drag);
+                                                                                                img.removeEventListener("mousedown", dragStart);
+                                                                                                img.removeEventListener("mouseup", dragEnd);
+                                                                                                img.removeEventListener("mousemove", drag);
+                                                                                              });
+                                                                                            }
+                                                                                          });
+                                                                                        });
 </script>
 
 <script src="script3.js"> </script>
      
 </body>
 </Html>
-
-
-
-  

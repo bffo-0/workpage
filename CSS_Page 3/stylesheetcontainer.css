@@ -8,37 +8,64 @@
   font-size: .9vw;
   color: #000000;
   /* Colore rosso per l'icona */
-  margin-left:  -80px;
+  margin-left:  0px;
 }
 .fa-star, .fas.fa-headphones {
   position: absolute;
   font-size: .9vw;
   color: #000000;
   /* Colore rosso per l'icona */
-  margin-left:  -80px;
+  margin-left:  0px;
 }
-.aligned-text2, .aligned-text3, .aligned-text4, .aligned-text5, .aligned-text6, .aligned-text7, .aligned-text8, .aligned-text9, .aligned-text10, .aligned-text11 {
-    display: flex;
-    /* Utilizza flexbox per disporre gli elementi in una riga */
-    justify-content: space-between;
-    /* Spinge il contenuto ai bordi */
-    align-items: center;
-    /* Allinea verticalmente il contenuto */
+
+@media screen and (min-width: 1441px) and (max-width:1660px) {
+  .fas.fa-film {
+  margin-left: 0px;
 }
-.aligned-text1 {
-    display: flex;
-    /* Utilizza flexbox per disporre gli elementi in una riga */
-    justify-content: space-between;
-    /* Spinge il contenuto ai bordi */
-    align-items: center;
-    /* Allinea verticalmente il contenuto */
+
+.fa-star, .fas.fa-headphones {
+  margin-left: 0px;
+}
+}
+
+
+@media screen and (min-width: 1280px) and (max-width:1440px) {
+  .fas.fa-film {
+  margin-left: 0px;
+}
+.fa-star, .fas.fa-headphones {
+  margin-left: 0px;
+}
+}
+
+@media screen and (min-width: 1025px) and (max-width:1279px) {
+  .fas.fa-film, .fa-star, .fas.fa-headphones {
+    font-size: 0.9vw;
   }
+}
+
+@media screen and (min-width: 786px) and (max-width:1024px) {
+  .fas.fa-film, .fa-star, .fas.fa-headphones {
+    font-size: 2vw;
+  }
+  
+}
+.aligned-text1, .aligned-text2, .aligned-text3, .aligned-text4, .aligned-text5, .aligned-text6, .aligned-text7, .aligned-text8, .aligned-text9, .aligned-text10, .aligned-text11 {
+    display: flex;
+    /* Utilizza flexbox per disporre gli elementi in una riga */
+    justify-content: space-between;
+    /* Spinge il contenuto ai bordi */
+    align-items: center;
+    /* Allinea verticalmente il contenuto */
+}
+
     
 .right-align {
   position: relative;
     margin-left: auto;
     /* Spinge l'elemento a destra */
 }
+
 
 
 

@@ -39,7 +39,11 @@ function OpenOrClose(sidebarId, videoSelector) {
 
   // Controlla la larghezza dello schermo per decidere la larghezza della sidebar
   if (sidebar.classList.contains("open")) {
-    if (window.innerWidth <= 1440) {
+    if (window.innerWidth >= 786 && window.innerWidth <= 1024) {
+      sidebar.style.right="14.4%"
+      sidebar.style.width = "78vw"; // Imposta larghezza a 78vw per tablet
+      images.forEach(img => img.classList.add('blur'));
+    } else if (window.innerWidth <= 1440) {
       sidebar.style.width = "31vw"; // Imposta larghezza a 31vw su schermi <= 1440px
       // Aggiunge l'effetto blur alle immagini solo su schermi <= 1440px
       images.forEach(img => img.classList.add('blur'));
@@ -102,5 +106,3 @@ document.addEventListener('click', function(event) {
   }
   
 });
-
-
