@@ -25,6 +25,7 @@
     }
 }
 
+
 .infoSidebar .sidebar-content {
     padding: 10px;
     color: rgb(0, 0, 0);
@@ -123,4 +124,34 @@ p[data-film]:hover {
         display: none;
     }
     
+}
+
+@media screen and (max-width: 480px) {
+  .infoSidebar {
+    position: fixed;
+    margin-top: 20%;
+    left: -100vw;
+    transform: translate(0, -50%);
+    width: 70vw;
+    height: 60vh;
+    z-index: 1000;
+    transition: left 0.3s ease;
+  }
+
+  .work-sidebar {
+    transition: filter 0.3s ease;
+  }
+
+  .work-sidebar.blur {
+    filter: blur(20px);
+  }
+
+  .infoSidebar .sidebar-content h2 {
+    font-size: 3vw;
+  }
+
+  .infoSidebar .sidebar-content p {
+    margin-top: 5vh;
+    font-size: 2.5vw;
+  }
 }
