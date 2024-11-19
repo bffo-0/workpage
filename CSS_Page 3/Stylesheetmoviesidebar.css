@@ -19,7 +19,7 @@
   border: 0.5px solid rgba(220, 220, 220, 0.965);
 }
 
-@media screen and (min-width: 781px) and (max-width:1024px) {
+@media screen and (min-width: 786px) and (max-width:1024px) {
   .sidebar, .Sidebar2, .Sidebar3, .Sidebar4 {
       top: 18%;
       height: 70vh;
@@ -27,9 +27,18 @@
   }
 }
 
-@media screen and (max-width:480px) {
+@media screen and (min-width: 420px) and (max-width:785px) {
   .sidebar, .Sidebar2, .Sidebar3, .Sidebar4 {
-      top: 9%;
+    top:8%;
+    height: 70vh;
+    background-color: rgb(220, 220, 220);
+    border: none;
+}
+}
+
+@media screen and (max-width:419px) {
+  .sidebar, .Sidebar2, .Sidebar3, .Sidebar4 {
+      top:10%;
       height: 70vh;
       background-color: rgb(220, 220, 220);
       border: none;
@@ -65,13 +74,21 @@
   
 }
 
-@media screen and (min-width: 781px) and (max-width:1024px) {
+@media screen and (min-width: 786px) and (max-width:1024px) {
   .sidebar .closebtn, .Sidebar2 .closebtn2, .Sidebar3 .closebtn3, .Sidebar4 .closebtn4 {
       font-size: 3.5vw;
   }
 }
 
-@media screen and (max-width:480px) {
+@media screen and (min-width: 420px) and (max-width:785px) {
+  .sidebar .closebtn, .Sidebar2 .closebtn2, .Sidebar3 .closebtn3, .Sidebar4 .closebtn4 {
+      font-size: 4.5vw;
+  }
+  
+}
+
+
+@media screen and (max-width:419px) {
   .sidebar .closebtn, .Sidebar2 .closebtn2, .Sidebar3 .closebtn3, .Sidebar4 .closebtn4 {
       font-size: 4.5vw;
   }
@@ -109,11 +126,16 @@
                                           }
                                       }
 
-                                      @media  screen and (max-width:480px) {
+                                      @media  screen and (min-width: 420px) and (max-width:785px) {
                                         .video_0, .video_2, .video3, .video4{
                                           top: 15%;
                                           }
-                                        
+                                      }
+
+                                      @media screen and (max-width:419px) {
+                                        .video_0, .video_2, .video3, .video4{
+                                          top: 17%;
+                                          }
                                       }
 
                                       p.movie, p.movie2, p.movie3, p.movie4{
@@ -153,8 +175,18 @@
                                         
                                       }
 
-                                      @media screen and (max-width:480px) {
+                                      @media screen and (min-width:420px) and (max-width:781px) {
                                         p.movie, p.movie2, p.movie3, p.movie4{
+                                          top: 2.5%;
+                                          font-size: 3vw;
+
+                                        }
+                                        
+                                      }
+
+                                      @media screen and (max-width:419px) {
+                                        p.movie, p.movie2, p.movie3, p.movie4{
+                                          top: 2.5%;
                                           font-size: 3vw;
                                         }
                                         
@@ -196,7 +228,15 @@
                                       
                                     }
 
-                                    @media screen and (max-width:480px) {
+                                    @media screen and (min-width:420px) and (max-width:781px) {
+                                      a.Title, a.Title2,  a.Title3, a.Title4{
+                                        top: 5.5%;
+                                        font-size: 3vw;
+                                      }
+                                      
+                                    }
+
+                                    @media screen and (max-width:419px) {
                                       a.Title, a.Title2,  a.Title3, a.Title4{
                                         top: 5.5%;
                                         font-size: 3vw;
@@ -232,8 +272,14 @@
                                       }
                                     }
                                    
-                                    @media screen and (max-width:480px) {
+                                    @media screen and (min-width:420px) and (max-width:785px) {
                                       .player, .player3, .player4 {
-                                        top: 59%;
+                                        top: 49%;
+                                      }
+                                    }
+
+                                    @media screen and (max-width:419px) {
+                                      .player, .player3, .player4 {
+                                        top: 58%;
                                       }
                                     }

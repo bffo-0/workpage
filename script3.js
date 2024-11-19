@@ -101,10 +101,10 @@ function OpenOrClose(sidebarId, videoSelector) {
 
   // Controlla la larghezza dello schermo per decidere la larghezza della sidebar
   if (sidebar.classList.contains("open")) {
-    if (window.innerWidth <= 480) {
+    if (window.innerWidth <= 785) {
       // Mobile view
-      sidebar.style.width = "89vw";
-      sidebar.style.right = "10%";
+      sidebar.style.width = "89.7vw";
+      sidebar.style.right = "14%";
       sidebar.style.display = "block";
     } else if (window.innerWidth >= 786 && window.innerWidth <= 1024) {
       // Tablet view
