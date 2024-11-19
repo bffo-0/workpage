@@ -94,14 +94,33 @@ p[data-film]:hover {
 }
 
 .sleepingclose-img{
+    
     max-width: 50%;
-    bottom: 3%;
+    bottom: 1%;
     left: 25%;
 }
+@media screen and (max-width: 480px) {
+    .sleepingclose-img{
+        position: absolute;
+        top: 90%;
+        left: 25%;
+        overflow-y: auto;
+    }
+}
+
 .burden-img, .threaded-img, .donneche-img, .once-img, .viteinsospeso-img   {
     max-width: 85%;
     left: 7%;
 }   
+
+@media screen and (max-width: 480px) {
+    .donneche-img{
+        position: absolute;
+        top: 90%;
+        
+        overflow-y: auto;
+    }
+}
 
  .despite-img {
     max-width: 75%;
@@ -113,6 +132,14 @@ p[data-film]:hover {
     max-width: 45%;
     bottom: 5%;
     left: 30%;
+}
+
+@media screen and (max-width: 480px) {
+    .zanskar-img{
+        position: absolute;
+        left: 26.9%;
+       top: 115%;
+    }
 }
 .despite-img {
     bottom: 20%;
@@ -129,12 +156,13 @@ p[data-film]:hover {
 @media screen and (max-width: 480px) {
   .infoSidebar {
     position: fixed;
-    margin-top: 20%;
+    margin-top: 27%;
     left: -100vw;
     transform: translate(0, -50%);
     width: 70vw;
     height: 60vh;
     z-index: 1000;
+    overflow-y: auto;
     transition: left 0.3s ease;
   }
 
