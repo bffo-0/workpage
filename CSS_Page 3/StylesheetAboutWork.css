@@ -269,8 +269,8 @@
 .sidebar-img {
   position: relative;
   max-width: 100%;
-  width:90%;
-  top: 35%;
+  width:86%;
+  top: 36%;
   left: 50%; /* Posiziona l'immagine al centro orizzontalmente */
   transform: translateX(-50%); /* Aggiungi per centrare l'immagine */
   border: 0.5px solid rgba(147, 147, 147, 0.965);
@@ -327,7 +327,7 @@
 .caption {
   position: absolute;
   font-family: ABCDiatype-Medium, sans-serif;
-  bottom: 23px;
+  bottom: 18px;
   right: 50px;
   color: #5b5b5b;
   font-size: 0.7em;

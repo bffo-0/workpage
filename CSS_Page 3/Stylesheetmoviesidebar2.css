@@ -289,6 +289,20 @@ position: absolute;
                                        top: 7%;
                                       } 
 
+                                      .Sidebar5  p.InfoMovie {
+                                        position: absolute;
+                                        padding-right: 25px;
+                                        font-family: ABCDiatype-Medium, sans-serif;
+                                        font-weight: normal;
+                                       text-align: center;
+                                        font-size: 0.6vw;
+                                        top: 8%;
+                                        margin-left: 4%;
+                                       
+                                      } 
+
+
+
                                       @media screen and (min-width: 1441px) and (max-width:1660px) {
                                         p.InfoMovie{
                                           font-size: 0.7vw;

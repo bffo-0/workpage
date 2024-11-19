@@ -137,6 +137,29 @@
                                           top: 17%;
                                           }
                                       }
+                                      
+                                      .Sidebar2  p.InfoMovie {
+                                        position: absolute;
+                                        padding-right: 25px;
+                                        font-family: ABCDiatype-Medium, sans-serif;
+                                        font-weight: normal;
+                                       text-align: center;
+                                        font-size: 0.6vw;
+                                       top: 7%;
+                                      } 
+
+                                      .Sidebar4  p.InfoMovie {
+                                        position: absolute;
+                                        padding-right: 25px;
+                                        font-family: ABCDiatype-Medium, sans-serif;
+                                        font-weight: normal;
+                                       text-align: center;
+                                        font-size: 0.6vw;
+                                        top: 8%;
+                                        margin-left: 12%;
+                                       
+                                      } 
+
 
                                       p.movie, p.movie2, p.movie3, p.movie4{
                                         position: absolute;
@@ -156,6 +179,20 @@
                                           font-size: 1vw;
                                           top: 1.5%;
                                       }
+
+                                      /*Infomovie Donneche*/
+
+                                      .Sidebar2  p.InfoMovie {
+                                        position: absolute;
+                                        padding-right: 25px;
+                                        font-family: ABCDiatype-Medium, sans-serif;
+                                        font-weight: normal;
+                                       text-align: center;
+                                        font-size: 0.6vw;
+                                       top:8.5%;
+                                      } 
+
+
                                       }
 
                                       @media screen and (min-width: 1280px) and (max-width:1440px) {
@@ -165,6 +202,17 @@
                                           top: 1.5%;
                                         
                                       }
+                                      /*Infomovie Donneche*/
+
+                                      .Sidebar2  p.InfoMovie {
+                                        position: absolute;
+                                        padding-right: 25px;
+                                        font-family: ABCDiatype-Medium, sans-serif;
+                                        font-weight: normal;
+                                       text-align: center;
+                                        font-size: 0.6vw;
+                                       top:8.5%;
+                                      } 
 
                                       }
                                       
@@ -194,6 +242,7 @@
 
                                       a.Title, a.Title2, a.Title3, a.Title4  {
                                         position: absolute;
+                                        margin-left: -10px;
                                         left: 50%;
                                         translate: -50%;
                                         font-family: ABCDiatype-Medium, sans-serif;
@@ -208,9 +257,17 @@
                                         a.Title, a.Title2, a.Title3, a.Title4{
                                           font-size: 1vw;
                                           top: 4%;
-                                      }
                                       
+                                      
+                                        }
+                                        a.Title2 {
+                                          
+                                          font-size: 1vw;
+                                        }
+
                                       }
+
+
 
                                       @media screen and (min-width: 1280px) and (max-width:1440px) {
 
