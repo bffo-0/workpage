@@ -103,7 +103,8 @@ function OpenOrClose(sidebarId, videoSelector) {
   if (sidebar.classList.contains("open")) {
     if (window.innerWidth <= 480) {
       // Mobile view
-      sidebar.style.width = "100%";
+      sidebar.style.width = "89vw";
+      sidebar.style.right = "10%";
       sidebar.style.display = "block";
     } else if (window.innerWidth >= 786 && window.innerWidth <= 1024) {
       // Tablet view

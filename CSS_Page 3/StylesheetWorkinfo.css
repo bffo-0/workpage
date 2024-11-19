@@ -156,7 +156,7 @@ p[data-film]:hover {
 @media screen and (max-width: 480px) {
   .infoSidebar {
     position: fixed;
-    margin-top: 27%;
+    margin-top: 18%;
     left: -100vw;
     transform: translate(0, -50%);
     width: 70vw;

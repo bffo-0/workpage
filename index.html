@@ -122,7 +122,7 @@ h1.name {
 
 @media screen and (min-width: 480px) {
   #wrapper {
-    width: 80vw; /* Larghezza coerente con altri elementi centrati */
+    width: 87vw; /* Larghezza coerente con altri elementi centrati */
     margin-left: 0; /* Centro orizzontalmente */
     position: relative;
     top: 0%; /* Spazio dal top */
@@ -140,7 +140,7 @@ p.light {
     font-size: 0.9vw;
     text-align: left; /* Centra il testo */
     
-    margin-left: 11%; /* Centro orizzontalmente */
+    margin-left: 8%; /* Centro orizzontalmente */
     margin-right: auto; /* Centro orizzontalmente */
     width: 100%; /* Riempie l'intera larghezza del suo contenitore */
 }
@@ -886,7 +886,7 @@ p.light {
       
             </a>
             <p class="movie"> Movie:</p> <a class="Title"  a href="https://www.imdb.com/title/tt29376130/" target="_blank"> Sleeping Close</a> 
-      <video src="Movies/Acqua.mp4" controls="true" class="video_0">
+      <video src="Movies/Acqua.mp4" controls="true" playsinline webkit-playsinline class="video_0">
         your browser does not support the video tag
         </video>
         <div class="linemovie"></div>
@@ -910,7 +910,7 @@ p.light {
                                    
                                   </a>
                                   <p class="movie2"> Movie:</p> <a class="Title2"  a href="https://www.imdb.com/title/tt21608742/" target="_blank"> Donne Che Viaggiano Sole</a>
-                                    <video src="Movies/donneche.mp4" controls="true" class="video_2"></video>
+                                    <video src="Movies/donneche.mp4" controls="true" playsinline webkit-playsinline class="video_2"></video>
                                 <div class="linemovie"></div>
                                 <p class="InfoMovie"> 75', ITA-DE-FRA, 2019, 2:1, 16:9, Full HD, stereo sound, v.o italian, english, with english and italiansubtitles. A Film By Giulio Pereno</p>
                                   </div>
@@ -925,7 +925,7 @@ p.light {
                                                         <a href="https://tommasomassimilianoalfi.bandcamp.com/" target="_blank">
                                                       </a>
                                                       <p class="movie3"> Movie:</p> <a class="Title3"  a href="https://www.imdb.com/title/tt33291155/" target="_blank"> Burden Of Proof</a>
-                                                        <video src="Movies/Burden.mov" controls="true" class="video3"></video>
+                                                        <video src="Movies/Burden.mov" controls="true" playsinline webkit-playsinline class="video3"></video>
                                                         <div class="ol_Movie5"></div>
                                                       <div class="linemovie"></div>
                                                       <p class="InfoMovie"> Burden Of Proof
@@ -946,7 +946,7 @@ p.light {
                                                                       <a href="https://tommasomassimilianoalfi.bandcamp.com/" target="_blank">
                                                                     </a>
                                                                     <p class="movie4"> Movie:</p> <a class="Title4"  a href="https://www.rtve.es/television/20220418/metropolis-injuve-2022/2333780.shtml" target="_blank"> Despite The Facts</a>
-                                                                      <video src="Movies/DespiteTheFacts.mov" controls="true" class="video4"></video>
+                                                                      <video src="Movies/DespiteTheFacts.mov" controls="true" playsinline webkit-playsinline class="video4"></video>
                                                                       <div class="linemovie"></div>
                                                                       <p class="InfoMovie">Despite The Facts, Short Movie 2022 Italy
                                                                         A Film by Federico Pozuelo</p>
@@ -965,7 +965,7 @@ p.light {
                                                                                           <a href="https://tommasomassimilianoalfi.bandcamp.com/" target="_blank">
                                                                                         </a>
                                                                                         <p class="movie5"> Movie:</p> <a class="Title5"  a href="https://www.rtve.es/television/20220418/metropolis-injuve-2022/2333780.shtml" target="_blank"> Once And For All</a>
-                                                                                          <video src="Movies/OnceAndFor.mov" controls="true" class="video5"></video>
+                                                                                          <video src="Movies/OnceAndFor.mov" controls="true" playsinline webkit-playsinline class="video5"></video>
                                                                                           <div class="linemovie"></div>
                                                                                         <p class="InfoMovie">Once And For All, Short Movie 2022 Italy
                                                                                           A Film by Federico Pozuelo & Javier Ruiz</p>
@@ -987,7 +987,7 @@ p.light {
                                                                                                                     </a>
                                                                                                                     <p class="movie6"> Movie:</p> <a class="Title6" a
                                                                                                                       href="https://www.rtve.es/television/20220418/metropolis-injuve-2022/2333780.shtml" target="_blank"> Zanskar 6000</a>
-                                                                                                                    <video src="Movies/ZANSKAR 6000 music_02.mp4" controls="true" class="video6"></video>
+                                                                                                                    <video src="Movies/ZANSKAR 6000 music_02.mp4" controls="true" playsinline webkit-playsinline class="video6"></video>
                                                                                                                     <div class="linemovie"></div>
                                                                                                                     <p class="InfoMovie"> "“Zanskar 6000” Italy, 2024, 19’15’’, 16:9, Full HD, stereo sound v.o. Italian/English, with english subtitles.
                                                                                                                     
@@ -1015,7 +1015,7 @@ p.light {
                                                                                                                               <p class="movie7"> Movie:</p> <a class="Title7" a
                                                                                                                                 href="https://www.rtve.es/television/20220418/metropolis-injuve-2022/2333780.shtml" target="_blank"> Suspended Lives
                                                                                                                                 </a>
-                                                                                                                              <video src="Movies/suspended.mp4" controls="true" class="video7"></video>
+                                                                                                                              <video src="Movies/suspended.mp4" controls="true" playsinline webkit-playsinline class="video7"></video>
                                                                                                                               <div class="linemovie"></div>
                                                                                                                               <p class="InfoMovie"> "Suspended Lives" Italy, 2023, 29', 2:1, Full HD, stereo sound, v.o Italian, with english
                                                                                                                                 subtitles. A Film by Chiara Valenti & Patrick Frunzio</p>
@@ -1392,16 +1392,25 @@ document.addEventListener('DOMContentLoaded', function() {
           active = true;
           isDragging = false;
           
-          // Reset all images to base z-index
+          // Reset all images to base z-index and pause all videos
           movieImages.forEach(image => {
-            image.style.zIndex = "1";
+            if (image !== img) {
+              image.style.zIndex = "1";
+              const otherVideo = getVideoForImage(image);
+              if (otherVideo && otherVideo.play) {
+                otherVideo.pause();
+                otherVideo.currentTime = 0;
+              }
+            }
           });
+          
           // Set high z-index for selected image
           img.style.zIndex = "999999";
           
           // Start playing video
           const video = getVideoForImage(img);
           if (video) {
+            video.preload = "auto";
             if (img.className === 'imgmovie') {
               video.currentTime = 14;
             } else if (img.className === 'imgmovie6') {
@@ -1413,47 +1422,13 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
               video.currentTime = 0;
             }
-            video.play();
+            video.play().catch(() => {
+              video.muted = true;
+              video.play().then(() => {
+                video.muted = false;
+              });
+            });
           }
-        }
-      }
-      
-      function dragEnd(e) {
-        if (!active) return;
-        
-        const touchEndTime = Date.now();
-        const touchDuration = touchEndTime - touchStartTime;
-        
-        // Calculate final position with boundary constraints
-        const rect = img.getBoundingClientRect();
-        const resistance = 0.3;
-        
-        if (rect.left < 0) {
-          currentX = Math.max(currentX, -rect.width * resistance);
-        }
-        if (rect.right > window.innerWidth) {
-          currentX = Math.min(currentX, window.innerWidth - rect.width + (rect.width * resistance));
-        }
-        if (rect.top < 0) {
-          currentY = Math.max(currentY, -rect.height * resistance);
-        }
-        if (rect.bottom > window.innerHeight) {
-          currentY = Math.min(currentY, window.innerHeight - rect.height + (rect.height * resistance));
-        }
-        
-        // Apply final position
-        img.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
-        
-        // Reset variables
-        initialX = currentX;
-        initialY = currentY;
-        active = false;
-        
-        // Stop video
-        const video = getVideoForImage(img);
-        if (video) {
-          video.pause();
-          video.currentTime = 0;
         }
       }
       
@@ -1464,31 +1439,288 @@ document.addEventListener('DOMContentLoaded', function() {
         isDragging = true;
         
         if (e.type === "touchmove") {
-          currentX = e.touches[0].clientX - initialX;
-          currentY = e.touches[0].clientY - initialY;
+          const touch = e.touches[0];
+          currentX = touch.clientX - initialX;
+          currentY = touch.clientY - initialY;
         }
         
-        // Apply movement with boundary constraints
+        // Apply movement with smooth boundary constraints
         const rect = img.getBoundingClientRect();
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
         const resistance = 0.3;
         
+        // Smooth boundary constraints
         if (rect.left < 0) {
-          currentX = Math.max(currentX, -rect.width * resistance);
+          currentX += Math.abs(rect.left) * resistance;
         }
-        if (rect.right > window.innerWidth) {
-          currentX = Math.min(currentX, window.innerWidth - rect.width + (rect.width * resistance));
+        if (rect.right > windowWidth) {
+          currentX -= (rect.right - windowWidth) * resistance;
         }
         if (rect.top < 0) {
-          currentY = Math.max(currentY, -rect.height * resistance);
+          currentY += Math.abs(rect.top) * resistance;
         }
-        if (rect.bottom > window.innerHeight) {
-          currentY = Math.min(currentY, window.innerHeight - rect.height + (rect.height * resistance));
+        if (rect.bottom > windowHeight) {
+          currentY -= (rect.bottom - windowHeight) * resistance;
         }
         
         xOffset = currentX;
         yOffset = currentY;
         
-        img.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+        // Use requestAnimationFrame for smooth animation
+        requestAnimationFrame(() => {
+          img.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+        });
+      }
+      
+      function dragEnd(e) {
+        if (!active) return;
+        
+        // Smooth boundary spring back
+        const rect = img.getBoundingClientRect();
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+        
+        if (rect.left < 0) {
+          currentX = 0;
+        }
+        if (rect.right > windowWidth) {
+          currentX = windowWidth - rect.width;
+        }
+        if (rect.top < 0) {
+          currentY = 0;
+        }
+        if (rect.bottom > windowHeight) {
+          currentY = windowHeight - rect.height;
+        }
+        
+        // Apply final position with animation
+        requestAnimationFrame(() => {
+          img.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+        });
+        
+        // Reset variables
+        initialX = currentX;
+        initialY = currentY;
+        active = false;
+        
+        // Stop video with fade out
+        const video = getVideoForImage(img);
+        if (video) {
+          const fadeOut = setInterval(() => {
+            if (video.volume > 0.1) {
+              video.volume -= 0.1;
+            } else {
+              clearInterval(fadeOut);
+              video.pause();
+              video.currentTime = 0;
+              video.volume = 1;
+            }
+          }, 50);
+        }
+      }
+      
+      // Function to get corresponding video
+      function getVideoForImage(img) {
+        const imageClass = img.className;
+        const sidebarId = imageClass === 'imgmovie' ? 'mySidebar' :
+                         imageClass === 'imgmovie2' ? 'mySidebar2' :
+                         imageClass === 'imgmovie3' ? 'mySidebar3' :
+                         imageClass === 'imgmovie4' ? 'mySidebar4' :
+                         imageClass === 'imgmovie5' ? 'mySidebar5' :
+                         imageClass === 'imgmovie6' ? 'mySidebar6' :
+                         imageClass === 'imgmovie7' ? 'mySidebar7' : null;
+        
+        if (sidebarId) {
+          const sidebar = document.getElementById(sidebarId);
+          return sidebar ? sidebar.querySelector('video') : null;
+        }
+        return null;
+      }
+      
+      // Touch events
+      img.addEventListener("touchstart", dragStart, false);
+      img.addEventListener("touchend", dragEnd, false);
+      img.addEventListener("touchmove", drag, false);
+    });
+  }
+});
+</script>
+
+<script>
+  //Touch Events//
+document.addEventListener('DOMContentLoaded', function() {
+  const movieImages = document.querySelectorAll('.imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5, .imgmovie6, .imgmovie7');
+  
+  if (window.innerWidth <= 480) {
+    movieImages.forEach(img => {
+      let initialX = 0;
+      let initialY = 0;
+      let currentX = 0;
+      let currentY = 0;
+      let xOffset = 0;
+      let yOffset = 0;
+      let active = false;
+      let isDragging = false;
+      let touchStartTime = 0;
+      let lastTapTime = 0;
+      
+      function dragStart(e) {
+        e.preventDefault();
+        const currentTime = Date.now();
+        touchStartTime = currentTime;
+        
+        // Check for double tap
+        if (currentTime - lastTapTime < 300) {
+          // Double tap detected - open sidebar
+          const mainDiv = img.closest('[id^="main"]');
+          if (mainDiv) {
+            const sidebarId = mainDiv.querySelector('[data-film]').getAttribute('data-film');
+            const sidebarElement = document.querySelector(`[data-film="${sidebarId}"]`);
+            if (sidebarElement) {
+              toggleFilmInfoSidebar(sidebarElement);
+            }
+          }
+          active = false;
+          return;
+        }
+        lastTapTime = currentTime;
+        
+        if (e.type === "touchstart") {
+          initialX = e.touches[0].clientX - xOffset;
+          initialY = e.touches[0].clientY - yOffset;
+        }
+        
+        if (e.target === img) {
+          active = true;
+          isDragging = false;
+          
+          // Reset all images to base z-index and pause all videos
+          movieImages.forEach(image => {
+            if (image !== img) {
+              image.style.zIndex = "1";
+              const otherVideo = getVideoForImage(image);
+              if (otherVideo && otherVideo.play) {
+                otherVideo.pause();
+                otherVideo.currentTime = 0;
+              }
+            }
+          });
+          
+          // Set high z-index for selected image
+          img.style.zIndex = "999999";
+          
+          // Start playing video
+          const video = getVideoForImage(img);
+          if (video) {
+            video.preload = "auto";
+            if (img.className === 'imgmovie') {
+              video.currentTime = 14;
+            } else if (img.className === 'imgmovie6') {
+              video.currentTime = 4;
+            } else if (img.className === 'imgmovie3') {
+              video.currentTime = 16;
+            } else if (img.className === 'imgmovie5') {
+              video.currentTime = 8;
+            } else {
+              video.currentTime = 0;
+            }
+            video.play().catch(() => {
+              video.muted = true;
+              video.play().then(() => {
+                video.muted = false;
+              });
+            });
+          }
+        }
+      }
+      
+      function drag(e) {
+        if (!active) return;
+        
+        e.preventDefault();
+        isDragging = true;
+        
+        if (e.type === "touchmove") {
+          const touch = e.touches[0];
+          currentX = touch.clientX - initialX;
+          currentY = touch.clientY - initialY;
+        }
+        
+        // Apply movement with smooth boundary constraints
+        const rect = img.getBoundingClientRect();
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+        const resistance = 0.3;
+        
+        // Smooth boundary constraints
+        if (rect.left < 0) {
+          currentX += Math.abs(rect.left) * resistance;
+        }
+        if (rect.right > windowWidth) {
+          currentX -= (rect.right - windowWidth) * resistance;
+        }
+        if (rect.top < 0) {
+          currentY += Math.abs(rect.top) * resistance;
+        }
+        if (rect.bottom > windowHeight) {
+          currentY -= (rect.bottom - windowHeight) * resistance;
+        }
+        
+        xOffset = currentX;
+        yOffset = currentY;
+        
+        // Use requestAnimationFrame for smooth animation
+        requestAnimationFrame(() => {
+          img.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+        });
+      }
+      
+      function dragEnd(e) {
+        if (!active) return;
+        
+        // Smooth boundary spring back
+        const rect = img.getBoundingClientRect();
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+        
+        if (rect.left < 0) {
+          currentX = 0;
+        }
+        if (rect.right > windowWidth) {
+          currentX = windowWidth - rect.width;
+        }
+        if (rect.top < 0) {
+          currentY = 0;
+        }
+        if (rect.bottom > windowHeight) {
+          currentY = windowHeight - rect.height;
+        }
+        
+        // Apply final position with animation
+        requestAnimationFrame(() => {
+          img.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+        });
+        
+        // Reset variables
+        initialX = currentX;
+        initialY = currentY;
+        active = false;
+        
+        // Stop video with fade out
+        const video = getVideoForImage(img);
+        if (video) {
+          const fadeOut = setInterval(() => {
+            if (video.volume > 0.1) {
+              video.volume -= 0.1;
+            } else {
+              clearInterval(fadeOut);
+              video.pause();
+              video.currentTime = 0;
+              video.volume = 1;
+            }
+          }, 50);
+        }
       }
       
       // Function to get corresponding video

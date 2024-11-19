@@ -38,6 +38,17 @@
   }
 }
 
+@media screen and (max-width:480px) {
+  .Sidebar5, .Sidebar6, .Sidebar7 {
+      top: 9%;
+      height: 70vh;
+      background-color: rgb(220, 220, 220);
+
+      border: none;
+  }
+  
+}
+
 .Sidebar6 {
   background-image: url(../IMG_page3/imagpage3.6.png) ;
   background-size: 100%;
@@ -79,6 +90,13 @@ position: absolute;
       font-size: 3.5vw;
   }
 }
+
+@media screen and (max-width:480px) {
+  .Sidebar5 .closebtn5 , .Sidebar6 .closebtn6, .Sidebar7 .closebtn7 {
+      font-size: 4.5vw;
+  }
+  
+}
 /* The button used to open the sidebar */
 .openbtn5, .openbtn6, .openbtn7 {
   font-size: 20px;
@@ -114,6 +132,12 @@ position: absolute;
                                           }
                                       }
 
+                                      @media screen and (max-width:480px) {
+                                        .video5, .video6, .video7 {
+                                          top: 15%;
+                                          }
+                                      }
+
                                       p.movie5, p.movie6, p.movie7{
                                         position: absolute;
                                         padding-left: 5px;
@@ -144,6 +168,13 @@ position: absolute;
                                         
                                       }
 
+                                      @media screen and (max-width:480px) {
+                                        p.movie5, p.movie6, p.movie7{
+                                          font-size: 3vw;
+                                        }
+                                        
+                                      }
+
                                       .linemovie{
                                         position: absolute;
                                         top:4%;
@@ -159,7 +190,11 @@ position: absolute;
                                       }
                                       }
 
-
+                                      @media screen and (max-width:480px) {
+                                      .linemovie{
+                                        top: 5.5%;
+                                      }
+                                      }
                                       a.Title5, a.Title6, a.Title7{
                                         position: absolute;
                                           left: 50%;
@@ -190,6 +225,14 @@ position: absolute;
                                         
                                       }
 
+                                      @media screen and (max-width:480px) {
+                                        a.Title5, a.Title6, a.Title7{
+                                          top: 5.5%;
+                                          font-size: 3vw;
+                                        }
+                                        
+                                      }
+
                                       p.InfoMovie {
                                         position: absolute;
                                         padding-right: 25px;
@@ -215,6 +258,14 @@ position: absolute;
                                         p.InfoMovie{
                                           top: 9.5%;
                                           font-size: 2vw;
+                                        }
+                                        
+                                      }
+
+                                      @media screen and (max-width:480px) {
+                                        p.InfoMovie{
+                                          top: 9.5%;
+                                          font-size: 2.5vw;
                                         }
                                         
                                       }

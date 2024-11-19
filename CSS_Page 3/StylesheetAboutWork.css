@@ -2,9 +2,9 @@
 
 .about-sidebar,
 .work-sidebar {
+  position: fixed;
   height: 78vh;
   width: 29.3vw;
-  position: fixed  ;
   top: 6.8%;
   left: -100vw;
   background-color: #c6c6c616;
@@ -58,11 +58,10 @@
 @media  screen and (max-width: 480px) {
   .about-sidebar {
     width: 78vw;
-    top: 45%;
+    top: 10%;
     left: -88vw;
     height: max(64vh);
-    
-    transform: translate(0, -50%);
+    transform: translate(0, 0);
     align-items: center;
     overflow-y: auto;
   }
@@ -70,7 +69,7 @@
 }
 
 .about-sidebar h2 {
-  position: relative;
+  position: absolute;
   top: 1%;
   font-weight: bold;
   text-align: left;
@@ -93,6 +92,7 @@
 
 @media screen and (max-width:480px) {
   .about-sidebar h2 {
+    top: 2%;
     font-size: 3vw;
   } 
 }
@@ -122,8 +122,9 @@
 
 @media screen and (max-width:480px) {
   .about-sidebar p {
-    top: 5%;
-    font-size: 2.5vw;
+    position: absolute;
+    top: 7%;
+    font-size: 3vw;
   } 
 }
 
@@ -217,7 +218,7 @@
 @media screen and (max-width:480px) {
   .line {
     width: 88%;
-    top: 5%;
+    top: 7%;
   } 
 .line2 {
   top: 9%;
@@ -225,7 +226,7 @@
 }
 }
 .sidebar-img {
-  position: absolute;
+  position: relative;
   max-width: 100%;
   width:90%;
   top: 35%;
@@ -266,9 +267,9 @@
 
 @media screen and (max-width:480px) {
   .sidebar-img {
-    width: 90%;
+    width: 80%;
     margin-bottom: 25px;
-    top: 40%;
+    top: 56%;
   }
   
 }
@@ -319,6 +320,7 @@
     font-size: 0.5em;
     margin-bottom: 10px;
     right: 20px;
+    display: none;
   }
 }
 
@@ -359,6 +361,7 @@
 
 @media screen and (max-width:480px) {
   .about-sidebar .closebtn {
+   top: 2%;
     font-size: 4.5vw;
   }
 }
@@ -996,7 +999,7 @@
 
   @media screen and (max-width: 480px) {
     .installation-sidebar {
-      margin-top: 20%;
+      margin-top: 23%;
       height: 50%;
       width: 50vw;
       transform: translate(0, -50%);
@@ -1143,7 +1146,7 @@
 @media screen and (max-width: 480px) {
   .work-sidebar {
     width: 86vw;
-    top: 12%;
+    top: 10%;
     left: -88vw;
     height: 79vh;
     margin-left: 50.7%;
