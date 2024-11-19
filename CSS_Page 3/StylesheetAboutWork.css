@@ -830,6 +830,15 @@
       height: 4%;
       width: 73vw;
     }
+  }
+
+  @media screen and (max-width: 480px) {
+    .installation-sidebar {
+      margin-top: 20%;
+      height: 50%;
+      width: 50vw;
+      z-index: 1000;
+    }
     
   }
 .installation-sidebar h2 {
@@ -859,6 +868,13 @@
     font-size: 2vw;
   }
 }
+
+
+  @media screen and (max-width: 480px) {
+    .installation-sidebar h2 {
+      font-size: 3vw;
+    }
+  }
 
 .installation-sidebar p {
   position: absolute;
@@ -892,6 +908,14 @@
 @media screen and (min-width: 786px) and (max-width:1024px) {
   .installation-sidebar p {
   display: none;
+}
+}
+
+@media screen and (max-width: 480px) {
+  .installation-sidebar p {
+    margin-top: 20%;
+  font-size: 3vw;
+  
 }
 }
 /* Posiziona la seconda sidebar accanto alla prima */

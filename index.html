@@ -1081,8 +1081,6 @@ function toggleAboutSidebar() {
   const textContent = document.getElementById("textContent");
   const aboutLink = document.getElementById("aboutLink");
   const workLink = document.getElementById("workLink");
-
-  // Verifica la larghezza dello schermo
   const screenWidth = window.innerWidth;
 
   // Imposta la larghezza della sidebar in base alla larghezza dello schermo
@@ -1150,24 +1148,22 @@ function toggleWorkSidebar() {
 // Funzione per aprire e chiudere la sidebar "Installation" e controllare l'audio
 function toggleInstallationSidebar() {
   const installationSidebar = document.getElementById("installationSidebar");
+  const aboutSidebar = document.getElementById("aboutSidebar");
   const audio = document.getElementById("installation audio");
 
   // Controlla la larghezza dello schermo
   const screenWidth = window.innerWidth;
 
-  // Imposta la posizione di apertura in base alla larghezza dello schermo
-  let openPosition;
-
+  // Logica di apertura/chiusura della sidebar
   if (screenWidth <= 1024) {
     // Se la larghezza dello schermo è inferiore o uguale a 599px, la sidebar si apre a 34vw dal margine sinistro
     openPosition = "0vw";
   } else if (screenWidth <= 1440) {
     // Se la larghezza dello schermo è inferiore o uguale a 1400px, la sidebar si apre a 29.3vw
     openPosition = "29.3vw";
-  } 
-   else {
+  } else {
     // Se lo schermo è maggiore di 1400px, la sidebar si apre a 40vw
-     openPosition = "29.3vw";
+    openPosition = "29.3vw";
   }
 
   const closedPosition = "-100vw";
@@ -1177,11 +1173,33 @@ function toggleInstallationSidebar() {
     // Apre la sidebar "Installation"
     installationSidebar.style.left = openPosition;
     audio.play(); // Avvia l'audio
+
+    // Per dispositivi fino a 480px, gestisci posizionamento e blur
+    if (screenWidth <= 480) {
+      installationSidebar.style.position = 'absolute';
+      installationSidebar.style.top = '20px';
+      installationSidebar.style.left = '50%';
+      installationSidebar.style.transform = 'translateX(-50%)';
+      
+      aboutSidebar.style.filter = 'blur(20px)';
+      
+    }
   } else {
     // Chiude la sidebar "Installation"
     installationSidebar.style.left = closedPosition;
     audio.pause(); // Ferma l'audio
     audio.currentTime = 0; // Riporta l'audio all'inizio
+
+    // Ripristina stato normale per 480px
+    if (screenWidth <= 480) {
+      installationSidebar.style.position = '';
+      installationSidebar.style.top = '';
+      installationSidebar.style.left = '';
+      installationSidebar.style.transform = '';
+      
+      aboutSidebar.style.filter = 'none';
+      
+    }
   }
 }
 
@@ -1194,6 +1212,7 @@ function toggleInstallationSidebar() {
     const aboutLink = document.getElementById("aboutLink");
     const workLink = document.getElementById("workLink");
     const audio = document.getElementById("installation audio");
+    const screenWidth = window.innerWidth;
 
     // Non interferire con il clic sull'immagine per aprire la sidebar "Installation"
     if (event.target.classList.contains("sidebar-img")) {
@@ -1203,6 +1222,11 @@ function toggleInstallationSidebar() {
     // Se il clic è fuori dalla sidebar "About" e dal link "About", chiudi la sidebar
     if (!aboutSidebar.contains(event.target) && !aboutLink.contains(event.target)) {
       aboutSidebar.style.left = "-100vw"; // Chiude la sidebar
+      
+      // Per dispositivi fino a 480px, rimuovi blur
+      if (screenWidth <= 480) {
+        aboutSidebar.style.filter = 'none';
+      }
     }
 
     // Se il clic è fuori dalla sidebar "Work" e dal link "Work", chiudi la sidebar
@@ -1215,6 +1239,11 @@ function toggleInstallationSidebar() {
       installationSidebar.style.left = "-100vw"; // Chiude la sidebar
       audio.pause(); // Ferma l'audio
       audio.currentTime = 0; // Riporta l'audio all'inizio
+      
+      // Per dispositivi fino a 480px, rimuovi blur
+      if (screenWidth <= 480) {
+        aboutSidebar.style.filter = 'none';
+      }
     }
 
     // Ripristina il contenuto principale e i link se tutte le sidebar sono chiuse
@@ -1224,214 +1253,215 @@ function toggleInstallationSidebar() {
       workLink.style.visibility = "visible"; // Rendi visibile il link "Work"
     }
   });
-                                                                                       // Funzione per aprire e chiudere la sidebar "Film Info"
-                                                                                        function toggleFilmInfoSidebar(element) {
-                                                                                          // Ottieni l'ID della sidebar dal data-film dell'elemento cliccato
-                                                                                          const filmId = element.getAttribute("data-film");
+  
+ // Funzione per aprire e chiudere la sidebar "Film Info"
+function toggleFilmInfoSidebar(element) {
+  // Ottieni l'ID della sidebar dal data-film dell'elemento cliccato
+  const filmId = element.getAttribute("data-film");
 
-                                                                                          // Seleziona la sidebar corrispondente
-                                                                                          const targetSidebar = document.getElementById(filmId);
+  // Seleziona la sidebar corrispondente
+  const targetSidebar = document.getElementById(filmId);
 
-                                                                                          // Controlla la larghezza dello schermo
-                                                                                          const isSmallScreen = window.innerWidth <= 1250;
+  // Controlla la larghezza dello schermo
+  const isSmallScreen = window.innerWidth <= 1250;
 
-                                                                                          // Imposta la posizione di apertura in base alla larghezza dello schermo
-                                                                                          const openPosition = isSmallScreen ? "520px" : "30.5vw";
-                                                                                          const closedPosition = "-100vw";
+  // Imposta la posizione di apertura in base alla larghezza dello schermo
+  const openPosition = isSmallScreen ? "520px" : "30.5vw";
+  const closedPosition = "-100vw";
 
-                                                                                          // Chiude tutte le altre sidebar
-                                                                                          const allSidebars = document.querySelectorAll('.infoSidebar');
-                                                                                          allSidebars.forEach(sidebar => {
-                                                                                            if (sidebar !== targetSidebar) {
-                                                                                              sidebar.style.left = closedPosition;  // Chiudi le altre sidebar
-                                                                                            }
-                                                                                          });
+  // Chiude tutte le altre sidebar
+  const allSidebars = document.querySelectorAll('.infoSidebar');
+  allSidebars.forEach(sidebar => {
+    if (sidebar !== targetSidebar) {
+      sidebar.style.left = closedPosition;  // Chiudi le altre sidebar
+    }
+  });
 
-                                                                                          // Se la sidebar è già aperta, la chiudiamo
-                                                                                          if (targetSidebar.style.left === openPosition) {
-                                                                                            targetSidebar.style.left = closedPosition;
-                                                                                          } else {
-                                                                                            // Altrimenti la apriamo
-                                                                                            targetSidebar.style.left = openPosition;
-                                                                                          }
-                                                                                        }
+  // Se la sidebar è già aperta, la chiudiamo
+  if (targetSidebar.style.left === openPosition) {
+    targetSidebar.style.left = closedPosition;
+  } else {
+    // Altrimenti la apriamo
+    targetSidebar.style.left = openPosition;
+  }
+}
 
-                                                                                        // Funzione per chiudere la sidebar al clic sulla "x"
-                                                                                          document.querySelectorAll('.closebtn').forEach(btn => {
-                                                                                            btn.addEventListener('click', function (event) {
-                                                                                              event.stopPropagation(); // Impedisce che il clic sulla "x" venga propagato e attivi la funzione di clic esterno
+// Funzione per chiudere la sidebar al clic sulla "x"
+document.querySelectorAll('.closebtn').forEach(btn => {
+  btn.addEventListener('click', function (event) {
+    event.stopPropagation(); // Impedisce che il clic sulla "x" venga propagato e attivi la funzione di clic esterno
 
-                                                                                              const sidebar = btn.closest('.infoSidebar'); // Trova la sidebar da chiudere
-                                                                                              sidebar.style.left = "-600px"; // Chiudi solo questa sidebar
-                                                                                            });
-                                                                                          });
+    const sidebar = btn.closest('.infoSidebar'); // Trova la sidebar da chiudere
+    sidebar.style.left = "-600px"; // Chiudi solo questa sidebar
+  });
+});
 
-                                                                                        // Funzione per chiudere le sidebar se si clicca fuori di esse
-                                                                                        document.addEventListener('click', function (event) {
-                                                                                          // Verifica se il clic è fuori dalle sidebar
-                                                                                          const allSidebars = document.querySelectorAll('.infoSidebar');
-                                                                                          allSidebars.forEach(sidebar => {
-                                                                                            // Se il clic non è all'interno della sidebar e neanche sul suo trigger, chiudi la sidebar
-                                                                                            if (!sidebar.contains(event.target) && !event.target.closest('[data-film]')) {
-                                                                                              sidebar.style.left = "-600px"; // Chiudi la sidebar
-                                                                                            }
-                                                                                          });
-                                                                                        });
+// Funzione per chiudere le sidebar se si clicca fuori di esse
+document.addEventListener('click', function (event) {
+  // Verifica se il clic è fuori dalle sidebar
+  const allSidebars = document.querySelectorAll('.infoSidebar');
+  allSidebars.forEach(sidebar => {
+    // Se il clic non è all'interno della sidebar e neanche sul suo trigger, chiudi la sidebar
+    if (!sidebar.contains(event.target) && !event.target.closest('[data-film]')) {
+      sidebar.style.left = "-600px"; // Chiudi la sidebar
+    }
+  });
+});
 
-                                                                                        //Touch Events//
-                                                                                        document.addEventListener('DOMContentLoaded', function() {
-                                                                                          const movieImages = document.querySelectorAll('.imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5, .imgmovie6, .imgmovie7');
-                                                                                          
-                                                                                          if (window.innerWidth <= 480) {
-                                                                                            movieImages.forEach(img => {
-                                                                                              let initialX = 0;
-                                                                                              let initialY = 0;
-                                                                                              let currentX = 0;
-                                                                                              let currentY = 0;
-                                                                                              let xOffset = 0;
-                                                                                              let yOffset = 0;
-                                                                                              let active = false;
-                                                                                              let isDragging = false;
-                                                                                              let touchStartTime = 0;
-                                                                                              
-                                                                                              function dragStart(e) {
-                                                                                                e.preventDefault();
-                                                                                                touchStartTime = Date.now();
-                                                                                                if (e.type === "touchstart") {
-                                                                                                  initialX = e.touches[0].clientX - xOffset;
-                                                                                                  initialY = e.touches[0].clientY - yOffset;
-                                                                                                }
-                                                                                                
-                                                                                                if (e.target === img) {
-                                                                                                  active = true;
-                                                                                                  isDragging = false;
-                                                                                                  
-                                                                                                  // Reset all images to base z-index
-                                                                                                  movieImages.forEach(image => {
-                                                                                                    image.style.zIndex = "1";
-                                                                                                  });
-                                                                                                  // Set extremely high z-index for selected image
-                                                                                                  img.style.zIndex = "999999";
-                                                                                                  
-                                                                                                  // Start playing the corresponding video and audio
-                                                                                                  const video = getVideoForImage(img);
-                                                                                                  if (video) {
-                                                                                                    if (img.className === 'imgmovie') {
-                                                                                                      video.currentTime = 14;
-                                                                                                    } else if (img.className === 'imgmovie6') {
-                                                                                                      video.currentTime = 4;
-                                                                                                    } else if (img.className === 'imgmovie3') {
-                                                                                                      video.currentTime = 16;
-                                                                                                    } else if (img.className === 'imgmovie5') {
-                                                                                                      video.currentTime = 8;
-                                                                                                    } else {
-                                                                                                      video.currentTime = 0;
-                                                                                                    }
-                                                                                                    video.play();
-                                                                                                  }
-                                                                                                }
-                                                                                              }
-                                                                                              
-                                                                                              function dragEnd(e) {
-                                                                                                if (!active) return;
-                                                                                                
-                                                                                                const touchEndTime = Date.now();
-                                                                                                const touchDuration = touchEndTime - touchStartTime;
-                                                                                                
-                                                                                                // Calculate final position with boundary constraints
-                                                                                                const rect = img.getBoundingClientRect();
-                                                                                                const resistance = 0.3;
-                                                                                                
-                                                                                                if (rect.left < 0) {
-                                                                                                  currentX = Math.max(currentX, -rect.width * resistance);
-                                                                                                }
-                                                                                                if (rect.right > window.innerWidth) {
-                                                                                                  currentX = Math.min(currentX, window.innerWidth - rect.width + (rect.width * resistance));
-                                                                                                }
-                                                                                                if (rect.top < 0) {
-                                                                                                  currentY = Math.max(currentY, -rect.height * resistance);
-                                                                                                }
-                                                                                                if (rect.bottom > window.innerHeight) {
-                                                                                                  currentY = Math.min(currentY, window.innerHeight - rect.height + (rect.height * resistance));
-                                                                                                }
-                                                                                                
-                                                                                                // Apply final position
-                                                                                                img.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
-                                                                                                
-                                                                                                // Reset variables
-                                                                                                initialX = currentX;
-                                                                                                initialY = currentY;
-                                                                                                active = false;
-                                                                                                
-                                                                                                // Stop video playback
-                                                                                                const video = getVideoForImage(img);
-                                                                                                if (video) {
-                                                                                                  video.pause();
-                                                                                                  video.currentTime = 0;
-                                                                                                }
-                                                                                              }
-                                                                                              
-                                                                                              function drag(e) {
-                                                                                                if (!active) return;
-                                                                                                
-                                                                                                e.preventDefault();
-                                                                                                isDragging = true;
-                                                                                                
-                                                                                                // Get current touch position
-                                                                                                if (e.type === "touchmove") {
-                                                                                                  currentX = e.touches[0].clientX - initialX;
-                                                                                                  currentY = e.touches[0].clientY - initialY;
-                                                                                                }
-                                                                                                
-                                                                                                // Apply movement with boundary constraints
-                                                                                                const rect = img.getBoundingClientRect();
-                                                                                                const resistance = 0.3;
-                                                                                                
-                                                                                                if (rect.left < 0) {
-                                                                                                  currentX = Math.max(currentX, -rect.width * resistance);
-                                                                                                }
-                                                                                                if (rect.right > window.innerWidth) {
-                                                                                                  currentX = Math.min(currentX, window.innerWidth - rect.width + (rect.width * resistance));
-                                                                                                }
-                                                                                                if (rect.top < 0) {
-                                                                                                  currentY = Math.max(currentY, -rect.height * resistance);
-                                                                                                }
-                                                                                                if (rect.bottom > window.innerHeight) {
-                                                                                                  currentY = Math.min(currentY, window.innerHeight - rect.height + (rect.height * resistance));
-                                                                                                }
-                                                                                                
-                                                                                                xOffset = currentX;
-                                                                                                yOffset = currentY;
-                                                                                                
-                                                                                                // Apply transform
-                                                                                                img.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
-                                                                                              }
-                                                                                              
-                                                                                              // Function to get corresponding video for an image
-                                                                                              function getVideoForImage(img) {
-                                                                                                const imageClass = img.className;
-                                                                                                const sidebarId = imageClass === 'imgmovie' ? 'mySidebar' :
-                                                                                                              imageClass === 'imgmovie2' ? 'mySidebar2' :
-                                                                                                              imageClass === 'imgmovie3' ? 'mySidebar3' :
-                                                                                                              imageClass === 'imgmovie4' ? 'mySidebar4' :
-                                                                                                              imageClass === 'imgmovie5' ? 'mySidebar5' :
-                                                                                                              imageClass === 'imgmovie6' ? 'mySidebar6' :
-                                                                                                              imageClass === 'imgmovie7' ? 'mySidebar7' : null;
-                                                                                                
-                                                                                                if (sidebarId) {
-                                                                                                  const sidebar = document.getElementById(sidebarId);
-                                                                                                  return sidebar ? sidebar.querySelector('video') : null;
-                                                                                                }
-                                                                                                return null;
-                                                                                              }
-                                                                                              
-                                                                                              // Touch events
-                                                                                              img.addEventListener("touchstart", dragStart, false);
-                                                                                              img.addEventListener("touchend", dragEnd, false);
-                                                                                              img.addEventListener("touchmove", drag, false);
-                                                                                            });
-                                                                                          }
-                                                                                        });
+//Touch Events//
+document.addEventListener('DOMContentLoaded', function() {
+  const movieImages = document.querySelectorAll('.imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5, .imgmovie6, .imgmovie7');
+  
+  if (window.innerWidth <= 480) {
+    movieImages.forEach(img => {
+      let initialX = 0;
+      let initialY = 0;
+      let currentX = 0;
+      let currentY = 0;
+      let xOffset = 0;
+      let yOffset = 0;
+      let active = false;
+      let isDragging = false;
+      let touchStartTime = 0;
+      
+      function dragStart(e) {
+        e.preventDefault();
+        touchStartTime = Date.now();
+        if (e.type === "touchstart") {
+          initialX = e.touches[0].clientX - xOffset;
+          initialY = e.touches[0].clientY - yOffset;
+        }
+        
+        if (e.target === img) {
+          active = true;
+          isDragging = false;
+          
+          // Reset all images to base z-index
+          movieImages.forEach(image => {
+            image.style.zIndex = "1";
+          });
+          // Set extremely high z-index for selected image
+          img.style.zIndex = "999999";
+          
+          // Start playing the corresponding video and audio
+          const video = getVideoForImage(img);
+          if (video) {
+            if (img.className === 'imgmovie') {
+              video.currentTime = 14;
+            } else if (img.className === 'imgmovie6') {
+              video.currentTime = 4;
+            } else if (img.className === 'imgmovie3') {
+              video.currentTime = 16;
+            } else if (img.className === 'imgmovie5') {
+              video.currentTime = 8;
+            } else {
+              video.currentTime = 0;
+            }
+            video.play();
+          }
+        }
+      }
+      
+      function dragEnd(e) {
+        if (!active) return;
+        
+        const touchEndTime = Date.now();
+        const touchDuration = touchEndTime - touchStartTime;
+        
+        // Calculate final position with boundary constraints
+        const rect = img.getBoundingClientRect();
+        const resistance = 0.3;
+        
+        if (rect.left < 0) {
+          currentX = Math.max(currentX, -rect.width * resistance);
+        }
+        if (rect.right > window.innerWidth) {
+          currentX = Math.min(currentX, window.innerWidth - rect.width + (rect.width * resistance));
+        }
+        if (rect.top < 0) {
+          currentY = Math.max(currentY, -rect.height * resistance);
+        }
+        if (rect.bottom > window.innerHeight) {
+          currentY = Math.min(currentY, window.innerHeight - rect.height + (rect.height * resistance));
+        }
+        
+        // Apply final position
+        img.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+        
+        // Reset variables
+        initialX = currentX;
+        initialY = currentY;
+        active = false;
+        
+        // Stop video playback
+        const video = getVideoForImage(img);
+        if (video) {
+          video.pause();
+          video.currentTime = 0;
+        }
+      }
+      
+      function drag(e) {
+        if (!active) return;
+        
+        e.preventDefault();
+        isDragging = true;
+        
+        // Get current touch position
+        if (e.type === "touchmove") {
+          currentX = e.touches[0].clientX - initialX;
+          currentY = e.touches[0].clientY - initialY;
+        }
+        
+        // Apply movement with boundary constraints
+        const rect = img.getBoundingClientRect();
+        const resistance = 0.3;
+        
+        if (rect.left < 0) {
+          currentX = Math.max(currentX, -rect.width * resistance);
+        }
+        if (rect.right > window.innerWidth) {
+          currentX = Math.min(currentX, window.innerWidth - rect.width + (rect.width * resistance));
+        }
+        if (rect.top < 0) {
+          currentY = Math.max(currentY, -rect.height * resistance);
+        }
+        if (rect.bottom > window.innerHeight) {
+          currentY = Math.min(currentY, window.innerHeight - rect.height + (rect.height * resistance));
+        }
+        
+        xOffset = currentX;
+        yOffset = currentY;
+        
+        // Apply transform
+        img.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+      }
+      
+      // Function to get corresponding video for an image
+      function getVideoForImage(img) {
+        const imageClass = img.className;
+        const sidebarId = imageClass === 'imgmovie' ? 'mySidebar' :
+                          imageClass === 'imgmovie2' ? 'mySidebar2' :
+                          imageClass === 'imgmovie3' ? 'mySidebar3' :
+                          imageClass === 'imgmovie4' ? 'mySidebar4' :
+                          imageClass === 'imgmovie5' ? 'mySidebar5' :
+                          imageClass === 'imgmovie6' ? 'mySidebar6' :
+                          imageClass === 'imgmovie7' ? 'mySidebar7' : null;
+        
+        if (sidebarId) {
+          const sidebar = document.getElementById(sidebarId);
+          return sidebar ? sidebar.querySelector('video') : null;
+        }
+        return null;
+      }
+      
+      // Touch events
+      img.addEventListener("touchstart", dragStart, false);
+      img.addEventListener("touchend", dragEnd, false);
+      img.addEventListener("touchmove", drag, false);
+    });
+  }
+});
 </script>
 
 <script src="script3.js"> </script>
