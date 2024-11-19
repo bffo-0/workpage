@@ -753,7 +753,7 @@ p.light {
     <p>Through a video shot in a disused Oscar Niemeyer building, "Burden of Proof" reflects on the relationship between
     science and political violence using a circular narrative structure. The project also includes a series of photographs
     that explore forensic languages and the imaginary of crime cinema.</p>
-    <p>2022</p>
+    <p> 2022</p>
     <p> Director: Federico Pozuelo</p>
     <p> Music Composed by Tommaso Massimiliano Alfì</p>
   </div>
@@ -1239,7 +1239,7 @@ function toggleInstallationSidebar() {
                                                                                           const openPosition = isSmallScreen ? "520px" : "30.5vw";
                                                                                           const closedPosition = "-100vw";
 
-                                                                                          // Chiudi tutte le altre sidebar
+                                                                                          // Chiude tutte le altre sidebar
                                                                                           const allSidebars = document.querySelectorAll('.infoSidebar');
                                                                                           allSidebars.forEach(sidebar => {
                                                                                             if (sidebar !== targetSidebar) {
@@ -1295,18 +1295,17 @@ function toggleInstallationSidebar() {
                                                                                               let touchStartTime = 0;
                                                                                               
                                                                                               function dragStart(e) {
+                                                                                                e.preventDefault();
                                                                                                 touchStartTime = Date.now();
                                                                                                 if (e.type === "touchstart") {
                                                                                                   initialX = e.touches[0].clientX - xOffset;
                                                                                                   initialY = e.touches[0].clientY - yOffset;
-                                                                                                } else {
-                                                                                                  initialX = e.clientX - xOffset;
-                                                                                                  initialY = e.clientY - yOffset;
                                                                                                 }
                                                                                                 
                                                                                                 if (e.target === img) {
                                                                                                   active = true;
                                                                                                   isDragging = false;
+                                                                                                  
                                                                                                   // Reset all images to base z-index
                                                                                                   movieImages.forEach(image => {
                                                                                                     image.style.zIndex = "1";
@@ -1314,20 +1313,19 @@ function toggleInstallationSidebar() {
                                                                                                   // Set extremely high z-index for selected image
                                                                                                   img.style.zIndex = "999999";
                                                                                                   
-                                                                                                  // Start playing the corresponding video
+                                                                                                  // Start playing the corresponding video and audio
                                                                                                   const video = getVideoForImage(img);
                                                                                                   if (video) {
-                                                                                                    // Set specific start times for different videos
                                                                                                     if (img.className === 'imgmovie') {
-                                                                                                      video.currentTime = 14; // Start at 0:14
+                                                                                                      video.currentTime = 14;
                                                                                                     } else if (img.className === 'imgmovie6') {
-                                                                                                      video.currentTime = 4;  // Start at 0:04
+                                                                                                      video.currentTime = 4;
                                                                                                     } else if (img.className === 'imgmovie3') {
-                                                                                                      video.currentTime = 16; // Start at 0:16
+                                                                                                      video.currentTime = 16;
                                                                                                     } else if (img.className === 'imgmovie5') {
-                                                                                                      video.currentTime = 8;  // Start at 0:08
+                                                                                                      video.currentTime = 8;
                                                                                                     } else {
-                                                                                                      video.currentTime = 0;  // Default start at beginning
+                                                                                                      video.currentTime = 0;
                                                                                                     }
                                                                                                     video.play();
                                                                                                   }
@@ -1335,9 +1333,32 @@ function toggleInstallationSidebar() {
                                                                                               }
                                                                                               
                                                                                               function dragEnd(e) {
+                                                                                                if (!active) return;
+                                                                                                
                                                                                                 const touchEndTime = Date.now();
                                                                                                 const touchDuration = touchEndTime - touchStartTime;
                                                                                                 
+                                                                                                // Calculate final position with boundary constraints
+                                                                                                const rect = img.getBoundingClientRect();
+                                                                                                const resistance = 0.3;
+                                                                                                
+                                                                                                if (rect.left < 0) {
+                                                                                                  currentX = Math.max(currentX, -rect.width * resistance);
+                                                                                                }
+                                                                                                if (rect.right > window.innerWidth) {
+                                                                                                  currentX = Math.min(currentX, window.innerWidth - rect.width + (rect.width * resistance));
+                                                                                                }
+                                                                                                if (rect.top < 0) {
+                                                                                                  currentY = Math.max(currentY, -rect.height * resistance);
+                                                                                                }
+                                                                                                if (rect.bottom > window.innerHeight) {
+                                                                                                  currentY = Math.min(currentY, window.innerHeight - rect.height + (rect.height * resistance));
+                                                                                                }
+                                                                                                
+                                                                                                // Apply final position
+                                                                                                img.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+                                                                                                
+                                                                                                // Reset variables
                                                                                                 initialX = currentX;
                                                                                                 initialY = currentY;
                                                                                                 active = false;
@@ -1346,68 +1367,44 @@ function toggleInstallationSidebar() {
                                                                                                 const video = getVideoForImage(img);
                                                                                                 if (video) {
                                                                                                   video.pause();
-                                                                                                }
-                                                                                                
-                                                                                                // Only process boundaries if we were actually dragging
-                                                                                                if (isDragging) {
-                                                                                                  // Your existing boundary check code...
-                                                                                                  const rect = img.getBoundingClientRect();
-                                                                                                  const resistance = 0.3;
-                                                                                                  
-                                                                                                  if (rect.left < 0) {
-                                                                                                    currentX = Math.max(currentX, -rect.width * resistance);
-                                                                                                  }
-                                                                                                  if (rect.right > window.innerWidth) {
-                                                                                                    currentX = Math.min(currentX, window.innerWidth - rect.width + (rect.width * resistance));
-                                                                                                  }
-                                                                                                  if (rect.top < 0) {
-                                                                                                    currentY = Math.max(currentY, -rect.height * resistance);
-                                                                                                  }
-                                                                                                  if (rect.bottom > window.innerHeight) {
-                                                                                                    currentY = Math.min(currentY, window.innerHeight - rect.height + (rect.height * resistance));
-                                                                                                  }
+                                                                                                  video.currentTime = 0;
                                                                                                 }
                                                                                               }
                                                                                               
                                                                                               function drag(e) {
-                                                                                                if (active) {
-                                                                                                  e.preventDefault();
-                                                                                                  isDragging = true;
-                                                                                                  
-                                                                                                  if (e.type === "touchmove") {
-                                                                                                    currentX = e.touches[0].clientX - initialX;
-                                                                                                    currentY = e.touches[0].clientY - initialY;
-                                                                                                  } else {
-                                                                                                    currentX = e.clientX - initialX;
-                                                                                                    currentY = e.clientY - initialY;
-                                                                                                  }
-
-                                                                                                  // Get image boundaries
-                                                                                                  const rect = img.getBoundingClientRect();
-                                                                                                  
-                                                                                                  // Constrain movement within viewport with some resistance
-                                                                                                  const resistance = 0.3; // Lower value = more resistance
-                                                                                                  
-                                                                                                  if (rect.left < 0) {
-                                                                                                    currentX = Math.max(currentX, -rect.width * resistance);
-                                                                                                  }
-                                                                                                  if (rect.right > window.innerWidth) {
-                                                                                                    currentX = Math.min(currentX, window.innerWidth - rect.width + (rect.width * resistance));
-                                                                                                  }
-                                                                                                  if (rect.top < 0) {
-                                                                                                    currentY = Math.max(currentY, -rect.height * resistance);
-                                                                                                  }
-                                                                                                  if (rect.bottom > window.innerHeight) {
-                                                                                                    currentY = Math.min(currentY, window.innerHeight - rect.height + (rect.height * resistance));
-                                                                                                  }
-
-                                                                                                  xOffset = currentX;
-                                                                                                  yOffset = currentY;
-
-                                                                                                  requestAnimationFrame(() => {
-                                                                                                    img.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
-                                                                                                  });
+                                                                                                if (!active) return;
+                                                                                                
+                                                                                                e.preventDefault();
+                                                                                                isDragging = true;
+                                                                                                
+                                                                                                // Get current touch position
+                                                                                                if (e.type === "touchmove") {
+                                                                                                  currentX = e.touches[0].clientX - initialX;
+                                                                                                  currentY = e.touches[0].clientY - initialY;
                                                                                                 }
+                                                                                                
+                                                                                                // Apply movement with boundary constraints
+                                                                                                const rect = img.getBoundingClientRect();
+                                                                                                const resistance = 0.3;
+                                                                                                
+                                                                                                if (rect.left < 0) {
+                                                                                                  currentX = Math.max(currentX, -rect.width * resistance);
+                                                                                                }
+                                                                                                if (rect.right > window.innerWidth) {
+                                                                                                  currentX = Math.min(currentX, window.innerWidth - rect.width + (rect.width * resistance));
+                                                                                                }
+                                                                                                if (rect.top < 0) {
+                                                                                                  currentY = Math.max(currentY, -rect.height * resistance);
+                                                                                                }
+                                                                                                if (rect.bottom > window.innerHeight) {
+                                                                                                  currentY = Math.min(currentY, window.innerHeight - rect.height + (rect.height * resistance));
+                                                                                                }
+                                                                                                
+                                                                                                xOffset = currentX;
+                                                                                                yOffset = currentY;
+                                                                                                
+                                                                                                // Apply transform
+                                                                                                img.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
                                                                                               }
                                                                                               
                                                                                               // Function to get corresponding video for an image
@@ -1432,30 +1429,8 @@ function toggleInstallationSidebar() {
                                                                                               img.addEventListener("touchstart", dragStart, false);
                                                                                               img.addEventListener("touchend", dragEnd, false);
                                                                                               img.addEventListener("touchmove", drag, false);
-                                                                                              
-                                                                                              // Mouse events for testing
-                                                                                              img.addEventListener("mousedown", dragStart, false);
-                                                                                              img.addEventListener("mouseup", dragEnd, false);
-                                                                                              img.addEventListener("mousemove", drag, false);
                                                                                             });
                                                                                           }
-
-                                                                                          // Handle resize events
-                                                                                          window.addEventListener('resize', function() {
-                                                                                            if (window.innerWidth > 480) {
-                                                                                              // Remove touch events and reset transforms for desktop
-                                                                                              movieImages.forEach(img => {
-                                                                                                img.style.transform = '';
-                                                                                                img.style.zIndex = '';
-                                                                                                img.removeEventListener("touchstart", dragStart);
-                                                                                                img.removeEventListener("touchend", dragEnd);
-                                                                                                img.removeEventListener("touchmove", drag);
-                                                                                                img.removeEventListener("mousedown", dragStart);
-                                                                                                img.removeEventListener("mouseup", dragEnd);
-                                                                                                img.removeEventListener("mousemove", drag);
-                                                                                              });
-                                                                                            }
-                                                                                          });
                                                                                         });
 </script>
 
