@@ -32,6 +32,7 @@
 
 @media screen and (min-width: 781px) and (max-width:1024px) {
   .Sidebar5, .Sidebar6, .Sidebar7 {
+    z-index: 9999999;
       top: 18%;
       height: 70vh;
       border: none;
@@ -40,8 +41,9 @@
 
 @media screen and (min-width: 420px) and (max-width:780px) {
   .Sidebar5, .Sidebar6, .Sidebar7 {
+    z-index: 9999999;
       top: 8%;
-      height: 70vh;
+      height: 74vh;
       background-color: rgb(220, 220, 220);
       border: none;
   }
@@ -49,7 +51,8 @@
 
 @media screen and (max-width:419px) {
   .Sidebar5, .Sidebar6, .Sidebar7 {
-      top: 9%;
+    z-index: 9999999;
+    top:12%;
       height: 70vh;
       background-color: rgb(220, 220, 220);
 
@@ -312,6 +315,12 @@ position: absolute;
                                         p.InfoMovie{
                                           font-size: 0.7vw;
                                         }
+
+                                        .Sidebar5  p.InfoMovie {
+                                          font-size: 0.7vw;
+                                          margin-left: 7%;
+                                        }
+                                        
                                       }
 
                                       @media screen and (min-width:786px) and (max-width:1024px) {

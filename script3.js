@@ -33,7 +33,7 @@ let tapCount = 0;
 
 // Function to handle mobile double-tap
 function handleMobileTouch(e, element) {
-  if (window.innerWidth <= 480) {
+  if (window.innerWidth <= 785) {
     // Mobile double-tap logic
     const currentTime = Date.now();
     const tapGap = currentTime - lastTapTime;
@@ -60,7 +60,6 @@ function handleMobileTouch(e, element) {
           OpenOrClose7();
         }
         tapCount = 0;
-        return true;
       }
     } else {
       tapCount = 1;
@@ -123,7 +122,7 @@ function OpenOrClose(sidebarId, videoSelector) {
 
     if (video) video.play(); // Fa partire il video se presente
   } else {
-    if (window.innerWidth <= 480) {
+    if (window.innerWidth <= 785) {
       sidebar.style.width = "0";
       sidebar.style.display = "none";
     } else {

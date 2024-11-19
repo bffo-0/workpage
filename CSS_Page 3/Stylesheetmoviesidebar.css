@@ -29,6 +29,7 @@
 
 @media screen and (min-width: 420px) and (max-width:785px) {
   .sidebar, .Sidebar2, .Sidebar3, .Sidebar4 {
+    z-index: 9999999;
     top:8%;
     height: 70vh;
     background-color: rgb(220, 220, 220);
@@ -38,12 +39,14 @@
 
 @media screen and (max-width:419px) {
   .sidebar, .Sidebar2, .Sidebar3, .Sidebar4 {
-      top:10%;
+    z-index: 9999999;
+      top:12%;
       height: 70vh;
       background-color: rgb(220, 220, 220);
       border: none;
   }
 }
+
 
 /* The sidebar links */
 .sidebar a, .Sidebar2 a, .Sidebar3 a, .Sidebar4 a {
@@ -191,6 +194,17 @@
                                         font-size: 0.6vw;
                                        top:8.5%;
                                       } 
+                                      .Sidebar4  p.InfoMovie {
+                                        position: absolute;
+                                        padding-right: 25px;
+                                        font-family: ABCDiatype-Medium, sans-serif;
+                                        font-weight: normal;
+                                       text-align: center;
+                                        font-size: 0.7vw;
+                                        top: 8%;
+                                        margin-left: 12%;
+                                       
+                                      } 
 
 
                                       }
@@ -210,8 +224,19 @@
                                         font-family: ABCDiatype-Medium, sans-serif;
                                         font-weight: normal;
                                        text-align: center;
-                                        font-size: 0.6vw;
-                                       top:8.5%;
+                                        font-size: 0.7vw;
+                                       top:7%;
+                                      } 
+                                      .Sidebar4  p.InfoMovie {
+                                        position: absolute;
+                                        padding-right: 25px;
+                                        font-family: ABCDiatype-Medium, sans-serif;
+                                        font-weight: normal;
+                                       text-align: center;
+                                        font-size: 0.7vw;
+                                        top: 8%;
+                                        margin-left: 15%;
+                                       
                                       } 
 
                                       }

@@ -1231,7 +1231,7 @@ function toggleInstallationSidebar() {
     audio.play(); // Avvia l'audio
 
     // Per dispositivi fino a 480px, gestisci posizionamento e blur
-    if (screenWidth <= 480) {
+    if (screenWidth <= 785) {
       installationSidebar.style.position = 'absolute';
       installationSidebar.style.top = '20px';
       installationSidebar.style.left = '50%';
@@ -1247,7 +1247,7 @@ function toggleInstallationSidebar() {
     audio.currentTime = 0; // Riporta l'audio all'inizio
 
     // Ripristina stato normale per 480px
-    if (screenWidth <= 480) {
+    if (screenWidth <= 785) {
       installationSidebar.style.position = '';
       installationSidebar.style.top = '';
       installationSidebar.style.left = '';
@@ -1280,7 +1280,7 @@ function toggleInstallationSidebar() {
       aboutSidebar.style.left = "-100vw"; // Chiude la sidebar
       
       // Per dispositivi fino a 480px, rimuovi blur
-      if (screenWidth <= 480) {
+      if (screenWidth <= 785) {
         aboutSidebar.style.filter = 'none';
       }
     }
@@ -1297,7 +1297,7 @@ function toggleInstallationSidebar() {
       audio.currentTime = 0; // Riporta l'audio all'inizio
       
       // Per dispositivi fino a 480px, rimuovi blur
-      if (screenWidth <= 480) {
+      if (screenWidth <= 785) {
         aboutSidebar.style.filter = 'none';
       }
     }
@@ -1320,7 +1320,7 @@ function toggleFilmInfoSidebar(element) {
   const screenWidth = window.innerWidth;
 
   let openPosition;
-  if (screenWidth <= 480) {
+  if (screenWidth <= 785) {
     openPosition = "0vw";
   } else if (screenWidth <= 1024) {
     openPosition = "30.5vw";
@@ -1344,7 +1344,7 @@ function toggleFilmInfoSidebar(element) {
     targetSidebar.style.left = closedPosition;
     
     // Remove blur for mobile
-    if (screenWidth <= 480) {
+    if (screenWidth <= 785) {
       targetSidebar.style.position = '';
       targetSidebar.style.top = '';
       targetSidebar.style.left = '';
@@ -1356,7 +1356,7 @@ function toggleFilmInfoSidebar(element) {
     targetSidebar.style.left = openPosition;
     
     // Add blur for mobile
-    if (screenWidth <= 480) {
+    if (screenWidth <= 785) {
       targetSidebar.style.position = 'absolute';
       targetSidebar.style.top = '20px';
       targetSidebar.style.left = '50%';
@@ -1373,7 +1373,7 @@ document.querySelectorAll('.infoSidebar .closebtn').forEach(btn => {
     const sidebar = this.closest('.infoSidebar');
     if (sidebar) {
       sidebar.style.left = "-100vw";
-      if (window.innerWidth <= 480) {
+      if (window.innerWidth <= 785) {
         sidebar.style.position = '';
         sidebar.style.top = '';
         sidebar.style.left = '';
@@ -1391,7 +1391,7 @@ document.addEventListener('click', function(event) {
     // If click is outside sidebar and not on a trigger element
     if (!sidebar.contains(event.target) && !event.target.closest('[data-film]')) {
       sidebar.style.left = "-100vw";
-      if (window.innerWidth <= 480) {
+      if (window.innerWidth <= 785) {
         sidebar.style.position = '';
         sidebar.style.top = '';
         sidebar.style.left = '';
@@ -1408,7 +1408,7 @@ document.addEventListener('click', function(event) {
 document.addEventListener('DOMContentLoaded', function() {
   const movieImages = document.querySelectorAll('.imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5, .imgmovie6, .imgmovie7');
   
-  if (window.innerWidth <= 480) {
+  if (window.innerWidth <= 785) {
     movieImages.forEach(img => {
       let initialX = 0;
       let initialY = 0;
@@ -1451,43 +1451,15 @@ document.addEventListener('DOMContentLoaded', function() {
           active = true;
           isDragging = false;
           
-          // Reset all images to base z-index and pause all videos
+          // Reset all images to base z-index
           movieImages.forEach(image => {
             if (image !== img) {
               image.style.zIndex = "1";
-              const otherVideo = getVideoForImage(image);
-              if (otherVideo && otherVideo.play) {
-                otherVideo.pause();
-                otherVideo.currentTime = 0;
-              }
             }
           });
           
           // Set high z-index for selected image
           img.style.zIndex = "999999";
-          
-          // Start playing video
-          const video = getVideoForImage(img);
-          if (video) {
-            video.preload = "auto";
-            if (img.className === 'imgmovie') {
-              video.currentTime = 14;
-            } else if (img.className === 'imgmovie6') {
-              video.currentTime = 4;
-            } else if (img.className === 'imgmovie3') {
-              video.currentTime = 16;
-            } else if (img.className === 'imgmovie5') {
-              video.currentTime = 8;
-            } else {
-              video.currentTime = 0;
-            }
-            video.play().catch(() => {
-              video.muted = true;
-              video.play().then(() => {
-                video.muted = false;
-              });
-            });
-          }
         }
       }
       
@@ -1562,21 +1534,6 @@ document.addEventListener('DOMContentLoaded', function() {
         initialX = currentX;
         initialY = currentY;
         active = false;
-        
-        // Stop video with fade out
-        const video = getVideoForImage(img);
-        if (video) {
-          const fadeOut = setInterval(() => {
-            if (video.volume > 0.1) {
-              video.volume -= 0.1;
-            } else {
-              clearInterval(fadeOut);
-              video.pause();
-              video.currentTime = 0;
-              video.volume = 1;
-            }
-          }, 50);
-        }
       }
       
       // Function to get corresponding video
@@ -1611,7 +1568,7 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function() {
   const movieImages = document.querySelectorAll('.imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5, .imgmovie6, .imgmovie7');
   
-  if (window.innerWidth <= 480) {
+  if (window.innerWidth <= 785) {
     movieImages.forEach(img => {
       let initialX = 0;
       let initialY = 0;
@@ -1654,43 +1611,15 @@ document.addEventListener('DOMContentLoaded', function() {
           active = true;
           isDragging = false;
           
-          // Reset all images to base z-index and pause all videos
+          // Reset all images to base z-index
           movieImages.forEach(image => {
             if (image !== img) {
               image.style.zIndex = "1";
-              const otherVideo = getVideoForImage(image);
-              if (otherVideo && otherVideo.play) {
-                otherVideo.pause();
-                otherVideo.currentTime = 0;
-              }
             }
           });
           
           // Set high z-index for selected image
           img.style.zIndex = "999999";
-          
-          // Start playing video
-          const video = getVideoForImage(img);
-          if (video) {
-            video.preload = "auto";
-            if (img.className === 'imgmovie') {
-              video.currentTime = 14;
-            } else if (img.className === 'imgmovie6') {
-              video.currentTime = 4;
-            } else if (img.className === 'imgmovie3') {
-              video.currentTime = 16;
-            } else if (img.className === 'imgmovie5') {
-              video.currentTime = 8;
-            } else {
-              video.currentTime = 0;
-            }
-            video.play().catch(() => {
-              video.muted = true;
-              video.play().then(() => {
-                video.muted = false;
-              });
-            });
-          }
         }
       }
       
@@ -1765,21 +1694,6 @@ document.addEventListener('DOMContentLoaded', function() {
         initialX = currentX;
         initialY = currentY;
         active = false;
-        
-        // Stop video with fade out
-        const video = getVideoForImage(img);
-        if (video) {
-          const fadeOut = setInterval(() => {
-            if (video.volume > 0.1) {
-              video.volume -= 0.1;
-            } else {
-              clearInterval(fadeOut);
-              video.pause();
-              video.currentTime = 0;
-              video.volume = 1;
-            }
-          }, 50);
-        }
       }
       
       // Function to get corresponding video

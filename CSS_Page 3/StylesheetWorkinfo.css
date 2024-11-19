@@ -15,7 +15,7 @@
         border-left: none;
 }
 
-@media screen and (min-width: 768px) and (max-width:1024px) {
+@media screen and (min-width: 786px) and (max-width:1024px) {
     .infoSidebar {
         top: 80%;
         height: 15%;
@@ -146,14 +146,47 @@ p[data-film]:hover {
     left: 12%;
 }
 
-@media screen and (min-width: 768px) and (max-width:1024px) {
+@media screen and (min-width: 786px) and (max-width:1024px) {
     .unrelibleobject-img, .sleepingclose-img, .burden-img, .threaded-img, .zanskar-img, .despite-img, .donneche-img, .once-img, .Como-img, .viteinsospeso-img {
         display: none;
     }
     
 }
 
-@media screen and (max-width: 480px) {
+@media  screen and (min-width: 429px) and (max-width: 785px) {
+    .infoSidebar {
+        position: fixed;
+        margin-top: 18%;
+        left: -100vw;
+        transform: translate(0, -50%);
+        width: 70vw;
+        height: 60vh;
+        z-index: 1000;
+        overflow-y: auto;
+        transition: left 0.3s ease;
+      }
+    
+      .work-sidebar {
+        transition: filter 0.3s ease;
+      }
+    
+      .work-sidebar.blur {
+        filter: blur(20px);
+      }
+    
+      .infoSidebar .sidebar-content h2 {
+        font-size: 3vw;
+      }
+    
+      .infoSidebar .sidebar-content p {
+        margin-top: 5vh;
+        font-size: 2.5vw;
+      }
+    }
+
+
+
+@media screen and (max-width: 419px) {
   .infoSidebar {
     position: fixed;
     margin-top: 18%;
