@@ -123,7 +123,7 @@ function OpenOrClose(sidebarId, videoSelector) {
 
   // Controlla la larghezza dello schermo per decidere la larghezza della sidebar
   if (sidebar.classList.contains("open")) {
-    if (window.innerWidth < 786) {
+    if (window.innerWidth < 1026) {
       // Mobile view
       sidebar.style.width = "89.7vw";
       sidebar.style.right = "10%";
