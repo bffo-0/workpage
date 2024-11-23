@@ -1,44 +1,45 @@
 .infoSidebar {
-    height: 40%;
-        width: 300px;
-        position: fixed;
-        top: 20%;
-        left: -100vw;
-        background-color: #c6c6c616;
-        background-repeat: no-repeat;
-        background-size: 60%;
-        background-position: center;
-        transition: 0.5s;
-        padding-top: 60px;
-        color: rgb(0, 0, 0);
-        z-index: 1000;
-        border-left: none;
+    position: fixed;
+    height: 58vh;  /* Match about-sidebar height */
+    width: 300px;
+    top: 95px;  /* Match about-sidebar top position */
+    left: -100vw;
+    background-color: #c6c6c616;
+    background-repeat: no-repeat;
+    background-size: 60%;
+    background-position: center;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);  /* Match about-sidebar transition */
+    color: rgb(0, 0, 0);
+    z-index: 1000;
+    border: 0.5px solid rgba(220, 220, 220, 0.965);
+    border-left: none;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;  /* Smooth scrolling on iOS */
 }
-
-@media screen and (min-width: 786px) and (max-width:1024px) {
-    .infoSidebar {
-        top: 80%;
-        height: 15%;
-        width: 73vw;
-        margin-left: -37%;
-        overflow-y: auto; 
-    }
-}
-
 
 .infoSidebar .sidebar-content {
-    padding: 10px;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    padding: 25px 20px 20px;  /* Keep padding-top for close button */
+    box-sizing: border-box;
+    top: 10px;
+    -webkit-overflow-scrolling: touch;
+    display: flex;
+    flex-direction: column;
     color: rgb(0, 0, 0);
     text-align: center;
 }
 
 .infoSidebar .sidebar-content h2 {
-    margin-top: -10%;
+    margin-top: 0;  /* Reset margin */
     font-size: 0.7vw;
     font-family: ABCDiatype-Medium, sans-serif;
     font-weight: bold;
     text-shadow: #767676 0px 2px 10px;
 }
+
 .sidebar-content p {
     margin-top: 10px;
     font-size: 0.6vw;
@@ -56,14 +57,25 @@
     cursor: pointer;
 }
 
+@media screen and (min-width: 1280px) and (max-width:1440px) {
+    .infoSidebar .sidebar-content h2{
+        font-size: 0.9vw;
+    }
+
+    .infoSidebar .sidebar-content p{
+        font-size: 0.7vw;
+    }
+    
+}
+
 @media screen and (min-width: 768px) and (max-width:1024px) {
     .infoSidebar .sidebar-content h2, .infoSidebar .closebtn{
-        font-size: 2vw;
+        font-size: 5vw;
     }
 
     .infoSidebar .sidebar-content p {
         top: 10px;
-        font-size: 2vw;
+        font-size: 2.8vw;
     }
 }
 
@@ -77,27 +89,31 @@ p[data-film]:hover {
     color: #f1f1f1;
 }
 
-
 .unrelibleobject-img, .sleepingclose-img, .burden-img, .threaded-img, .zanskar-img, .despite-img, .donneche-img, .once-img, .Como-img, .viteinsospeso-img {
     position: absolute;
     max-width: 50%;
-    bottom: 10%;
-    left: 25%;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);  /* Center horizontally */
     height: auto;
     transition: filter 1s ease;
     filter: blur(0px);
     opacity: 1;
-    align-items: center;
     &:hover {
         filter: blur(20px);
     }
 }
-
+.zanskar-img, .threaded-img, .sleepingclose-img, .donneche-img, .despite-img, .once-img, .burden-img, .viteinsospeso-img {
+    left: 0;
+    transform: none;
+}
 .sleepingclose-img{
     
-    max-width: 50%;
-    bottom: 1%;
-    left: 25%;
+    max-width: 100%;
+    width: 60%;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
 }
 @media screen and (max-width: 480px) {
     .sleepingclose-img{
@@ -122,7 +138,7 @@ p[data-film]:hover {
     }
 }
 
- .despite-img {
+.despite-img {
     max-width: 75%;
     left: 13%;
     bottom: 3%;
@@ -141,6 +157,7 @@ p[data-film]:hover {
        top: 115%;
     }
 }
+
 .despite-img {
     bottom: 20%;
     left: 12%;
@@ -184,8 +201,6 @@ p[data-film]:hover {
       }
     }
 
-
-
 @media screen and (max-width: 419px) {
   .infoSidebar {
     position: fixed;
@@ -215,4 +230,37 @@ p[data-film]:hover {
     margin-top: 5vh;
     font-size: 2.5vw;
   }
+}
+
+@media screen and (min-width: 786px) and (max-width:1024px) {
+    .infoSidebar {
+        margin-top: 30%;
+        width: 73vw;
+        height: 65vh;
+    }
+    
+    .infoSidebar .sidebar-content h2 {
+        margin-top: 10%;
+        font-size: 2.8vw;
+    }
+    
+    .sidebar-content p {
+        font-size: 1.5vw;
+    }
+}
+
+@media screen and (max-width: 785px) {
+    .infoSidebar {
+        width: 80vw;
+        height: 70vh;
+        top: 45px;  /* Adjust for mobile */
+    }
+    
+    .infoSidebar .sidebar-content h2 {
+        font-size: 2.5vw;
+    }
+    
+    .sidebar-content p {
+        font-size: 2vw;
+    }
 }

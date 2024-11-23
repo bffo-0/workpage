@@ -26,39 +26,88 @@
     /* 0.5 second transition effect to slide in the sidebar */
     transform: translateX(5%);
     text-align: left;
-    border: 0.5px solid rgba(220, 220, 220, 0.965)
+    border: 0.5px solid rgba(220, 220, 220, 0.965);
+    z-index: 999999;
   
 }
 
-@media screen and (min-width: 781px) and (max-width:1024px) {
+/* Large Desktop screens (1200px and up) */
+@media screen and (min-width: 1200px) {
   .Sidebar5, .Sidebar6, .Sidebar7 {
-    z-index: 9999999;
-      top: 18%;
-      height: 70vh;
-      border: none;
+    background-size: 50%;
+    height: 88vh;
   }
 }
 
-@media screen and (min-width: 420px) and (max-width:780px) {
+/* Desktop and small laptop screens (1025px to 1199px) */
+@media screen and (min-width: 1025px) and (max-width: 1199px) {
+  .Sidebar5, .Sidebar6, .Sidebar7 {
+    background-size: 60%;
+    height: 85vh;
+  }
+}
+
+/* Tablets and small desktops (781px to 1024px) */
+@media screen and (min-width: 781px) and (max-width: 1024px) {
   .Sidebar5, .Sidebar6, .Sidebar7 {
     z-index: 9999999;
-      top: 8%;
-      height: 74vh;
-      background-color: rgb(220, 220, 220);
-      border: none;
+    margin-top: 10%;
+    height: 81vh;
+    border: none;
+    background-size: 70%;
   }
-} 
+}
 
-@media screen and (max-width:419px) {
+/* Large tablets and iPad (601px to 780px) */
+@media screen and (min-width: 601px) and (max-width: 780px) {
   .Sidebar5, .Sidebar6, .Sidebar7 {
     z-index: 9999999;
-    top:12%;
-      height: 70vh;
-      background-color: rgb(220, 220, 220);
-
-      border: none;
+    top: 8%;
+    height: 74vh;
+    
+    border: none;
+    background-size: 80%;
   }
-  
+}
+
+/* Large phones and small tablets (420px to 600px) */
+@media screen and (min-width: 420px) and (max-width: 600px) {
+  .Sidebar5, .Sidebar6, .Sidebar7 {
+    z-index: 9999999;
+    top: 8%;
+    height: 72vh;
+   
+    border: none;
+    background-size: 90%;
+  }
+}
+
+/* Mobile phones (up to 419px) */
+@media screen and (max-width: 419px) {
+  .Sidebar5, .Sidebar6, .Sidebar7 {
+    z-index: 9999999;
+    top: 12%;
+    height: 70vh;
+    
+    border: none;
+    background-size: 100%;
+  }
+}
+
+/* Add support for high-resolution displays */
+@media screen and (-webkit-min-device-pixel-ratio: 2), 
+       screen and (min-resolution: 192dpi) {
+  .Sidebar5, .Sidebar6, .Sidebar7 {
+    background-image: url(/IMG_page3/imagpage3.5.png);
+  }
+}
+
+/* Orientation specific adjustments */
+@media screen and (orientation: landscape) and (max-height: 600px) {
+  .Sidebar5, .Sidebar6, .Sidebar7 {
+    height: 85vh;
+    top: 5%;
+  }
 }
 
 .Sidebar6 {
@@ -94,29 +143,32 @@ position: absolute;
   right: 28px;
   font-size: 1vw;
   color: black;
-  margin-left: 50px;
-}
-
-@media screen and (min-width: 786px) and (max-width:1024px) {
-  .Sidebar5 .closebtn5 , .Sidebar6 .closebtn6, .Sidebar7 .closebtn7 {
-      font-size: 3.5vw;
-  }
-}
-@media screen and (min-width: 420px) and (max-width:785px) {
-
-.Sidebar5 .closebtn5 , .Sidebar6 .closebtn6, .Sidebar7 .closebtn7{
-  font-size: 4.5vw;
-}
-
-}
-
-
-@media screen and (max-width:419px) {
-  .Sidebar5 .closebtn5 , .Sidebar6 .closebtn6, .Sidebar7 .closebtn7 {
-      font-size: 4.5vw;
-  }
   
 }
+
+@media screen and (max-width: 780px) {
+  .Sidebar5 .closebtn5, .Sidebar6 .closebtn6, .Sidebar7 .closebtn7 {
+    font-size: 6vw;
+    top: -2px;
+    right: 15px;
+  }
+}
+
+@media screen and (min-width: 781px) and (max-width: 1024px) {
+  .Sidebar5 .closebtn5, .Sidebar6 .closebtn6, .Sidebar7 .closebtn7 {
+    font-size: 2.5vw;
+    right: 20px;
+  }
+}
+
+@media screen and (min-width: 1280px) and (max-width:1440px){
+  .Sidebar5 .closebtn5, .Sidebar6 .closebtn6, .Sidebar7 .closebtn7 {
+    
+    font-size: 2vw;
+    top: -1%;
+  }
+}
+
 /* The button used to open the sidebar */
 .openbtn5, .openbtn6, .openbtn7 {
   font-size: 20px;
@@ -134,272 +186,223 @@ position: absolute;
   padding: 20px;
 }
 
+/* Video container - made fully responsive */
+.video5, .video6, .video7 {
+  position: relative;
+  width: clamp(100%, 100%, 100%);
+  max-width: 100%;
+  margin: 0 auto;
+  top: clamp(4%, 1vh, 2%);
+  height: auto;
+  z-index: 1;
+}
+@media screen and (min-width:768px) and (max-width: 1024px) {
+  .video5, .video6, .video7 {
+    top:10%;
+    width: 100%;
+  }
+}
 
+@media screen and (max-width: 768px) {
+  .video5, .video6, .video7 {
+    width: 100%;
+  }
+}
 
+@media screen and (max-width: 480px) {
+  .video5, .video6, .video7 {
+    width: 100%;
+  }
+}
 
-                                      
-                                      .video5, .video6, .video7 {
-                                        position: absolute;  
-                                        justify-content: center;  
-                                        align-content: center;
-                                        top: 11%;
-                                        width: 100%;
-                                      }           
+/* Player positioning with flexible sizing */
+.player5, .player6, .player7 {
+  position: relative;
+  display: block;
+  width: clamp(180px, 80vw, 250px);
+  height: clamp(350px, 60vh, 450px);
+  margin: clamp(30px, 5vh, 50px) auto;
+  z-index: 2;
+}
 
-                                      @media screen and (min-width: 786px) and (max-width:1024px) {
-                                        .video5, .video6, .video7 {
-                                          top: 15%;
-                                          }
-                                      }
+.player7 {
+  margin-right: 25px;
+}
 
-                                      @media screen and (min-width: 420px) and (max-width:785px) {
-                                        .video5, .video6, .video7{
-                                          top: 15%;
-                                          }
-                                      }
+@media screen and (min-width: 786px) and (max-width:1024px) {
+  .player5, .player6, .player7 {
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: clamp(400px, 90%, 850px);
+    height: clamp(300px, 25vh, 400px);
+  }
+}
 
-                                      @media screen and (max-width:419px) {
-                                        .video5, .video6, .video7{
-                                          top: 17%;
-                                          }
-                                      }
+@media screen and (max-width: 785px) {
+  .player5, .player6, .player7 {
+    width: clamp(180px, 85%, 350px);
+    height: clamp(250px, 35vh, 350px);
+  }
+}
+p.movie5, p.movie6, p.movie7{
+  position: absolute;
+  padding-left: 5px;
+  font-family: ABCDiatype-Medium, sans-serif;
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  font-size: 0.8vw;
+  left: 50%;
+  translate: -50%;
+  text-align: center;
+  top: 1.5%;
+}
 
-                                      p.movie5, p.movie6, p.movie7{
-                                        position: absolute;
-                                        padding-left: 5px;
-                                        font-family: ABCDiatype-Medium, sans-serif;
-                                        color: rgb(0, 0, 0);
-                                        font-weight: bold;
-                                        font-size: 0.8vw;
-                                        left: 50%;
-                                        translate: -50%;
-                                        text-align: center;
-                                        top: 1.5%;
-                                      }
-                                      @media screen and (min-width: 1441px) and (max-width:1660px) {
-                                        p.movie5, p.movie6, p.movie7{
-                                          font-size: 1vw;
-                                        }
-                                      }
-                                      @media screen and (min-width: 1280px) and (max-width:1440px) {
-                                        p.movie5, p.movie6, p.movie7{
-                                          font-size: 1vw;
-                                        }
-                                      }
+@media screen and (min-width: 1441px) and (max-width:1660px) {
+  p.movie5, p.movie6, p.movie7{
+    font-size: 1vw;
+  }
+}
 
-                                      @media screen and (min-width:786px) and (max-width:1024px) {
-                                        p.movie5, p.movie6, p.movie7{
-                                          font-size: 2.5vw;
-                                        }
-                                      }
-                                      
-                                      @media screen and (min-width: 420px) and (max-width:785px) {
-                                        p.movie5, p.movie6, p.movie7{
-                                          top: 2.5%;
-                                          font-size: 3vw;
-                                        }
-                                      }
+@media screen and (min-width: 1280px) and (max-width:1440px) {
+  p.movie5, p.movie6, p.movie7{
+    font-size: 1vw;
+  }
+}
 
-                                      @media screen and (max-width:419px) {
-                                        p.movie5, p.movie6, p.movie7{
-                                          top: 2.5%;
-                                          font-size: 3vw;
-                                        }
-                                        
-                                      }
+@media screen and (min-width:786px) and (max-width:1024px) {
+  p.movie5, p.movie6, p.movie7{
+    font-size: 3vw;
+  }
+}
 
-                                      .linemovie{
-                                        position: absolute;
-                                        top:4%;
-                                        height: 1px;
-                                        width: 100%;
-                                        align-items: center;
-                                        background-color: rgb(0, 0, 0);
-                                      }
+@media screen and (min-width: 420px) and (max-width:785px) {
+  p.movie5, p.movie6, p.movie7{
+    top: 2.5%;
+    font-size: 3vw;
+  }
+}
 
-                                      @media screen and (min-width: 786px) and (max-width:1024px) {
-                                      .linemovie{
-                                        top: 5%;
-                                      }
-                                      }
+@media screen and (max-width:419px) {
+  p.movie5, p.movie6, p.movie7{
+    top: 2.5%;
+    font-size: 3vw;
+  }
+}
 
-                                      @media screen and (max-width:480px) {
-                                      .linemovie{
-                                        top: 5.5%;
-                                      }
-                                      }
-                                      a.Title5, a.Title6, a.Title7{
-                                        position: absolute;
-                                          left: 50%;
-                                          translate: -50%;
-                                          font-family: ABCDiatype-Medium, sans-serif;
-                                          font-weight: bold;
-                                          color: rgb(0, 0, 0);
-                                          font-size: 0.8vw;
-                                          text-align: center;
-                                          top: 4%;
-                                      }
-                                      @media screen and (min-width: 1441px) and (max-width:1660px) {
-                                        a.Title5, a.Title6, a.Title7{
-                                          font-size: 1vw;
-                                        }
-                                      }
-                                      @media screen and (min-width: 1280px) and (max-width:1440px) {
-                                        a.Title5, a.Title6, a.Title7{
-                                          font-size: 1vw;
-                                        }
-                                      }
+a.Title5, a.Title6, a.Title7{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: ABCDiatype-Medium, sans-serif;
+  font-weight: bold;
+  color: rgb(0, 0, 0);
+  font-size: clamp(14px, 0.8vw, 18px);
+  text-align: center;
+  top: 30px;
+  width: 90%;
+}
 
-                                      @media screen and (min-width:786px) and (max-width:1024px) {
-                                        a.Title5, a.Title6, a.Title7{
-                                          top: 5.5%;
-                                          font-size: 2.5vw;
-                                        }
-                                        
-                                      }
+@media screen and (min-width: 1441px) and (max-width:1660px) {
+  a.Title5, a.Title6, a.Title7{
+    font-size: 1vw;
+  }
+}
 
-                                      @media screen and (min-width:420px) and (max-width:781px) {
-                                        a.Title5, a.Title6,  a.Title7{
-                                          top: 5.5%;
-                                          font-size: 3vw;
-                                        }
-                                        
-                                      }
-  
-                                      @media screen and (min-width:420px) and (max-width:781px) {
-                                        a.Title5, a.Title6,  a.Title7{
-                                          top: 5.5%;
-                                          font-size: 3vw;
-                                        }
-                                        
-                                      }
-  
-                                      @media screen and (max-width:419px) {
-                                        a.Title5, a.Title6,  a.Title7{
-                                          top: 5.5%;
-                                          font-size: 3vw;
-                                        }
-                                        
-                                      }
+@media screen and (min-width: 1280px) and (max-width:1440px) {
+  a.Title5, a.Title6, a.Title7{
+    font-size: 1vw;
+  }
+}
 
-                                      p.InfoMovie {
-                                        position: absolute;
-                                        padding-right: 25px;
-                                        font-family: ABCDiatype-Medium, sans-serif;
-                                        font-weight: normal;
-                                       text-align: center;
-                                        font-size: 0.6vw;
-                                       top: 7%;
-                                      } 
+@media screen and (min-width:786px) and (max-width:1024px) {
+  a.Title5, a.Title6, a.Title7{
+    top: 55px;
+    font-size: 3vw;
+  }
+}
 
-                                      .Sidebar5  p.InfoMovie {
-                                        position: absolute;
-                                        padding-right: 25px;
-                                        font-family: ABCDiatype-Medium, sans-serif;
-                                        font-weight: normal;
-                                       text-align: center;
-                                        font-size: 0.6vw;
-                                        top: 8%;
-                                        margin-left: 4%;
-                                       
-                                      } 
+@media screen and (min-width:420px) and (max-width:781px) {
+  a.Title5, a.Title6,  a.Title7{
+    top: 5.5%;
+    font-size: 3vw;
+  }
+}
 
+@media screen and (max-width:419px) {
+  a.Title5, a.Title6,  a.Title7{
+    top: 5.5%;
+    font-size: 3vw;
+  }
+}
 
+p.InfoMovie {
+  position: absolute;
+  padding-right: clamp(15px, 2vw, 25px);
+  font-family: ABCDiatype-Medium, sans-serif;
+  font-weight: normal;
+  text-align: center;
+  font-size: clamp(12px, 0.5vw, 16px);
+  top: 60px;
+  width: 90%;
+  margin: 0 auto;
+  left: 50%;
+  transform: translateX(-50%);
+}
 
-                                      @media screen and (min-width: 1441px) and (max-width:1660px) {
-                                        p.InfoMovie{
-                                          font-size: 0.7vw;
-                                        }
-                                      }
-                                      @media screen and (min-width: 1280px) and (max-width:1440px) {
-                                        p.InfoMovie{
-                                          font-size: 0.7vw;
-                                        }
+.Sidebar5  p.InfoMovie {
+  position: absolute;
+  padding-right: clamp(15px, 2vw, 25px);
+  font-family: ABCDiatype-Medium, sans-serif;
+  font-weight: normal;
+  text-align: center;
+  font-size: clamp(12px, 0.5vw, 16px);
+  top: 60px;
+  width: 90%;
+  margin: 0 auto;
+  left: 50%;
+  transform: translateX(-50%);
+}
 
-                                        .Sidebar5  p.InfoMovie {
-                                          font-size: 0.7vw;
-                                          margin-left: 7%;
-                                        }
-                                        
-                                      }
+@media screen and (min-width: 1441px) and (max-width:1660px) {
+  p.InfoMovie{
+    font-size: 0.7vw;
+  }
+}
 
-                                      @media screen and (min-width:786px) and (max-width:1024px) {
-                                        p.InfoMovie{
-                                          top: 9.5%;
-                                          font-size: 2vw;
-                                        }
-                                        
-                                      }
-                                      @media screen and (min-width:420px) and (max-width:781px) {
-                                        p.InfoMovie{
-                                          top: 10%;
-                                          font-size: 2.5vw;
-                                        }
-                                        
-                                      }
-                                      @media screen and (max-width:419px) {
-                                        p.InfoMovie{
-                                          top: 11%;
-                                          font-size: 2.5vw;
-                                        }
-                                        
-                                      }
+@media screen and (min-width: 1280px) and (max-width:1440px) {
+  p.InfoMovie{
+    font-size: 0.7vw;
+  }
 
-                                      .player5, .player6, .player7{
-                                        position: absolute;
-                                        top: 42%;
-                                        left: 50%;
-                                        transform: translateX(-50%);
-                                        align-items: center;
-                                    }
-                                   
-                                    @media screen and (min-width: 1441px) and (max-width:1660px) {
-                                      .player5 {
-                                        top: 39%;
-                                      }
-                                       .player6{
-                                        top: 45%;
-                                    } 
-                                      .player7{
-                                        
-                                        top: 36%;
-                                      }
-                                    }
-                                    @media screen and (min-width: 1280px) and (max-width:1440px) { 
-                                      .player5, .player6{
-                                        top: 45%;
-                                    } 
-                                      .player7{
-                                        
-                                        top: 46%;
-                                      }
-                                      }
+  .Sidebar5  p.InfoMovie {
+    font-size: 0.7vw;
+    margin-left: 7%;
+  }
+}
 
-                                      @media screen and (min-width:786px) and (max-width:1024px) {
-                                        .player5, .player6{
-                                          top: 59%;
-                                        }
+@media screen and (min-width:786px) and (max-width:1024px) {
+  p.InfoMovie{
+    top: 110px;
+    font-size: 2vw;
+  }
 
-                                        .player7{
-                                          top: 60%;
-                                        }
-                                      }
+  .Sidebar5  p.InfoMovie {
+    top: 110px;
+    font-size: 2vw;
+  }
+}
 
-                                      @media screen and (min-width:420px) and (max-width:781px) {
-                                        .player5, .player6{
-                                          top: 49%;
-                                        }
-                                        .player7{
-                                          top: 50%;
-                                        }
-                                        
-                                      }
+@media screen and (min-width:420px) and (max-width:781px) {
+  p.InfoMovie{
+    top: 10%;
+    font-size: 2.5vw;
+  }
+}
 
-                                      @media screen and (max-width:419px) {
-                                        .player5, .player6{
-                                          top: 59%;
-                                        }
-                                        .player7{
-                                          top: 59%;
-                                        }
-                                      }
+@media screen and (max-width:419px) {
+  p.InfoMovie{
+    top: 11%;
+    font-size: 2.5vw;
+  }
+}

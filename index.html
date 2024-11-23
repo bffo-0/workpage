@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <Html>
     <head>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
       <link rel=stylesheet type="text/css" href="CSS_Page 3/reset.css" />
       <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
       <link rel="icon" SIZE="180x180" href="FAVICONE32X32.png" type="image/png">
@@ -13,7 +14,7 @@
         <link rel=stylesheet type="text/css" href="CSS_Page 3/StylesheetWorkinfo.css" />
         <link rel=stylesheet type="text/css" href="CSS_Page 3/Stylesheetcontactform.css" />
         <link rel=stylesheet type="text/css" href="CSS_Page 3/stylesheetcontainer.css" />
-
+        <link rel=stylesheet type="text/css" href="CSS_Page 3/Stylesheeimgmovies.css" />
 <style>
 /* Contenitore corpo */
 body {
@@ -37,6 +38,7 @@ body {
   display: inline-block;
   background-color: #c6c6c616;
   padding: 0.6vw 8.7vw; /* Ridotto padding per contenitore più piccolo */
+  
   border: 0.5px solid rgba(220, 220, 220, 0.965);
   text-align: center;
   letter-spacing: -.1vw;
@@ -50,6 +52,8 @@ body {
   margin-top: 10.2px;
   margin-left: 20px;
 }
+
+
 @media screen and (min-width: 786px) and (max-width: 1024px) {
   .name-container {
     padding: 2vw 20.7vw; /* Ridotto padding per contenitore meno grande */
@@ -98,6 +102,10 @@ h1.name {
   margin: 0; /* Rimuove margini predefiniti per evitare spazi indesiderati */
   text-align: center; /* Centra il testo all'interno del contenitore */
 }
+
+
+
+
 @media screen and (min-width: 786px) and (max-width: 1024px) {
   h1.name {
     font-size: 3vw; /* Usa vw per adattare la dimensione del font al viewport */
@@ -229,7 +237,7 @@ p.light {
 
 @media screen and (min-width: 786px) and (max-width: 1024px) {
   .image1{
-    width: 10vw;
+    width: 5vw;
   }
 }
 
@@ -274,276 +282,7 @@ p.light {
 }
 
 
-/* Immagini con posizionamento assoluto */
-.imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5, .imgmovie6, .imgmovie7 {
-  position: absolute; /* Posizionamento assoluto per essere in una posizione specifica */
-  max-width: 9.9vw;
-  height: auto;
-  transition: opacity 0.5s ease-in-out;
-  opacity: 0.2; /* Opacità iniziale */
-  transform: translate(-50%, -50%);
-}
-@media screen and (min-width: 1280px) and (max-width:1440px) {
-  .imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5, .imgmovie6, .imgmovie7 {
-    max-width: 11vw;
-  }
-  .blur {
-      filter: blur(30px); /* Applica un blur di 5px, regolabile secondo le tue preferenze */
-      transition: filter 10s ease; /* Transizione per un effetto graduale */
-    }
-    /* Rimuovi l'effetto blur quando si passa il mouse sopra l'immagine */
-    .blur:hover {
-      transition: filter 1s;
-      filter: none;
-    }
-}
 
-@media  screen and (min-width:1025px) and (max-width: 1279px) {
-  .imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5, .imgmovie6, .imgmovie7 {
-    max-width: 11vw;
-  }
-  .blur {
-      filter: blur(30px); /* Applica un blur di 5px, regolabile secondo le tue preferenze */
-      transition: filter 10s ease; /* Transizione per un effetto graduale */
-    }
-    /* Rimuovi l'effetto blur quando si passa il mouse sopra l'immagine */
-    .blur:hover {
-      transition: filter 1s;
-      filter: none;
-    }
-}
-
-
-@media screen and (min-width: 781px) and (max-width:1024px) { 
-  .imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5, .imgmovie6, .imgmovie7 {
-    max-width: 22vw;
-  }
-  .blur {
-      filter: blur(3px); /* Applica un blur di 5px, regolabile secondo le tue preferenze */
-      transition: filter 0.3s ease; /* Transizione per un effetto graduale */
-    }
-    /* Rimuovi l'effetto blur quando si passa il mouse sopra l'immagine */
-    .blur:hover {
-      transition: filter 1s;
-      filter: none;
-    }
-  
-}
-
-
-
-.imgmovie:hover, .imgmovie2:hover, .imgmovie3:hover, .imgmovie4:hover, .imgmovie5:hover, .imgmovie6:hover, .imgmovie7:hover { 
-  opacity: 1; /* Opacità al passaggio del mouse */
-}
-
-/* sleeping*/
- .imgmovie{
-      top: 34%;
-      left: 43%;
-       }
-       @media screen and (min-width:781px) and (max-width:1024px) {
-        .imgmovie {
-          left: 39%;
-          top: 33%;
-        }
-      }
-      
-    
-       /*donne che*/
-    .imgmovie2{
-      top: 63%;
-      left: 60%;
-       }
-       @media screen and (min-width: 1441px) and (max-width:1660px) {
-        .imgmovie2 {
-          top: 58%;
-        }
-      }
-       @media screen and (min-width: 1280px) and (max-width:1440px) {
-        .imgmovie2 {
-          top: 63%;
-        }
-      }
-      @media screen and (min-width: 1024px) and (max-width:1279px) {
-        .imgmovie2 {
-          top: 63%;
-        }
-      }
-      @media screen and (min-width: 781px) and (max-width:1024px) {
-        .imgmovie2 {
-        left: 74%;
-        top: 59%;
-      }
-    }
-
-       /*burden*/
-       .imgmovie3{
-        top: 34%;
-      left: 56%;
-       }
-       @media screen and (min-width: 1441px) and (max-width:1660px) {
-        .imgmovie3 {
-          top: 34%;
-        }
-      }
-       @media screen and (min-width: 1281px) and (max-width:1440px) {
-        .imgmovie3 {
-          top: 34%;
-        }
-      }
-      @media screen and (min-width: 1025px) and (max-width:1279px) {
-        .imgmovie3 {
-          top: 34%;
-        }
-      }
-      @media screen and (min-width: 781px) and (max-width:1024px) {
-        .imgmovie3 {
-        left: 63%;
-        top: 34%;
-      }
-    }
-
-    
-        /*Despite*/
-       .imgmovie4{
-        left: 48%;
-      top: 66%;
-      }
-
-      @media screen and (min-width: 1441px) and (max-width:1660px) {
-        .imgmovie4 {
-          top: 60%;
-        }
-      }
-      @media screen and (min-width: 1280px) and (max-width:1440px) {
-        .imgmovie4 {
-          top: 68%;
-        }
-      }
-      @media screen and (min-width: 1024px) and (max-width:1279px) {
-        .imgmovie4 {
-          top: 68%;
-        }
-      }
-      @media screen and (min-width: 781px) and (max-width:1024px) {
-        .imgmovie4 {
-          top: 62%;
-        }
-      }
-    
-       /*once*/
-       .imgmovie5{
-        left: 36%;
-      top: 61%;
-       }
-
-      @media screen and (min-width: 1441px) and (max-width:1660px) {
-        .imgmovie5 {
-          top: 55%;
-        }
-      }
-       @media screen and (min-width: 1280px) and (max-width:1440px) {
-        .imgmovie5 {
-          top: 61%;
-        }
-      }
-      @media  screen and (min-width: 1024px) and (max-width:1279px) {
-        .imgmovie5 {
-          top: 61%;
-        }
-      }
-      @media screen and (min-width: 781px) and (max-width:1024px) {
-        .imgmovie5 {
-          left: 22%;
-          top: 55%;
-        }
-      }
-  
-       /*Zanskar*/
-  .imgmovie6 {
-    top: 35vh;
-    left: 30vw; /* Posizione a sinistra */
-  }
-  @media screen and (min-width:1025px) and (max-width:1279px) {
-    .imgmovie6 {
-      top: 35vh;
-      left: 30vw; /* Posizione a sinistra */
-    }
-  }
-  @media screen and (min-width: 781px) and (max-width:1024px) {
-    .imgmovie6 {
-      top: 35vh;
-      left: 14vw; /* Posizione a sinistra */
-    }
-    
-  }
-
-
-    /*Suspended*/
-  .imgmovie7 {
-    top: 35vh;
-    left: 69vw; /* Posizione a sinistra */
-  }
-  @media screen and (min-width:1025px) and (max-width:1279px) {
-    .imgmovie7 {
-      top: 35vh;
-      left: 69vw; /* Posizione a sinistra */
-    }
-  }
-  @media screen and (min-width: 781px) and (max-width:1024px) {
-    .imgmovie7 {
-      top: 35vh;
-      left: 86vw; /* Posizione a sinistra */
-    }
-    
-  }
-
-/* Img Movie 420px */
-@media screen and (min-width: 420px)  and (max-width: 785px) {
-  .imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5, .imgmovie6, .imgmovie7{
-    margin-top: 7vh;
-    width: 33vmin;
-    height: auto;
-    max-width: 200px;
-    min-width: 80px;
-    object-fit: contain;
-    position: fixed;
-    opacity: 1;
-    border: 0.5px solid rgba(220, 220, 220, 0.965);
-    transition: transform 0.2s ease-out;
-    transform-origin: center center;
-    touch-action: none;
-    will-change: transform;
-  }
-}
-
-  /* Img Movie 419px */
-  @media screen and (max-width: 419px) {
-  .imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5, .imgmovie6, .imgmovie7 {
-    margin-top: 7vh;
-    width: 33vmin;
-    height: auto;
-    max-width: 200px;
-    min-width: 80px;
-    object-fit: contain;
-    position: fixed;
-    opacity: 1;
-    border: 0.5px solid rgba(220, 220, 220, 0.965);
-    transition: transform 0.2s ease-out;
-    transform-origin: center center;
-    touch-action: none;
-    will-change: transform;
-  }
-
-  .blur {
-    filter: blur(3px);
-    transition: filter 0.3s ease;
-  }
-  .blur:hover {
-    transition: filter 1s;
-    filter: none;
-  }
-}
 </style>
 </head>
 <body>
@@ -552,31 +291,26 @@ p.light {
 
 <!-- Sidebar "About" nascosta di default -->
 <div id="aboutSidebar" class="about-sidebar">
-  <a href="javascript:void(0)" class="closebtn" onclick="toggleAboutSidebar()">×</a>
-  
-    <img src="IMG_page3/dariya_trubina_klas_txt_jordidevetten_low_res_1.jpg(mediaclass-landscape-large.faad41e29864068b6df57a9a947d42ec2b39ccbe).png"
-      alt="Immagine Sidebar" class="sidebar-img" onclick="toggleInstallationSidebar()">
-    <a class="caption">[threaded or shredded] une fois de plus, sans: Exhibition View - PH: Jordi de Vetten</a>
-
-     
+  <div class="about-sidebar-content">
+    <a href="javascript:void(0)" class="closebtn" onclick="toggleAboutSidebar()">×</a>
     <h2>About:</h2>
-    <div class="line"></div>
+    
     <p>Tommaso Massimiliano Alfì is a composer and sound designer based in Turin. 
     
     He has collaborated with various musicians and artists in the fields of music, video art, and cinema. 
     
     His approach is influenced by his main project, "MVRGN," which explores a contemporary, hybrid, and electronic
-    compositional language.
-    
-    In his most recent works, he collaborated with artist and friend dariya trubina on the visual and sound installation
+    sound. His latest work is
     "[threaded or shredded] une fois de plus, sans":
     a four-channel structure of contemporary composed music and sound design 
     installed for the Gerrit Rietveld Academie. 
-    
-   </p>
-  
-   
-   
+    </p>
+    <img src="IMG_page3/dariya_trubina_klas_txt_jordidevetten_low_res_1.jpg(mediaclass-landscape-large.faad41e29864068b6df57a9a947d42ec2b39ccbe).png"
+      alt="Immagine Sidebar" class="sidebar-img" onclick="toggleInstallationSidebar()">
+    <div class="caption-container">
+      <a class="caption">[threaded or shredded] une fois de plus, sans: Exhibition View - PH: Jordi de Vetten</a>
+    </div>
+  </div>
 </div>
 <!-- Sidebar aggiuntiva "Installation" -->
 <div id="installationSidebar" class="installation-sidebar">
@@ -944,7 +678,7 @@ p.light {
       <a href="https://tommasomassimilianoalfi.bandcamp.com/" target="_blank">
       
             </a>
-            <p class="movie"> Movie:</p> <a class="Title"  a href="https://www.imdb.com/title/tt29376130/" target="_blank"> Sleeping Close</a> 
+            <p class="movie"> Movie:</p> <a class="Title"> Sleeping Close</a> 
       <video src="Movies/Acqua.mp4" controls="true" playsinline webkit-playsinline class="video_0">
         your browser does not support the video tag
         </video>
@@ -954,8 +688,9 @@ p.light {
        
                    
          
-          <iframe style="border: none; width: 250px; height: 500px;" src="https://bandcamp.com/EmbeddedPlayer/album=1265036739/size=large/bgcol=ffffff/linkcol=333333/artwork=none/transparent=true/" class="player">
-            <a href="https://tommasomassimilianoalfi.bandcamp.com/album/sleeping-close-soundtrack">Sleeping Close - Soundtrack by Tommaso Massimiliano Alfi</a></iframe>
+          <iframe style="border: 0;" class="player" src="https://bandcamp.com/EmbeddedPlayer/album=1265036739/size=large/bgcol=ffffff/linkcol=333333/artwork=none/transparent=true/">
+            <a href="https://tommasomassimilianoalfi.bandcamp.com/album/sleeping-close-soundtrack">Sleeping Close - Soundtrack by Tommaso Massimiliano Alfi</a>
+          </iframe>
   </div>
                                   <!-- Sidebar Film 2 -->
                                   <div id="main2">
@@ -968,7 +703,7 @@ p.light {
                                     <a href="https://tommasomassimilianoalfi.bandcamp.com/" target="_blank">
                                    
                                   </a>
-                                  <p class="movie2"> Movie:</p> <a class="Title2"  a href="https://www.imdb.com/title/tt21608742/" target="_blank"> Donne Che Viaggiano Sole</a>
+                                  <p class="movie2"> Movie:</p> <a class="Title2"> Donne Che Viaggiano Sole</a>
                                     <video src="Movies/donneche.mp4" controls="true" playsinline webkit-playsinline class="video_2"></video>
                                 <div class="linemovie"></div>
                                 <p class="InfoMovie"> 75', ITA-DE-FRA, 2019, 2:1, 16:9, Full HD, stereo sound, v.o italian, english, with english and italiansubtitles. A Film By Giulio Pereno</p>
@@ -990,8 +725,9 @@ p.light {
                                                       <p class="InfoMovie"> Burden Of Proof
                                                       Looped Video HD and photo series- 2022 Italy
                                                         A Film by Federico Pozuelo</p>
-                                                      <iframe style="border: 0; width: 250px; height: 450px;" src="https://bandcamp.com/EmbeddedPlayer/album=2034586078/size=large/bgcol=ffffff/linkcol=0687f5/artwork=small/transparent=true/" class="player3">
-                                                        <a href="https://tommasomassimilianoalfi.bandcamp.com/album/burden-of-proof-original-motion-picture-soundtrack">Burden Of Proof - Original Motion Picture Soundtrack by Tommaso Massimiliano Alfì</a></iframe>
+                                                      <iframe style="border: 0;" class="player3" src="https://bandcamp.com/EmbeddedPlayer/album=2034586078/size=large/bgcol=ffffff/linkcol=0687f5/artwork=small/transparent=true/">
+                                                        <a href="https://tommasomassimilianoalfi.bandcamp.com/album/burden-of-proof-original-motion-picture-soundtrack">Burden Of Proof - Original Motion Picture Soundtrack by Tommaso Massimiliano Alfì</a>
+                                                      </iframe>
                                               </div>
                                                       </div>
                                                                       <!-- Sidebar Film 4 -->
@@ -1004,13 +740,14 @@ p.light {
                                                                       <a href="javascript:void(0)" class="closebtn4" onclick="OpenOrClose4()"> &times; </a> 
                                                                       <a href="https://tommasomassimilianoalfi.bandcamp.com/" target="_blank">
                                                                     </a>
-                                                                    <p class="movie4"> Movie:</p> <a class="Title4"  a href="https://www.rtve.es/television/20220418/metropolis-injuve-2022/2333780.shtml" target="_blank"> Despite The Facts</a>
+                                                                    <p class="movie4"> Movie:</p> <a class="Title4"  > Despite The Facts</a>
                                                                       <video src="Movies/DespiteTheFacts.mov" controls="true" playsinline webkit-playsinline class="video4"></video>
                                                                       <div class="linemovie"></div>
                                                                       <p class="InfoMovie">Despite The Facts, Short Movie 2022 Italy
                                                                         A Film by Federico Pozuelo</p>
-                                                                    <iframe style="border: 0; width: 250px; height: 450px;" src="https://bandcamp.com/EmbeddedPlayer/album=1256480392/size=large/bgcol=ffffff/linkcol=0687f5/artwork=none/transparent=true/" class="player4">
-                                                                      <a href="https://tommasomassimilianoalfi.bandcamp.com/album/despite-the-fact-original-motion-picture-soundtrack">Despite The Facts - Original Motion Picture Soundtrack by Tommaso Massimiliano Alfì</a></iframe>
+                                                                    <iframe style="border: 0;" class="player4" src="https://bandcamp.com/EmbeddedPlayer/album=1256480392/size=large/bgcol=ffffff/linkcol=0687f5/artwork=none/transparent=true/">
+                                                                      <a href="https://tommasomassimilianoalfi.bandcamp.com/album/despite-the-fact-original-motion-picture-soundtrack">Despite The Facts - Original Motion Picture Soundtrack by Tommaso Massimiliano Alfì</a>
+                                                                    </iframe>
                                                             </div>
                                                                                         </div>
                                                                                         <!-- Sidebar Film 5 -->
@@ -1023,14 +760,14 @@ p.light {
                                                                                           <a href="javascript:void(0)" class="closebtn5" onclick="OpenOrClose5()"> &times; </a> 
                                                                                           <a href="https://tommasomassimilianoalfi.bandcamp.com/" target="_blank">
                                                                                         </a>
-                                                                                        <p class="movie5"> Movie:</p> <a class="Title5"  a href="https://www.rtve.es/television/20220418/metropolis-injuve-2022/2333780.shtml" target="_blank"> Once And For All</a>
+                                                                                        <p class="movie5"> Movie:</p> <a class="Title5"  > Once And For All</a>
                                                                                           <video src="Movies/OnceAndFor.mov" controls="true" playsinline webkit-playsinline class="video5"></video>
                                                                                           <div class="linemovie"></div>
                                                                                         <p class="InfoMovie">Once And For All, Short Movie 2022 Italy
                                                                                           A Film by Federico Pozuelo & Javier Ruiz</p>
-                                                                                        <div class="ol_Movie10"></div>
-                                                                                        <iframe style="border: 0; width: 250px; height: 450px;" src="https://bandcamp.com/EmbeddedPlayer/album=4130254768/size=large/bgcol=ffffff/linkcol=0687f5/artwork=none/transparent=true/" class="player5">
-                                                                                          <a href="https://tommasomassimilianoalfi.bandcamp.com/album/once-and-for-all-original-motion-picture-soundtrack">Once And For All - Original Motion Picture Soundtrack by Tommaso Massimiliano Alfì</a></iframe>
+                                                                                        <iframe style="border: 0;" class="player5" src="https://bandcamp.com/EmbeddedPlayer/album=4130254768/size=large/bgcol=ffffff/linkcol=0687f5/artwork=none/transparent=true/">
+                                                                                          <a href="https://tommasomassimilianoalfi.bandcamp.com/album/once-and-for-all-original-motion-picture-soundtrack">Once And For All - Original Motion Picture Soundtrack by Tommaso Massimiliano Alfì</a>
+                                                                                        </iframe>
                                                                                           </div>
                                                                                         </div>
                                                                                         </div>
@@ -1044,8 +781,7 @@ p.light {
                                                                                                                     <a href="javascript:void(0)" class="closebtn6" onclick="OpenOrClose6()"> &times; </a>
                                                                                                                     <a href="https://tommasomassimilianoalfi.bandcamp.com/" target="_blank">
                                                                                                                     </a>
-                                                                                                                    <p class="movie6"> Movie:</p> <a class="Title6" a
-                                                                                                                      href="https://www.rtve.es/television/20220418/metropolis-injuve-2022/2333780.shtml" target="_blank"> Zanskar 6000</a>
+                                                                                                                    <p class="movie6"> Movie:</p> <a class="Title6" > Zanskar 6000</a>
                                                                                                                     <video src="Movies/ZANSKAR 6000 music_02.mp4" controls="true" playsinline webkit-playsinline class="video6"></video>
                                                                                                                     <div class="linemovie"></div>
                                                                                                                     <p class="InfoMovie"> "“Zanskar 6000” Italy, 2024, 19’15’’, 16:9, Full HD, stereo sound v.o. Italian/English, with english subtitles.
@@ -1053,11 +789,10 @@ p.light {
                                                                                                                     A film by Giada Ripa</p>
                                                                                                                     
                                                                                                                    
-                                                                                                                    <iframe style="border: 0; width: 250px; height: 450px;"
-                                                                                                                      src="https://bandcamp.com/EmbeddedPlayer/album=4130254768/size=large/bgcol=ffffff/linkcol=0687f5/artwork=none/transparent=true/"
-                                                                                                                      class="player5">
+                                                                                                                    <iframe style="border: 0;" class="player5" src="https://bandcamp.com/EmbeddedPlayer/album=4130254768/size=large/bgcol=ffffff/linkcol=0687f5/artwork=none/transparent=true/">
                                                                                                                       <a href="https://tommasomassimilianoalfi.bandcamp.com/album/once-and-for-all-original-motion-picture-soundtrack">Once
-                                                                                                                        And For All - Original Motion Picture Soundtrack by Tommaso Massimiliano Alfì</a></iframe>
+                                                                                                                        And For All - Original Motion Picture Soundtrack by Tommaso Massimiliano Alfì</a>
+                                                                                                                    </iframe>
                                                                                                                   </div>
                                                                                                                 </div>
                                                                                                                 </div>
@@ -1071,8 +806,7 @@ p.light {
                                                                                                                               <a href="javascript:void(0)" class="closebtn7" onclick="OpenOrClose7()"> &times; </a>
                                                                                                                               <a href="https://tommasomassimilianoalfi.bandcamp.com/" target="_blank">
                                                                                                                               </a>
-                                                                                                                              <p class="movie7"> Movie:</p> <a class="Title7" a
-                                                                                                                                href="https://www.rtve.es/television/20220418/metropolis-injuve-2022/2333780.shtml" target="_blank"> Suspended Lives
+                                                                                                                              <p class="movie7"> Movie:</p> <a class="Title7" > Suspended Lives
                                                                                                                                 </a>
                                                                                                                               <video src="Movies/suspended.mp4" controls="true" playsinline webkit-playsinline class="video7"></video>
                                                                                                                               <div class="linemovie"></div>
@@ -1081,10 +815,11 @@ p.light {
                                                                                                                               
                                                                                                                               
                                                                                                                                
-                                                                                                                            <iframe style="border: 0; width: 90%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=1106786924/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=none/transparent=true/"
-                                                                                                                              class="player7"><a href="https://tommasomassimilianoalfi.bandcamp.com/track/suspended-lives-theme-soundtrack">Suspended Lives
-                                                                                                                                - Theme Soundtrack by Tommaso Massimiliano Alfì</a></iframe>
-                                                                                                                            </div>
+                                                                                                                            <iframe style="border: 0;" class="player7" src="https://bandcamp.com/EmbeddedPlayer/track=1106786924/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=none/transparent=true/">
+                                                                                                                              <a href="https://tommasomassimilianoalfi.bandcamp.com/track/suspended-lives-theme-soundtrack">Suspended Lives
+                                                                                                                                - Theme Soundtrack by Tommaso Massimiliano Alfì</a>
+                                                                                                                            </iframe>
+                                                                                                                          </div>
                                                                                                                           </div>
                                                                                                                           </div>
 <!-- CONTACT -->
@@ -1133,597 +868,10 @@ p.light {
     }
   });
   
- // Funzione per aprire e chiudere la sidebar "About"
-function toggleAboutSidebar() {
-  const aboutSidebar = document.getElementById("aboutSidebar");
-  const workSidebar = document.getElementById("workSidebar");
-  const textContent = document.getElementById("textContent");
-  const aboutLink = document.getElementById("aboutLink");
-  const workLink = document.getElementById("workLink");
-  const screenWidth = window.innerWidth;
-
-  // Imposta la larghezza della sidebar in base alla larghezza dello schermo
-  const sidebarWidth = (screenWidth < 599) ? "88vw" : ""; // 34vw per schermi più piccoli, altrimenti usa il valore predefinito
-  
-  
-  // Controllo lo stato della sidebar "About"
-  if (aboutSidebar.style.left === "-100vw" || aboutSidebar.style.left === "") {
-    // Apre la sidebar "About" con margine da sinistra di 20px
-    aboutSidebar.style.left = "20px"; // Imposta la posizione a 20px da sinistra
-    aboutSidebar.style.width = sidebarWidth; // Imposta la larghezza della sidebar
-    workSidebar.style.left = "-100vw"; // Chiude la sidebar "Work"
-
-    // Nasconde il contenuto principale e i link
-    textContent.classList.add("hide-content");
-    aboutLink.style.visibility = "hidden";
-    workLink.style.visibility = "hidden";
-  } else {
-    // Chiude la sidebar "About"
-    aboutSidebar.style.left = "-100vw"; // Ripristina la posizione di chiusura della sidebar
-    aboutSidebar.style.width = "0"; // Ripristina la larghezza della sidebar a 0 quando è chiusa
-
-    // Ripristina il contenuto principale e i link
-    textContent.classList.remove("hide-content");
-    aboutLink.style.visibility = "visible";
-    workLink.style.visibility = "visible";
-  }
-}
-
-  // Funzione per aprire e chiudere la sidebar "Work"
-function toggleWorkSidebar() {
-  const workSidebar = document.getElementById("workSidebar");
-  const aboutSidebar = document.getElementById("aboutSidebar");
-  const textContent = document.getElementById("textContent");
-  const aboutLink = document.getElementById("aboutLink");
-  const workLink = document.getElementById("workLink");
-
-  // Controlla se lo schermo è a 599px o meno e imposta la larghezza solo in quel caso
-  if (window.innerWidth <= 599) {
-    workSidebar.style.width = "88vw"; // Larghezza per schermi piccoli
-  }
-
-  // Controlla lo stato della sidebar "Work" per aprirla o chiuderla
-  if (workSidebar.style.left === "-100vw" || workSidebar.style.left === "") {
-    // Apre la sidebar "Work" e chiude "About" se aperta
-    workSidebar.style.left = "20px";
-    aboutSidebar.style.left = "-100vw";
-
-    // Nasconde il contenuto principale e i link
-    textContent.classList.add("hide-content");
-    aboutLink.style.visibility = "hidden";
-    workLink.style.visibility = "hidden";
-  } else {
-    // Chiude la sidebar "Work"
-    workSidebar.style.left = "-100vw"; // Chiude la sidebar
-
-    // Ripristina il contenuto principale e i link
-    textContent.classList.remove("hide-content");
-    aboutLink.style.visibility = "visible";
-    workLink.style.visibility = "visible";
-  }
-}
-
-
-// Funzione per aprire e chiudere la sidebar "Installation" e controllare l'audio
-function toggleInstallationSidebar() {
-  const installationSidebar = document.getElementById("installationSidebar");
-  const aboutSidebar = document.getElementById("aboutSidebar");
-  const audio = document.getElementById("installation audio");
-
-  // Controlla la larghezza dello schermo
-  const screenWidth = window.innerWidth;
-
-  // Logica di apertura/chiusura della sidebar
-  if (screenWidth <= 1024) {
-    openPosition = "0vw";
-  } else if (screenWidth <= 1440) {
-    openPosition = "29.3vw";
-  } else {
-    openPosition = "29.3vw";
-  }
-
-  const closedPosition = "-100vw";
-
-  // Controllo lo stato della sidebar "Installation"
-  if (installationSidebar.style.left === closedPosition || installationSidebar.style.left === "") {
-    // Apre la sidebar "Installation"
-    installationSidebar.style.left = openPosition;
-    audio.play(); // Avvia l'audio
-
-    // Per dispositivi fino a 480px, gestisci posizionamento e blur
-    if (screenWidth <= 785) {
-      installationSidebar.style.position = 'absolute';
-      installationSidebar.style.top = '20px';
-      installationSidebar.style.left = '50%';
-      installationSidebar.style.transform = 'translateX(-50%)';
-      
-      aboutSidebar.style.filter = 'blur(20px)';
-      
-    }
-  } else {
-    // Chiude la sidebar "Installation"
-    installationSidebar.style.left = closedPosition;
-    audio.pause(); // Ferma l'audio
-    audio.currentTime = 0; // Riporta l'audio all'inizio
-
-    // Ripristina stato normale per 480px
-    if (screenWidth <= 785) {
-      installationSidebar.style.position = '';
-      installationSidebar.style.top = '';
-      installationSidebar.style.left = '';
-      installationSidebar.style.transform = '';
-      
-      aboutSidebar.style.filter = 'none';
-      
-    }
-  }
-}
-
-  // Funzione per chiudere le sidebar e ripristinare la visibilità degli elementi al clic fuori
-  document.addEventListener('click', function (event) {
-    const aboutSidebar = document.getElementById("aboutSidebar");
-    const workSidebar = document.getElementById("workSidebar");
-    const installationSidebar = document.getElementById("installationSidebar");
-    const textContent = document.getElementById("textContent");
-    const aboutLink = document.getElementById("aboutLink");
-    const workLink = document.getElementById("workLink");
-    const audio = document.getElementById("installation audio");
-    const screenWidth = window.innerWidth;
-
-    // Non interferire con il clic sull'immagine per aprire la sidebar "Installation"
-    if (event.target.classList.contains("sidebar-img")) {
-      return; // Non fare nulla se il clic è sull'immagine
-    }
-
-    // Se il clic è fuori dalla sidebar "About" e dal link "About", chiudi la sidebar
-    if (!aboutSidebar.contains(event.target) && !aboutLink.contains(event.target)) {
-      aboutSidebar.style.left = "-100vw"; // Chiude la sidebar
-      
-      // Per dispositivi fino a 480px, rimuovi blur
-      if (screenWidth <= 785) {
-        aboutSidebar.style.filter = 'none';
-      }
-    }
-
-    // Se il clic è fuori dalla sidebar "Work" e dal link "Work", chiudi la sidebar
-    if (!workSidebar.contains(event.target) && !workLink.contains(event.target)) {
-      workSidebar.style.left = "-100vw"; // Chiude la sidebar
-    }
-
-    // Se il clic è fuori dalla sidebar "Installation", chiudi la sidebar e ferma l'audio
-    if (!installationSidebar.contains(event.target)) {
-      installationSidebar.style.left = "-100vw"; // Chiude la sidebar
-      audio.pause(); // Ferma l'audio
-      audio.currentTime = 0; // Riporta l'audio all'inizio
-      
-      // Per dispositivi fino a 480px, rimuovi blur
-      if (screenWidth <= 785) {
-        aboutSidebar.style.filter = 'none';
-      }
-    }
-
-    // Ripristina il contenuto principale e i link se tutte le sidebar sono chiuse
-    if (aboutSidebar.style.left === "-100vw" && workSidebar.style.left === "-100vw" && installationSidebar.style.left === "-100vw") {
-      textContent.classList.remove("hide-content"); // Ripristina il contenuto principale
-      aboutLink.style.visibility = "visible"; // Rendi visibile il link "About"
-      workLink.style.visibility = "visible"; // Rendi visibile il link "Work"
-    }
-  });
-  
- // Funzione per aprire e chiudere la sidebar "Film Info"
-function toggleFilmInfoSidebar(element) {
-  const filmId = element.getAttribute("data-film");
-
-  const targetSidebar = document.getElementById(filmId);
-
-  const workSidebar = document.getElementById("workSidebar");
-  const screenWidth = window.innerWidth;
-
-  let openPosition;
-  if (screenWidth <= 785) {
-    openPosition = "0vw";
-  } else if (screenWidth <= 1024) {
-    openPosition = "30.5vw";
-  } else {
-    openPosition = "30.5vw";
-  }
-
-  const closedPosition = "-100vw";
-
-  // Close all other sidebars
-  const allSidebars = document.querySelectorAll('.infoSidebar');
-  allSidebars.forEach(sidebar => {
-    if (sidebar !== targetSidebar) {
-      sidebar.style.left = closedPosition;
-    }
-  });
-
-  // Check if sidebar is already open
-  if (targetSidebar.style.left === openPosition) {
-    // Close sidebar
-    targetSidebar.style.left = closedPosition;
-    
-    // Remove blur for mobile
-    if (screenWidth <= 785) {
-      targetSidebar.style.position = '';
-      targetSidebar.style.top = '';
-      targetSidebar.style.left = '';
-      targetSidebar.style.transform = '';
-      workSidebar.style.filter = 'none';
-    }
-  } else {
-    // Open sidebar
-    targetSidebar.style.left = openPosition;
-    
-    // Add blur for mobile
-    if (screenWidth <= 785) {
-      targetSidebar.style.position = 'absolute';
-      targetSidebar.style.top = '20px';
-      targetSidebar.style.left = '50%';
-      targetSidebar.style.transform = 'translateX(-50%)';
-      workSidebar.style.filter = 'blur(20px)';
-    }
-  }
-}
-
-// Update close button handler
-document.querySelectorAll('.infoSidebar .closebtn').forEach(btn => {
-  btn.addEventListener('click', function(event) {
-    event.stopPropagation();
-    const sidebar = this.closest('.infoSidebar');
-    if (sidebar) {
-      sidebar.style.left = "-100vw";
-      if (window.innerWidth <= 785) {
-        sidebar.style.position = '';
-        sidebar.style.top = '';
-        sidebar.style.left = '';
-        sidebar.style.transform = '';
-        document.getElementById("workSidebar").style.filter = 'none';
-      }
-    }
-  });
-});
-
-// Close sidebars when clicking outside
-document.addEventListener('click', function(event) {
-  const allSidebars = document.querySelectorAll('.infoSidebar');
-  allSidebars.forEach(sidebar => {
-    // If click is outside sidebar and not on a trigger element
-    if (!sidebar.contains(event.target) && !event.target.closest('[data-film]')) {
-      sidebar.style.left = "-100vw";
-      if (window.innerWidth <= 785) {
-        sidebar.style.position = '';
-        sidebar.style.top = '';
-        sidebar.style.left = '';
-        sidebar.style.transform = '';
-        document.getElementById("workSidebar").style.filter = 'none';
-      }
-    }
-  });
-});
+ 
 </script>
-
-<script>
-  //Touch Events//
-document.addEventListener('DOMContentLoaded', function() {
-  const movieImages = document.querySelectorAll('.imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5, .imgmovie6, .imgmovie7');
-  
-  if (window.innerWidth <= 785) {
-    movieImages.forEach(img => {
-      let initialX = 0;
-      let initialY = 0;
-      let currentX = 0;
-      let currentY = 0;
-      let xOffset = 0;
-      let yOffset = 0;
-      let active = false;
-      let isDragging = false;
-      let touchStartTime = 0;
-      let lastTapTime = 0;
-      
-      function dragStart(e) {
-        e.preventDefault();
-        const currentTime = Date.now();
-        touchStartTime = currentTime;
-        
-        // Check for double tap
-        if (currentTime - lastTapTime < 300) {
-          // Double tap detected - open sidebar
-          const mainDiv = img.closest('[id^="main"]');
-          if (mainDiv) {
-            const sidebarId = mainDiv.querySelector('[data-film]').getAttribute('data-film');
-            const sidebarElement = document.querySelector(`[data-film="${sidebarId}"]`);
-            if (sidebarElement) {
-              toggleFilmInfoSidebar(sidebarElement);
-            }
-          }
-          active = false;
-          return;
-        }
-        lastTapTime = currentTime;
-        
-        if (e.type === "touchstart") {
-          initialX = e.touches[0].clientX - xOffset;
-          initialY = e.touches[0].clientY - yOffset;
-        }
-        
-        if (e.target === img) {
-          active = true;
-          isDragging = false;
-          
-          // Reset all images to base z-index
-          movieImages.forEach(image => {
-            if (image !== img) {
-              image.style.zIndex = "1";
-            }
-          });
-          
-          // Set high z-index for selected image
-          img.style.zIndex = "999999";
-        }
-      }
-      
-      function drag(e) {
-        if (!active) return;
-        
-        e.preventDefault();
-        isDragging = true;
-        
-        if (e.type === "touchmove") {
-          const touch = e.touches[0];
-          currentX = touch.clientX - initialX;
-          currentY = touch.clientY - initialY;
-        }
-        
-        // Apply movement with smooth boundary constraints
-        const rect = img.getBoundingClientRect();
-        const windowWidth = window.innerWidth;
-        const windowHeight = window.innerHeight;
-        const resistance = 0.3;
-        
-        // Smooth boundary constraints
-        if (rect.left < 0) {
-          currentX += Math.abs(rect.left) * resistance;
-        }
-        if (rect.right > windowWidth) {
-          currentX -= (rect.right - windowWidth) * resistance;
-        }
-        if (rect.top < 0) {
-          currentY += Math.abs(rect.top) * resistance;
-        }
-        if (rect.bottom > windowHeight) {
-          currentY -= (rect.bottom - windowHeight) * resistance;
-        }
-        
-        xOffset = currentX;
-        yOffset = currentY;
-        
-        // Use requestAnimationFrame for smooth animation
-        requestAnimationFrame(() => {
-          img.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
-        });
-      }
-      
-      function dragEnd(e) {
-        if (!active) return;
-        
-        // Smooth boundary spring back
-        const rect = img.getBoundingClientRect();
-        const windowWidth = window.innerWidth;
-        const windowHeight = window.innerHeight;
-        
-        if (rect.left < 0) {
-          currentX = 0;
-        }
-        if (rect.right > windowWidth) {
-          currentX = windowWidth - rect.width;
-        }
-        if (rect.top < 0) {
-          currentY = 0;
-        }
-        if (rect.bottom > windowHeight) {
-          currentY = windowHeight - rect.height;
-        }
-        
-        // Apply final position with animation
-        requestAnimationFrame(() => {
-          img.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
-        });
-        
-        // Reset variables
-        initialX = currentX;
-        initialY = currentY;
-        active = false;
-      }
-      
-      // Function to get corresponding video
-      function getVideoForImage(img) {
-        const imageClass = img.className;
-        const sidebarId = imageClass === 'imgmovie' ? 'mySidebar' :
-                         imageClass === 'imgmovie2' ? 'mySidebar2' :
-                         imageClass === 'imgmovie3' ? 'mySidebar3' :
-                         imageClass === 'imgmovie4' ? 'mySidebar4' :
-                         imageClass === 'imgmovie5' ? 'mySidebar5' :
-                         imageClass === 'imgmovie6' ? 'mySidebar6' :
-                         imageClass === 'imgmovie7' ? 'mySidebar7' : null;
-        
-        if (sidebarId) {
-          const sidebar = document.getElementById(sidebarId);
-          return sidebar ? sidebar.querySelector('video') : null;
-        }
-        return null;
-      }
-      
-      // Touch events
-      img.addEventListener("touchstart", dragStart, false);
-      img.addEventListener("touchend", dragEnd, false);
-      img.addEventListener("touchmove", drag, false);
-    });
-  }
-});
-</script>
-
-<script>
-  //Touch Events//
-document.addEventListener('DOMContentLoaded', function() {
-  const movieImages = document.querySelectorAll('.imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5, .imgmovie6, .imgmovie7');
-  
-  if (window.innerWidth <= 785) {
-    movieImages.forEach(img => {
-      let initialX = 0;
-      let initialY = 0;
-      let currentX = 0;
-      let currentY = 0;
-      let xOffset = 0;
-      let yOffset = 0;
-      let active = false;
-      let isDragging = false;
-      let touchStartTime = 0;
-      let lastTapTime = 0;
-      
-      function dragStart(e) {
-        e.preventDefault();
-        const currentTime = Date.now();
-        touchStartTime = currentTime;
-        
-        // Check for double tap
-        if (currentTime - lastTapTime < 300) {
-          // Double tap detected - open sidebar
-          const mainDiv = img.closest('[id^="main"]');
-          if (mainDiv) {
-            const sidebarId = mainDiv.querySelector('[data-film]').getAttribute('data-film');
-            const sidebarElement = document.querySelector(`[data-film="${sidebarId}"]`);
-            if (sidebarElement) {
-              toggleFilmInfoSidebar(sidebarElement);
-            }
-          }
-          active = false;
-          return;
-        }
-        lastTapTime = currentTime;
-        
-        if (e.type === "touchstart") {
-          initialX = e.touches[0].clientX - xOffset;
-          initialY = e.touches[0].clientY - yOffset;
-        }
-        
-        if (e.target === img) {
-          active = true;
-          isDragging = false;
-          
-          // Reset all images to base z-index
-          movieImages.forEach(image => {
-            if (image !== img) {
-              image.style.zIndex = "1";
-            }
-          });
-          
-          // Set high z-index for selected image
-          img.style.zIndex = "999999";
-        }
-      }
-      
-      function drag(e) {
-        if (!active) return;
-        
-        e.preventDefault();
-        isDragging = true;
-        
-        if (e.type === "touchmove") {
-          const touch = e.touches[0];
-          currentX = touch.clientX - initialX;
-          currentY = touch.clientY - initialY;
-        }
-        
-        // Apply movement with smooth boundary constraints
-        const rect = img.getBoundingClientRect();
-        const windowWidth = window.innerWidth;
-        const windowHeight = window.innerHeight;
-        const resistance = 0.3;
-        
-        // Smooth boundary constraints
-        if (rect.left < 0) {
-          currentX += Math.abs(rect.left) * resistance;
-        }
-        if (rect.right > windowWidth) {
-          currentX -= (rect.right - windowWidth) * resistance;
-        }
-        if (rect.top < 0) {
-          currentY += Math.abs(rect.top) * resistance;
-        }
-        if (rect.bottom > windowHeight) {
-          currentY -= (rect.bottom - windowHeight) * resistance;
-        }
-        
-        xOffset = currentX;
-        yOffset = currentY;
-        
-        // Use requestAnimationFrame for smooth animation
-        requestAnimationFrame(() => {
-          img.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
-        });
-      }
-      
-      function dragEnd(e) {
-        if (!active) return;
-        
-        // Smooth boundary spring back
-        const rect = img.getBoundingClientRect();
-        const windowWidth = window.innerWidth;
-        const windowHeight = window.innerHeight;
-        
-        if (rect.left < 0) {
-          currentX = 0;
-        }
-        if (rect.right > windowWidth) {
-          currentX = windowWidth - rect.width;
-        }
-        if (rect.top < 0) {
-          currentY = 0;
-        }
-        if (rect.bottom > windowHeight) {
-          currentY = windowHeight - rect.height;
-        }
-        
-        // Apply final position with animation
-        requestAnimationFrame(() => {
-          img.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
-        });
-        
-        // Reset variables
-        initialX = currentX;
-        initialY = currentY;
-        active = false;
-      }
-      
-      // Function to get corresponding video
-      function getVideoForImage(img) {
-        const imageClass = img.className;
-        const sidebarId = imageClass === 'imgmovie' ? 'mySidebar' :
-                         imageClass === 'imgmovie2' ? 'mySidebar2' :
-                         imageClass === 'imgmovie3' ? 'mySidebar3' :
-                         imageClass === 'imgmovie4' ? 'mySidebar4' :
-                         imageClass === 'imgmovie5' ? 'mySidebar5' :
-                         imageClass === 'imgmovie6' ? 'mySidebar6' :
-                         imageClass === 'imgmovie7' ? 'mySidebar7' : null;
-        
-        if (sidebarId) {
-          const sidebar = document.getElementById(sidebarId);
-          return sidebar ? sidebar.querySelector('video') : null;
-        }
-        return null;
-      }
-      
-      // Touch events
-      img.addEventListener("touchstart", dragStart, false);
-      img.addEventListener("touchend", dragEnd, false);
-      img.addEventListener("touchmove", drag, false);
-    });
-  }
-});
-</script>
-
-<script src="script3.js"> </script>
-     
+<script src="/JS/AboutWorkInstallationInfosidebar.js"> </script>
+<script src="/JS/Sidebarmovies.js"> </script>
+<script src="/JS/TouchEvents.js"> </script>     
 </body>
 </Html>

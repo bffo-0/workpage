@@ -10,6 +10,21 @@ function closeAllSidebars(exceptId) {
     { id: 'mySidebar7', video: document.querySelector('.video7') }
   ];
 
+  // Restore hidden elements if we're on mobile
+  if (window.innerWidth <= 1024) {
+    const contactForm = document.querySelector('.contact-form');
+    const linkContainer = document.querySelector('.links-container');
+    const aboutLink = document.querySelector('.about-link');
+    const workLink = document.querySelector('.work-link');
+    const lightText = document.querySelector('p.light');
+
+    if (contactForm) contactForm.style.visibility = 'visible';
+    if (linkContainer) linkContainer.style.visibility = 'visible';
+    if (aboutLink) aboutLink.style.visibility = 'visible';
+    if (workLink) workLink.style.visibility = 'visible';
+    if (lightText) lightText.style.visibility = 'visible';
+  }
+
   sidebars.forEach(function(sidebar) {
     const sidebarElement = document.getElementById(sidebar.id);
     if (sidebar.id !== exceptId) {
@@ -24,7 +39,10 @@ function closeAllSidebars(exceptId) {
 
   // Rimuove l'effetto blur da tutte le immagini
   const images = document.querySelectorAll('.imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5, .imgmovie6, .imgmovie7');
-  images.forEach(img => img.classList.remove('blur'));
+  images.forEach(img => {
+    img.style.filter = "none";
+    img.classList.remove('blur');
+  });
 }
 
 // Global variables for double-tap detection (mobile only)
@@ -92,6 +110,11 @@ function OpenOrClose(sidebarId, videoSelector) {
   closeAllSidebars(sidebarId); // Chiude le altre sidebar
   const sidebar = document.getElementById(sidebarId);
   const video = document.querySelector(videoSelector);
+  const contactForm = document.querySelector('.contact-form');
+  const linkContainer = document.querySelector('.links-container');
+  const aboutLink = document.querySelector('.about-link');
+  const workLink = document.querySelector('.work-link');
+  const lightText = document.querySelector('p.light');
 
   // Seleziona tutte le immagini che devono avere l'effetto blur
   const images = document.querySelectorAll('.imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5, .imgmovie6, .imgmovie7');
@@ -100,36 +123,44 @@ function OpenOrClose(sidebarId, videoSelector) {
 
   // Controlla la larghezza dello schermo per decidere la larghezza della sidebar
   if (sidebar.classList.contains("open")) {
-    if (window.innerWidth <= 785) {
+    if (window.innerWidth < 786) {
       // Mobile view
       sidebar.style.width = "89.7vw";
-      sidebar.style.right = "14%";
+      sidebar.style.right = "10%";
       sidebar.style.display = "block";
+      if (contactForm) contactForm.style.visibility = 'hidden';
+      if (linkContainer) linkContainer.style.visibility = 'hidden';
+      if (aboutLink) aboutLink.style.visibility = 'hidden';
+      if (workLink) workLink.style.visibility = 'hidden';
+      if (lightText) lightText.style.visibility = 'hidden';
+      images.forEach(img => img.style.filter = "blur(5px)");
     } else if (window.innerWidth >= 786 && window.innerWidth <= 1024) {
       // Tablet view
       sidebar.style.right="14.4%"
-      sidebar.style.width = "78vw"; // Imposta larghezza a 78vw per tablet
-      images.forEach(img => img.classList.add('blur'));
+      sidebar.style.width = "78vw";
+      images.forEach(img => img.style.filter = "blur(5px)");
     } else if (window.innerWidth <= 1440) {
       // Small desktop
-      sidebar.style.width = "31vw"; // Imposta larghezza a 31vw su schermi <= 1440px
-      // Aggiunge l'effetto blur alle immagini solo su schermi <= 1440px
-      images.forEach(img => img.classList.add('blur'));
+      sidebar.style.width = "31vw";
     } else {
       // Large desktop
-      sidebar.style.width = "25vw"; // Imposta larghezza a 25vw su schermi più grandi
+      sidebar.style.width = "25vw";
     }
 
     if (video) video.play(); // Fa partire il video se presente
   } else {
-    if (window.innerWidth <= 785) {
+    if (window.innerWidth < 1025) {
       sidebar.style.width = "0";
       sidebar.style.display = "none";
+      if (contactForm) contactForm.style.visibility = 'visible';
+      if (linkContainer) linkContainer.style.visibility = 'visible';
+      if (aboutLink) aboutLink.style.visibility = 'visible';
+      if (workLink) workLink.style.visibility = 'visible';
+      if (lightText) lightText.style.visibility = 'visible';
+      images.forEach(img => img.style.filter = "none");
     } else {
-      sidebar.style.width = "0vw"; // Torna alla larghezza originale
-
-      // Rimuove l'effetto blur dalle immagini
-      images.forEach(img => img.classList.remove('blur'));
+      sidebar.style.width = "0vw";
+      images.forEach(img => img.style.filter = "none");
     }
 
     if (video) {
@@ -168,7 +199,7 @@ function OpenOrClose7() {
 
 // Aggiungiamo l'evento click sul documento per chiudere le sidebar se si clicca fuori
 document.addEventListener('click', function(event) {
-  const sidebars = ['mySidebar', 'mySidebar2', 'mySidebar3', 'mySidebar4', 'mySidebar5', 'mySidebar6', 'mySidebar7'];
+  const sidebars = ['mySidebar', 'mySidebar3', 'mySidebar6', 'mySidebar7'];
 
   // Se il click non avviene su un elemento della sidebar o sui bottoni
   if (!sidebars.some(id => document.getElementById(id).contains(event.target)) &&
