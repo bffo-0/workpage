@@ -49,12 +49,26 @@
 
 .infoSidebar .closebtn {
     position: absolute;
-    text-align: right;
-    top: 10px;
+    text-align: center;
+    top: 5px;
     right: 25px;
     font-size: 20px;
+    font-weight: bold;
     color: rgb(0, 0, 0);
     cursor: pointer;
+    display: block;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    z-index: 999999;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.infoSidebar .closebtn:hover {
+    opacity: 0.8;
 }
 
 @media screen and (min-width: 1280px) and (max-width:1440px) {
@@ -78,6 +92,14 @@
         font-size: 2.8vw;
     }
 }
+
+@media screen and (max-width: 480px) {
+    .infoSidebar .closebtn {
+        font-size: 5vw;
+    }
+    
+}
+
 
 /* Cambia il cursore per gli elementi con data-film */
 p[data-film] {

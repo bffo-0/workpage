@@ -142,6 +142,7 @@ function OpenOrClose(sidebarId, videoSelector) {
     } else if (window.innerWidth <= 1440) {
       // Small desktop
       sidebar.style.width = "31vw";
+      images.forEach(img => img.style.filter = "blur(30px)");
     } else {
       // Large desktop
       sidebar.style.width = "25vw";

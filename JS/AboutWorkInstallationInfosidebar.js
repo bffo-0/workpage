@@ -1,3 +1,17 @@
+// Funzione per gestire il blur delle imgmovies
+function handleImgMoviesBlur(shouldBlur) {
+  if (window.innerWidth <= 1440) {
+    const imgmovies = document.querySelectorAll('.imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5, .imgmovie6, .imgmovie7');
+    imgmovies.forEach(img => {
+      if (shouldBlur) {
+        img.classList.add('blur');
+      } else {
+        img.classList.remove('blur');
+      }
+    });
+  }
+}
+
 // Funzione per aprire e chiudere la sidebar "About"
 function toggleAboutSidebar() {
   const aboutSidebar = document.getElementById("aboutSidebar");
@@ -10,13 +24,15 @@ function toggleAboutSidebar() {
   // Imposta la larghezza della sidebar in base alla larghezza dello schermo
   const sidebarWidth = (screenWidth < 599) ? "88vw" : ""; // 34vw per schermi più piccoli, altrimenti usa il valore predefinito
   
-  
   // Controllo lo stato della sidebar "About"
   if (aboutSidebar.style.left === "-100vw" || aboutSidebar.style.left === "") {
     // Apre la sidebar "About" con margine da sinistra di 20px
     aboutSidebar.style.left = "20px"; // Imposta la posizione a 20px da sinistra
     aboutSidebar.style.width = sidebarWidth; // Imposta la larghezza della sidebar
     workSidebar.style.left = "-100vw"; // Chiude la sidebar "Work"
+
+    // Aggiunge blur alle imgmovies
+    handleImgMoviesBlur(true);
 
     // Nasconde il contenuto principale e i link
     textContent.classList.add("hide-content");
@@ -26,6 +42,11 @@ function toggleAboutSidebar() {
     // Chiude la sidebar "About"
     aboutSidebar.style.left = "-100vw"; // Ripristina la posizione di chiusura della sidebar
     aboutSidebar.style.width = "0"; // Ripristina la larghezza della sidebar a 0 quando è chiusa
+
+    // Rimuove blur dalle imgmovies se nessun'altra sidebar è aperta
+    if (workSidebar.style.left === "-100vw") {
+      handleImgMoviesBlur(false);
+    }
 
     // Ripristina il contenuto principale e i link
     textContent.classList.remove("hide-content");
@@ -54,6 +75,9 @@ function toggleWorkSidebar() {
     workSidebar.style.left = "20px";
     aboutSidebar.style.left = "-100vw";
 
+    // Aggiunge blur alle imgmovies
+    handleImgMoviesBlur(true);
+
     // Nasconde il contenuto principale e i link
     textContent.classList.add("hide-content");
     aboutLink.style.visibility = "hidden";
@@ -61,6 +85,11 @@ function toggleWorkSidebar() {
   } else {
     // Chiude la sidebar "Work"
     workSidebar.style.left = "-100vw"; // Chiude la sidebar
+
+    // Rimuove blur dalle imgmovies se nessun'altra sidebar è aperta
+    if (aboutSidebar.style.left === "-100vw") {
+      handleImgMoviesBlur(false);
+    }
 
     // Ripristina il contenuto principale e i link
     textContent.classList.remove("hide-content");
@@ -96,6 +125,9 @@ function toggleInstallationSidebar() {
     installationSidebar.style.left = openPosition;
     audio.play(); // Avvia l'audio
 
+    // Aggiunge blur alle imgmovies
+    handleImgMoviesBlur(true);
+
     // Per dispositivi fino a 480px, gestisci posizionamento e blur
     if (screenWidth <= 1024) {
       installationSidebar.style.position = 'absolute';
@@ -111,6 +143,9 @@ function toggleInstallationSidebar() {
     installationSidebar.style.left = closedPosition;
     audio.pause(); // Ferma l'audio
     audio.currentTime = 0; // Riporta l'audio all'inizio
+
+    // Rimuove blur dalle imgmovies
+    handleImgMoviesBlur(false);
 
     // Ripristina stato normale per 480px
     if (screenWidth <= 1024) {
@@ -135,34 +170,47 @@ function toggleInstallationSidebar() {
     const workLink = document.getElementById("workLink");
     const audio = document.getElementById("installation audio");
     const screenWidth = window.innerWidth;
+    const infoSidebars = document.querySelectorAll('.infoSidebar');
 
     // Non interferire con il clic sull'immagine per aprire la sidebar "Installation"
     if (event.target.classList.contains("sidebar-img")) {
-      return; // Non fare nulla se il clic è sull'immagine
+      return;
     }
 
-    // Se il clic è fuori dalla sidebar "About" e dal link "About", chiudi la sidebar
-    if (!aboutSidebar.contains(event.target) && !aboutLink.contains(event.target)) {
-      aboutSidebar.style.left = "-100vw"; // Chiude la sidebar
+    // Controlla se il click è avvenuto su una infoSidebar
+    let clickedOnInfoSidebar = false;
+    infoSidebars.forEach(sidebar => {
+      if (sidebar.contains(event.target)) {
+        clickedOnInfoSidebar = true;
+      }
+    });
+
+    // Se il clic è fuori dalla sidebar "About", dal link "About", da installation-sidebar e da infoSidebar, chiudi la sidebar
+    if (!aboutSidebar.contains(event.target) && 
+        !aboutLink.contains(event.target) && 
+        !installationSidebar.contains(event.target) && 
+        !clickedOnInfoSidebar) {
+      aboutSidebar.style.left = "-100vw";
       
-      // Per dispositivi fino a 480px, rimuovi blur
       if (screenWidth <= 1024) {
         aboutSidebar.style.filter = 'none';
       }
     }
 
-    // Se il clic è fuori dalla sidebar "Work" e dal link "Work", chiudi la sidebar
-    if (!workSidebar.contains(event.target) && !workLink.contains(event.target)) {
-      workSidebar.style.left = "-100vw"; // Chiude la sidebar
+    // Se il clic è fuori dalla sidebar "Work", dal link "Work", da installation-sidebar e da infoSidebar, chiudi la sidebar
+    if (!workSidebar.contains(event.target) && 
+        !workLink.contains(event.target) && 
+        !installationSidebar.contains(event.target) && 
+        !clickedOnInfoSidebar) {
+      workSidebar.style.left = "-100vw";
     }
 
     // Se il clic è fuori dalla sidebar "Installation", chiudi la sidebar e ferma l'audio
     if (!installationSidebar.contains(event.target)) {
-      installationSidebar.style.left = "-100vw"; // Chiude la sidebar
-      audio.pause(); // Ferma l'audio
-      audio.currentTime = 0; // Riporta l'audio all'inizio
+      installationSidebar.style.left = "-100vw";
+      audio.pause();
+      audio.currentTime = 0;
       
-      // Per dispositivi fino a 480px, rimuovi blur
       if (screenWidth <= 1024) {
         aboutSidebar.style.filter = 'none';
       }
