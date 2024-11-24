@@ -133,16 +133,22 @@ function OpenOrClose(sidebarId, videoSelector) {
       if (aboutLink) aboutLink.style.visibility = 'hidden';
       if (workLink) workLink.style.visibility = 'hidden';
       if (lightText) lightText.style.visibility = 'hidden';
-      images.forEach(img => img.style.filter = "blur(5px)");
+      images.forEach(img => img.style.filter = "blur(30px)");
     } else if (window.innerWidth >= 786 && window.innerWidth <= 1024) {
       // Tablet view
       sidebar.style.right="14.4%"
       sidebar.style.width = "78vw";
-      images.forEach(img => img.style.filter = "blur(5px)");
+      images.forEach(img => {
+        img.style.transition = "none";
+        img.style.filter = "blur(30px)";
+      });
     } else if (window.innerWidth <= 1440) {
       // Small desktop
       sidebar.style.width = "31vw";
-      images.forEach(img => img.style.filter = "blur(30px)");
+      images.forEach(img => {
+        img.style.transition = "filter 2s";
+        img.style.filter = "blur(10px)";
+      });
     } else {
       // Large desktop
       sidebar.style.width = "25vw";
@@ -158,10 +164,16 @@ function OpenOrClose(sidebarId, videoSelector) {
       if (aboutLink) aboutLink.style.visibility = 'visible';
       if (workLink) workLink.style.visibility = 'visible';
       if (lightText) lightText.style.visibility = 'visible';
-      images.forEach(img => img.style.filter = "none");
+      images.forEach(img => {
+        img.style.transition = "none";
+        img.style.filter = "none";
+      });
     } else {
       sidebar.style.width = "0vw";
-      images.forEach(img => img.style.filter = "none");
+      images.forEach(img => {
+        img.style.transition = "none";
+        img.style.filter = "none";
+      });
     }
 
     if (video) {
@@ -198,6 +210,44 @@ function OpenOrClose7() {
   OpenOrClose('mySidebar7', '.video7');
 }
 
+// Funzione per gestire il blur al passaggio del mouse (solo per schermi tra 1024px e 1440px)
+function handleImageHover() {
+  if (window.innerWidth > 1024 && window.innerWidth <= 1440) {
+    const images = document.querySelectorAll('.imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5, .imgmovie6, .imgmovie7');
+    
+    images.forEach(img => {
+      img.addEventListener('mouseenter', function() {
+        if (window.innerWidth > 1024 && window.innerWidth <= 1440) {
+          this.style.transition = "none"; // Rimuove la transizione per l'hover
+          this.style.filter = 'none';
+        }
+      });
+      
+      img.addEventListener('mouseleave', function() {
+        if (window.innerWidth > 1024 && window.innerWidth <= 1440) {
+          // Controlla se una sidebar è aperta prima di riapplicare il blur
+          const sidebars = ['mySidebar', 'mySidebar2', 'mySidebar3', 'mySidebar4', 'mySidebar5', 'mySidebar6', 'mySidebar7'];
+          const isAnySidebarOpen = sidebars.some(id => {
+            const sidebar = document.getElementById(id);
+            return sidebar && sidebar.classList.contains('open');
+          });
+          
+          if (isAnySidebarOpen) {
+            this.style.transition = "filter 2s"; // Aggiunge la transizione per il mouseleave
+            this.style.filter = 'blur(10px)';
+          }
+        }
+      });
+    });
+  }
+}
+
+// Aggiungi gli event listener quando il documento è caricato
+document.addEventListener('DOMContentLoaded', handleImageHover);
+
+// Aggiorna gli event listener quando la finestra viene ridimensionata
+window.addEventListener('resize', handleImageHover);
+
 // Aggiungiamo l'evento click sul documento per chiudere le sidebar se si clicca fuori
 document.addEventListener('click', function(event) {
   const sidebars = ['mySidebar', 'mySidebar3', 'mySidebar6', 'mySidebar7'];
@@ -205,10 +255,16 @@ document.addEventListener('click', function(event) {
   // Se il click non avviene su un elemento della sidebar o sui bottoni
   if (!sidebars.some(id => document.getElementById(id).contains(event.target)) &&
       !event.target.closest('button')) {
+    // Rimuove immediatamente il blur per schermi tra 1024px e 1440px
+    if (window.innerWidth > 1024 && window.innerWidth <= 1440) {
+      const images = document.querySelectorAll('.imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5, .imgmovie6, .imgmovie7');
+      images.forEach(img => {
+        img.style.transition = "none";
+        img.style.filter = "none";
+      });
+    }
     closeAllSidebars(); // Chiude tutte le sidebar
-    
   }
-  
 });
 
 // Aggiungiamo l'evento touchstart per gestire il double-tap su dispositivi mobili
