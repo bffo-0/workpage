@@ -132,7 +132,7 @@
 
 /* When you mouse over the navigation links, change their color */
 .Sidebar5 a:hover, .Sidebar6 a:hover, .Sidebar7 a:hover {
-  color: #0ede68;
+  opacity: 0.4
 }
 
 /* Position and style the close button (top right corner) */
@@ -205,6 +205,7 @@ position: absolute;
 
 @media screen and (min-width: 420px) and (max-width:785px) {
   .video5, .video6, .video7 {
+    top: 7%;
     width: 100%;
   }
 }
@@ -217,8 +218,12 @@ position: absolute;
     top:6%;
   }
 
+  .video6{
+    top:6%;
+  }
+
   .video5{
-    top:5%;
+    top:6%;
   }
 }
 
@@ -255,6 +260,11 @@ position: absolute;
   .player5, .player6, .player7 {
     width: clamp(180px, 85%, 350px);
     height: clamp(250px, 35vh, 350px);
+    top: 4%;
+  }
+  .player7{
+   
+    margin-left: 25px;
   }
 }
 

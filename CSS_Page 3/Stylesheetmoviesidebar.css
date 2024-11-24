@@ -37,12 +37,19 @@
 .sidebar .closebtn, .Sidebar2 .closebtn2, .Sidebar3 .closebtn3, .Sidebar4 .closebtn4 {
   position: absolute;
   text-align: right;
+  width: 20px;
+    height: 20px;
+    line-height: 20px;
+    z-index: 999999;
   top: -0.5%;
   right: 5px;
   font-size: clamp(14px, 1.5vw, 20px);
   color: black;
   cursor: pointer;
 }
+
+.sidebar .closebtn:hover, .Sidebar2 .closebtn2:hover, .Sidebar3 .closebtn3:hover, .Sidebar4 .closebtn4:hover {
+  opacity: 0.4;}
 
 @media screen and (min-width: 1280px) and (max-width:1440px){
   .sidebar .closebtn, .Sidebar2 .closebtn2, .Sidebar3 .closebtn3, .Sidebar4 .closebtn4 {
@@ -302,7 +309,7 @@
   width: clamp(100%, 100%, 100%);
   max-width: 100%;
   margin: 0 auto;
-  top: clamp(2%, 1vh, 2%);
+  top: clamp(4%, 1vh, 2%);
   height: auto;
   z-index: 1;
 }
@@ -325,6 +332,7 @@
 @media screen and (max-width: 480px) {
   .video_0, .video_2, .video3, .video4 {
     width: 100%;
+    top: 6%;
   }
 }
 
