@@ -196,22 +196,29 @@ position: absolute;
   height: auto;
   z-index: 1;
 }
-@media screen and (min-width:768px) and (max-width: 1024px) {
+@media screen and (min-width:786px) and (max-width: 1024px) {
   .video5, .video6, .video7 {
     top:10%;
     width: 100%;
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (min-width: 420px) and (max-width:785px) {
   .video5, .video6, .video7 {
     width: 100%;
   }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width:419px) {
   .video5, .video6, .video7 {
     width: 100%;
+  }
+  .video7{
+    top:6%;
+  }
+
+  .video5{
+    top:5%;
   }
 }
 
@@ -226,7 +233,12 @@ position: absolute;
 }
 
 .player7 {
-  margin-right: 25px;
+  margin-right: 53px;
+  width: clamp(280px, 80vw, 250px)
+}
+
+@media screen {
+  
 }
 
 @media screen and (min-width: 786px) and (max-width:1024px) {
@@ -239,12 +251,24 @@ position: absolute;
   }
 }
 
-@media screen and (max-width: 785px) {
+@media screen and (min-width: 420px) and (max-width:785px) {
   .player5, .player6, .player7 {
     width: clamp(180px, 85%, 350px);
     height: clamp(250px, 35vh, 350px);
   }
 }
+
+@media screen and (max-width:419px) {
+  .player5, .player6, .player7 {
+    width: clamp(180px, 85%, 350px);
+    height: clamp(250px, 35vh, 350px);
+  }
+  .player7{
+    top: 4%;
+    margin-left: 25px;
+  }
+}
+
 p.movie5, p.movie6, p.movie7{
   position: absolute;
   padding-left: 5px;
@@ -398,6 +422,10 @@ p.InfoMovie {
     top: 10%;
     font-size: 2.5vw;
   }
+  .Sidebar5  p.InfoMovie {
+    top: 10%;
+    font-size: 2.5vw;
+  }
 }
 
 @media screen and (max-width:419px) {
@@ -405,4 +433,11 @@ p.InfoMovie {
     top: 11%;
     font-size: 2.5vw;
   }
+
+.Sidebar5  p.InfoMovie {
+    top: 11%;
+    font-size: 2.5vw;
+  }
+
+  
 }

@@ -198,7 +198,7 @@
 
 @media screen and (max-width:419px) {
   .sidebar p.InfoMovie, .Sidebar2 p.InfoMovie, .Sidebar3 p.InfoMovie, .Sidebar4 p.InfoMovie {
-    top: 50px;
+    top: 56px;
     font-size: 2.5vw;
   }
 }
@@ -237,14 +237,14 @@
 
 @media screen and (min-width: 420px) and (max-width:785px) {
   .sidebar p.movie, .Sidebar2 p.movie2, .Sidebar3 p.movie3, .Sidebar4 p.movie4 {
-    top: 2.5%;
+    top: 1%;
     font-size: 3vw;
   }
 }
 
 @media screen and (max-width:419px) {
   .sidebar p.movie, .Sidebar2 p.movie2, .Sidebar3 p.movie3, .Sidebar4 p.movie4 {
-    top: 2.5%;
+    top: 1%;
     font-size: 3vw;
   }
 }
@@ -291,7 +291,7 @@
 
 @media screen and (max-width:419px) {
   .sidebar a.Title, .Sidebar2 a.Title2, .Sidebar3 a.Title3, .Sidebar4 a.Title4 {
-    top: 20px;
+    top: 25px;
     font-size: 3vw;
   }
 }

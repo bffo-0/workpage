@@ -301,17 +301,28 @@ document.querySelectorAll('.infoSidebar .closebtn').forEach(btn => {
 // Close sidebars when clicking outside
 document.addEventListener('click', function(event) {
   const allSidebars = document.querySelectorAll('.infoSidebar');
+  let clickedOnInfoSidebar = false;
+  
   allSidebars.forEach(sidebar => {
-    // If click is outside sidebar and not on a trigger element
-    if (!sidebar.contains(event.target) && !event.target.closest('[data-film]')) {
-      sidebar.style.left = "-100vw";
-      if (window.innerWidth <= 1024) {
-        sidebar.style.position = '';
-        sidebar.style.top = '';
-        sidebar.style.left = '';
-        sidebar.style.transform = '';
-        document.getElementById("workSidebar").style.filter = 'none';
-      }
+    if (sidebar.contains(event.target)) {
+      clickedOnInfoSidebar = true;
     }
   });
+
+  // Se non abbiamo cliccato su infosidebar
+  if (!clickedOnInfoSidebar) {
+    allSidebars.forEach(sidebar => {
+      // If click is outside sidebar and not on a trigger element
+      if (!sidebar.contains(event.target) && !event.target.closest('[data-film]')) {
+        sidebar.style.left = "-100vw";
+        if (window.innerWidth <= 1024) {
+          sidebar.style.position = '';
+          sidebar.style.top = '';
+          sidebar.style.left = '';
+          sidebar.style.transform = '';
+          document.getElementById("workSidebar").style.filter = 'none';
+        }
+      }
+    });
+  }
 });

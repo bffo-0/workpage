@@ -69,6 +69,7 @@
 @media screen and (min-width: 781px) and (max-width: 1024px) {
   .imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5, .imgmovie6, .imgmovie7 {
     margin-top: 10%;
+    opacity: 1;
     max-width: min(23vw, 200px);
   }
   .blur {

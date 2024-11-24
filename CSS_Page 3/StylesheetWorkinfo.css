@@ -137,11 +137,33 @@ p[data-film]:hover {
     left: 50%;
     transform: translateX(-50%);
 }
-@media screen and (max-width: 480px) {
+
+@media screen and (min-width: 781px) and (max-width:1024px) {
     .sleepingclose-img{
         position: absolute;
         top: 90%;
-        left: 25%;
+        left: 50%;
+        overflow-y: auto;
+    }
+    
+}
+
+@media  screen and (min-width: 421px) and (max-width: 780px) {
+    .sleepingclose-img{
+        position: absolute;
+        top: 90%;
+        left: 50%;
+        overflow-y: auto;
+    
+}
+
+}
+
+@media screen and (max-width: 420px) {
+    .sleepingclose-img{
+        position: absolute;
+        top: 100%;
+        left: 50%;
         overflow-y: auto;
     }
 }
@@ -151,12 +173,23 @@ p[data-film]:hover {
     left: 7%;
 }   
 
-@media screen and (max-width: 480px) {
+
+@media  screen and (min-width: 421px) and (max-width: 780px){
+.donneche-img{
+    position: absolute;
+    top: 90%;
+    overflow-y: auto;
+}
+
+}
+@media screen and (max-width: 420px) {
     .donneche-img{
         position: absolute;
         top: 90%;
-        
         overflow-y: auto;
+    }
+    .burden-img {
+        top: 75%;
     }
 }
 
