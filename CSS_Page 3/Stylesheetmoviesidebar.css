@@ -314,7 +314,7 @@
   z-index: 1;
 }
 
-@media screen and (min-width:768px) and (max-width: 1024px) {
+@media screen and (min-width:786px) and (max-width: 1024px) {
   .video_0, .video_2, .video3, .video4 {
     top:10%;
     width: 100%;
@@ -322,17 +322,17 @@
 }
 
 
-@media screen and (max-width: 761px) {
+@media screen and (min-width:420px) and (max-width:785px) {
   .video_0, .video_2, .video3, .video4 {
     width: 100%;
   }
 }
 
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width:419px) {
   .video_0, .video_2, .video3, .video4 {
     width: 100%;
-    top: 6%;
+    top: 9%;
   }
 }
 
