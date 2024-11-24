@@ -191,7 +191,7 @@ position: absolute;
   position: relative;
   width: clamp(100%, 100%, 100%);
   max-width: 100%;
-  margin: 0 auto;
+  margin: 10px auto;
   top: clamp(4%, 1vh, 2%);
   height: auto;
   z-index: 1;
