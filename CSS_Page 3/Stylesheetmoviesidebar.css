@@ -21,6 +21,7 @@
   -webkit-overflow-scrolling: touch;
   will-change: transform;
   z-index: 999999;
+  
 }
 
 /* Responsive internal elements */
@@ -324,6 +325,7 @@
 
 @media screen and (min-width:420px) and (max-width:785px) {
   .video_0, .video_2, .video3, .video4 {
+    margin: 0px auto;
     width: 100%;
   }
 }
@@ -331,6 +333,7 @@
 
 @media screen and (max-width:419px) {
   .video_0, .video_2, .video3, .video4 {
+    margin: 0px auto;
     width: 100%;
     top: 9%;
   }
@@ -361,5 +364,6 @@
   .player, .player2, .player3, .player4 {
     width: clamp(180px, 85%, 350px);
     height: clamp(250px, 35vh, 350px);
+    margin: 70px auto;
   }
 }

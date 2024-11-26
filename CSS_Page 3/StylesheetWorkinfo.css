@@ -1,8 +1,8 @@
 .infoSidebar {
     position: fixed;
     height: 58vh;  /* Match about-sidebar height */
-    width: 300px;
-    top: 95px;  /* Match about-sidebar top position */
+    width: 500px;
+    top: 185px;  /* Match about-sidebar top position */
     left: -100vw;
     background-color: #c6c6c616;
     background-repeat: no-repeat;
@@ -15,6 +15,14 @@
     border-left: none;
     overflow: hidden;
     -webkit-overflow-scrolling: touch;  /* Smooth scrolling on iOS */
+}
+
+@media screen and (min-width: 1280px) and (max-width: 1440px)  {
+    .infoSidebar {
+    height: 58vh;  /* Match about-sidebar height */
+    width: 300px;
+    top: 95px;  /* Match about-sidebar top position */
+}
 }
 
 .infoSidebar .sidebar-content {

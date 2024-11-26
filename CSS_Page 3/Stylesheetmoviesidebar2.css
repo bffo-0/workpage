@@ -28,6 +28,7 @@
     text-align: left;
     border: 0.5px solid rgba(220, 220, 220, 0.965);
     z-index: 999999;
+    
   
 }
 
@@ -207,12 +208,14 @@ position: absolute;
   .video5, .video6, .video7 {
     top: 7%;
     width: 100%;
+    margin: 0px auto;
   }
 }
 
 @media screen and (max-width:419px) {
   .video5, .video6, .video7 {
     width: 100%;
+    margin: 0px auto;
   }
   .video7{
     top:6%;
@@ -261,6 +264,7 @@ position: absolute;
     width: clamp(180px, 85%, 350px);
     height: clamp(250px, 35vh, 350px);
     top: 4%;
+    margin: 70px auto;
   }
   .player7{
    
@@ -270,6 +274,7 @@ position: absolute;
 
 @media screen and (max-width:419px) {
   .player5, .player6, .player7 {
+    margin: 70px auto;
     width: clamp(180px, 85%, 350px);
     height: clamp(250px, 35vh, 350px);
   }
