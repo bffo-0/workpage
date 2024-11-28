@@ -70,6 +70,7 @@
     font-size: 6vw;
     top: -2px;
     right: 15px;
+    border: 0.5px solid rgba(220, 220, 220, 0.965);
     font-weight: bold;
   }
 }
@@ -118,7 +119,7 @@
     top: 15%;
     height: 74vh;
     
-    border: none;
+    border: 0.5px solid rgba(220, 220, 220, 0.965);
     background-size: 80%;
   }
 }
@@ -129,8 +130,8 @@
     z-index: 9999999;
     top: 8%;
     height: 72vh;
-   
-    border: none;
+    border: 0.5px solid rgba(220, 220, 220, 0.965);
+    
     background-size: 90%;
   }
 }
