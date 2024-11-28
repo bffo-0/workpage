@@ -215,7 +215,7 @@ position: absolute;
 @media screen and (max-width:419px) {
   .video5, .video6, .video7 {
     width: 100%;
-    margin: 0px auto;
+    margin: 20px auto;
   }
   .video7{
     top:6%;
