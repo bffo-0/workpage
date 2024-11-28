@@ -333,9 +333,9 @@
 
 @media screen and (max-width:419px) {
   .video_0, .video_2, .video3, .video4 {
-    margin: 20px auto;
+   margin: max(20px, 2.5vh) auto;
     width: 100%;
-    top: 8%;
+    top: 8vh;
   }
 }
 
