@@ -112,7 +112,7 @@ function toggleInstallationSidebar() {
   if (screenWidth <= 1024) {
     openPosition = "0vw";
   } else if (screenWidth <= 1440) {
-    openPosition = "29.35vw";
+    openPosition = "30.7vw";
   } else {
     openPosition = "29.35vw";
   }
@@ -239,7 +239,7 @@ function toggleFilmInfoSidebar(element) {
   } else if (screenWidth <= 1024) {
     openPosition = "0vw";
   } else {
-    openPosition = "30.7vw";
+    openPosition = "32.2vw";
   }
 
   const closedPosition = "-100vw";

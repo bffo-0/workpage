@@ -12,7 +12,6 @@
         <link rel=stylesheet type="text/css" href="CSS_Page 3/Stylesheetmoviesidebar2.css"/>
         <link rel=stylesheet type="text/css" href="CSS_Page 3/StylesheetAboutWork.css"/>
         <link rel=stylesheet type="text/css" href="CSS_Page 3/StylesheetWorkinfo.css" />
-        <link rel=stylesheet type="text/css" href="CSS_Page 3/Stylesheetcontactform.css" />
         <link rel=stylesheet type="text/css" href="CSS_Page 3/stylesheetcontainer.css" />
         <link rel=stylesheet type="text/css" href="CSS_Page 3/Stylesheeimgmovies.css" />
 <style>
@@ -98,7 +97,7 @@ body {
 
 h1.name {
   position: relative;
-  font-size: 1.1vw;  /* Usa vw per adattare la dimensione del font al viewport */
+  font-size: 1.2vw;  /* Usa vw per adattare la dimensione del font al viewport */
   font-weight: bold;
   margin: 0; /* Rimuove margini predefiniti per evitare spazi indesiderati */
   text-align: center; /* Centra il testo all'interno del contenitore */
@@ -170,9 +169,9 @@ p.light {
     letter-spacing: -.1vw;
     color: rgb(0, 0, 0);
     font-family: ABCDiatype-Medium, sans-serif;
-    font-size: 0.9vw;
+    font-size: 1.1vw;
     text-align: left; /* Centra il testo */
-    margin-left: 10.5%; /* Centro orizzontalmente */
+    margin-left: 9%; /* Centro orizzontalmente */
     margin-right: auto; /* Centro orizzontalmente */
     width: 100%; /* Riempie l'intera larghezza del suo contenitore */
 }
@@ -294,7 +293,7 @@ p.light {
 <div id="aboutSidebar" class="about-sidebar">
   <div class="about-sidebar-content">
     <a href="javascript:void(0)" class="closebtn" onclick="toggleAboutSidebar()">×</a>
-    <h2>About:</h2>
+    <h2></h2>
     
     <p>Tommaso Massimiliano Alfì is a composer and sound designer based in Turin. 
     
@@ -660,7 +659,9 @@ p.light {
 
   <!-- Contenitore per il link "Contact" -->
   <div class="link-container">
-    <span id="contactLink"><span class="arrow2">➣</span>CONTACT<span class="arrow2">➣</span></span>
+    
+    <span id="contactLink"><span class="arrow2">➣</span><a href="mailto:alfi.tommasomassimiliano@proton.me">CONTACT</a><span class="arrow2">➣</span></span>
+     
   </div>
 
 </div>
@@ -819,48 +820,14 @@ p.light {
 
 
 <!-- Overlay del form -->
-<div id="contactFormOverlay">
-  <div id="contactFormContainer">
-    <span id="closeForm">&times;</span>
+<div id="contact">
+
     
-    <form action="mailto:alfi.tommasomassimiliano@proton.me" method="post" enctype="text/plain">
-      <label for="email">Mail:</label>
-      <input type="email" id="email" name="email" required>
-
-      <label for="message">Your Message</label>
-      <textarea id="message" name="message" rows="4" required></textarea>
-
-      <button type="submit" id="submitBtn">Send</button>
-    </form>
-  </div>
-</div>
+  <a href="mailto:alfi.tommasomassimiliano@proton.me"></a>
+     
 </div>
 
-<script>
-  // JavaScript per gestire l'apertura e chiusura del form
-  const contactLink = document.getElementById('contactLink');
-  const contactFormOverlay = document.getElementById('contactFormOverlay');
-  const closeForm = document.getElementById('closeForm');
 
-  // Mostra il form al clic sul link "Contact"
-  contactLink.addEventListener('click', () => {
-    contactFormOverlay.style.display = 'flex';
-  });
-
-  // Nasconde il form al clic sulla X
-  closeForm.addEventListener('click', () => {
-    contactFormOverlay.style.display = 'none';
-  });
-
-  // Chiude il form al clic al di fuori del contenuto del form
-  window.addEventListener('click', (event) => {
-    if (event.target === contactFormOverlay) {
-      contactFormOverlay.style.display = 'none';
-    }
-  });
-  
- 
-</script>
 <script src="/JS/AboutWorkInstallationInfosidebar.js"> </script>
 <script src="/JS/Sidebarmovies.js"> </script>
 <script src="/JS/TouchEvents.js"> </script>     

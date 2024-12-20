@@ -4,7 +4,7 @@
 .work-sidebar {
   position: fixed;
   height: 78vh;
-  width: 29.3vw;
+  width: 30.6vw;
   top: 95px;
   left: -100vw;
   background-color: #c6c6c616;
@@ -43,7 +43,7 @@
 .caption {
   display: inline-block;
   font-family: ABCDiatype-Medium, sans-serif;
-  font-size: 0.6vw;
+  font-size: 0.7vw;
   color: #000000;
   text-decoration: none;
 }
@@ -74,7 +74,7 @@
   font-weight: bold;
   text-align: left;
   font-family: ABCDiatype-Medium, sans-serif;
-  font-size: 1vw;
+  font-size: 1.2vw;
   color: #000000;
 }
 
@@ -160,7 +160,7 @@ font-size: 2.7vw;
   margin: 13px 8px;
   padding-top: 10px;
   font-family: ABCDiatype-Medium, sans-serif;
-  font-size: 0.8vw;
+  font-size: 0.9vw;
   color: #000000;
   line-height: 1.6;
   z-index: 2;
@@ -853,7 +853,7 @@ font-size: 2.7vw;
   display: inline-block;
   text-shadow: #000000bb 0px 0px 2px;
   background-color: #c6c6c616;
-  padding: 0.6vw 2.0vw; /* Ridotto padding per contenitore più piccolo */
+  padding: 0.6vw 2.18vw; /* Ridotto padding per contenitore più piccolo */
   border: 0.5px solid rgba(220, 220, 220, 0.965);
   cursor: pointer;
   color: rgb(0, 0, 0);
@@ -865,6 +865,11 @@ font-size: 2.7vw;
   &:hover{
     color: aliceblue;
   }
+}
+
+.link-container a{
+color: #000000;
+text-decoration: none;
 }
 @media screen and (min-width: 781px) and (max-width: 1024px) {
   .link-container {
@@ -1164,7 +1169,7 @@ font-size: 2.7vw;
   .work-sidebar {
     height: 81vh;
   
-    width: 29.1vw;
+    width: 30.6vw;
   }
 }
 
