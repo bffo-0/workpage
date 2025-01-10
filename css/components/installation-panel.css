@@ -1,0 +1,181 @@
+/* Installation Sidebar */
+.installation-panel {
+    position: fixed;
+    top: 50%;
+    transform: translate(-502px, -50%);
+    left: 0;
+    width: 400px;
+    height: 70vh;
+    background-color: rgba(198, 198, 198, 0.09);
+    transition: transform 0.3s ease;
+    border-left:none;
+    z-index: 1000;
+    background-image:none;
+    overflow-x: hidden;
+    
+    /* Stili scrollbar per Chrome, Safari e Opera */
+    &::-webkit-scrollbar {
+        width: 1px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgb(0, 0, 0);
+        border-radius: 4px;
+    }
+
+    /* Stili scrollbar per Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: rgb(0, 0, 0) transparent;
+}
+
+.installation-panel.visible {
+    transform: translate(522px, -50%);
+}
+
+/* Contenuto */
+.installation-panel .section {
+    padding: 30px;
+    width: 400px;
+    box-sizing: border-box;
+    border-left:none;
+}
+
+/* Title Container */
+.title-container-installation {
+    margin-bottom: 20px;
+}
+
+.title-container-installation h2 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: -.1rem;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+/* Content Container */
+.content-container-installation {
+    height: calc(100% - 120px);
+    overflow-y: auto;
+    margin-top: 50px;
+    margin-bottom: 20px;
+
+}
+
+.content-container-installation p {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1;
+    color: var(--text-primary);
+    white-space: pre-line;
+    text-shadow: 0 0 10px rgba(210, 22, 179, 0.299);
+}
+
+/* Audio Container */
+.audio-container-installation {
+    position: relative;
+    bottom: 0;
+    width: 1%;
+}
+
+.audio-container-installation audio {
+    width: 1%;
+}
+
+
+
+/* Audio Player */
+.installation-panel audio {
+    width: 1%;
+    margin-top: 1px;
+    opacity: 0;
+}
+
+/* Pulsante di chiusura */
+.installation-panel .closebtn {
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-primary);
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    background: transparent;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.installation-panel .closebtn::before {
+    content: "×";
+}
+
+.installation-panel .closebtn:hover {
+    color: white;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.8)
+}
+
+
+/* Media Query per tablet e mobile */ 
+
+@media screen and (max-width: 785px) {
+
+    /* Overlay solo per mobile e tablet */
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 999;
+    }
+
+    .overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .installation-panel {
+        width: 85vw;
+        left: -100%;
+        transform: none;
+        transition: left 0.3s ease;
+    }
+
+    .installation-panel.visible {
+        left: 7.5%;
+        transform: none;
+        margin: 70px auto 0;
+    }
+
+    /* Blur effect solo in mobile/tablet */
+    .panel.blur {
+        filter: blur(5px);
+        pointer-events: none;
+    }
+}
+
+/* Per schermi molto alti */
+@media screen and (max-width: 480px) and (min-height: 800px) {
+    .installation-panel {
+        max-height: 80vh;
+    }
+}
+
+/* Per schermi compatti */
+@media screen and (max-width: 480px) and (max-height: 700px) {
+    .installation-panel {
+        max-height: 70vh;
+        margin: 60px auto 0;
+    }
+}

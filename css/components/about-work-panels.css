@@ -1,0 +1,501 @@
+:root {
+    --name-container-width: 500px;
+    /* O la dimensione che preferisci */
+}
+
+/*============ Panel Work e About Panel ============*/
+.panel {
+    position: fixed;
+   top: 80px; /* Altezza esatta del main-container come visto nel tooltip */
+    height: calc(100vh - 160px);
+    width: 502px; /* Larghezza del main-container */
+    background-color: rgba(198, 198, 198, 0.09);
+    transition: all 0.3s ease, opacity 0.3s ease;
+    border: 0.5px solid var(--border-color);
+    z-index: 1000;
+    overflow-y: auto;
+    transform: translateX(-100%);
+    background-image: url('../../assets/images/backgrounds/imgabout.png');
+    background-size: cover;
+    background-position: center;
+    padding: 0.6vw 0vw;
+}
+.closebtn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 1.8rem;
+    transition: all 0.3s ease;
+    
+}
+.closebtn:hover {
+    color: white;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.8)
+}
+/* Stato visibile comune */
+.panel.visible {
+    transform: translateX(20px);
+}
+
+/* Effetto di fade out per info e nav container */
+.info-container, .nav-container {
+    transition: opacity 0.3s ease;
+}
+
+.info-container.hidden, .nav-container.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Media Query */
+@media screen and (max-width: 785px) {
+    .panel {
+        width: 88vw;
+        padding: 2vw 0vw;
+    }
+    
+    .panel.visible {
+        transform: translateX(10px);
+    }
+    
+ 
+     :root {
+         --name-container-width: 88vw;
+     }
+ }
+/* Media Query per laptop */
+@media screen and (max-width: 1366px) {
+    .panel {
+        width: 450px; /* Ridotta da 502px */
+    }
+
+    :root {
+        --name-container-width: 450px;
+    }
+}
+
+/* Per laptop con schermi più piccoli */
+@media screen and (max-width: 1280px) {
+    .panel {
+        width: 400px;
+    }
+
+    :root {
+        --name-container-width: 400px;
+    }
+
+    /* Riduci leggermente il padding laterale */
+    .bio-container,
+    .work-panel [class^="aligned-text"] {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
+/* Per laptop con schermi molto piccoli */
+@media screen and (max-width: 1024px) {
+    .panel {
+        width: 380px;
+    }
+
+    :root {
+        --name-container-width: 380px;
+    }
+}
+
+/* Title Container */
+.title-container-about {
+    position: relative;
+    padding: 10px 20px;
+        
+}
+
+/* About Title */
+.title-container-about h2 {
+    font-size: 1.5rem;
+    font-family: var(--font-family);
+    color: var(--text-primary);
+    margin-bottom: 10px;
+    letter-spacing: -.1rem;
+    font-weight: 600;
+    padding: 0;
+}
+
+/* Line under title */
+.line {
+width: 91%;
+    /* Ridotta e centrata */
+    height: 1px;
+    background-color: var(--text-primary);
+    margin: 1px auto;
+    /* Centrata orizzontalmente */
+}
+/* Bio Container */
+.bio-container {
+    height: calc(100% - 2vw - 59px);
+    margin-top: calc(1vw + 5px);
+    overflow-y: auto;
+    padding: 5px 17px 10px 20px;
+    /* Mantiene la formattazione degli a capo */
+}
+
+.bio-container p {
+    color: var(--text-primary);
+    font-size: var(--font-size);
+    line-height: 1.1;
+    
+}
+
+/* Installation image container */
+.installation-image-container {
+    width: calc(100% - 40px); /* Larghezza totale meno i margini laterali */
+    margin: 20px auto 0; /* 20px top, auto per centrare, 0 bottom */
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+/* Media Query per laptop */
+@media screen and (max-width: 1366px) {
+    .installation-image-container {
+        width: calc(100% - 30px);
+        /* Riduce leggermente i margini laterali */
+        margin: 15px auto 0;
+        /* Riduce il margine superiore */
+    }
+}
+
+/* Per laptop con schermi più piccoli */
+@media screen and (max-width: 1280px) {
+    .installation-image-container {
+        width: calc(100% - 25px);
+        margin: 12px auto 0;
+    }
+
+    .caption {
+        font-size: 0.75rem;
+        /* Riduce la dimensione della didascalia */
+        margin-top: 6px;
+    }
+}
+
+/* Per laptop con schermi molto piccoli */
+@media screen and (max-width: 1024px) {
+    .installation-image-container {
+        width: calc(100% - 20px);
+        margin: 10px auto 0;
+    }
+}
+.sidebar-img {
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease, filter 1s ease;
+    filter: blur(0px);
+    
+}
+
+.installation-image-container:hover .sidebar-img {
+    transform: scale(1.02);
+    filter: blur(5px);
+}
+
+/* Caption per l'immagine */
+.caption {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-primary);
+    margin-top: 8px;
+    text-align: center;
+    font-style: italic;
+}
+
+/* Hover effect per indicare che è cliccabile */
+.installation-image-container::after {
+    content: '→';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    color: white;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px 20px;
+    border-radius: 4px;
+    pointer-events: none;
+}
+
+.installation-image-container:hover::after {
+    opacity: 1;
+}
+/*=========== WORKS-SIDEBAR ============*/
+
+.work-panel .container {
+    padding: 10px 20px;
+}
+
+/* Header con titoli allineati */
+.work-panel .container {
+    padding: 10px 20px;
+}
+
+.work-panel .container h2 {
+    font-size: 1.5rem;
+    font-family: var(--font-family);
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    letter-spacing: -.1rem;
+    font-weight: 600;
+}
+
+.header-row {
+    display: grid;
+    grid-template-columns: 40px 1fr 80px; /* Stesse proporzioni della lista */
+    align-items: center;
+    margin-bottom: 10px;
+    padding-right: 20px; /* Padding destro per allineare con il contenuto */
+}
+
+.work-panel .container h3 {
+    font-size: 1rem;
+    color: var(--text-primary);
+    font-weight: bold;
+    padding-left: 10px; /* Allineato con le icone */
+}
+
+.work-panel .container h4 {
+    font-size: 1rem;
+    color: var(--text-primary);
+    font-weight: bold;
+    text-align: center; /* Centrato */
+}
+
+.work-panel .container h5 {
+    font-size: 1rem;
+    color: var(--text-primary);
+    font-weight: bold;
+    text-align: right; /* Allineato a destra */
+}
+
+/* Line under headers */
+.work-panel .line2 {
+    width: 91%;
+    height: 1px;
+    background-color: var(--text-primary);
+    margin: 30px auto 30px auto;
+}
+
+/* Film list items - allineamento con gli header */
+.work-panel [class^="aligned-text"] {
+    display: grid;
+    grid-template-columns: 40px minmax(0, 1fr) 80px;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 25px;
+    color: var(--text-primary);
+    padding: 0 20px;
+    line-height: 1.3;
+}
+.work-panel [class^="aligned-text"]:hover {
+    color: white;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+}
+
+/* Icons - allineati con "Type" */
+.work-panel .fas {
+    width: 20px;
+    text-align: center;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+.work-panel [class^="aligned-text"]:hover .fas {
+    color: white;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+}
+
+/* Title and role - centrati nella loro colonna */
+.work-panel [class^="highlighted-text"] {
+    font-size: var(--font-size);
+    display: block;
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+    font-size: 0.9rem;
+}
+
+/* Year - allineato a destra come l'header */
+.work-panel [class^="right-align"] {
+    text-align: right;
+    padding-right: 10px;
+    font-size: 0.9rem;
+}
+.work-panel [class^="right-align"]:hover {
+    color: white;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+}
+
+/* Media Query per tablet */
+@media screen and (max-width: 1024px) {
+    .panel {
+        width: var(--name-container-width);
+    }
+
+    .bio-container p,
+    .work-panel [class^="aligned-text"],
+    .work-panel [class^="highlighted-text"],
+    .work-panel [class^="right-align"] {
+        font-size: 0.85rem;
+    }
+
+    .work-panel .container h3,
+    .work-panel .container h4,
+    .work-panel .container h5 {
+        font-size: 0.9rem;
+    }
+}
+
+/* Media Query per smartphone */
+@media screen and (max-width: 480px) {
+    .panel {
+        width: 85vw;
+        margin: 70px auto 0;
+        position: fixed;
+        top: 0;
+        left: -100%;
+        transform: none;
+        height: calc(100vh - 140px);
+        max-height: 75vh;
+        min-height: 400px;
+        transition: left 0.3s ease;
+        overflow-y: auto;
+    }
+
+    .panel.visible {
+        left: 5%;
+    }
+
+    /* Migliore centratura degli elementi */
+    .title-container-about {
+        padding: 15px 20px;
+        text-align: left;
+    }
+
+    .title-container-about h2,
+    .work-panel .container h2 {
+        font-size: 1.3rem;
+        margin-bottom: 10px;
+    }
+
+    .line {
+        width: 90%;
+        margin: 0 auto 15px;
+    }
+
+    /* Bio container */
+    .bio-container {
+        padding: 0 20px;
+        margin: 15px 0;
+        height: auto;
+    }
+
+    .bio-container p {
+        line-height: 1.4;
+        margin-bottom: 15px;
+    }
+
+    /* Work panel */
+    .work-panel .container {
+        padding: 15px 20px;
+    }
+
+    /* Header con titoli allineati */
+    .header-row {
+        display: grid;
+        grid-template-columns: 40px 1fr 60px;
+        gap: 10px;
+        align-items: center;
+        padding: 0 20px;
+        margin-bottom: 15px;
+    }
+
+    .work-panel [class^="aligned-text"] {
+        display: grid;
+        grid-template-columns: 40px 1fr 60px;
+        gap: 10px;
+        align-items: center;
+        padding: 0 20px;
+        margin-bottom: 12px;
+    }
+
+    /* Installation image container */
+    .installation-image-container {
+        width: calc(100% - 40px);
+        margin: 20px auto;
+    }
+
+    .caption {
+        margin-top: 8px;
+        text-align: center;
+        padding: 0 10px;
+    }
+
+    .work-panel .container h3 {
+        font-size: 0.9rem;
+        margin-top: 15px;
+        padding-left: 5px;
+    }
+
+    .work-panel .container h4 {
+        font-size: 0.9rem;
+        margin-top: 15px;
+        text-align: center;
+    }
+
+    .work-panel .container h5 {
+        font-size: 0.9rem;
+        margin-top: 15px;
+        text-align: right;
+        padding-right: 5px;
+    }
+
+    /* Aggiustiamo anche l'header row per allineare meglio */
+    .header-row {
+        gap: 5px;
+        padding: 0 15px;
+    }
+}
+
+/* Per schermi molto alti */
+@media screen and (max-width: 480px) and (min-height: 800px) {
+    .panel {
+        max-height: 80vh;
+    }
+
+    .bio-container {
+        margin: 20px 0;
+    }
+}
+
+/* Per schermi compatti */
+@media screen and (max-width: 480px) and (max-height: 700px) {
+    .panel {
+        max-height: 70vh;
+    }
+
+    .bio-container {
+        margin: 10px 0;
+    }
+
+    .work-panel [class^="aligned-text"] {
+        margin-bottom: 10px;
+    }
+}
+
+/* Per schermi molto piccoli */
+@media screen and (max-width: 320px) {
+    .work-panel .container h3,
+    .work-panel .container h4,
+    .work-panel .container h5 {
+        font-size: 0.8rem;
+    }
+}

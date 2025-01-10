@@ -1,0 +1,23 @@
+body {
+    background-image: url('../../assets/images/backgrounds/back3new4.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+    overflow: hidden;
+        /* Previene lo scroll della pagina */
+} 
+
+@media screen and (max-width: 768px) {
+    body {
+        
+        
+        overflow: hidden;
+       
+        /* Permettiamo lo scroll verticale */
+        min-height: 100vh;
+        height: auto;
+        /* Permettiamo al body di estendersi */
+    }
+}

@@ -1,0 +1,370 @@
+.grid-container {
+  position: relative;
+  width: 67vw;
+  height: 75vh;
+  margin: 10rem auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 600px;
+  min-width: 800px;
+}
+
+/* Prima riga */
+/* Zanksar */
+#main6 {
+  position: absolute;
+  top: 13%;
+  left: 15%;
+}
+
+/* Sleeping Close */
+#main {
+  position: absolute;
+  top: 10%;
+  left: 35%;
+}
+
+/* Burden */
+#main3 {
+  position: absolute;
+  top: 13%;
+  left: 55%;
+}
+
+/* Vite in sospeso */
+#main7 {
+  position: absolute;
+  top: 10%;
+  left: 75%;
+}
+
+/* Seconda riga */
+/* Once and for all */
+#main5 {
+  position: absolute;
+  top: 45%;
+  left: 25%;
+}
+
+/* Despite */
+#main4 {
+  position: absolute;
+  top: 49%;
+  left: 45%;
+}
+
+/* Donne Che Viaggiano Sole */
+#main2 {
+  position: absolute;
+  top: 45%;
+  left: 65%;
+}
+
+/* Dimensioni comuni per i container main */
+#main, #main2, #main3, #main4, #main5, #main6, #main7 {
+  width: clamp(80px, 10vw, 180px);
+  height: clamp(80px, 10vw, 180px);
+  margin: 0.5rem;
+  z-index: 1;
+  position: absolute;
+}
+
+
+
+/* Bottoni delle immagini */
+.openbtn, .openbtn2, .openbtn3, .openbtn4, .openbtn5, .openbtn6, .openbtn7 {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+/* Immagini */
+.imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, .imgmovie5, .imgmovie6, .imgmovie7 {
+  width: 100%;
+  height: auto;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0.2;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+  z-index: 1;
+}
+
+/* Hover effect */
+.imgmovie:hover, .imgmovie2:hover, .imgmovie3:hover, 
+.imgmovie4:hover, .imgmovie5:hover, .imgmovie6:hover, .imgmovie7:hover {
+  opacity: 1;
+  z-index: 2;
+  transform: scale(1.05);
+}
+
+/* Media Query per tablet e smartphone */
+@media screen and (max-width: 1024px) {
+    .grid-container {
+        width: 90vw;
+        height: 85vh;
+        margin: 14rem auto;
+        min-width: unset; /* Rimuoviamo il min-width per schermi piccoli */
+    }
+
+    /* Ricalibriamo le posizioni per schermi più piccoli */
+    /* Prima riga */
+    #main6 { /* Zanksar */
+        top: 5%;
+        left: 5%;
+    }
+
+    #main { /* Sleeping Close */
+        top: 5%;
+        left: 30%;
+    }
+
+    #main3 { /* Burden */
+        top: 5%;
+        left: 55%;
+    }
+
+    #main7 { /* Vite in sospeso */
+        top: 5%;
+        left: 80%;
+    }
+
+    /* Seconda riga */
+    #main5 { /* Once and for all */
+        top: 40%;
+        left: 17.5%;
+    }
+
+    #main4 { /* Despite */
+        top: 40%;
+        left: 42.5%;
+    }
+
+    #main2 { /* Donne Che Viaggiano Sole */
+        top: 40%;
+        left: 67.5%;
+    }
+
+         /* Aumentiamo le dimensioni delle immagini per tablet */
+         #main,
+         #main2,
+         #main3,
+         #main4,
+         #main5,
+         #main6,
+         #main7 {
+           width: clamp(150px,16vw, 320px);
+        height: clamp(150px, 16vw, 320px);
+    }
+}
+
+/* Media Query per smartphone più piccoli */
+@media screen and (max-width: 480px) {
+    .grid-container.swiper {
+        margin: 9rem auto;
+        width: 90vw;
+        height: auto;
+        position: relative;
+    }
+
+    /* Solo l'effetto gradiente */
+    .grid-container::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+                                  rgba(255,255,255,0.03) 0%, 
+                                  transparent 40%);
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .swiper-wrapper {
+        display: flex;
+        width: 100%;
+    }
+
+    .swiper-slide {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: auto;
+        transform: perspective(1000px) rotateY(10deg) scale(0.8);
+        transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        opacity: 0.5;
+    }
+
+    .swiper-slide-active {
+        transform: perspective(1000px) rotateY(0) scale(1);
+        opacity: 1;
+    }
+
+    .swiper-slide-prev {
+        transform: perspective(1000px) rotateY(15deg) translateX(-10%) scale(0.8);
+    }
+
+    .swiper-slide-next {
+        transform: perspective(1000px) rotateY(-15deg) translateX(10%) scale(0.8);
+    }
+
+    #main, #main2, #main3, #main4, #main5, #main6, #main7 {
+        position: static;
+        width: 250px;
+        height: auto;
+        margin: 0;
+        display: block;
+    }
+
+    .imgmovie, .imgmovie2, .imgmovie3, .imgmovie4, 
+    .imgmovie5, .imgmovie6, .imgmovie7 {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        display: block;
+        opacity: 1;
+        visibility: visible;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        filter: brightness(0.9);
+        transition: all 0.4s ease;
+    }
+
+    .swiper-slide-active .imgmovie,
+    .swiper-slide-active .imgmovie2,
+    .swiper-slide-active .imgmovie3,
+    .swiper-slide-active .imgmovie4,
+    .swiper-slide-active .imgmovie5,
+    .swiper-slide-active .imgmovie6,
+    .swiper-slide-active .imgmovie7 {
+        filter: brightness(1);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+    }
+
+    /* Contenitore per le frecce */
+    .grid-container.swiper {
+        position: relative;  /* Assicuriamoci che sia relative */
+    }
+
+    /* Frecce container */
+    .grid-container.swiper::before,
+    .grid-container.swiper::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 200px; /* Larghezza fissa per il contenitore delle frecce */
+        height: 24px;
+        color: rgb(240, 240, 240);
+          text-shadow: 0 0 10px rgb(202, 202, 202);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1000;
+        pointer-events: none;
+    }
+
+    .grid-container.swiper::before {
+        content: '←';
+        left: calc(50% - 20px);
+        transform: translateY(-50%);
+        font-size: 24px;
+        color: rgb(240, 240, 240);
+        text-shadow: 0 0 10px rgb(202, 202, 202);
+        animation: slideArrowLeft 1.5s infinite;
+    }
+
+    .grid-container.swiper::after {
+        content: '→';
+        left: calc(50% + 20px);
+        transform: translateY(-50%);
+        font-size: 24px;
+        color: rgb(255, 255, 255);
+          text-shadow: 0 0 10px rgb(202, 202, 202);
+        animation: slideArrowRight 1.5s infinite;
+    }
+
+    @keyframes slideArrowRight {
+        0% { 
+            transform: translate(0, 50%);
+            opacity: 0.6;
+        }
+        50% { 
+            transform: translate(10px, 50%);
+            opacity: 1;
+        }
+        100% { 
+            transform: translate(0, 50%);
+            opacity: 0.6;
+        }
+    }
+
+    @keyframes slideArrowLeft {
+        0% { 
+            transform: translate(0, 50%);
+            opacity: 0.6;
+        }
+        50% { 
+            transform: translate(-10px, 50%);
+            opacity: 1;
+        }
+        100% { 
+            transform: translate(0, 50%);
+            opacity: 0.6;
+        }
+    }
+
+    /* Numerazione slide */
+    .swiper-slide::before {
+        content: attr(data-index);
+        position: absolute;
+        top: -30px;
+        right: 20px;
+        font-size: 12px;
+        color: rgba(255,255,255,0.3);
+        font-family: monospace;
+        mix-blend-mode: difference;
+    }
+
+    /* Effetto distorsione al movimento */
+    .swiper-slide {
+        transform-style: preserve-3d;
+        transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .swiper-slide-active {
+        transform: perspective(1000px) rotateY(0) scale(1);
+        filter: none;
+    }
+
+    .swiper-slide-prev {
+        transform: perspective(1000px) rotateY(25deg) translateX(-20%) scale(0.8);
+        filter: saturate(0.8) brightness(0.7);
+    }
+
+    .swiper-slide-next {
+        transform: perspective(1000px) rotateY(-25deg) translateX(20%) scale(0.8);
+        filter: saturate(0.8) brightness(0.7);
+    }
+
+    /* Effetto noise sottile */
+    .grid-container::after {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjc1IiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIzMDAiIGZpbHRlcj0idXJsKCNhKSIgb3BhY2l0eT0iLjA1Ii8+PC9zdmc+');
+        pointer-events: none;
+        opacity: 0.015;
+        mix-blend-mode: overlay;
+    }
+}

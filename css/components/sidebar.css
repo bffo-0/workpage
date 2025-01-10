@@ -1,0 +1,210 @@
+/* Base sidebar styles */
+.Sidebar {
+  height: 100vh;
+  width: 26.5vw;
+  position: fixed;
+  z-index: 1000;
+  top: 50%;
+  transform: translateY(-50%);
+  right: -100%;
+  background-color: #ffffff14;
+  transition: right 0.3s ease;
+  overflow-x: hidden;
+  padding: 20px;
+  margin-top: 30px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  backdrop-filter: blur(7px);
+}
+
+/* Video styles */
+.video6, .video_2, .video3, .video4, .video5, .video7, .video {
+  width: 90%;
+  height: auto;
+  margin: 15px auto;
+}
+
+
+
+
+/* Info movie paragraph */
+.InfoMovie {
+  font-size: 0.8rem;
+  line-height: 1.4;
+  margin: 10px auto;
+  width: 90%;
+  text-align: center;
+}
+
+/* oppure se preferisci usare padding */
+br {
+  content: "";
+  display: block;
+  padding-top: 10px;
+  /* Puoi regolare questo valore */
+}
+
+/* Line divider */
+.linemovie {
+  width: 90%;
+  height: 1px;
+  background-color: #ddd;
+  margin: 10px auto;
+}
+
+/* Close button styles */
+.closebtn {
+  position: absolute;
+  right: 25px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: var(--text-primary);
+}
+
+/* Hover effect per il bottone di chiusura */
+.closebtn:hover {
+  color: rgba(255, 255, 255, 0.811);
+  text-shadow: 0 0 5px rgba(171, 171, 171, 0.856);
+}
+
+/* Media query per dispositivi mobili */
+@media screen and (max-width: 768px) {
+  .sidebar, .Sidebar2, .Sidebar3, .Sidebar4, .Sidebar5, .Sidebar6, .Sidebar7 {
+    width: 100vw;
+    padding: 15px;
+  }
+  
+  .video6, .video_2, .video3, .video4, .video5, .video7 {
+    width: 95%;
+  }
+  
+  .Title6, .Title2, .Title3, .Title4, .Title5, .Title7 {
+    font-size: 20px;
+  }
+
+  .InfoMovie {
+    width: 95%;
+  }
+} 
+
+/* Effetto blur per i button */
+.blur-effect {
+    filter: blur(20px);
+    transition: filter 0.3s ease;
+}
+
+/* Rimuovi blur all'hover */
+.blur-effect:hover {
+    filter: blur(0);
+}
+
+/* Assicuriamoci che le immagini dentro i button ereditino l'effetto */
+.openbtn img, .openbtn2 img, .openbtn3 img, 
+.openbtn4 img, .openbtn5 img, .openbtn6 img, 
+.openbtn7 img {
+    transition: filter 0.3s ease;
+} 
+
+/* Movie Header Container */
+.movie-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    border: 0.5px solid var(--border-color);
+    background-color: #ffffff14;
+}
+
+.Title, .Title2, .Title3, .Title4, .Title5, .Title6, .Title7 {
+    width: 100%;
+    text-align: center;
+    font-size: 1.1vw;
+    font-weight: bold;
+    margin: 0;
+    text-decoration: none;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: -.1vw;
+    padding: 0.8vw 0;
+    transition: color 0.7s ease, text-shadow 0.7s ease;
+}
+
+.Title:hover, .Title2:hover, .Title3:hover, .Title4:hover, .Title5:hover, .Title6:hover, .Title7:hover {
+color: rgba(255, 255, 255, 0.811);
+  text-shadow: 0 0 8px rgba(171, 171, 171, 0.856);
+}
+/* Navigation arrows container */
+.sidebar-nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+}
+
+/* Container per ogni freccia */
+.nav-arrow-container {
+  width: 50%;
+  padding: 4px 10px;
+  border: 0.5px solid var(--border-color);
+  background-color: #ffffff14;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Spazio tra i container */
+.nav-arrow-container:first-child {
+  margin-right: 10px;
+}
+
+.nav-arrow {
+  font-size: 1.7rem;
+  font-weight: bold;
+  color: var(--text-primary);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.7s ease, text-shadow 0.7s ease;
+}
+
+.nav-arrow:hover {
+  color: rgba(255, 255, 255, 0.811);
+  text-shadow: 0 0 8px rgba(171, 171, 171, 0.856);
+}
+/* Movie Content Container */
+.movie-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    border: 1px solid #dfdfdf;
+    height: calc(80vh - 60px);
+    overflow-y: auto;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .movie-header {
+        padding: 2vw 4vw;
+    }
+    
+    .Title, .Title2, .Title3, .Title4, .Title5, .Title6, .Title7 {
+        font-size: 2vw;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .movie-header {
+        padding: 3vw 6vw;
+    }
+    
+    .Title, .Title2, .Title3, .Title4, .Title5, .Title6, .Title7 {
+        font-size: 3vw;
+    }
+} 
+

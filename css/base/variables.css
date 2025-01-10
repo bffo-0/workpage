@@ -1,0 +1,21 @@
+:root {
+  /* Colors */
+  --primary-bg: #c6c6c616;
+  --border-color: rgba(220, 220, 220, 0.965);
+  --text-primary: #000000;
+  --text-secondary: #818181;
+  
+  /* Typography */
+  --font-primary: ABCDiatype-Medium, sans-serif;
+  
+  /* Spacing */
+  --sidebar-width: 0vw;
+  --sidebar-height: 88vh;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 2rem;
+  
+  /* Z-index layers */
+  --z-sidebar: 1000;
+  --z-overlay: 9999999;
+} 

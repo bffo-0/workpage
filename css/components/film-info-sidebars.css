@@ -1,0 +1,108 @@
+/* Stile comune per tutti i film sidebars */
+.film-sidebar {
+    position: fixed;
+    top: calc(50% - 30vh);
+    left: 0;
+    height: 60vh;
+    width: 350px;
+    background-color: rgba(198, 198, 198, 0.09);
+    transition: all 0.3s ease;
+    border: 0.5px solid var(--border-color);
+    z-index: 1000;
+    transform: translateX(-100%);
+    opacity: 0;
+    visibility: hidden;
+    border-left: none;
+}
+
+.film-sidebar.visible {
+    transform: translateX(522px);
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Container principale */
+.film-container {
+    height: 100%;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* Scrollbar styling */
+    &::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 4px;
+    }
+
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.5) transparent;
+}
+.film-sidebar .closebtn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 1.5rem;
+    cursor: pointer;
+  
+}
+
+    
+
+.installation-panel .closebtn:hover {
+    color: white;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.8)
+}
+/* Contenuto centrato */
+.film-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+}
+
+/* Immagini */
+.film-img {
+    width: calc(100% - 40px);
+    height: auto;
+    margin: 20px auto;
+    cursor: pointer;
+}
+/* Immagini */
+.film-img-order {
+    width: calc(70% - 40px);
+    height: auto;
+    margin: 20px auto;
+    cursor: pointer;
+}
+.film-content-title {
+    margin-top: 10px;
+}
+/* Titoli e testi */
+.film-content h2 {
+    font-size: 1.2rem;
+    margin: 15px 0;
+    color: var(--text-primary);
+    letter-spacing: -.1rem;
+    font-weight: 600;
+}
+.film-content-info {
+    margin-top: 20px;
+}
+.film-content p {
+    margin: 10px 0;
+    font-size: 0.9rem;
+    line-height: 1.1;
+    color: var(--text-primary);
+}

@@ -1,0 +1,236 @@
+/* Main Container */
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;  /* Mantiene gli elementi centrati dentro il container */
+    justify-content: center;
+    gap: 20px;
+    position: absolute;
+    top: 20px;
+    left: 20px;  /* Sposta solo il container a sinistra */
+}
+
+/* Title Container */
+.title-container {
+    text-align: center;
+    background-color: white;
+    padding: 10px 0vw;
+    width: 500px;
+    width: var(--name-container-width);
+    /* Usiamo una variabile per la larghezza */
+    border: 0.5px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
+    margin: 0 auto;
+    /* Per centrare */
+}
+
+#contactLink {
+    text-decoration: none;
+}
+.name {
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin: 0;
+    text-decoration: none;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: -.1vw;
+}
+
+/* Info Container */
+.info-container {
+    text-align: center;
+}
+
+.info-text {
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    letter-spacing: -0.5px;
+}
+
+/* Navigation Container */
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    width: var(--name-container-width);
+    /* Usa la stessa larghezza del title-container */
+}
+
+.nav-item {
+    width: calc((var(--name-container-width) - 80px) / 3);
+    /* Distribuisce lo spazio equamente tra i 3 item */
+    text-align: center;
+    padding: var(--nav-item-padding);
+    border: 0.5px solid var(--border-color);
+}
+:root {
+    
+    --nav-item-padding: 11px 21px;
+}
+/* Spazio tra gli elementi */
+.nav-item:not(:last-child) {
+    margin-right: 40px;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    color: var(--text-primary);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+
+.nav-link:hover {
+color: white;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.8)
+}
+
+.arrow {
+    font-size: 0.8em;
+    color: var(--text-secondary);
+}
+
+/* Media Queries */
+@media screen and (min-width: 786px) and (max-width: 1024px) {
+    .title-container {
+        padding: 2vw 20.7vw;
+    }
+
+    .name {
+        font-size: 3vw;
+    }
+}
+
+@media screen and (max-width: 785px) {
+    .title-container {
+        padding: 2vw 21.7vw;
+    }
+
+    .name {
+        font-size: 4vw;
+        letter-spacing: -.3vw;
+    }
+
+    .nav-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+}
+
+/* Media Query per laptop */
+@media screen and (max-width: 1366px) {
+    .main-container {
+        top: 15px;  /* Riduco leggermente la distanza dall'alto */
+    }
+
+    .title-container {
+        width: 450px;  /* Riduco la larghezza del container del titolo */
+        padding: 8px 0;  /* Riduco il padding verticale */
+    }
+
+    .name {
+        font-size: 1.2rem;  /* Riduco leggermente la dimensione del nome */
+    }
+
+    .info-text {
+        font-size: 1rem;  /* Riduco la dimensione del testo info */
+    }
+
+    .nav-container {
+        width: 450px;  /* Stessa larghezza del title-container */
+        margin-top: 8px;  /* Riduco il margine superiore */
+    }
+
+    .nav-item {
+        padding: 9px 18px;  /* Riduco il padding dei nav items */
+    }
+
+    .nav-link {
+        font-size: 0.9rem;  /* Riduco la dimensione del testo nei link */
+    }
+}
+
+/* Media Query per tablet (iPad) */
+@media screen and (max-width: 1024px) {
+    .main-container {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%); /* Solo transform orizzontale */
+        margin: 0;
+    }
+
+    .title-container {
+        width: calc(100vw - 60px); /* Larghezza schermo meno 60px di margini */
+    }
+
+    .nav-container {
+        width: calc(90vw - 50px); /* Stessa larghezza del title container */
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .nav-item {
+        width: calc((100vw - 120px) / 3); /* Larghezza totale meno margini diviso 3 */
+        padding: 8px 15px;
+    }
+
+    .nav-item:not(:last-child) {
+        margin-right: 20px;
+    }
+}
+
+/* Media Query per smartphone */
+@media screen and (max-width: 768px) {
+    .main-container {
+        width: 90%;
+        max-width: 350px;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%); /* Centrato orizzontalmente */
+    }
+
+    .title-container {
+        width: 100%;
+        padding: 8px 0;
+    }
+
+    .name {
+        font-size: 1.1rem;
+        letter-spacing: -0.5px;
+    }
+
+    .info-text {
+        font-size: 0.9rem;
+    }
+
+    .nav-container {
+        width: 350px;
+        flex-direction: row; /* Forziamo il layout orizzontale */
+        gap: 10px;
+    }
+
+    .nav-item {
+        width: calc((300px - 40px) / 3); /* Ricalcoliamo per la nuova larghezza */
+        padding: 6px 10px; /* Riduciamo il padding */
+        margin-right: 0; /* Riduciamo il margine tra gli item */
+    }
+
+    .nav-item:not(:last-child) {
+        margin-right: 10px; /* Spazio tra gli elementi */
+    }
+
+    .nav-link {
+        font-size: 0.85rem;
+    }
+} 
