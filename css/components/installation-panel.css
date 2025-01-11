@@ -7,27 +7,22 @@
     width: 400px;
     height: 70vh;
     background-color: rgba(198, 198, 198, 0.09);
-    transition: transform 0.3s ease;
     border-left:none;
+    transition: transform 0.3s ease;
     z-index: 1000;
-    background-image:none;
     overflow-x: hidden;
     
-    /* Stili scrollbar per Chrome, Safari e Opera */
+    /* Scrollbar Styles */
     &::-webkit-scrollbar {
         width: 1px;
     }
-
     &::-webkit-scrollbar-track {
         background: transparent;
     }
-
     &::-webkit-scrollbar-thumb {
         background: rgb(0, 0, 0);
         border-radius: 4px;
     }
-
-    /* Stili scrollbar per Firefox */
     scrollbar-width: thin;
     scrollbar-color: rgb(0, 0, 0) transparent;
 }
@@ -36,21 +31,23 @@
     transform: translate(522px, -50%);
 }
 
-/* Contenuto */
+/* Section Container */
 .installation-panel .section {
+    position: relative;
+    width: 100%;
+    height: 100%;
     padding: 30px;
-    width: 400px;
     box-sizing: border-box;
-    border-left:none;
 }
 
 /* Title Container */
 .title-container-installation {
+   
     margin-bottom: 20px;
 }
 
 .title-container-installation h2 {
-    font-size: 1.3rem;
+    font-size: 1.3vw;
     font-weight: 600;
     letter-spacing: -.1rem;
     color: var(--text-primary);
@@ -59,43 +56,43 @@
 
 /* Content Container */
 .content-container-installation {
-    height: calc(100% - 120px);
+    height: calc(100% - 10px);
     overflow-y: auto;
-    margin-top: 50px;
-    margin-bottom: 20px;
-
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 
 .content-container-installation p {
     margin: 0;
-    font-size: 0.9rem;
-    line-height: 1;
+    font-size: 1vw;
+    line-height: 1.4;
     color: var(--text-primary);
     white-space: pre-line;
+    text-align: center;
     text-shadow: 0 0 10px rgba(210, 22, 179, 0.299);
+    max-width: 100%;
 }
 
 /* Audio Container */
 .audio-container-installation {
-    position: relative;
-    bottom: 0;
-    width: 1%;
+    position: absolute;
+    bottom: 10px; /* Ridotto lo spazio dal basso */
+    width: calc(100% - 60px);
+    height: 30px; /* Altezza fissa ridotta */
+    overflow: hidden; /* Nasconde parti eccedenti */
 }
 
 .audio-container-installation audio {
-    width: 1%;
-}
-
-
-
-/* Audio Player */
-.installation-panel audio {
-    width: 1%;
-    margin-top: 1px;
+    width: 100%;
     opacity: 0;
+    height: 30px;
 }
 
-/* Pulsante di chiusura */
+/* Close Button */
 .installation-panel .closebtn {
     position: absolute;
     top: 20px;
@@ -110,17 +107,51 @@
     background: transparent;
     border: none;
     transition: all 0.3s ease;
+    z-index: 1001; /* Assicura che sia sopra altri elementi */
 }
 
 .installation-panel .closebtn::before {
     content: "×";
+    display: block; /* Assicura che il contenuto sia visibile */
 }
 
 .installation-panel .closebtn:hover {
     color: white;
-    text-shadow: 0 0 2px rgba(0, 0, 0, 0.8)
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
 }
 
+/* Media Query per laptop */
+@media screen and (max-width: 1366px) {
+    .installation-panel {
+        width: 350px; /* Ridotto da 400px */
+    }
+    
+    .installation-panel.visible {
+        transform: translate(472px, -50%); /* Aggiustato per allinearsi con l'about-panel */
+    }
+}
+
+/* Per laptop con schermi più piccoli */
+@media screen and (max-width: 1280px) {
+    .installation-panel {
+        width: 300px;
+    }
+    
+    .installation-panel.visible {
+        transform: translate(422px, -50%);
+    }
+}
+
+/* Per laptop con schermi molto piccoli */
+@media screen and (max-width: 1024px) {
+    .installation-panel {
+        width: 280px;
+    }
+    
+    .installation-panel.visible {
+        transform: translate(402px, -50%);
+    }
+}
 
 /* Media Query per tablet e mobile */ 
 

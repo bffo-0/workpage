@@ -17,7 +17,24 @@
   flex-direction: column;
   align-items: center;
   backdrop-filter: blur(7px);
+    /* Scrollbar styling */
+    &::-webkit-scrollbar {
+      width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+      background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 4px;
+  }
+
+  scrollbar-width: thin;
+  scrollbar-color: rgb(0, 0, 0) transparent;
 }
+
 
 /* Video styles */
 .video6, .video_2, .video3, .video4, .video5, .video7, .video {

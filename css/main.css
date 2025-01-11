@@ -9,9 +9,6 @@
 /* Import components */
 @import 'components/header.css';
 @import 'components/sidebar.css';
-@import 'components/tooltip.css';
-@import 'components/about-work.css';
-@import 'components/contact-form.css';
 @import 'components/video-player.css';
 @import 'components/about-work-panels.css';
 @import 'components/film-info-sidebars.css';

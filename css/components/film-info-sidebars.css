@@ -4,7 +4,7 @@
     top: calc(50% - 30vh);
     left: 0;
     height: 60vh;
-    width: 350px;
+    width: 300px;
     background-color: rgba(198, 198, 198, 0.09);
     transition: all 0.3s ease;
     border: 0.5px solid var(--border-color);
@@ -16,7 +16,7 @@
 }
 
 .film-sidebar.visible {
-    transform: translateX(522px);
+    transform: translateX(422px);
     opacity: 1;
     visibility: visible;
 }
@@ -91,7 +91,7 @@
 }
 /* Titoli e testi */
 .film-content h2 {
-    font-size: 1.2rem;
+    font-size: 1.2vw;
     margin: 15px 0;
     color: var(--text-primary);
     letter-spacing: -.1rem;
@@ -102,7 +102,7 @@
 }
 .film-content p {
     margin: 10px 0;
-    font-size: 0.9rem;
+    font-size: 0.9vw;
     line-height: 1.1;
     color: var(--text-primary);
 }

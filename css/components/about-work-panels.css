@@ -7,10 +7,11 @@
 .panel {
     position: fixed;
    top: 80px; /* Altezza esatta del main-container come visto nel tooltip */
-    height: calc(100vh - 160px);
+    height: calc(100vh - 90px);
+    padding-top: 20px;
     width: 502px; /* Larghezza del main-container */
     background-color: rgba(198, 198, 198, 0.09);
-    transition: all 0.3s ease, opacity 0.3s ease;
+    transition: transform 0.3s ease, opacity 0.3s ease;
     border: 0.5px solid var(--border-color);
     z-index: 1000;
     overflow-y: auto;
@@ -19,12 +20,29 @@
     background-size: cover;
     background-position: center;
     padding: 0.6vw 0vw;
+
+  /* Scrollbar styling */
+  &::-webkit-scrollbar {
+    width: 4px;
+}
+
+&::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+&::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+}
+
+scrollbar-width: thin;
+scrollbar-color: rgb(0, 0, 0) transparent;
 }
 .closebtn {
     position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 1.8rem;
+    top: 10px;
+    right: 10px;
+    font-size: 2vw;
     transition: all 0.3s ease;
     
 }
@@ -66,6 +84,7 @@
 /* Media Query per laptop */
 @media screen and (max-width: 1366px) {
     .panel {
+        top: 60px;
         width: 450px; /* Ridotta da 502px */
     }
 
@@ -112,14 +131,14 @@
 
 /* About Title */
 .title-container-about h2 {
-    font-size: 1.5rem;
-    font-family: var(--font-family);
-    color: var(--text-primary);
-    margin-bottom: 10px;
-    letter-spacing: -.1rem;
+    font-size: 1.3vw;
+    
     font-weight: 600;
+    margin-bottom: 5px;
+    letter-spacing: -.05rem;
     padding: 0;
 }
+
 
 /* Line under title */
 .line {
@@ -138,10 +157,16 @@ width: 91%;
     padding: 5px 17px 10px 20px;
     /* Mantiene la formattazione degli a capo */
 }
-
+@font-face {
+    font-family: 'ABC Diatype';
+    src: url('../assets/fonts/ABC Diatype.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
 .bio-container p {
     color: var(--text-primary);
-    font-size: var(--font-size);
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.228);
+    font-size: 1vw;
     line-height: 1.1;
     
 }
@@ -187,6 +212,7 @@ width: 91%;
 }
 .sidebar-img {
     width: 100%;
+    
     height: auto;
     transition: transform 0.3s ease, filter 1s ease;
     filter: blur(0px);
@@ -201,7 +227,7 @@ width: 91%;
 /* Caption per l'immagine */
 .caption {
     display: block;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     color: var(--text-primary);
     margin-top: 8px;
     text-align: center;
@@ -240,7 +266,7 @@ width: 91%;
 }
 
 .work-panel .container h2 {
-    font-size: 1.5rem;
+    font-size: 1.5vw;
     font-family: var(--font-family);
     color: var(--text-primary);
     margin-bottom: 20px;
@@ -257,21 +283,21 @@ width: 91%;
 }
 
 .work-panel .container h3 {
-    font-size: 1rem;
+    font-size: 1vw;
     color: var(--text-primary);
     font-weight: bold;
     padding-left: 10px; /* Allineato con le icone */
 }
 
 .work-panel .container h4 {
-    font-size: 1rem;
+    font-size: 1vw;
     color: var(--text-primary);
     font-weight: bold;
     text-align: center; /* Centrato */
 }
 
 .work-panel .container h5 {
-    font-size: 1rem;
+    font-size: 1vw;
     color: var(--text-primary);
     font-weight: bold;
     text-align: right; /* Allineato a destra */
@@ -282,7 +308,7 @@ width: 91%;
     width: 91%;
     height: 1px;
     background-color: var(--text-primary);
-    margin: 30px auto 30px auto;
+    margin: 20px auto 20px auto;
 }
 
 /* Film list items - allineamento con gli header */
@@ -290,7 +316,7 @@ width: 91%;
     display: grid;
     grid-template-columns: 40px minmax(0, 1fr) 80px;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
     margin-bottom: 25px;
     color: var(--text-primary);
     padding: 0 20px;
@@ -306,7 +332,7 @@ width: 91%;
     width: 20px;
     text-align: center;
     color: var(--text-primary);
-    font-size: 0.9rem;
+    font-size: 0.9vw;
 }
 .work-panel [class^="aligned-text"]:hover .fas {
     color: white;
@@ -320,14 +346,14 @@ width: 91%;
     text-align: center;
     width: 100%;
     margin: 0 auto;
-    font-size: 0.9rem;
+    font-size: 0.9vw;
 }
 
 /* Year - allineato a destra come l'header */
 .work-panel [class^="right-align"] {
     text-align: right;
     padding-right: 10px;
-    font-size: 0.9rem;
+    font-size: 0.9vw;
 }
 .work-panel [class^="right-align"]:hover {
     color: white;

@@ -25,12 +25,14 @@
     /* Per centrare */
 }
 
+    
+
 #contactLink {
     text-decoration: none;
 }
 .name {
     text-align: center;
-    font-size: 1.3rem;
+    font-size: 1.3vw;
     font-weight: bold;
     margin: 0;
     text-decoration: none;
@@ -129,7 +131,7 @@ color: white;
 /* Media Query per laptop */
 @media screen and (max-width: 1366px) {
     .main-container {
-        top: 15px;  /* Riduco leggermente la distanza dall'alto */
+        top: 10px;  /* Riduco leggermente la distanza dall'alto */
     }
 
     .title-container {
@@ -138,7 +140,7 @@ color: white;
     }
 
     .name {
-        font-size: 1.2rem;  /* Riduco leggermente la dimensione del nome */
+        font-size: 1.3vw;  /* Riduco leggermente la dimensione del nome */
     }
 
     .info-text {

@@ -1,835 +1,748 @@
 <!DOCTYPE html>
-<Html>
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-      <link rel=stylesheet type="text/css" href="CSS_Page 3/reset.css" />
-      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-      <link rel="icon" SIZE="180x180" href="FAVICONE32X32.png" type="image/png">
-      <link rel="apple-touch-icon" sizes="180x180" href="favicono_180.png">
-      <title>Tommaso Massimiliano Alfì</title>
-        <link rel=stylesheet type="text/css" href="CSS_Page 3/Stylesheetmoviesidebar.css" />
-        <link rel=stylesheet type="text/css" href="CSS_Page 3/Stylesheetmoviesidebar2.css"/>
-        <link rel=stylesheet type="text/css" href="CSS_Page 3/StylesheetAboutWork.css"/>
-        <link rel=stylesheet type="text/css" href="CSS_Page 3/StylesheetWorkinfo.css" />
-        <link rel=stylesheet type="text/css" href="CSS_Page 3/stylesheetcontainer.css" />
-        <link rel=stylesheet type="text/css" href="CSS_Page 3/Stylesheeimgmovies.css" />
-<style>
-/* Contenitore corpo */
-body {
-    background-color: rgba(211, 211, 211, 0.093); /* Colore di sfondo leggero */
-    background-image: url(IMG_page3/back3new4.png); /* Immagine di sfondo */
-    background-size: cover; /* Rende l'immagine di sfondo che copre l'intero schermo */
-    background-position: center; /* Centra l'immagine di sfondo */
-    background-repeat: no-repeat; /* Evita che l'immagine di sfondo si ripeta */
-    position: relative; /* Posizionamento relativo per elementi figli */
-    background-attachment: fixed; /* Fissa l'immagine di sfondo durante lo scrolling */
-    max-width: 100%; /* Evita che il body ecceda la larghezza del viewport */
-    min-height: 100vh; /* Assicura che il body copra tutta l'altezza dello schermo */
-    overflow-x: hidden; /* Impedisce lo scroll orizzontale */
-}
-  
-/* Testo e intestazioni */
-    
+<html>
 
-/* Contenitore individuale per ogni link */
-.name-container {
-  display: inline-block;
-  background-color: #c6c6c616;
-  padding: 0.6vw 8.7vw; /* Ridotto padding per contenitore più piccolo */
-  
-  border: 0.5px solid rgba(220, 220, 220, 0.965);
-  text-align: center;
-  letter-spacing: -.1vw;
-  color: rgb(0, 0, 0);
-  position: relative;
-  overflow: hidden; /* Assicurati che l'immagine non fuoriesca dal contenitore */
-  width: auto; /* Lascia che il contenitore si adatti al contenuto */
-  max-width: 100%; /* Imposta una larghezza massima per ogni contenitore */
-  font-family: ABCDiatype-Medium, sans-serif;
-  
-  margin-top: 10.2px;
-  margin-left: 20px;
-}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 
+  <!-- Favicon -->
+  <link rel="icon" size="180x180" href="assets/images/favicons/FAVICONE32X32.png" type="image/png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicon/apple-touch-icon.png">
 
-@media screen and (min-width: 786px) and (max-width: 1024px) {
-  .name-container {
-    padding: 2vw 20.7vw; /* Ridotto padding per contenitore meno grande */
-    left: 50%;
-    margin-left: 0;
-    transform: translateX(-50%);
-  }
-}
+  <!-- Swiper -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-@media screen and (min-width: 420px) and (max-width: 785px) {
-  .name-container {
-    margin-top: 9%;
-   
-    padding: 2vw 21.7vw; /* Ridotto padding per contenitore meno grande */
-    transform: translate(0, -50%);
-  }
-}
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="https://db.onlinewebfonts.com/c/b5dc5645d8bcfd701cdc1edd93253de2?family=ABC+Diatype+Medium" rel="stylesheet">
 
-@media screen and (max-width: 419px) {
-  .name-container {
-    margin-top: 9%;
-    padding: 2vw 21.7vw; /* Ridotto padding per contenitore meno grande */
-    transform: translate(0, -50%);
-  }
-}
+  <!-- Main CSS -->
+  <link rel="stylesheet" type="text/css" href="css/main.css">
 
-/* Utilizziamo ::before per gestire l'immagine di sfondo */
-.name::before {
-  content: ''; /* L'elemento pseudo non ha contenuto */
-  position: absolute; /* Posiziona l'elemento pseudo assolutamente */
-  top: 0;
-  left: 0;
-  width: 200%;
-  height: 100%;
-  background-image: url('../IMG_page3/containerimgpiccolname.png');
-  background-size: 50%;
-  background-repeat: no-repeat;
-  opacity: 1; /* Applica l'opacità solo all'immagine di sfondo */
-  z-index: -1; /* Assicurati che l'immagine stia dietro al testo */
-  filter: blur(30px);
-}
+  <!-- Manifest per PWA -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#ffffff">
 
-h1.name {
-  position: relative;
-  font-size: 1.2vw;  /* Usa vw per adattare la dimensione del font al viewport */
-  font-weight: bold;
-  margin: 0; /* Rimuove margini predefiniti per evitare spazi indesiderati */
-  text-align: center; /* Centra il testo all'interno del contenitore */
-}
-
-
-
-
-@media screen and (min-width: 786px) and (max-width: 1024px) {
-  h1.name {
-    font-size: 3vw; /* Usa vw per adattare la dimensione del font al viewport */
-  }
-}
-
-@media screen and (min-width: 420px) and (max-width: 785px) {
-  h1.name {
-    font-size: 4vw; /* Usa vw per adattare la dimensione del font al viewport */
-    letter-spacing: -.3vw;
-  }
-}
-
-@media  screen and (max-width: 419px) {
-  h1.name {
-    font-size: 4vw; /* Usa vw per adattare la dimensione del font al viewport */
-    letter-spacing: -.3vw;
-  }
-}
-
-/* Contenitore #aboutText */
-#aboutText {
-    width: 100%; /* Fa sì che il contenitore #aboutText occupi tutta la larghezza di #wrapper */
-    text-align: center; /* Centra il testo al suo interno */
-    margin-top: 1%;
-  }
-
-  
-/* Contenitore principale #wrapper */
-#wrapper {
-    width: 68vw; /* Larghezza coerente con altri elementi centrati */
-    margin-left: 0; /* Centro orizzontalmente */
-    position: relative;
-    top: 0%; /* Spazio dal top */
-}
-
-@media screen and (min-width: 419px) and (max-width: 785px) {
-  #wrapper {
-    width: 87vw; /* Larghezza coerente con altri elementi centrati */
-    margin-left: 0; /* Centro orizzontalmente */
-    position: relative;
-    top: 0%; /* Spazio dal top */
-}
-}
-
-@media screen and (max-width: 419px) {
-  #wrapper {
-    width: 87vw; /* Larghezza coerente con altri elementi centrati */
-    margin-left: 0; /* Centro orizzontale */
-    position: relative;
-    top: 0%; /* Spazio dal top */
-  
-}
-}
-
-/* Contenitore di testo .light */
-p.light {
-    display: block; /* Cambia a block per un comportamento più prevedibile */
-    font-weight: lighter; 
-    font-style: italic;
-    letter-spacing: -.1vw;
-    color: rgb(0, 0, 0);
-    font-family: ABCDiatype-Medium, sans-serif;
-    font-size: 1.1vw;
-    text-align: left; /* Centra il testo */
-    margin-left: 9%; /* Centro orizzontalmente */
-    margin-right: auto; /* Centro orizzontalmente */
-    width: 100%; /* Riempie l'intera larghezza del suo contenitore */
-}
-
-@media screen and (min-width: 786px) and (max-width: 1024px) {
-  p.light {
-    margin-left: 34%;
-    font-size: 2.4vw; /* Usa vw per adattare la dimensione del font al viewport */
-  }
-}
-  
-  @media screen and (min-width: 419px) and (max-width: 785px) {
-    p.light {
-      margin-left: 19%;
-      margin-top: -3%;
-      font-size: 2.8vw; /* Usa vw per adattare la dimensione del font al viewport */
-    }
-  }
-
-  @media screen and (max-width: 419px) {
-    p.light {
-      margin-left: 20%;
-      margin-top: -3%;
-      font-size: 2.8vw; /* Usa vw per adattare la dimensione del font al viewport */
-    }
-  }
-  
- /* Contenitore per l'immagine e il tooltip */
-.tooltip {
-    position: fixed; /* Rende il tooltip ancorato come l'immagine */
-    bottom: 20px; /* Spazio dal fondo, allineato con l’immagine */
-    left: 20px; /* Allineato a sinistra con l’immagine */
-    display: inline-block;
-    z-index: 1000;
-}
-
-/* Stile per l'immagine */
-.image1 {
-    max-width: 100%;
-    width: 3vw;
-    height: auto;
-    animation: spin 5s linear infinite;
-    content: url(HomeBack.png);
-}
-
-/* Cambia l'immagine al passaggio del mouse */
-.image1:hover {
-    content: url(HomeBack2.png);
-}
-
-@media screen and (min-width: 1280px) and (max-width:1440px) {
-  .image1{
-    width: 4vw;
-  }
-  
-}
-
-@media screen and (min-width: 1025px) and (max-width:1279px) {
-  .image1{
-    width: 4vw;
-  }
-}
-
-@media screen and (min-width: 786px) and (max-width: 1024px) {
-  .image1{
-    width: 5vw;
-  }
-}
-
-@media screen and (min-width: 420px) and (max-width: 785px) {
-  .image1{
-    width: 11vw;
-  }
-}
-
-@media screen and (max-width: 419px) {
-  .image1{
-    width: 11vw;
-  }
-  
-}
-
-/* Stile per il messaggio tooltip */
-.tooltip .tooltiptext {
-    visibility: hidden;
-    width: 100px;
-    color: #000000;
-    text-align: center;
-    padding: 5px;
-    position: absolute;
-    z-index: 1001;
-    top: 10%; /* Centra verticalmente rispetto all’immagine */
-    left: 50%;
-    transform: translate(-50%, -150%); /* Sposta il tooltip sopra l’immagine */
-    opacity: 0;
-    transition: opacity 0.8s;
-}
-
-/* Mostra il tooltip quando passi con il mouse */
-.tooltip:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-
-
-</style>
+  <title>Tommaso Massimiliano Alfì</title>
 </head>
+
 <body>
- 
 
+  <!================== MAIN-CONTAINER==================!>
+    <div class="main-container">
+      <!-- Title Container -->
+      <div class="title-container">
+        <h1 class="name">Tommaso Massimiliano Alfì</h1>
+      </div>
 
-<!-- Sidebar "About" nascosta di default -->
-<div id="aboutSidebar" class="about-sidebar">
-  <div class="about-sidebar-content">
-    <a href="javascript:void(0)" class="closebtn" onclick="toggleAboutSidebar()">×</a>
-    <h2></h2>
-    
-    <p>Tommaso Massimiliano Alfì is a composer and sound designer based in Turin. 
-    
-    He has collaborated with various musicians and artists in the fields of music, video art, and cinema. 
-    
-    His approach is influenced by his main project, "MVRGN," which explores a contemporary, hybrid, and electronic
-    sound. His latest work is
-    "[threaded or shredded] une fois de plus, sans":
-    a four-channel structure of contemporary composed music and sound design 
-    installed for the Gerrit Rietveld Academie. 
-    </p>
-    <img src="IMG_page3/dariya_trubina_klas_txt_jordidevetten_low_res_1.jpg(mediaclass-landscape-large.faad41e29864068b6df57a9a947d42ec2b39ccbe).png"
-      alt="Immagine Sidebar" class="sidebar-img" onclick="toggleInstallationSidebar()">
-    <div class="caption-container">
-      <a class="caption">[threaded or shredded] une fois de plus, sans: Exhibition View - PH: Jordi de Vetten</a>
+      <!-- Info Container -->
+      <div class="info-container">
+        <p class="info-text">film music composer, sound designer, sound engineering</p>
+      </div>
+
+      <!-- Navigation Container -->
+      <div class="nav-container">
+        <!-- About Link -->
+        <div class="nav-item">
+          <span class="nav-link" data-panel-trigger="about">
+            <span class="arrow">➣</span>
+            ABOUT
+            <span class="arrow">➣</span>
+          </span>
+        </div>
+
+        <!-- Works Link -->
+        <div class="nav-item">
+          <span class="nav-link" data-panel-trigger="work">
+            <span class="arrow">➣</span>
+            WORKS
+            <span class="arrow">➣</span>
+          </span>
+        </div>
+
+        <!-- Contact Link -->
+        <div class="nav-item">
+          <a href="mailto:alfi.tommasomassimiliano@proton.me" class="nav-link" id="contactLink">
+            <span class="arrow">➣</span>
+            CONTACT
+            <span class="arrow">➣</span>
+            </span>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-<!-- Sidebar aggiuntiva "Installation" -->
-<div id="installationSidebar" class="installation-sidebar">
-  <a href="javascript:void(0)" class="closebtn" onclick="toggleInstallationSidebar()"></a>
-  <div class="section">
-  <h2>[threaded or shredded] une fois de plus, sans</h2>
-  
-  <p>on tenter hooks
-  
-  [threaded or shredded] une fois de plus, sans. She uses the plain weave, the strongest, simplest and most ancient of weaving techniques. She occasionally intervenes in
-  it, pulling at the threads, un-evening the pattern and adjusting the shape in a way that is both patient and slightly
-  violent, challenging its pre-determined form.
-  
-  Treating material as language and language as material, she is interested in translation, taking systems of organisation
-  and shifting them just slightly, lightly curving their learned meaning.
-  
-  Tenter hooks [from Medieval Latin tentōrium, from Latin tendere to stretch] were used in the process of making woollen
-  or linen cloth which needed to be washed, stretched and dried under tension, to retain its shape and size. The wet cloth
-  was stretched over a wooden frame - a tenter - using the hooks (nails), and left to dry. Over the centuries of using
-  this method of controlled drying, the expression 'to be on tenterhooks' acquired a figurative meaning in English. It is
-  used to describe a state of uneasiness, anxiety, pressure, or suspense. This expression is often misinterpreted as
-  "tender hooks", creating an eggcorn — a substitution of an element as people try to make sense of a phrase that uses a
-  term unfamiliar to them.
-  
-  In double weaving one layer covers another, preventing access to a part of the process. Tension, errors, gaps can be
-  checked by using a small mirror, placed in the opening between the upper and the lower layers of the weave. An indirect
-  ingress: a material and temporal reflection of the process. A rear view. A translation.
-  
-  dariya likes to rearrange glossaries, grids and gaps in her close readings of architecture and built environments. She
-  indicates the performative potential of space, working with object-based compositions, voice, sound and movement.
-  Stretching the codes of repetition. </p>
-  
-  <audio id = "installation audio" src="Audio Page3/2.dariyasd_proj_quadraphonic_Front.wav" controls></audio>
-</div>
-</div>
-
-<!-- Sidebar "Work" nascosta di default -->
-<div id="workSidebar" class="work-sidebar">
-  <a href="javascript:void(0)" class="closebtn" onclick="toggleWorkSidebar()">×</a>
-
-  <div class="container">
-  <h2>Works:</h2>
-  
-  <h3>Type:</h3>
-  <h4> Title, Role:</h4>
-  <h5> Year:</h5>
-  <div class="line2"></div>
-  
-  <p class="aligned-text1" data-film="film1" onclick="toggleFilmInfoSidebar(this)">
-    <i class="fas fas fa-star"></i><span class="highlighted-text1" >[threaded or shredded] une fois de plus, sans - Music Composer &
-    Sound Designer</span> <span class="right-align">2024</span>
-  </p>
-  
-  <p class="aligned-text2" data-film="film2" onclick="toggleFilmInfoSidebar(this)">
-    <i class="fas fa-film"></i><span class="highlighted-text2"> Night Shift - Music Composer & Sound Designer</span>
-    <span class="right-align2">2024</span>
-  </p>
-  
-  <p class="aligned-text3" data-film="film3" onclick="toggleFilmInfoSidebar(this)">
-    <i class="fas fa-film"></i> <span class="highlighted-text3">Zanskar 6000 - Music Composer & Sound Designer</span><span
-      class="right-align3">2024</span>
-  </p>
-
-            
-              <p class="aligned-text4"  data-film="film4" onclick="toggleFilmInfoSidebar(this)"><i class="fas fas fa-headphones"></i><span class="highlighted-text4">Unrelible Object - Music Composer & Sound Designer</span>
-              <span class="right-align4">2023</span></p>
-
-                  <p class="aligned-text5" data-film="film5" onclick="toggleFilmInfoSidebar(this)"><i class="fas fa-film"></i><span class="highlighted-text5">Suspended Lives - Music Composer</span> <span
-                      class="right-align5">2023</span></p>
-
-                      <p class="aligned-text6" data-film="film6" onclick="toggleFilmInfoSidebar(this)"> <i class="fas fa-film"></i> <span class="highlighted-text6">Sleeping Close - Music Composer </span><span
-                          class="right-align6">2023</span></p>
-                          
-                          <p class="aligned-text7"data-film="film7" onclick="toggleFilmInfoSidebar(this)"><i class="fas fa-film"></i><span class="highlighted-text7">Burden Of Proof - Music Composer</span> <span
-                              class="right-align7">2022</span></p>
-                              
-                              <p class="aligned-text8" data-film="film8" onclick="toggleFilmInfoSidebar(this)"> <i class="fas fa-film"></i> <span class="highlighted-text8">Once And For All - Music Composer</span> <span
-                                  class="right-align8">2022</span></p>
-
-                                  <p class="aligned-text9" data-film="film9" onclick="toggleFilmInfoSidebar(this)"> <i class="fas fa-star"></i> <span class="highlighted-text9">A Little Order, A Little Grace - Music Composer</span> <span
-                                      class="right-align9">2022</span></p>
-                                      
-                                      <p class="aligned-text10" data-film="film10" onclick="toggleFilmInfoSidebar(this)"><i class="fas fa-film"></i> <span class="highlighted-text10">Despite The Facts - Music Composer</span> <span
-                                          class="right-align10">2022</span></p>
-
-                                            <p class="aligned-text11" data-film="film11" onclick="toggleFilmInfoSidebar(this)"><i class="fas fa-film"></i><span class="highlighted-text10">Donne che viaggiano sole - Music Composer & Sound Designer</span> <span class="right-align11">2019</span></p>
-  
-</div>
-</div>
-<!-- Sidebar per il film1 -->
-<div id="film1" class="infoSidebar">
-  <span class="closebtn">×</span>
-  <a href="https://rietveldacademie.nl/page/1028292/dariya-trubina" target="_blank">
-    <img src="IMG_page3/[threaded or shredded] une fois de plus, sans2.jpg"alt="Immagine threaded" class="threaded-img">
-    </a>
-  <div class="sidebar-content">
-    <h2>[threaded or shredded] une fois de plus, sans</h2>
-    <p>Projects by: dariya trubina</p>
-    <p>Music Composed and Sound Designer by Tommaso Massimiliano Alfì</p>
-    <p>Exhibition at Gerrit Rietveld Academie</p>
-    <p>Amsterdam, 2024</p>
-  </div>
-</div>
-
-<!-- Sidebar per il film2 -->
-<div id="film2" class="infoSidebar">
-  <span class="closebtn">×</span>
-  <div class="sidebar-content">
-    <h2>Night Shift</h2>
-    <p>Nino works the night shift as a receptionist in a 2-star hotel.
-    He is torn between insomnia, a harmful routine, and nostalgia for easier times.
-    Besides brief and eerie encounters with customers, he spends the night trying to find ways to stay awake.
-    When he is not lost in scrolling, binge-watching, or drinking coffee, he walks around the hotel experiencing the
-    nocturnal oddities that flow through rooms and corridors.
-    Grey walls, rotten interiors, and empty spaces seem to translate the palette of emotions shared by all the inhabitants
-    of the hotel.
-    Using the very same digital tools that force him into alienation, Nino records and listens to his most intimate
-    confessions.
-    This acoustic diary will be his only lighthouse in a hazy and lonely dimension.</p>
-    <p> A film by Patrick Frunzio</p>
-    <p>Music Composer & Sound Designer by Tommaso Massimiliano Alfì</p>
-    <p>Italy,2024</p>
-  </div>
-</div>
-
-<!-- Sidebar per il film3 -->
-<div id="film3" class="infoSidebar">
-  <span class="closebtn">×</span>
-  <img src="Movies/zanskar6000.png" alt="Immagine Zanskar" class="zanskar-img">
-</a>
-  <div class="sidebar-content">
-    <h2>Zanskar 6000</h2>
-    <p>“Zanskar 6000”
-    
-    Italy, 2024, 19’15’’, 16:9, Full HD, stereo sound
-    
-    v.o. Italian/English, with english subtitles</p>
-    
-   <p> A film by Giada Ripa <p>
-    
-    <p>Expedition concept by Aimone Ripa Di Meana
-    
-    Coordination by Aimone Ripa Di Meana, Rimo Expedition Agency
-    
-    With Edward Cooper, Adriano Ferrero, Simon Lorenz, Aimone Ripa Di Meana, Giada Ripa, Ollie Ullrich
-    
-    Sherpas Dorjee, Norbu & their team 
-    
-    Liason Officer Amresh Kumar Jha </p>
-    
-    <p> Editing by Virginia Garra </p>
-    
-    <p>Music and Sound Design by Tommaso Massimiliano Alfì </p>
-    
-    <p>VFX and Animation by Thomas Pilani </p>
-    
-    <p>Durung Durung Glacier, Zanskar Valley, India.
-    Peak reached: Mt. Aiseo 6028 m </p>
-    
-   <p> Shoot in 2008, released in 2024.</p>
-    <p>2024</p>
-  </div>
-</div>
-
-<!-- Sidebar per il film4 -->
-<div id="film4" class="infoSidebar">
-  <span class="closebtn">×</span>
-  <a href="https://lumpenstation.art/archive/show/ohh-unreliable-object" target="_blank">
-  <img src="IMG_page3/unrelibleobject.jpg" 
-  alt="Immagine unrelibleobject" class="unrelibleobject-img">
-  </a>
-  <div class="sidebar-content">
-    <h2>Unrelible Object</h2>
-
-    <p>Otters holding hands is curated by Ambra Viviani and co-production Lumpen Station
-    Unreliable Object by Federico Pozuelo has been released in may 2023</p>
-    <p>"Unreliable Object is a radio drama that explores our perception of
-    reality through a story of love, contraband, and science fiction."</p>
-    <p>Narrated by Francesca Flora</p>
-    <p>Original soundtrack and sound design by MVRGN</p>
-    <p>2023</p>
-    <p>Italian, English</p>
-  </div>
-</div>
-
-<!-- Sidebar per il film5 -->
-<div id="film5" class="infoSidebar">
-  <span class="closebtn">×</span>
-  <img src="IMG_page3/viteinsospesoimg.png" alt="Immagine viteinsospeso" class="viteinsospeso-img">
-  <div class="sidebar-content">
-    <h2> Suspended Lives</h2>
-    <p>Written by Chiara Valenti</p>
-    <p> Directed By Chiara Valenti & Patrick Frunzio</p>
-    <p>Executive Production by Eccetera SaS</p>
-    <p>Music Composer Tommaso Massimiliano Alfi</p>
-    <p>Italy,2023</p>
-  </div>
-</div>
-
-<!-- Sidebar per il film6 -->
-<div id="film6" class="infoSidebar">
-  <span class="closebtn">×</span>
-  <a href="https://www.imdb.com/title/tt29376130/" target="_blank">
-    <img src="IMG_page3/SELEEPING.png" alt="Immagine sleepingclose" class="sleepingclose-img">
-  </a>
-  <div class="sidebar-content">
-    <h2> Sleeping Close</h2>
-    <p>"Sleeping Close" Italy, France 2023, 109', 2:1, Full HD, stereo sound, v.o Italian, with english subtitles</p>
-    <p>In human adversities, there are 'topoi' that recur like variations of the same melody. Growth, pain, sacrifice, choices
-    and, above all, love, are present in everyone's existence in a thousand forms, similar and yet unique. With the
-    fragments of many lives, it would be possible to compose a single one in which to find the echo of all the others. In
-    the chapters of 'Sleeping close', a woman experiences the stages of her own evolution through the changing features of
-    fourteen female protagonists. She dies a symbolic death, only to be resurrected at the end with all those women who have
-    gone before. A poetic journey into the inner world of the human being, in which seemingly insignificant reveal to us the
-    submerged stream of a fragile humanity in search of itfself.</p>
-    
-    <p>A film by Giulio Pereno</p>
-    <p> Produced by Giulio Pereno & Olivia Paola Longoni</p>
-    <p>Music Composed by Tommaso Massimiliano Alfì</p>
-    <p>2023</p>
-  </div>
-</div>
-
-<!-- Sidebar per il film7 -->
-<div id="film7" class="infoSidebar">
-  <span class="closebtn">×</span>
-  <a href="https://www.imdb.com/title/tt33291155/ " target="_blank">
-    <img src="Movies/burdernframe.jpg" alt="Immagine burden" class="burden-img">
-  </a>
-  <div class="sidebar-content">
-    <h2> Burden Of Proof</h2>
-    <p>Looped Video HD and photo series- 2022</p>
-    <p>Through a video shot in a disused Oscar Niemeyer building, "Burden of Proof" reflects on the relationship between
-    science and political violence using a circular narrative structure. The project also includes a series of photographs
-    that explore forensic languages and the imaginary of crime cinema.</p>
-    <p> 2022</p>
-    <p> Director: Federico Pozuelo</p>
-    <p> Music Composed by Tommaso Massimiliano Alfì</p>
-  </div>
-</div>  
-
-<!-- Sidebar per il film8 -->
-<div id="film8" class="infoSidebar">
-  <span class="closebtn">×</span>
-  <a>
-  <img src="IMG_page3/ONCEIMG.png" alt="Immagine once" class="once-img"> 
-  </a>
-  <div class="sidebar-content">
-    <h2> Once And For All</h2>
-    <p>“Once And For All” Italy, 2022, 19’15’’, 16:9, Full HD,</p>
-    <p> A film by Federico Pozuelo & Javier Ruiz</p>
-    <p> Written By Federico Pozuelo & Javier Ruiz</p>
-    <p>Music Composed by Tommaso Massimiliano Alfì</p>
-    <p>2022</p>
-  </div>    
-</div>
-
-<!-- Sidebar per il film9 -->
-<div id="film9" class="infoSidebar">
-  <span class="closebtn">×</span>
-  <img src="IMG_page3/como.jpg" alt="Immagine Como" class="Como-img">
-  <div class="sidebar-content">
-    
-    <h2> A Little Order, A Little Grace</h2>
-    <p>Project and video's by Germana Frattini</p>
-    
-   <p> Music Composed  by Tommaso Massimiliano Alfì</p>
-    
-    <p>Exhibition at Como Contemporanea</p>
-    
-    <p>Como, 2022</p>
-    <p>2024</p>
-  </div>    
-</div>
-
-<!-- Sidebar per il film10 -->
-<div id="film10" class="infoSidebar">
-  <span class="closebtn">×</span>
-  <a href="https://www.federicopozuelo.com/despite-the-facts.html " target="_blank">
-    <img src="IMG_page3/despitepic.jpg" alt="Immagine despite" class="despite-img">
-  </a>
-  <div class="sidebar-content">
-    <h2> Despite The Facts</h2>
-    <p>Through the narrative of a fictional political crime, the project explores the construction of the cultural, political
-    and historical narratives in northen Italy during the Years of Lead.</p>
-    <p> A film by Fedirico Pozuelo</p>
-    <p> Music Composed by Tommaso Massimiliano Alfì</p>
-    <p>2022</p>
-  </div>    
-</div>
-
-<!-- Sidebar per il film11 -->
-<div id="film11" class="infoSidebar">
-  <span class="closebtn">×</span>
-  <a href="https://m.imdb.com/title/tt21608742/?ref_=nv_sr_srsg_0_tt_1_nm_0_in_0_q_donne%2520che%2520viaggiano%2520sole " target="_blank">
-    <img src="IMG_page3/donneche2img.png" alt="Immagine donnecheviaggianosole" class="donneche-img">
-  </a>
-  <div class="sidebar-content">
-    <h2> Donne che viaggiano sole</h2>
-    <p>Written, edited and directed by Giulio Pereno</p>
-    <p>with dariya trubina</p>
-    <p>Music Composed and Sound Designer by Tommaso Massimiliano Alfì</p>
-    <p>Cinematography: Jalal Albess
-    2nd Cinematography: Moreno Elia Hebling, Giulio Pereno, Claudio Pereno (final scene)</p>
-    
-    <p> 75', ITA-DE-FRA, 2019, 2:1, 16:9, Full HD, stereo sound, v.o italian, english, with english and italiansubtitles</p>
-    <p>2019</p>
-  </div>    
-</div>
-
-<!-- Title Name-->
-<div class="name-container">
-<h1 class="name">Tommaso Massimiliano Alfì</h1>
-</div>
-   <div id="textContent">
-    <!-- Text info -->
-    <a href="" class="tooltip">
-      <img id="img" src="HomeBack.png" class="image1" alt="Home">
-      <span class="tooltiptext">not yet 😞</span>
-  </a>
-    
-    
-    
-    <div id="wrapper">
-    <div id="aboutText">
-    <p class="light">film music composer, sound designer, sound engineering.
-    </p>
-  </div>
-    </div>
-    
-<!-- Contenitore principale che conterrà i link orizzontali -->
-<div class="links-container">
-  
-  <!-- Contenitore per il link "About" -->
-  <div class="link-container">
-    <span class="about-link" id="aboutLink" onclick="toggleAboutSidebar()"><span class="arrow2">➣</span>ABOUT<span class="arrow2">➣</span></span>
-    
-  </div>
-
-  <!-- Contenitore per il link "Work" con freccia -->
-  <div class="link-container">
-    <span class="work-link" id="workLink" onclick="toggleWorkSidebar()">
-      <span class="arrow2">➣</span>WORKS<span class="arrow">➣</span>
-    </span>
-  </div>
-
-  <!-- Contenitore per il link "Contact" -->
-  <div class="link-container">
-    
-    <span id="contactLink"><span class="arrow2">➣</span><a href="mailto:alfi.tommasomassimiliano@proton.me">CONTACT</a><span class="arrow2">➣</span></span>
-     
-  </div>
-
-</div>
-    <div class="grid-container">
-
-  <!-- Sidebar -->
-  <!-- Sidebar Film 1 -->
-    <div id="main"> 
-      <button class="openbtn" onclick="OpenOrClose1('mySidebar')">  
-     <img id="imgmovie" src="Movies/dormiamo insieme locandina.jpg" class="imgmovie">
-    </button> 
-
-    <div id="mySidebar" class="sidebar">
-      <a href="javascript:void(0)" class="closebtn" onclick="OpenOrClose1()"> &times; </a> 
-      
-      
-            <p class="movie"> Movie:</p> <a class="Title"> Sleeping Close</a> 
-      <video src="Movies/Acqua.mp4" controls="true" playsinline webkit-playsinline class="video_0">
-        your browser does not support the video tag
-        </video>
-        <div class="linemovie"></div>
-        <p class="InfoMovie"> "Sleeping Close" Italy, France 2023, 109', 2:1, Full HD, stereo sound, v.o Italian, with english subtitles. A Film by Giulio Pereno</p>
-                    
-       
-                   
-         
-          <iframe style="border: 0;" class="player" src="https://bandcamp.com/EmbeddedPlayer/album=1265036739/size=large/bgcol=ffffff/linkcol=333333/artwork=none/transparent=true/">
-            <a href="https://tommasomassimilianoalfi.bandcamp.com/album/sleeping-close-soundtrack">Sleeping Close - Soundtrack by Tommaso Massimiliano Alfi</a>
-          </iframe>
-  </div>
-                                  <!-- Sidebar Film 2 -->
-                                  <div id="main2">
-                                    <button class="openbtn2" onclick="OpenOrClose2('mySidebar2')">
-                                    <img id="imgmovie2" src="Movies/donneche.png" class="imgmovie2">
-                                  </button>
-                                
-                                  <div class="Sidebar2" id="mySidebar2">
-                                    <a href="javascript:void(0)" class="closebtn2" onclick="OpenOrClose2()"> &times; </a> 
-                                   
-                                    <p class="movie2"> Movie:</p> <a class="Title2"> Donne Che Viaggiano Sole</a>
-                                    <video src="Movies/donneche.mp4" controls="true" playsinline webkit-playsinline class="video_2"></video>
-                                <div class="linemovie"></div>
-                                <p class="InfoMovie"> 75', ITA-DE-FRA, 2019, 2:1, 16:9, Full HD, stereo sound, v.o italian, english, with english and italiansubtitles. A Film By Giulio Pereno</p>
-                                  </div>
-                                                    <!-- Sidebar Film 3 -->
-                                                        <div id="main3">
-                                                        <button class="openbtn3" onclick="OpenOrClose3('mySidebar3')">
-                                                          <img id="imgmovie3" src="Movies/Burden.png" class="imgmovie3">
-                                                      </button>
-                                                      
-                                                      <div class="Sidebar3" id="mySidebar3">
-                                                        <a href="javascript:void(0)" class="closebtn3" onclick="OpenOrClose3()"> &times; </a> 
-                                                       
-                                                      <p class="movie3"> Movie:</p> <a class="Title3" > Burden Of Proof</a>
-                                                        <video src="Movies/Burden.mov" controls="true" playsinline webkit-playsinline class="video3"></video>
-                                                        <div class="ol_Movie5"></div>
-                                                      <div class="linemovie"></div>
-                                                      <p class="InfoMovie"> Burden Of Proof
-                                                      Looped Video HD and photo series- 2022 Italy
-                                                        A Film by Federico Pozuelo</p>
-                                                      <iframe style="border: 0;" class="player3" src="https://bandcamp.com/EmbeddedPlayer/album=2034586078/size=large/bgcol=ffffff/linkcol=0687f5/artwork=small/transparent=true/">
-                                                        <a href="https://tommasomassimilianoalfi.bandcamp.com/album/burden-of-proof-original-motion-picture-soundtrack">Burden Of Proof - Original Motion Picture Soundtrack by Tommaso Massimiliano Alfì</a>
-                                                      </iframe>
-                                              </div>
-                                                      </div>
-                                                                      <!-- Sidebar Film 4 -->
-                                                                       <div id="main4">
-                                                                      <button class="openbtn4" onclick="OpenOrClose4('mySidebar4')">
-                                                                        <img id="imgmovie4" src="Movies/Despite.png" class="imgmovie4">
-                                                                    </button>
-                                                                    
-                                                                    <div class="Sidebar4" id="mySidebar4">
-                                                                      <a href="javascript:void(0)" class="closebtn4" onclick="OpenOrClose4()"> &times; </a> 
-                                                                      <p class="movie4"> Movie:</p> <a class="Title4" > Despite The Facts</a>
-                                                                      <video src="Movies/DespiteTheFacts.mov" controls="true" playsinline webkit-playsinline class="video4"></video>
-                                                                      <div class="linemovie"></div>
-                                                                      <p class="InfoMovie">Despite The Facts, Short Movie 2022 Italy
-                                                                        A Film by Federico Pozuelo</p>
-                                                                    <iframe style="border: 0;" class="player4" src="https://bandcamp.com/EmbeddedPlayer/album=1256480392/size=large/bgcol=ffffff/linkcol=0687f5/artwork=none/transparent=true/">
-                                                                      <a href="https://tommasomassimilianoalfi.bandcamp.com/album/despite-the-fact-original-motion-picture-soundtrack">Despite The Facts - Original Motion Picture Soundtrack by Tommaso Massimiliano Alfì</a>
-                                                                    </iframe>
-                                                            </div>
-                                                                                        </div>
-                                                                                        <!-- Sidebar Film 5 -->
-                                                                                        <div id="main5">
-                                                                                          <button class="openbtn5" onclick="OpenOrClose5('mySidebar5')">
-                                                                                            <img id="imgmovie5" src="Movies/onceandforall.png" class="imgmovie5">
-                                                                                        </button>
-                                                                                        
-                                                                                        <div class="Sidebar5" id="mySidebar5">
-                                                                                          <a href="javascript:void(0)" class="closebtn5" onclick="OpenOrClose5()"> &times; </a> 
-                                                                                          
-                                                                                          <p class="movie5"> Movie:</p> <a class="Title5" > Once And For All</a>
-                                                                                          <video src="Movies/OnceAndFor.mov" controls="true" playsinline webkit-playsinline class="video5"></video>
-                                                                                          <div class="linemovie"></div>
-                                                                                        <p class="InfoMovie">Once And For All, Short Movie 2022 Italy
-                                                                                          A Film by Federico Pozuelo & Javier Ruiz</p>
-                                                                                        <iframe style="border: 0;" class="player5" src="https://bandcamp.com/EmbeddedPlayer/album=4130254768/size=large/bgcol=ffffff/linkcol=0687f5/artwork=none/transparent=true/">
-                                                                                          <a href="https://tommasomassimilianoalfi.bandcamp.com/album/once-and-for-all-original-motion-picture-soundtrack">Once And For All - Original Motion Picture Soundtrack by Tommaso Massimiliano Alfì</a>
-                                                                                        </iframe>
-                                                                                          </div>
-                                                                                        </div>
-                                                                                        </div>
-                                                                                                                 <!-- Sidebar per il film6 -->
-                                                                                                                <div id="main6">
-                                                                                                                  <button class="openbtn6" onclick="OpenOrClose6('mySidebar6')">
-                                                                                                                    <img id="imgmovie6" src="Movies/zanskar.png" class="imgmovie6">
-                                                                                                                  </button>
-                                                                                                                
-                                                                                                                  <div class="Sidebar6" id="mySidebar6">
-                                                                                                                    <a href="javascript:void(0)" class="closebtn6" onclick="OpenOrClose6()"> &times; </a>
-                                                                                                                    <p class="movie6"> Movie:</p> <a class="Title6" > Zanskar 6000</a>
-                                                                                                                    <video src="Movies/ZANSKAR 6000 music_02.mp4" controls="true" playsinline webkit-playsinline class="video6"></video>
-                                                                                                                    <div class="linemovie"></div>
-                                                                                                                    <p class="InfoMovie"> "“Zanskar 6000” Italy, 2024, 19’15’’, 16:9, Full HD, stereo sound v.o. Italian/English, with english subtitles.
-                                                                                                                    
-                                                                                                                    A film by Giada Ripa</p>
-                                                                                                                    
-                                                                                                                   
-                                                                                                                    <iframe style="border: 0;" class="player5" src="https://bandcamp.com/EmbeddedPlayer/album=4130254768/size=large/bgcol=ffffff/linkcol=0687f5/artwork=none/transparent=true/">
-                                                                                                                      <a href="https://tommasomassimilianoalfi.bandcamp.com/album/once-and-for-all-original-motion-picture-soundtrack">Once
-                                                                                                                        And For All - Original Motion Picture Soundtrack by Tommaso Massimiliano Alfì</a>
-                                                                                                                    </iframe>
-                                                                                                                  </div>
-                                                                                                                </div>
-                                                                                                                </div>
-                                                                                                                            <!-- Sidebar per il film7 -->
-                                                                                                                          <div id="main7">
-                                                                                                                            <button class="openbtn7" onclick="OpenOrClose7('mySidebar7')">
-                                                                                                                              <img id="imgmovie7" src="IMG_page3/Suspendedimg.png" class="imgmovie7">
-                                                                                                                            </button>
-                                                                                                                          
-                                                                                                                            <div class="Sidebar7" id="mySidebar7">
-                                                                                                                              <a href="javascript:void(0)" class="closebtn7" onclick="OpenOrClose7()"> &times; </a>
-                                                                                                                              
-                                                                                                                              </a>
-                                                                                                                              <p class="movie7"> Movie:</p> <a class="Title7" > Suspended Lives
-                                                                                                                                </a>
-                                                                                                                              <video src="Movies/suspended.mp4" controls="true" playsinline webkit-playsinline class="video7"></video>
-                                                                                                                              <div class="linemovie"></div>
-                                                                                                                              <p class="InfoMovie"> "Suspended Lives" Italy, 2023, 29', 2:1, Full HD, stereo sound, v.o Italian, with english
-                                                                                                                                subtitles. A Film by Chiara Valenti & Patrick Frunzio</p>
-                                                                                                                              
-                                                                                                                              
-                                                                                                                               
-                                                                                                                            <iframe style="border: 0;" class="player7" src="https://bandcamp.com/EmbeddedPlayer/track=1106786924/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=none/transparent=true/">
-                                                                                                                              <a href="https://tommasomassimilianoalfi.bandcamp.com/track/suspended-lives-theme-soundtrack">Suspended Lives
-                                                                                                                                - Theme Soundtrack by Tommaso Massimiliano Alfì</a>
-                                                                                                                            </iframe>
-                                                                                                                          </div>
-                                                                                                                          </div>
-                                                                                                                          </div>
-<!-- CONTACT -->
 
 
+    <!================== ABOUT-SIDEBAR==================!>
+      <!-- Overlay solo per mobile/tablet -->
+
+      <div id="aboutSidebar" class="panel about-panel">
+
+        <div class="about-sidebar-content">
+
+          <div class="title-container-about">
+            <a href="javascript:void(0)" class="closebtn" onclick="toggleAboutSidebar()">×</a>
+            <h2>About :</h2>
+          </div>
+          <div class="line"></div>
+          <div class="bio-container">
+            <p>Tommaso Massimiliano Alfì is a composer and sound designer based in Turin.
+              He has collaborated with various musicians and artists in the fields of music, video art, and cinema.
+              His approach is influenced by his main project, "MVRGN," which explores a contemporary, hybrid, and
+              electronic
+              sound. His latest work is
+              "[threaded or shredded] une fois de plus, sans":
+              a four-channel structure of contemporary composed music and sound design
+              installed for the Gerrit Rietveld Academie.
+            </p>
+          </div>
+          <div class="installation-image-container">
+            <img
+              src="assets/images/ui/dariya_trubina_klas_txt_jordidevetten_low_res_1.jpg(mediaclass-landscape-large.faad41e29864068b6df57a9a947d42ec2b39ccbe).png"
+              alt="Immagine Sidebar" class="sidebar-img">
+            <span class="caption">[threaded or shredded] une fois de plus, sans: Exhibition View - PH: Jordi de
+              Vetten</span>
+          </div>
+        </div>
+      </div>
 
 
-<!-- Overlay del form -->
-<div id="contact">
+      <!================== INSTALLATION-SIDEBAR==================!>
+        <div id="installationSidebar" class="panel installation-panel">
+          <a href="javascript:void(0)" class="closebtn" data-panel-close="installation"></a>
+          <div class="section">
+            <!-- Title Container -->
+            <div class="title-container-installation">
+              <h2>[threaded or shredded] une fois de plus, sans</h2>
+            </div>
+            <!-- Content Container -->
+            <div class="content-container-installation">
+              <p>on tenter hooks [threaded or shredded] une fois de plus, sans. She uses the plain weave, the strongest,
+                simplest and most ancient of weaving techniques. She occasionally intervenes in
+                it, pulling at the threads, un-evening the pattern and adjusting the shape in a way that is both patient
+                and slightly
+                violent, challenging its pre-determined form.
+                dariya likes to rearrange glossaries, grids and gaps in her close readings of architecture and built
+                environments. She
+                indicates the performative potential of space, working with object-based compositions, voice, sound and
+                movement.
+                Stretching the codes of repetition. </p>
+            </div>
+            <div class="audio-container-installation">
+              <audio id="installation audio" src="Audio Page3/2.dariyasd_proj_quadraphonic_Front.wav" controls></audio>
+            </div>
+          </div>
+        </div>
 
-    
-  <a href="mailto:alfi.tommasomassimiliano@proton.me"></a>
-     
-</div>
+        <!================== WORKS-SIDEBAR==================!>
+
+          <div id="workSidebar" class="panel work-panel">
+            <a href="javascript:void(0)" class="closebtn" data-panel-trigger="work">×</a>
+
+            <div class="container">
+              <h2>Works:</h2>
+              <div class="header-row">
+                <h3>Type:</h3>
+                <h4>Title, Role:</h4>
+                <h5>Year:</h5>
+              </div>
+
+              <div class="line2"></div>
+
+              <!-- Film List -->
+              <p class="aligned-text1" data-film="film1">
+                <i class="fas fa-star"></i>
+                <span class="highlighted-text1">[threaded or shredded] une fois de plus, sans - Music Composer & Sound
+                  Designer</span>
+                <span class="right-align">2024</span>
+              </p>
+
+              <p class="aligned-text2" data-film="film2">
+                <i class="fas fa-film"></i>
+                <span class="highlighted-text2">Night Shift - Music Composer & Sound Designer</span>
+                <span class="right-align2">2024</span>
+              </p>
+
+              <p class="aligned-text3" data-film="film3">
+                <i class="fas fa-film"></i>
+                <span class="highlighted-text3">Zanskar 6000 - Music Composer & Sound Designer</span>
+                <span class="right-align3">2024</span>
+              </p>
+
+              <p class="aligned-text4" data-film="film4">
+                <i class="fas fa-headphones"></i>
+                <span class="highlighted-text4">Unrelible Object - Music Composer & Sound Designer</span>
+                <span class="right-align4">2023</span>
+              </p>
+
+              <p class="aligned-text5" data-film="film5">
+                <i class="fas fa-film"></i>
+                <span class="highlighted-text5">Suspended Lives - Music Composer</span>
+                <span class="right-align5">2023</span>
+              </p>
+
+              <p class="aligned-text6" data-film="film6">
+                <i class="fas fa-film"></i>
+                <span class="highlighted-text6">Sleeping Close - Music Composer</span>
+                <span class="right-align6">2023</span>
+              </p>
+
+              <p class="aligned-text7" data-film="film7">
+                <i class="fas fa-film"></i>
+                <span class="highlighted-text7">Burden Of Proof - Music Composer</span>
+                <span class="right-align7">2022</span>
+              </p>
+
+              <p class="aligned-text8" data-film="film8">
+                <i class="fas fa-film"></i>
+                <span class="highlighted-text8">Once And For All - Music Composer</span>
+                <span class="right-align8">2022</span>
+              </p>
+
+              <p class="aligned-text9" data-film="film9">
+                <i class="fas fa-star"></i>
+                <span class="highlighted-text9">A Little Order, A Little Grace - Music Composer</span>
+                <span class="right-align9">2022</span>
+              </p>
+
+              <p class="aligned-text10" data-film="film10">
+                <i class="fas fa-film"></i>
+                <span class="highlighted-text10">Despite The Facts - Music Composer</span>
+                <span class="right-align10">2022</span>
+              </p>
+
+              <p class="aligned-text11" data-film="film11">
+                <i class="fas fa-film"></i>
+                <span class="highlighted-text10">Donne che viaggiano sole - Music Composer & Sound Designer</span>
+                <span class="right-align11">2019</span>
+              </p>
+            </div>
+          </div>
 
 
-<script src="/JS/AboutWorkInstallationInfosidebar.js"> </script>
-<script src="/JS/Sidebarmovies.js"> </script>
-<script src="/JS/TouchEvents.js"> </script>     
+          <!================== FILM-INFO-SIDEBARS==================!>
+
+            <div class="film-sidebars-container">
+
+              <div id="film1" class="film-sidebar">
+                <div class="film-container">
+                  <span class="closebtn" data-film-close="film1">×</span>
+                  <div class="film-content">
+                    <div class="film-content-title">
+                      <h2>[threaded or shredded] une fois de plus, sans</h2>
+                    </div>
+                    <div class="film-content-info">
+                      <p>Projects by: dariya trubina</p>
+                      <p>Music Composed and Sound Designer by Tommaso Massimiliano Alfì</p>
+                      <p>Exhibition at Gerrit Rietveld Academie</p>
+                      <p>Amsterdam, 2024</p>
+                    </div>
+                    <a href="https://rietveldacademie.nl/page/1028292/dariya-trubina" target="_blank">
+                      <img src="IMG_page3/[threaded or shredded] une fois de plus, sans2.jpg" alt="Immagine threaded"
+                        class="film-img">
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Film 2: Night Shift -->
+              <div id="film2" class="film-sidebar">
+                <div class="film-container">
+                  <span class="closebtn" data-film-close="film2">×</span>
+                  <div class="film-content">
+                    <div class="film-content-title">
+                      <h2>Night Shift</h2>
+                    </div>
+                    <div class="film-content-info">
+                      <p>Nino works the night shift as a receptionist in a 2-star hotel.
+                        He is torn between insomnia, a harmful routine, and nostalgia for easier times.
+                        Besides brief and eerie encounters with customers, he spends the night trying to find ways to
+                        stay awake.
+                        When he is not lost in scrolling, binge-watching, or drinking coffee, he walks around the hotel
+                        experiencing the
+                        nocturnal oddities that flow through rooms and corridors.
+                        Grey walls, rotten interiors, and empty spaces seem to translate the palette of emotions shared
+                        by all the inhabitants
+                        of the hotel.
+                        Using the very same digital tools that force him into alienation, Nino records and listens to
+                        his most intimate
+                        confessions.
+                        This acoustic diary will be his only lighthouse in a hazy and lonely dimension.</p>
+                      <p>A film by Patrick Frunzio</p>
+                      <p>Music Composer & Sound Designer by Tommaso Massimiliano Alfì</p>
+                      <p>Italy, 2024</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Film 3: Zanskar 6000 -->
+              <div id="film3" class="film-sidebar">
+                <div class="film-container">
+                  <span class="closebtn" data-film-close="film3">×</span>
+                  <div class="film-content">
+                    <div class="film-content-title">
+                      <h2>Zanskar 6000</h2>
+                    </div>
+                    <div class="film-content-info">
+                      <p>Italy, 2024, 19'15'', 16:9, Full HD, stereo sound</p>
+                      <p>v.o. Italian/English, with english subtitles</p>
+                      <p>A film by Giada Ripa</p>
+                      <p>Music and Sound Design by Tommaso Massimiliano Alfì</p>
+                      <p>2024</p>
+                    </div>
+                    <img src="Movies/zanskar6000.png" alt="Immagine Zanskar" class="film-img">
+                  </div>
+                </div>
+              </div>
+              <!-- Film 4: Unrelible Object -->
+              <div id="film4" class="film-sidebar">
+                <div class="film-container">
+                  <span class="closebtn" data-film-close="film4">×</span>
+                  <div class="film-content">
+                    <div class="film-content-title">
+                      <h2>Unrelible Object</h2>
+                    </div>
+                    <div class="film-content-info">
+                      <p>Otters holding hands is curated by Ambra Viviani and co-production Lumpen Station</p>
+                      <p>Original soundtrack and sound design by MVRGN</p>
+                      <p>2023</p>
+                    </div>
+                    <a href="https://lumpenstation.art/archive/show/ohh-unreliable-object" target="_blank"></a>
+                    <img src="IMG_page3/unrelibleobject.jpg" alt="Immagine unrelibleobject" class="film-img">
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <!-- Film 5: Suspended Lives -->
+              <div id="film5" class="film-sidebar">
+                <div class="film-container">
+                  <span class="closebtn" data-film-close="film5">×</span>
+                  <div class="film-content">
+                    <div class="film-content-title">
+                      <h2>Suspended Lives</h2>
+                    </div>
+                    <div class="film-content-info">
+                      <p>Written by Chiara Valenti</p>
+                      <p>Directed By Chiara Valenti & Patrick Frunzio</p>
+                      <p>Music Composer Tommaso Massimiliano Alfi</p>
+                      <p>Italy, 2023</p>
+                    </div>
+                    <img src="assets/images/ui/viteinsospesoimg.png" alt="Immagine viteinsospeso" class="film-img">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Film 6: Sleeping Close -->
+              <div id="film6" class="film-sidebar">
+                <div class="film-container">
+                  <span class="closebtn" data-film-close="film6">×</span>
+                  <div class="film-content">
+                    <div class="film-content-title">
+                      <h2>Sleeping Close</h2>
+                    </div>
+                    <div class="film-content-info">
+                      <p>Italy, France 2023, 109', 2:1, Full HD, stereo sound, v.o Italian, with english subtitles</p>
+                      <p>A film by Giulio Pereno</p>
+                      <p>Music Composed by Tommaso Massimiliano Alfì</p>
+                      <p>2023</p>
+                    </div>
+                    <a href="https://www.imdb.com/title/tt29376130/" target="_blank">
+                      <img src="assets/images/ui/SELEEPING.png" alt="Immagine sleepingclose" class="film-img">
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <!-- Film 7: Burden Of Proof -->
+              <div id="film7" class="film-sidebar">
+                <div class="film-container">
+                  <span class="closebtn" data-film-close="film7">×</span>
+                  <div class="film-content">
+                    <div class="film-content-title">
+                      <h2>Burden Of Proof</h2>
+                    </div>
+                    <div class="film-content-info">
+                      <p>Looped Video HD and photo series- 2022</p>
+                      <p>Director: Federico Pozuelo</p>
+                      <p>Music Composed by Tommaso Massimiliano Alfì</p>
+                      <p>2022</p>
+                    </div>
+                    <a href="https://www.imdb.com/title/tt33291155/" target="_blank">
+                      <img src="Movies/burdernframe.jpg" alt="Immagine burden" class="film-img">
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <!-- Film 8: Once And For All -->
+              <div id="film8" class="film-sidebar">
+                <div class="film-container">
+                  <span class="closebtn" data-film-close="film8">×</span>
+                  <div class="film-content">
+                    <div class="film-content-title">
+                      <h2>Once And For All</h2>
+                    </div>
+                    <div class="film-content-info">
+                      <p>Italy, 2022, 19'15'', 16:9, Full HD</p>
+                      <p>A film by Federico Pozuelo & Javier Ruiz</p>
+                      <p>Music Composed by Tommaso Massimiliano Alfì</p>
+                      <p>2022</p>
+                    </div>
+                    <img src="assets/images/ui/ONCEIMG.png" alt="Immagine once" class="film-img">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Film 9: A Little Order, A Little Grace -->
+              <div id="film9" class="film-sidebar">
+                <div class="film-container">
+                  <span class="closebtn" data-film-close="film9">×</span>
+                  <div class="film-content">
+                    <div class="film-content-title">
+                      <h2>A Little Order, A Little Grace</h2>
+                    </div>
+                    <div class="film-content-info">
+                      <p>Project and video's by Germana Frattini</p>
+                      <p>Music Composed by Tommaso Massimiliano Alfì</p>
+                      <p>Exhibition at Como Contemporanea</p>
+                      <p>Como, 2022</p>
+                    </div>
+                    <img src="IMG_page3/como.jpg" alt="Immagine Como" class="film-img-order">
+                  </div>
+                </div>
+              </div>
+              <!-- Film 10: Despite The Facts -->
+              <div id="film10" class="film-sidebar">
+                <div class="film-container">
+                  <span class="closebtn" data-film-close="film10">×</span>
+                  <div class="film-content">
+                    <div class="film-content-title">
+                      <h2>Despite The Facts</h2>
+                    </div>
+                    <div class="film-content-info">
+                      <p>Through the narrative of a fictional political crime, the project explores the construction of
+                        the cultural,
+                        political and historical narratives in northen Italy during the Years of Lead.</p>
+                      <p>A film by Fedirico Pozuelo</p>
+                      <p>Music Composed by Tommaso Massimiliano Alfì</p>
+                      <p>2022</p>
+                    </div>
+                    <a href="https://www.federicopozuelo.com/despite-the-facts.html" target="_blank">
+                      <img src="IMG_page3/despitepic.jpg" alt="Immagine despite" class="film-img">
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Film 11: Donne che viaggiano sole -->
+              <div id="film11" class="film-sidebar">
+                <div class="film-container">
+                  <span class="closebtn" data-film-close="film11">×</span>
+                  <div class="film-content">
+                    <div class="film-content-title">
+                      <h2>Donne che viaggiano sole</h2>
+                    </div>
+                    <div class="film-content-info">
+
+                      <p>Written, edited and directed by Giulio Pereno</p>
+                      <p>Music Composed and Sound Designer by Tommaso Massimiliano Alfì</p>
+                      <p>Cinematography: Jalal Albess</p>
+                      <p>75', ITA-DE-FRA, 2019, 2:1, 16:9, Full HD, stereo sound</p>
+                      <p>2019</p>
+                    </div>
+                    <a href="https://m.imdb.com/title/tt21608742/" target="_blank">
+                      <img src="assets/images/ui/donneche2img.png" alt="Immagine donnecheviaggianosole"
+                        class="film-img">
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+           
+
+              <!================== FILM-BUTTONS==================!>
+
+                <div class="grid-container">
+                  <!-- Prima riga -->
+                  <div id="main6">
+                    <button class="openbtn6" onclick="OpenOrClose6('mySidebar6')">
+                      <img class="imgmovie6" src="Movies/zanskar.png">
+                    </button>
+                  </div>
+
+                  <div id="main">
+                    <button class="openbtn" onclick="OpenOrClose1('mySidebar')">
+                      <img class="imgmovie" src="Movies/dormiamo insieme locandina.jpg">
+                    </button>
+                  </div>
+
+                  <div id="main3">
+                    <button class="openbtn3" onclick="OpenOrClose3('mySidebar3')">
+                      <img class="imgmovie3" src="Movies/Burden.png">
+                    </button>
+                  </div>
+
+                  <div id="main7">
+                    <button class="openbtn7" onclick="OpenOrClose7('mySidebar7')">
+                      <img class="imgmovie7" src="assets/images/ui/Suspendedimg.png">
+                    </button>
+                  </div>
+
+                  <!-- Seconda riga -->
+                  <div id="main5">
+                    <button class="openbtn5" onclick="OpenOrClose5('mySidebar5')">
+                      <img class="imgmovie5" src="Movies/onceandforall.png">
+                    </button>
+                  </div>
+
+                  <div id="main4">
+                    <button class="openbtn4" onclick="OpenOrClose4('mySidebar4')">
+                      <img class="imgmovie4" src="Movies/Despite.png">
+                    </button>
+                  </div>
+
+                  <div id="main2">
+                    <button class="openbtn2" onclick="OpenOrClose2('mySidebar2')">
+                      <img class="imgmovie2" src="Movies/donneche.png">
+                    </button>
+                  </div>
+                </div>
+
+                <!================== FILM-SIDEBARS==================!>
+                  <div class="sidebars-container">
+                    <!-- Zanskar sidebar -->
+                    <div class="Sidebar" id="mySidebar6">
+
+                      <div class="movie-header">
+                        <a class="Title6"
+                          href="https://www.rtve.es/television/20220418/metropolis-injuve-2022/2333780.shtml"
+                          target="_blank">ZANSKAR 6000</a>
+                        <a href="javascript:void(0)" class="closebtn" onclick="OpenOrClose6()"> &times; </a>
+                      </div>
+                      <div class="sidebar-nav">
+                        <div class="nav-arrow-container">
+                          <a class="nav-arrow prev-movie" data-sidebar="mySidebar6">⇠</a>
+                        </div>
+                        <div class="nav-arrow-container">
+                          <a class="nav-arrow next-movie" data-sidebar="mySidebar6">⇢</a>
+                        </div>
+                      </div>
+                      <div class="movie-content">
+                        <video src="assets/videos/ZANSKAR 6000 music_02.mp4" controls="true" playsinline webkit-playsinline
+                          class="video6"></video>
+                        <div class="linemovie"></div>
+                        <p class="InfoMovie">"Zanskar 6000" Italy, 2024, 19'15'', 16:9, Full HD, stereo sound v.o.
+                          Italian/English, with
+                          english subtitles. <br> A film by Giada Ripa <br> </p>
+                        <iframe style="border: 0; width: 250px; height: 450px;"
+                          src="https://bandcamp.com/EmbeddedPlayer/album=4130254768/size=large/bgcol=ffffff/linkcol=0687f5/artwork=none/transparent=true/"
+                          class="player5">
+                          <a
+                            href="https://tommasomassimilianoalfi.bandcamp.com/album/once-and-for-all-original-motion-picture-soundtrack">
+                            Once And For All - Original Motion Picture Soundtrack by Tommaso Massimiliano Alfì
+                          </a>
+                        </iframe>
+                      </div>
+                    </div>
+
+                    <!-- Sleeping Close sidebar -->
+                    <div class="Sidebar" id="mySidebar1">
+
+                      <div class="movie-header">
+                        <a href="javascript:void(0)" class="closebtn" onclick="OpenOrClose1()"> &times; </a>
+                        <a class="Title" href="https://www.imdb.com/title/tt29376130/" target="_blank">SLEEPING
+                          CLOSE</a>
+                      </div>
+                      <div class="sidebar-nav">
+                        <div class="nav-arrow-container">
+                          <a class="nav-arrow prev-movie" data-sidebar="mySidebar1">⇠</a>
+                        </div>
+                        <div class="nav-arrow-container">
+                          <a class="nav-arrow next-movie" data-sidebar="mySidebar1">⇢</a>
+                        </div>
+                      </div>
+                      <div class="movie-content">
+                        <video src="assets/videos/Acqua.mp4" controls="true" playsinline webkit-playsinline
+                          class="video"></video>
+                        <div class="linemovie"></div>
+                        <p class="InfoMovie">"Sleeping Close" Italy, France 2023, 109', 2:1, Full HD, stereo sound, v.o
+                          Italian, with
+                          english subtitles. <br> A Film by Giulio Pereno <br> </p>
+                        <iframe style="border: none; width: 250px; height: 500px;"
+                          src="https://bandcamp.com/EmbeddedPlayer/album=1265036739/size=large/bgcol=ffffff/linkcol=333333/artwork=none/transparent=true/"
+                          class="player">
+                          <a href="https://tommasomassimilianoalfi.bandcamp.com/album/sleeping-close-soundtrack">
+                            Sleeping Close - Soundtrack by Tommaso Massimiliano Alfi
+                          </a>
+                        </iframe>
+                      </div>
+                    </div>
+
+                    <!-- Burden sidebar -->
+                    <div class="Sidebar" id="mySidebar3">
+
+                      <div class="movie-header">
+                        <a href="javascript:void(0)" class="closebtn" onclick="OpenOrClose3()"> &times; </a>
+                        <a class="Title3" href="https://www.imdb.com/title/tt33291155/" target="_blank">BURDEN OF
+                          PROOF</a>
+                      </div>
+                      <div class="sidebar-nav">
+                        <div class="nav-arrow-container">
+                          <a class="nav-arrow prev-movie" data-sidebar="mySidebar3">⇠</a>
+                        </div>
+                        <div class="nav-arrow-container">
+                          <a class="nav-arrow next-movie" data-sidebar="mySidebar3">⇢</a>
+                        </div>
+                      </div>
+                      <div class="movie-content">
+                        <video src="assets/videos/Burden.mov" controls="true" playsinline webkit-playsinline
+                          class="video3"></video>
+                        <div class="linemovie"></div>
+                        <p class="InfoMovie">Burden Of Proof Looped Video HD and photo series, 2022 Italy <br> A Film by
+                          Federico Pozuelo <br></p>
+                        <iframe style="border: 0; width: 250px; height: 450px;"
+                          src="https://bandcamp.com/EmbeddedPlayer/album=2034586078/size=large/bgcol=ffffff/linkcol=0687f5/artwork=small/transparent=true/"
+                          class="player3">
+                          <a
+                            href="https://tommasomassimilianoalfi.bandcamp.com/album/burden-of-proof-original-motion-picture-soundtrack">
+                            Burden Of Proof - Original Motion Picture Soundtrack by Tommaso Massimiliano Alfì
+                          </a>
+                        </iframe>
+                      </div>
+                    </div>
+
+                    <!-- Vite in sospeso sidebar -->
+                    <div class="Sidebar" id="mySidebar7">
+
+                      <div class="movie-header">
+                        <a href="javascript:void(0)" class="closebtn" onclick="OpenOrClose7()"> &times; </a>
+                        <a class="Title7"
+                          href="https://www.rtve.es/television/20220418/metropolis-injuve-2022/2333780.shtml"
+                          target="_blank">Suspended Lives</a>
+                      </div>
+                      <div class="sidebar-nav">
+                        <div class="nav-arrow-container">
+                          <a class="nav-arrow prev-movie" data-sidebar="mySidebar7">⇠</a>
+                        </div>
+                        <div class="nav-arrow-container">
+                          <a class="nav-arrow next-movie" data-sidebar="mySidebar7">⇢</a>
+                        </div>
+                      </div>
+                      <div class="movie-content">
+                        <video src="assets/videos/suspended.mp4" controls="true" playsinline webkit-playsinline
+                          class="video7"></video>
+                        <div class="linemovie"></div>
+                        <p class="InfoMovie">"Suspended Lives" Italy, 2023, 29', 2:1, Full HD, stereo sound, v.o
+                          Italian, with english
+                          subtitles. <br> A Film by Chiara Valenti & Patrick Frunzio <br></p>
+                        <iframe style="border: 0; width: 90%; height: 120px;"
+                          src="https://bandcamp.com/EmbeddedPlayer/track=1106786924/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=none/transparent=true/"
+                          class="player7">
+                          <a href="https://tommasomassimilianoalfi.bandcamp.com/track/suspended-lives-theme-soundtrack">
+                            Suspended Lives - Theme Soundtrack by Tommaso Massimiliano Alfì
+                          </a>
+                        </iframe>
+                      </div>
+                    </div>
+
+                    <!-- Once and for all sidebar -->
+                    <div class="Sidebar" id="mySidebar5">
+
+                      <div class="movie-header">
+                        <a href="javascript:void(0)" class="closebtn" onclick="OpenOrClose5()"> &times; </a>
+                        <a class="Title5"
+                          href="https://www.rtve.es/television/20220418/metropolis-injuve-2022/2333780.shtml"
+                          target="_blank">ONCE AND FOR ALL</a>
+                      </div>
+                      <div class="sidebar-nav">
+                        <div class="nav-arrow-container">
+                          <a class="nav-arrow prev-movie" data-sidebar="mySidebar5">⇠</a>
+                        </div>
+                        <div class="nav-arrow-container">
+                          <a class="nav-arrow next-movie" data-sidebar="mySidebar5">⇢</a>
+                        </div>
+                      </div>
+                      <div class="movie-content">
+                            <video src="assets/videos/OnceAndFor.mov" controls="true" playsinline webkit-playsinline
+                          class="video5"></video>
+                        <div class="linemovie"></div>
+                        <p class="InfoMovie">Once And For All, Short Movie 2022 Italy <br> A Film by Federico Pozuelo &
+                          Javier Ruiz <br> </p>
+                        <iframe style="border: 0; width: 250px; height: 450px;"
+                          src="https://bandcamp.com/EmbeddedPlayer/album=4130254768/size=large/bgcol=ffffff/linkcol=0687f5/artwork=none/transparent=true/"
+                          class="player5">
+                          <a
+                            href="https://tommasomassimilianoalfi.bandcamp.com/album/once-and-for-all-original-motion-picture-soundtrack">
+                            Once And For All - Original Motion Picture Soundtrack by Tommaso Massimiliano Alfì
+                          </a>
+                        </iframe>
+                      </div>
+                    </div>
+
+                    <!-- Despite sidebar -->
+                    <div class="Sidebar" id="mySidebar4">
+
+                      <div class="movie-header">
+                        <a href="javascript:void(0)" class="closebtn" onclick="OpenOrClose4()"> &times; </a>
+                        <a class="Title4"
+                          href="https://www.rtve.es/television/20220418/metropolis-injuve-2022/2333780.shtml"
+                          target="_blank">DESPITE THE FACTS</a>
+                      </div>
+                      <div class="sidebar-nav">
+                        <div class="nav-arrow-container">
+                          <a class="nav-arrow prev-movie" data-sidebar="mySidebar4">⇠</a>
+                        </div>
+                        <div class="nav-arrow-container">
+                          <a class="nav-arrow next-movie" data-sidebar="mySidebar4">⇢</a>
+                        </div>
+                      </div>
+                      <div class="movie-content">
+                        <video src="assets/videos/DespiteTheFacts.mov" controls="true" playsinline webkit-playsinline
+                          class="video4"></video>
+                        <div class="linemovie"></div>
+                        <p class="InfoMovie">Despite The Facts, Short Movie 2022 Italy <br> A Film by Federico Pozuelo
+                          <br></p>
+                        <iframe style="border: 0; width: 250px; height: 450px;"
+                          src="https://bandcamp.com/EmbeddedPlayer/album=1256480392/size=large/bgcol=ffffff/linkcol=0687f5/artwork=none/transparent=true/"
+                          class="player4">
+                          <a
+                            href="https://tommasomassimilianoalfi.bandcamp.com/album/despite-the-fact-original-motion-picture-soundtrack">
+                            Despite The Facts - Original Motion Picture Soundtrack by Tommaso Massimiliano Alfì
+                          </a>
+                        </iframe>
+                      </div>
+                    </div>
+
+                    <!-- Donne Che Viaggiano Sole sidebar -->
+                    <div class="Sidebar" id="mySidebar2">
+
+                      <div class="movie-header">
+                        <a href="javascript:void(0)" class="closebtn" onclick="OpenOrClose2()"> &times; </a>
+                        <a class="Title2" href="https://www.imdb.com/title/tt21608742/" target="_blank">DONNE CHE
+                          VIAGGIANO SOLE</a>
+                      </div>
+                      <div class="sidebar-nav">
+                        <div class="nav-arrow-container">
+                          <a class="nav-arrow prev-movie" data-sidebar="mySidebar2">⇠</a>
+                        </div>
+                        <div class="nav-arrow-container">
+                          <a class="nav-arrow next-movie" data-sidebar="mySidebar2">⇢</a>
+                        </div>
+                      </div>
+                      <div class="movie-content">
+                        <video src="assets/videos/donneche.mp4" controls="true" playsinline webkit-playsinline
+                          class="video_2"></video>
+                        <div class="linemovie"></div>
+                        <p class="InfoMovie">75', ITA-DE-FRA, 2019, 2:1, 16:9, Full HD, stereo sound, v.o italian,
+                          english, with english
+                          and italiansubtitles. <br> A Film By Giulio Pereno <br> </p>
+                      </div>
+
+                    </div>
+                  </div>
+                  </div>
+ <!================== JS==================!>
+ <script type="module" src="JS/main.js" type="module"></script>
+
 </body>
+
 </Html>
