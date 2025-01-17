@@ -42,12 +42,11 @@
 
 /* Title Container */
 .title-container-installation {
-   
     margin-bottom: 20px;
 }
 
 .title-container-installation h2 {
-    font-size: 1.3vw;
+    font-size: 1.3rem;
     font-weight: 600;
     letter-spacing: -.1rem;
     color: var(--text-primary);
@@ -56,7 +55,7 @@
 
 /* Content Container */
 .content-container-installation {
-    height: calc(100% - 10px);
+    height: calc(100% - 120px);
     overflow-y: auto;
     margin: 20px auto;
     display: flex;
@@ -68,7 +67,7 @@
 
 .content-container-installation p {
     margin: 0;
-    font-size: 1vw;
+    font-size: 1rem;
     line-height: 1.4;
     color: var(--text-primary);
     white-space: pre-line;
