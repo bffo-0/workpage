@@ -122,7 +122,7 @@
 /* Media Query per laptop */
 @media screen and (max-width: 1366px){
 .title-container-about h2 {
-    font-size: 1.2rem;
+    font-size: 1rem;
     text-transform: uppercase;
     letter-spacing: 0.1rem;
 }
@@ -151,6 +151,12 @@ width: 91%;
     font-size: var(--font-size);
     line-height: 1.1;
     
+}
+
+@media screen and (max-width: 1366px) {
+    .bio-container p {
+        font-size: 0.9rem;
+    }
 }
 
 /* Installation image container */
@@ -259,7 +265,7 @@ width: 91%;
 @media screen and (max-width: 1366px) {
     .work-panel .container h2 {
        
-                    font-size: 1.2rem;
+                    font-size: 1rem;
                     text-transform: uppercase;
                     letter-spacing: 0.1rem;
             
