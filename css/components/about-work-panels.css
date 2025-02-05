@@ -23,7 +23,7 @@
 /* Media Query per laptop */
 @media screen and (max-width: 1366px) {
     .panel {
-        top: 70px;
+        top: 60px;
     }
 }
 .closebtn {
