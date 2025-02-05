@@ -270,6 +270,7 @@ width: 91%;
                     letter-spacing: 0.1rem;
             
     }
+
 }
 
 
@@ -304,6 +305,14 @@ width: 91%;
     text-align: right; /* Allineato a destra */
 }
 
+/* Media Query per laptop */
+@media screen and (max-width: 1366px) {
+                .work-panel .container h3,
+                .work-panel .container h4,
+                .work-panel .container h5 {
+                    font-size: 0.8rem;
+                }
+            }
 /* Line under headers */
 .work-panel .line2 {
     width: 91%;
