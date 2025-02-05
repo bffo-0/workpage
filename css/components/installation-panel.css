@@ -21,7 +21,7 @@
     }
     &::-webkit-scrollbar-thumb {
         background: rgb(0, 0, 0);
-        border-radius: 4px;
+        border-radius: 1px;
     }
     scrollbar-width: thin;
     scrollbar-color: rgb(0, 0, 0) transparent;
@@ -63,10 +63,14 @@
 /* Media Query per laptop */
 @media screen and (max-width: 1366px) {
 .title-container-installation h2{
-        font-size: 0.9rem;
+        font-size: 0.8rem;
+        margin-top: 35px;
         text-align: center;
         text-transform: uppercase;
         letter-spacing: 0.1rem;
+}
+.installation-panel .section {
+    padding: 10px;
 }
 }
     
@@ -101,7 +105,7 @@ font-size: 0.9rem;
 
 }
 .content-container-installation{
-    height: calc(80% - 10px);
+    height: calc(70% - 0px);
 }
 
 
