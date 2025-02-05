@@ -20,6 +20,12 @@
     background-position: center;
     padding: 0.6vw 0vw;
 }
+/* Media Query per laptop */
+@media screen and (max-width: 1366px) {
+    .panel {
+        top: 70px;
+    }
+}
 .closebtn {
     position: absolute;
     top: 20px;
@@ -28,6 +34,14 @@
     transition: all 0.3s ease;
     
 }
+/* Media Query per laptop */
+@media screen and (max-width: 1366px) {
+    .closebtn {
+        top: 15px;
+    }
+}
+
+
 .closebtn:hover {
     color: white;
     text-shadow: 0 0 2px rgba(0, 0, 0, 0.8)
@@ -70,27 +84,12 @@
     }
 
     :root {
-        --name-container-width: 450px;
+        --name-container-width: 500px;
     }
+
 }
 
-/* Per laptop con schermi più piccoli */
-@media screen and (max-width: 1280px) {
-    .panel {
-        width: 400px;
-    }
 
-    :root {
-        --name-container-width: 400px;
-    }
-
-    /* Riduci leggermente il padding laterale */
-    .bio-container,
-    .work-panel [class^="aligned-text"] {
-        padding-left: 15px;
-        padding-right: 15px;
-    }
-}
 
 /* Per laptop con schermi molto piccoli */
 @media screen and (max-width: 1024px) {
@@ -119,6 +118,14 @@
     letter-spacing: -.1rem;
     font-weight: 600;
     padding: 0;
+}
+/* Media Query per laptop */
+@media screen and (max-width: 1366px){
+.title-container-about h2 {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+}
 }
 
 /* Line under title */
@@ -157,7 +164,7 @@ width: 91%;
 /* Media Query per laptop */
 @media screen and (max-width: 1366px) {
     .installation-image-container {
-        width: calc(100% - 30px);
+        width: calc(80% - 30px);
         /* Riduce leggermente i margini laterali */
         margin: 15px auto 0;
         /* Riduce il margine superiore */
@@ -248,6 +255,19 @@ width: 91%;
     font-weight: 600;
 }
 
+/* Media Query per laptop */
+@media screen and (max-width: 1366px) {
+    .work-panel .container h2 {
+       
+                    font-size: 1.2rem;
+                    text-transform: uppercase;
+                    letter-spacing: 0.1rem;
+            
+    }
+}
+
+
+
 .header-row {
     display: grid;
     grid-template-columns: 40px 1fr 80px; /* Stesse proporzioni della lista */
@@ -268,6 +288,7 @@ width: 91%;
     color: var(--text-primary);
     font-weight: bold;
     text-align: center; /* Centrato */
+    margin-left: 50px;
 }
 
 .work-panel .container h5 {
