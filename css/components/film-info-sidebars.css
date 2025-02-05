@@ -21,6 +21,14 @@
     visibility: visible;
 }
 
+/* Media Query per laptop */
+@media screen and (max-width: 1366px) {
+.film-sidebar.visible {
+        transform: translateX(470px);
+        
+    }
+}
+
 /* Container principale */
 .film-container {
     height: 100%;
@@ -79,6 +87,12 @@
     margin: 20px auto;
     cursor: pointer;
 }
+@media screen and (max-width: 1366px) {
+    .film-img {
+            width: calc(80% - 40px);
+    }
+}
+
 /* Immagini */
 .film-img-order {
     width: calc(70% - 40px);
