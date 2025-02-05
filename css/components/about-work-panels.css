@@ -174,7 +174,7 @@ width: 91%;
 /* Per laptop con schermi più piccoli */
 @media screen and (max-width: 1280px) {
     .installation-image-container {
-        width: calc(100% - 25px);
+        width: calc(80% - 25px);
         margin: 12px auto 0;
     }
 
