@@ -156,15 +156,8 @@
 }
 
 /* Per laptop con schermi più piccoli */
-@media screen and (max-width: 1280px) {
-    .installation-panel {
-        width: 300px;
-    }
-    
-    .installation-panel.visible {
-        transform: translate(422px, -50%);
-    }
-}
+
+ 
 
 /* Per laptop con schermi molto piccoli */
 @media screen and (max-width: 1024px) {
