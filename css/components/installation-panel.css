@@ -63,7 +63,7 @@
 /* Media Query per laptop */
 @media screen and (max-width: 1366px) {
 .title-container-installation h2{
-        font-size: 1rem;
+        font-size: 0.9rem;
         text-align: center;
         text-transform: uppercase;
         letter-spacing: 0.1rem;
@@ -92,14 +92,19 @@
     text-shadow: 0 0 10px rgba(210, 22, 179, 0.299);
     max-width: 100%;
 }
-
+@media screen and (max-width: 1366px){
+.content-container-installation p {
 /* Media Query per laptop */
-@media screen and (max-width: 1366px) {
-.content-container-installation{
-    height: calc(100% - 10px);
-}
+font-size: 0.9rem;
+ 
+ }
 
 }
+.content-container-installation{
+    height: calc(80% - 10px);
+}
+
+
 
 /* Audio Container */
 .audio-container-installation {
