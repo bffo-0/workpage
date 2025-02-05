@@ -30,6 +30,13 @@
 .installation-panel.visible {
     transform: translate(522px, -50%);
 }
+/* Media Query per laptop */
+@media screen and (max-width: 1366px) {
+    .installation-panel {
+        transform: translateX(470px,-50%);
+
+    }
+}
 
 /* Section Container */
 .installation-panel .section {
