@@ -120,3 +120,15 @@
     line-height: 1.1;
     color: var(--text-primary);
 }
+
+
+@media screen and (max-width: 1366px){
+    .film-content h2 {
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.2rem;
+    }
+    .film-content p {
+        font-size: 0.8rem;
+    }
+}
