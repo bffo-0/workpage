@@ -3,8 +3,8 @@
   "short_name": "TMA",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#fff8fa",
-  "theme_color": "#fde8f0",
+  "background_color": "#f5f2f4",
+  "theme_color": "#f5f2f4",
   "icons": [
     {
       "src": "assets/images/favicons/FAVICONE32X32.png",

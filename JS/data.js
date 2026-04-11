@@ -261,7 +261,7 @@ export const siteData = {
       description: '"Zanskar 6000" Italy, 2024, 19\'15\'\', 16:9, Full HD, stereo sound.<br>A film by Giada Ripa',
       bandcamp: {
         src: 'https://bandcamp.com/EmbeddedPlayer/album=4130254768/size=large/bgcol=ffffff/linkcol=0687f5/artwork=none/transparent=true/',
-        style: 'border:0;width:250px;height:450px;',
+        style: 'border:0;width:100%;height:450px;',
         link: 'https://tommasomassimilianoalfi.bandcamp.com/album/once-and-for-all-original-motion-picture-soundtrack',
         title: 'Once And For All by Tommaso Massimiliano Alfì'
       }
@@ -273,7 +273,7 @@ export const siteData = {
       description: '"Sleeping Close" Italy, France 2023, 109\', 2:1, Full HD.<br>A Film by Giulio Pereno',
       bandcamp: {
         src: 'https://bandcamp.com/EmbeddedPlayer/album=1265036739/size=large/bgcol=ffffff/linkcol=333333/artwork=none/transparent=true/',
-        style: 'border:none;width:250px;height:500px;',
+        style: 'border:0;width:100%;height:500px;',
         link: 'https://tommasomassimilianoalfi.bandcamp.com/album/sleeping-close-soundtrack',
         title: 'Sleeping Close - Soundtrack by Tommaso Massimiliano Alfi'
       }
@@ -285,7 +285,7 @@ export const siteData = {
       description: 'Burden Of Proof, 2022 Italy.<br>A Film by Federico Pozuelo',
       bandcamp: {
         src: 'https://bandcamp.com/EmbeddedPlayer/album=2034586078/size=large/bgcol=ffffff/linkcol=0687f5/artwork=small/transparent=true/',
-        style: 'border:0;width:250px;height:450px;',
+        style: 'border:0;width:100%;height:450px;',
         link: 'https://tommasomassimilianoalfi.bandcamp.com/album/burden-of-proof-original-motion-picture-soundtrack',
         title: 'Burden Of Proof by Tommaso Massimiliano Alfì'
       }
@@ -297,7 +297,7 @@ export const siteData = {
       description: '"Suspended Lives" Italy, 2023, 29\'.<br>A Film by Chiara Valenti & Patrick Frunzio',
       bandcamp: {
         src: 'https://bandcamp.com/EmbeddedPlayer/track=1106786924/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=none/transparent=true/',
-        style: 'border:0;width:90%;height:120px;',
+        style: 'border:0;width:100%;height:120px;',
         link: 'https://tommasomassimilianoalfi.bandcamp.com/track/suspended-lives-theme-soundtrack',
         title: 'Suspended Lives - Theme by Tommaso Massimiliano Alfì'
       }
@@ -309,7 +309,7 @@ export const siteData = {
       description: 'Once And For All, 2022 Italy.<br>A Film by Federico Pozuelo & Javier Ruiz',
       bandcamp: {
         src: 'https://bandcamp.com/EmbeddedPlayer/album=4130254768/size=large/bgcol=ffffff/linkcol=0687f5/artwork=none/transparent=true/',
-        style: 'border:0;width:250px;height:450px;',
+        style: 'border:0;width:100%;height:450px;',
         link: 'https://tommasomassimilianoalfi.bandcamp.com/album/once-and-for-all-original-motion-picture-soundtrack',
         title: 'Once And For All by Tommaso Massimiliano Alfì'
       }
@@ -321,7 +321,7 @@ export const siteData = {
       description: 'Despite The Facts, 2022 Italy.<br>A Film by Federico Pozuelo',
       bandcamp: {
         src: 'https://bandcamp.com/EmbeddedPlayer/album=1256480392/size=large/bgcol=ffffff/linkcol=0687f5/artwork=none/transparent=true/',
-        style: 'border:0;width:250px;height:450px;',
+        style: 'border:0;width:100%;height:450px;',
         link: 'https://tommasomassimilianoalfi.bandcamp.com/album/despite-the-fact-original-motion-picture-soundtrack',
         title: 'Despite The Facts by Tommaso Massimiliano Alfì'
       }

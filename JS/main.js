@@ -330,12 +330,18 @@ function generateVideoSidebars() {
                 <div class="nav-arrow-container"><span class="nav-arrow next-movie">→</span></div>
             </div>
             <div class="movie-content">
-                <video src="${data.videoSrc}" controls preload="none"></video>
-                <div class="linemovie"></div>
-                <p class="InfoMovie">${data.description}</p>
+                <div class="movie-video-stack">
+                    <div class="movie-video-frame">
+                        <video src="${data.videoSrc}" controls preload="none"></video>
+                    </div>
+                    <p class="InfoMovie">${data.description}</p>
+                </div>
                 ${data.bandcamp ? `
-                    <div class="linemovie"></div>
-                    <iframe src="${data.bandcamp.src}" style="${data.bandcamp.style}" seamless></iframe>
+                    <div class="movie-soundtrack-panel">
+                        <div class="bandcamp-embed">
+                            <iframe src="${data.bandcamp.src}" style="${data.bandcamp.style}" seamless title="Bandcamp"></iframe>
+                        </div>
+                    </div>
                 ` : ''}
             </div>
         `;
