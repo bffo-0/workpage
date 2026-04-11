@@ -12,7 +12,7 @@
 
   <!-- PWA Manifest -->
   <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#fde8f0">
 
   <!-- DNS prefetch for external resources -->
   <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
@@ -22,6 +22,9 @@
   <!-- Preconnect to CDNs -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
   <!-- Swiper CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
@@ -46,7 +49,7 @@
     </div>
 
     <div class="info-container">
-      <p class="info-text">film music composer, sound designer, sound engineering</p>
+      <p class="info-text">film music composer — sound designer — sound engineering</p>
     </div>
 
     <div class="nav-container">
@@ -74,7 +77,7 @@
     <div class="about-sidebar-content">
       <div class="title-container-about">
         <span class="closebtn" data-close="about">×</span>
-        <h2>About :</h2>
+        <h2 class="panel-section-title">About</h2>
       </div>
       <div class="line"></div>
       <div class="bio-container">
@@ -121,11 +124,11 @@
   <div id="workSidebar" class="panel work-panel">
     <span class="closebtn" data-close="work">×</span>
     <div class="container">
-      <h2>Works:</h2>
+      <h2 class="panel-section-title work-panel-title">Works</h2>
       <div class="header-row">
-        <h3>Type:</h3>
-        <h4>Title, Role:</h4>
-        <h5>Year:</h5>
+        <span class="work-header-icon-cell" aria-hidden="true"></span>
+        <h4>Title / role</h4>
+        <h5>Year</h5>
       </div>
       <div class="line2"></div>
       <!-- La lista dei works verrà generata da JS -->

@@ -106,10 +106,8 @@ function syncPanels() {
     
     // Limita la larghezza massima a 450px
     if (titleWidth > 450) titleWidth = 450;
-
-    // Legge il left base dalla posizione reale del main-container (cambia nei media query)
-    const mainContainer = document.querySelector('.main-container');
-    const leftBase = mainContainer ? mainContainer.getBoundingClientRect().left : 30;
+    
+    const leftBase = 30;
 
     if (about) about.style.width = titleWidth + 'px';
     if (work) work.style.width = titleWidth + 'px';
@@ -125,14 +123,7 @@ function syncPanels() {
 
     const mainWidth = mainPanel ? mainPanel.offsetWidth : 0;
 
-    // Centra installation verticalmente rispetto al pannello principale
     if (install) {
-        const mainPanelTop = 100; // top fisso del .panel
-        const mainPanelHeight = window.innerHeight - 130;
-        const installHeight = install.offsetHeight;
-        const centeredTop = mainPanelTop + (mainPanelHeight / 2) - (installHeight / 2);
-        install.style.top = Math.max(mainPanelTop, centeredTop) + 'px';
-
         if (mainPanel && install.classList.contains('visible')) {
             install.style.left = (leftBase + mainWidth) + 'px';
         } else {
