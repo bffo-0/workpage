@@ -1326,15 +1326,23 @@ function hideRenderStatus() {
 /* ==================== PRELOAD ==================== */
 
 function preloadCriticalImages() {
-  siteData.filmsScenes?.forEach((film) => {
-    const all = [];
-    if (film.cover) all.push(film.cover);
-    if (film.scenes?.length) all.push(...film.scenes);
+  const films = siteData.filmsScenes;
+  if (!films?.length) return;
 
-    all.forEach((src) => {
-      const i = new Image();
-      i.src = src;
-    });
+  // SOLO primo film
+  const first = films[0];
+
+  const preload = [];
+
+  if (first.cover) preload.push(first.cover);
+
+  if (first.scenes?.length) {
+    preload.push(...first.scenes.slice(0, 2)); // solo prime 2
+  }
+
+  preload.forEach(src => {
+    const img = new Image();
+    img.src = src;
   });
 }
 
