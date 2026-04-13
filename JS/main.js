@@ -829,16 +829,19 @@ function initSceneSystem() {
 
   initFirstImage();
 
-  window.addEventListener(
-    'wheel',
-    (e) => {
-      if (Math.abs(e.deltaY) < 8) return;
-      if (e.deltaY > 0) goForward();
-      else goBackward();
-    },
-    { passive: true }
-  );
+ window.addEventListener(
+  'wheel',
+  (e) => {
+    const scrollLockedArea = e.target.closest('.panel, .film-sidebar, .Sidebar');
 
+    if (scrollLockedArea) return;
+    if (Math.abs(e.deltaY) < 8) return;
+
+    if (e.deltaY > 0) goForward();
+    else goBackward();
+  },
+  { passive: true }
+);
   window.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowDown' || e.key === 'PageDown') {
       e.preventDefault();
