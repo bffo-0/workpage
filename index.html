@@ -24,7 +24,8 @@
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+    rel="stylesheet">
 
   <!-- Swiper CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
@@ -41,6 +42,10 @@
 
 <body>
   <div class="hover-message"></div>
+  <div class="hint">scroll to see a serial works</div>
+  <div class="scroll-intro">scroll</div>
+  <div class="scene-image" id="sceneImage"></div>
+  <div class="scene-image next" id="sceneImageNext"></div>
 
   <!-- ================== MAIN-CONTAINER ================== -->
   <div class="main-container">
@@ -49,7 +54,7 @@
     </div>
 
     <div class="info-container">
-      <p class="info-text">film music composer — sound designer — sound engineering</p>
+      <p class="info-text">film music composer — sound designer</p>
     </div>
 
     <div class="nav-container">
@@ -64,8 +69,7 @@
         </span>
       </div>
       <div class="nav-item">
-        <a href="mailto:alfi.tommasomassimiliano@proton.me"
-          class="nav-link">
+        <a href="mailto:alfi.tommasomassimiliano@proton.me" class="nav-link">
           <span class="arrow">➣</span>CONTACT<span class="arrow">➣</span>
         </a>
       </div>
@@ -89,13 +93,55 @@
           Academie.
         </p>
       </div>
-      <div class="installation-image-container">
-        <img src="assets/images/ui/installationview.webp" alt="Exhibition view - Gerrit Rietveld Academie"
-          class="sidebar-img" loading="lazy">
-        <span class="caption">[threaded or shredded] une fois de plus, sans: Exhibition View - PH: Jordi de
-          Vetten</span>
+      <div class="about-audio">
+        <label for="audioUpload" class="audio-upload-label">
+          <span>load sound</span>
+        </label>
+        <input type="file" id="audioUpload" class="audio-upload-input" accept="audio/*">
+      
+        <button id="generateSound" class="audio-generate-btn" type="button">
+          generate
+        </button>
+      
+        <div class="audio-controls">
+          <label>
+            grain
+            <input type="range" id="grainSize" min="0.01" max="0.3" step="0.01" value="0.08">
+          </label>
+      
+          <label>
+            density
+            <input type="range" id="density" min="1" max="40" step="1" value="12">
+          </label>
+      
+          <label>
+            filter
+            <input type="range" id="filterFreq" min="200" max="8000" step="10" value="1200">
+          </label>
+      
+          <label>
+            blur
+            <input type="range" id="blurAmount" min="0" max="1" step="0.01" value="0.35">
+          </label>
+      
+          <label>
+            drift
+            <input type="range" id="driftAmount" min="0" max="1" step="0.01" value="0.22">
+          </label>
+        <button id="downloadSound" class="audio-download-btn" type="button">
+          <span class="download-wrap">
+            <svg class="download-icon" viewBox="0 0 24 24">
+              <path d="M12 3v12M7 10l5 5 5-5M5 21h14" />
+            </svg>
+            <span class="download-label">download</span>
+          </span>
+        </button>
+        <div class="audio-render-status" id="audioRenderStatus" aria-hidden="true">
+  <div class="audio-render-bar"></div>
+</div>
+        </div>
       </div>
-    </div>
+  </div>
   </div>
 
   <!-- ================== INSTALLATION-SIDEBAR ================== -->

@@ -31,27 +31,38 @@ body {
     --border-color: rgba(26, 26, 26, 0.42);
     --border-subtle: rgba(26, 26, 26, 0.2);
     --text-primary: #1a1a1a;
-    /* Superfici “vetro”: leggere su sfondo rosa */
+
     --glass-bg: rgba(255, 252, 250, 0.38);
     --glass-bg-strong: rgba(255, 252, 250, 0.52);
     --glass-bg-hover: rgba(255, 255, 255, 0.58);
     --glass-blur: blur(16px) saturate(130%);
+
     --panel-max-width: 450px;
+    --ui-left: clamp(16px, 2vw, 30px);
+    --ui-top: clamp(16px, 2vw, 30px);
+    --panel-top: clamp(82px, 9vh, 100px);
+    --panel-bottom-gap: clamp(22px, 2.5vh, 30px);
+    --panel-gap: 8px;
+
+    /* questa è la larghezza MASTER di title + about + work + film */
+    --ui-width: min(calc(100vw - (var(--ui-left) * 2)), var(--panel-max-width));
+
+    /* installation resta separata */
+    --installation-width: min(420px, calc(100vw - (var(--ui-left) * 2)));
 }
 
 /* ==================== HEADER ==================== */
 .main-container {
     position: fixed;
-    top: 30px;
-    left: 30px;
+    top: var(--ui-top);
+    left: var(--ui-left);
     z-index: 100;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     gap: 14px;
-    max-width: min(92vw, 520px);
+    width: var(--ui-width);
 }
-
 .title-container {
     background: var(--glass-bg);
     backdrop-filter: var(--glass-blur);
@@ -149,153 +160,7 @@ body {
     display: none;
 }
 
-/* ==================== GRIGLIA THUMBNAIL ==================== */
-#grid-container {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80vw;
-    height: 60vh;
-    max-width: 1000px;
-    max-height: 600px;
-    min-width: 600px;
-    min-height: 400px;
-    margin: 0;
-    z-index: 5;
-}
 
-.grid-item {
-    position: absolute;
-    width: 12vw;
-    max-width: 160px;
-    min-width: 100px;
-    height: auto;
-    cursor: pointer;
-    transition: box-shadow 0.2s ease, transform 0.2s ease;
-    border: 1px solid var(--border-subtle);
-    background: #d8d6d2;
-    padding: 0;
-    overflow: hidden;
-}
-
-.grid-item img {
-    width: 100%;
-    height: auto;
-    display: block;
-    opacity: 0.42;
-    transition: opacity 0.25s ease, transform 0.25s ease;
-}
-
-.grid-item img:hover {
-    opacity: 1;
-    transform: none;
-}
-
-.grid-item:hover {
-    border-color: var(--border-color);
-    box-shadow: 0 0 0 1px var(--border-color);
-}
-
-/* Posizioni artistiche desktop */
-#main6 {
-    top: 5%;
-    left: 8%;
-}
-
-#main {
-    top: 5%;
-    left: 33%;
-}
-
-#main3 {
-    top: 5%;
-    left: 58%;
-}
-
-#main7 {
-    top: 5%;
-    left: 83%;
-}
-
-#main5 {
-    top: 55%;
-    left: 18%;
-}
-
-#main4 {
-    top: 55%;
-    left: 43%;
-}
-
-#main2 {
-    top: 55%;
-    left: 68%;
-}
-
-/* Media query per schermi 1366x768 */
-@media screen and (max-width: 1366px) {
-    #grid-container {
-        width: 85vw;
-        height: 55vh;
-        min-width: 500px;
-        min-height: 350px;
-    }
-
-    .grid-item {
-        width: 11vw;
-        min-width: 90px;
-    }
-}
-
-@media screen and (max-width: 1024px) {
-    #grid-container {
-        width: 90vw;
-        height: 50vh;
-        min-width: 400px;
-        min-height: 300px;
-    }
-
-    .grid-item {
-        width: 13vw;
-        min-width: 85px;
-    }
-
-    #main6 {
-        top: 5%;
-        left: 5%;
-    }
-
-    #main {
-        top: 5%;
-        left: 30%;
-    }
-
-    #main3 {
-        top: 5%;
-        left: 55%;
-    }
-
-    #main7 {
-        top: 5%;
-        left: 80%;
-    }
-
-    #main5 {
-        top: 55%;
-        left: 15%;
-    }
-
-    #main4 {
-        top: 55%;
-        left: 40%;
-    }
-
-    #main2 {
-        top: 55%;
-        left: 65%;
-    }
-}
 
 /* ==================== VIDEO SIDEBAR (DESTRA) ==================== */
 .Sidebar {
@@ -305,7 +170,6 @@ body {
     position: fixed;
     z-index: 1000;
     top: 0;
-    transform: none;
     right: -100%;
     background: var(--glass-bg-strong);
     backdrop-filter: var(--glass-blur);
@@ -329,7 +193,6 @@ body {
     position: absolute;
     right: 14px;
     top: 14px;
-    transform: none;
     font-size: 1.35rem;
     line-height: 1;
     text-decoration: none;
@@ -341,7 +204,6 @@ body {
 }
 
 .Sidebar .closebtn:hover {
-    color: var(--text-primary);
     opacity: 1;
 }
 
@@ -365,18 +227,11 @@ body {
     text-align: center;
     font-size: clamp(0.72rem, 1.05vw, 0.88rem);
     font-weight: 600;
-    font-family: inherit;
     text-decoration: none;
     color: var(--text-primary);
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    padding: 0;
     line-height: 1.35;
-}
-
-.Title:hover {
-    color: var(--text-primary);
-    opacity: 0.65;
 }
 
 .sidebar-nav {
@@ -400,10 +255,6 @@ body {
     align-items: center;
 }
 
-.nav-arrow-container:first-child {
-    margin-right: 0;
-}
-
 .nav-arrow {
     font-size: 1.15rem;
     font-weight: 500;
@@ -414,7 +265,6 @@ body {
 }
 
 .nav-arrow:hover {
-    color: var(--text-primary);
     opacity: 0.5;
 }
 
@@ -432,7 +282,6 @@ body {
     scrollbar-color: rgba(26, 26, 26, 0.2) transparent;
 }
 
-/* Blocco video + didascalia (area grigia come nel mockup) */
 .movie-video-stack {
     width: 100%;
     display: flex;
@@ -476,14 +325,6 @@ body {
     color: var(--text-primary);
 }
 
-.linemovie {
-    width: 100%;
-    height: 1px;
-    background-color: var(--border-subtle);
-    margin: 4px 0;
-}
-
-/* Pannello bianco inset — soundtrack / Bandcamp come nel riferimento */
 .movie-soundtrack-panel {
     width: 100%;
     flex-shrink: 0;
@@ -511,14 +352,14 @@ body {
     background: #fff;
 }
 
-/* ==================== PANNELLI PRINCIPALI (ABOUT/WORK) ==================== */
-.panel {
+/* ==================== PANNELLI PRINCIPALI ==================== */
+.panel,
+.film-sidebar {
     position: fixed;
-    top: 100px;
-    left: 30px;
-    height: calc(100vh - 130px);
-    max-width: var(--panel-max-width);
-    width: auto;
+    top: var(--panel-top);
+    left: var(--ui-left);
+    height: calc(100vh - var(--panel-top) - var(--panel-bottom-gap));
+    width: var(--ui-width);
     min-width: 280px;
     background: var(--glass-bg-strong);
     backdrop-filter: var(--glass-blur);
@@ -529,19 +370,24 @@ body {
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(26, 26, 26, 0.2) transparent;
+}
+
+.panel {
     transform: translateX(-120%);
     transition: transform 0.3s ease;
-    scrollbar-width: thin;
-        scrollbar-color: rgba(26, 26, 26, 0.2) transparent;
 }
 
 .panel.visible {
     transform: translateX(0);
 }
 
-.panel .closebtn {
+.panel .closebtn,
+.film-sidebar .closebtn,
+.installation-panel .closebtn {
     position: absolute;
-    top: 10px;
+    top: 12px;
     right: 16px;
     font-size: 1.4rem;
     line-height: 1;
@@ -552,49 +398,54 @@ body {
     z-index: 2;
 }
 
-.panel .closebtn:hover {
+.panel .closebtn:hover,
+.film-sidebar .closebtn:hover,
+.installation-panel .closebtn:hover {
     opacity: 1;
-    color: var(--text-primary);
+}
+
+.film-sidebar {
+    left: 0;
+    transform: translateX(-200%);
+    opacity: 0;
+    visibility: hidden;
+    transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.film-sidebar.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
 }
 
 /* ==================== INSTALLATION PANEL ==================== */
 .installation-panel {
     position: fixed;
-    /* Altezza ridotta e centrata verticalmente rispetto ad about/work */
-    height: min(55vh, 500px);
-    top: calc(100px + (calc(100vh - 130px) / 2) - min(55vh, 500px) / 2);
-    left: 30px;
+    left: var(--ui-left);
+    top: var(--panel-top);
+    width: var(--installation-width);
+    min-width: 280px;
+    height: clamp(340px, 50vh, 500px);
+    max-height: calc(100vh - var(--panel-top) - var(--panel-bottom-gap));
     background: var(--glass-bg-strong);
     backdrop-filter: var(--glass-blur);
     -webkit-backdrop-filter: var(--glass-blur);
-    background-image: none;
     border: 1px solid var(--border-color);
     z-index: 1000;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     transform: translateX(-200%);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, top 0.3s ease;
 }
 
 .installation-panel.visible {
     transform: translateX(0);
 }
-
-.installation-panel .closebtn {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 1.6rem;
-    cursor: pointer;
-    color: var(--text-primary);
+.installation-panel.overlay-on-film {
+    z-index: 1015;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.10);
 }
-
-.installation-panel .closebtn:hover {
-    color: var(--text-primary);
-    opacity: 1;
-}
-
 .installation-panel .section {
     display: flex;
     flex-direction: column;
@@ -605,48 +456,7 @@ body {
     box-sizing: border-box;
 }
 
-/* ==================== FILM INFO SIDEBAR ==================== */
-.film-sidebar {
-    position: fixed;
-    top: 100px;
-    left: 0;
-    height: calc(100vh - 130px);
-    background: var(--glass-bg-strong);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
-    background-image: none;
-    border: 1px solid var(--border-color);
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    transform: translateX(-200%);
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-}
-
-.film-sidebar.visible {
-    opacity: 1;
-    visibility: visible;
-    transform: none;
-}
-
-.film-sidebar .closebtn {
-    position: absolute;
-    top: 14px;
-    right: 18px;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: var(--text-primary);
-    transition: color 0.2s;
-    z-index: 2;
-}
-
-.film-sidebar .closebtn:hover {
-    color: var(--text-primary);
-    opacity: 1;
-}
-
+/* ==================== FILM SIDEBAR CONTENT ==================== */
 .film-container {
     flex: 1;
     min-height: 0;
@@ -654,7 +464,7 @@ body {
     overflow-y: auto;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     scrollbar-width: thin;
     scrollbar-color: rgba(0, 0, 0, 0.15) transparent;
 }
@@ -665,21 +475,45 @@ body {
     align-items: center;
     text-align: center;
     width: 100%;
+    max-width: 100%;
     padding-top: 6px;
+}
+.film-container:has(.film-content:only-child) {
+    align-items: center;
+}
+.film-image-block {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px 0 14px;
 }
 
 .film-img {
-    width: calc(100% - 20px);
+    width: min(100%, 320px);
     height: auto;
-    margin: 10px auto 14px;
+    display: block;
+    margin: 0 auto;
     border: 1px solid var(--border-subtle);
     background: #d8d6d2;
 }
 
 .film-img-order {
-    width: calc(65% - 20px);
+    width: 65%;
     height: auto;
-    margin: 10px auto 14px;
+    display: block;
+    margin: 0 auto;
+}
+
+.film-caption {
+    width: min(100%, 320px);
+    margin: 8px auto 0;
+    font-size: 0.65rem;
+    line-height: 1.45;
+    text-align: center;
+    font-style: italic;
+    opacity: 0.6;
+    letter-spacing: 0.01em;
 }
 
 .film-content h2 {
@@ -714,7 +548,36 @@ body {
     opacity: 1;
 }
 
-/* ==================== ABOUT PANEL SPECIFIC ==================== */
+.film-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 14px;
+    width: 100%;
+}
+
+.film-video-trigger {
+    border: 1px solid rgba(26, 26, 26, 0.22);
+    background: transparent;
+    padding: 8px 18px;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: rgba(26, 26, 26, 0.55);
+    font-family: inherit;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.film-video-trigger:hover,
+.film-video-trigger.active {
+    background: rgba(26, 26, 26, 0.06);
+    color: var(--text-primary);
+    border-color: rgba(26, 26, 26, 0.45);
+}
+
+/* ==================== ABOUT PANEL ==================== */
 .about-sidebar-content {
     display: flex;
     flex-direction: column;
@@ -733,7 +596,6 @@ body {
     font-weight: 600;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    font-variant: normal;
     color: var(--text-primary);
 }
 
@@ -749,7 +611,6 @@ body {
     margin: 0 20px 14px;
 }
 
-/* Bio: occupa solo lo spazio che serve, non cresce a dismisura */
 .bio-container {
     flex-shrink: 0;
     padding: 0 20px 12px;
@@ -762,45 +623,220 @@ body {
     color: var(--text-primary);
 }
 
-/* Immagine: prende il resto dello spazio disponibile senza strechare */
-.installation-image-container {
-    flex: 1;
-    min-height: 0;
-    width: calc(100% - 40px);
-    margin: 0 20px 16px;
-    cursor: pointer;
-    overflow: hidden;
-    position: relative;
-}
+/*AUDIO*/
 
-.sidebar-img {
-    width: 100%;
-    height: auto;
-    display: block;
-    transition: transform 0.3s ease, filter 0.3s ease;
-}
-
-.installation-image-container:hover .sidebar-img {
-    transform: none;
-    filter: none;
-    opacity: 0.92;
-}
-
-.installation-image-container::after {
+.audio-upload-input {
     display: none;
 }
 
-.caption {
-    flex-shrink: 0;
-    display: block;
-    font-size: 0.68rem;
-    margin-top: 5px;
-    text-align: center;
-    font-style: italic;
-    opacity: 0.7;
-    letter-spacing: 0.01em;
+.audio-upload-label {
+    border: 1px solid var(--border-color);
+    background: transparent;
+    padding: 8px 18px;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: rgba(26, 26, 26, 0.55);
+    font-family: inherit;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
+.audio-upload-label:hover {
+    background: rgba(26, 26, 26, 0.06);
+    color: var(--text-primary);
+    border-color: rgba(26, 26, 26, 0.45);
+}
+.about-audio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    padding: 10px 0;
+}
+
+.audio-generate-btn {
+    border: 1px solid var(--border-color);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    padding: 10px 22px;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: var(--text-primary);
+    transition: background 0.2s ease;
+}
+
+.audio-generate-btn:hover {
+    background: var(--glass-bg-hover);
+}
+
+.audio-controls {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.audio-controls label {
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0.6;
+}
+
+
+.audio-controls input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 70%;
+    height: 1px;
+    margin-top: 8px;
+    background: rgba(26, 26, 26, 0.18);
+    border-radius: 0;
+    outline: none;
+}
+
+.audio-controls input[type="range"]::-webkit-slider-runnable-track {
+    height: 1px;
+    background: rgba(26, 26, 26, 0.18);
+    border: none;
+}
+
+.audio-controls input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 10px;
+    height: 10px;
+    margin-top: -4.5px;
+    border-radius: 50%;
+    background: rgba(26, 26, 26, 0.78);
+    border: 1px solid rgba(255, 252, 250, 0.7);
+    cursor: pointer;
+    box-shadow: 0 0 0 1px rgba(26, 26, 26, 0.08);
+}
+
+.audio-controls input[type="range"]::-moz-range-track {
+    height: 1px;
+    background: rgba(26, 26, 26, 0.18);
+    border: none;
+}
+
+.audio-controls input[type="range"]::-moz-range-thumb {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(26, 26, 26, 0.78);
+    border: 1px solid rgba(255, 252, 250, 0.7);
+    cursor: pointer;
+    box-shadow: 0 0 0 1px rgba(26, 26, 26, 0.08);
+}
+
+.audio-controls input[type="range"]:focus {
+    outline: none;
+}
+.audio-download-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    padding: 14px 0;
+
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+/* wrapper */
+.download-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* icona */
+.download-icon {
+    width: 28px;
+    height: 28px;
+
+    stroke: rgba(26, 26, 26, 0.7);
+    stroke-width: 1.4;
+    fill: none;
+
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* testo nascosto */
+.download-label {
+    position: absolute;
+    top: 38px;
+
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+
+    color: rgba(26, 26, 26, 0.6);
+
+    opacity: 0;
+    transform: translateY(-4px);
+    pointer-events: none;
+
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* hover */
+.audio-download-btn:hover .download-icon {
+    transform: translateY(3px);
+}
+
+.audio-download-btn:hover .download-label {
+    opacity: 1;
+    transform: translateY(0);
+}
+.audio-render-status {
+    width: 100%;
+    max-width: 180px;
+    height: 1px;
+    margin: 10px auto 0;
+    background: rgba(26, 26, 26, 0.12);
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
+}
+
+.audio-render-status.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.audio-render-bar {
+    width: 40%;
+    height: 100%;
+    background: rgba(26, 26, 26, 0.75);
+    transform: translateX(-120%);
+}
+
+.audio-render-status.visible .audio-render-bar {
+    animation: audioRenderSlide 1s ease-in-out infinite;
+}
+
+@keyframes audioRenderSlide {
+    0% {
+        transform: translateX(-120%);
+    }
+
+    100% {
+        transform: translateX(320%);
+    }
+}
 /* ==================== WORK PANEL ==================== */
 .work-panel .container {
     display: flex;
@@ -846,7 +882,6 @@ body {
 
 .work-panel .container h4 {
     text-align: left;
-    padding-left: 0;
 }
 
 .work-panel .container h5 {
@@ -927,24 +962,7 @@ body {
     font-variant-numeric: tabular-nums;
 }
 
-/* ==================== INSTALLATION PANEL SPECIFIC ==================== */
-.installation-panel .closebtn {
-    position: absolute;
-    top: 14px;
-    right: 16px;
-    font-size: 1.4rem;
-    line-height: 1;
-    cursor: pointer;
-    color: var(--text-primary);
-    opacity: 0.5;
-    transition: opacity 0.2s;
-    z-index: 2;
-}
-
-.installation-panel .closebtn:hover {
-    opacity: 1;
-}
-
+/* ==================== INSTALLATION PANEL CONTENT ==================== */
 .title-container-installation h2 {
     font-size: clamp(0.82rem, 0.95vw, 1.05rem);
     text-align: center;
@@ -1002,9 +1020,7 @@ body {
     color: var(--text-primary);
     padding: 10px 22px;
     border: 1px solid var(--border-color);
-    border-radius: 0;
     font-size: 0.82rem;
-    font-family: inherit;
     letter-spacing: 0.04em;
     opacity: 0;
     transition: opacity 0.5s;
@@ -1018,59 +1034,307 @@ body {
     opacity: 1;
 }
 
-/* ==================== RESPONSIVE PER PORTATILI (≤ 1366px) ==================== */
-@media screen and (max-width: 1366px) {
-    :root {
-        --panel-max-width: 400px;
-    }
-
-    .main-container {
-        top: 20px;
-        left: 20px;
-        gap: 10px;
-    }
-
-    .panel,
-    .film-sidebar {
-        top: 80px;
-        height: calc(100vh - 110px);
-        left: 20px;
-    }
-
-    .installation-panel {
-        left: 20px;
-    }
+/* ==================== SCENE SYSTEM ==================== */
+.hint {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: transparent;
+    color: rgba(26, 26, 26, 0.35);
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    z-index: 40;
+    pointer-events: none;
+    white-space: nowrap;
 }
 
-@media screen and (max-width: 1024px) {
-    :root {
-        --panel-max-width: 340px;
-    }
+.hint.hidden {
+    opacity: 0;
+    transform: translateX(-50%) translateY(6px);
+}
 
+.scroll-intro {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: clamp(3rem, 8vw, 7rem);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    opacity: 0.04;
+    pointer-events: none;
+    font-weight: 700;
+    transition: opacity 0.5s ease, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+    z-index: 20;
+    color: var(--text-primary);
+}
+
+.scroll-intro.hidden {
+    opacity: 0;
+    transform: translate(-50%, -58%);
+}
+
+.scene-meta {
+    position: fixed;
+    left: 50%;
+    bottom: 36px;
+    transform: translateX(-50%) translateY(8px);
+    z-index: 35;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+    width: min(72vw, 480px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.scene-meta.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.scene-title h2 {
+    font-size: clamp(0.82rem, 1.1vw, 1rem);
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin: 0 0 3px;
+    color: var(--text-primary);
+    line-height: 1.1;
+}
+
+.scene-title p {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.45;
+    margin: 0;
+    font-weight: 400;
+}
+
+.scene-counter {
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    opacity: 0.3;
+    font-variant-numeric: tabular-nums;
+}
+
+.scene-button {
+    border: 1px solid rgba(26, 26, 26, 0.22);
+    background: transparent;
+    padding: 8px 20px;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: rgba(26, 26, 26, 0.55);
+    font-family: inherit;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+    pointer-events: auto;
+}
+
+.scene-button:hover {
+    background: rgba(26, 26, 26, 0.06);
+    color: var(--text-primary);
+    border-color: rgba(26, 26, 26, 0.45);
+}
+
+/* ==================== INSTALLATION TRIGGER IN WORK ==================== */
+.installation-trigger-wrap {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 10px 0 14px;
+    cursor: pointer;
+}
+.installation-trigger-wrap .installation-trigger-image {
+    width: min(100%, 320px);
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border: 1px solid var(--border-subtle);
+    background: #d8d6d2;
+    transition: opacity 0.25s ease, filter 0.25s ease;
+}
+
+.installation-trigger-wrap::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 252, 250, 0.08);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
+}
+
+.installation-trigger-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    opacity: 0;
+    pointer-events: none;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    background: rgba(255, 252, 250, 0.72);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(26, 26, 26, 0.18);
+    padding: 8px 12px;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    white-space: nowrap;
+}
+
+.installation-trigger-wrap:hover::before {
+    opacity: 1;
+}
+
+.installation-trigger-wrap:hover .installation-trigger-image {
+    opacity: 0.92;
+    filter: brightness(0.96);
+}
+
+.installation-trigger-wrap:hover .installation-trigger-icon {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* ==================== SMALLER SCREENS ==================== */
+@media screen and (max-width: 1024px) {
+    
+            .film-img,
+            .installation-trigger-wrap .installation-trigger-image,
+            .film-caption {
+                width: min(100%, 280px);
+            }
+    
+            .film-image-block,
+            .installation-trigger-wrap {
+                margin: 8px 0 12px;
+            }
+    
+            .film-content h2 {
+                margin: 6px 0 8px;
+            }
+    
+            .film-content p {
+                font-size: 0.78rem;
+                line-height: 1.35;
+            }
+        
     .name {
         font-size: clamp(0.8rem, 1vw, 1rem);
     }
 
-    .grid-item {
-        width: 14vw;
-        min-width: 80px;
+    .title-container {
+        padding: 11px 22px;
+    }
+
+    .nav-item {
+        padding: 7px 16px;
+        min-width: 92px;
+    }
+
+    .header-row {
+        grid-template-columns: 28px 1fr 56px;
+        column-gap: 8px;
+    }
+
+    .work-panel [class^="aligned-text"] {
+        grid-template-columns: 28px minmax(0, 1fr) 56px;
+        gap: 8px;
+    }
+
+    #main6 {
+        top: 5%;
+        left: 5%;
+    }
+
+    #main {
+        top: 5%;
+        left: 30%;
+    }
+
+    #main3 {
+        top: 5%;
+        left: 55%;
+    }
+
+    #main7 {
+        top: 5%;
+        left: 80%;
+    }
+
+    #main5 {
+        top: 55%;
+        left: 15%;
+    }
+
+    #main4 {
+        top: 55%;
+        left: 40%;
+    }
+
+    #main2 {
+        top: 55%;
+        left: 65%;
     }
 }
 
 @media screen and (max-width: 768px) {
+    :root {
+        --ui-left: 15px;
+        --ui-top: 15px;
+        --panel-top: 78px;
+        --panel-bottom-gap: 24px;
+        --ui-width: calc(100vw - 30px);
+        --installation-width: calc(100vw - 30px);
+    }
+
     .main-container {
-        left: 15px;
-        top: 15px;
+        gap: 10px;
+    }
+
+    .title-container {
+        padding: 10px 16px;
+    }
+
+    .nav-container {
+        gap: 8px;
+    }
+
+    .nav-item {
+        min-width: 0;
+        padding: 8px 12px;
     }
 
     .panel,
-    .installation-panel,
     .film-sidebar {
-        left: 15px !important;
-        max-width: calc(100vw - 30px);
+        min-width: 0;
     }
 
-    .grid-container {
-        min-width: 300px;
+    .installation-panel {
+        min-width: 0;
+        height: clamp(300px, 46vh, 420px);
+    }
+
+
+    .scene-meta {
+        bottom: 24px;
+        width: min(86vw, 480px);
+    }
+
+    .scroll-intro {
+        font-size: clamp(2.5rem, 8vw, 6rem);
     }
 }
