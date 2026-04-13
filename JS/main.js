@@ -829,7 +829,7 @@ function initSceneSystem() {
 
   initFirstImage();
 
- let scrollAccumulator = 0;
+let scrollAccumulator = 0;
 let scrollTimeout = null;
 
 window.addEventListener(
@@ -838,24 +838,35 @@ window.addEventListener(
     const isInsideOverlay = e.target.closest('.panel, .film-sidebar, .Sidebar');
     if (isInsideOverlay) return;
 
-    scrollAccumulator += e.deltaY;
+    const isTrackpad = Math.abs(e.deltaY) < 80;
 
-    const threshold = 120; // 👈 valore chiave
+    if (isTrackpad) {
+      const delta = Math.max(-45, Math.min(45, e.deltaY));
+      scrollAccumulator += delta;
 
-    if (scrollAccumulator > threshold) {
-  goForward();
-  scrollAccumulator -= threshold;
-}
+      const threshold = 110;
 
-if (scrollAccumulator < -threshold) {
-  goBackward();
-  scrollAccumulator += threshold;
-}
+      if (scrollAccumulator > threshold) {
+        goForward();
+        scrollAccumulator = 0;
+      }
 
-    clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(() => {
-      scrollAccumulator = 0;
-    }, 120);
+      if (scrollAccumulator < -threshold) {
+        goBackward();
+        scrollAccumulator = 0;
+      }
+
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        scrollAccumulator = 0;
+      }, 120);
+
+      return;
+    }
+
+    // mouse wheel: risposta diretta
+    if (e.deltaY > 0) goForward();
+    else goBackward();
   },
   { passive: true }
 );
