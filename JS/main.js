@@ -829,16 +829,33 @@ function initSceneSystem() {
 
   initFirstImage();
 
- window.addEventListener(
+ let scrollAccumulator = 0;
+let scrollTimeout = null;
+
+window.addEventListener(
   'wheel',
   (e) => {
-    const scrollLockedArea = e.target.closest('.panel, .film-sidebar, .Sidebar');
+    const isInsideOverlay = e.target.closest('.panel, .film-sidebar, .Sidebar');
+    if (isInsideOverlay) return;
 
-    if (scrollLockedArea) return;
-    if (Math.abs(e.deltaY) < 8) return;
+    scrollAccumulator += e.deltaY;
 
-    if (e.deltaY > 0) goForward();
-    else goBackward();
+    const threshold = 120; // 👈 valore chiave
+
+    if (scrollAccumulator > threshold) {
+  goForward();
+  scrollAccumulator -= threshold;
+}
+
+if (scrollAccumulator < -threshold) {
+  goBackward();
+  scrollAccumulator += threshold;
+}
+
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      scrollAccumulator = 0;
+    }, 120);
   },
   { passive: true }
 );
