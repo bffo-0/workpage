@@ -1215,6 +1215,11 @@ body {
         width: min(52vw, 400px);
         bottom: 30px;
     }
+        
+            .film-container:has(.film-content:only-child) {
+                align-items: flex-start;
+            }
+        
 }
 @media screen and (max-width: 1440px) {
     :root {
