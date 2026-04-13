@@ -1212,8 +1212,13 @@ body {
 
 @media screen and (max-width: 1440px) {
     .scene-meta {
-        width: min(58vw, 420px);
+        width: min(52vw, 400px);
         bottom: 30px;
+    }
+}
+@media screen and (max-width: 1440px) {
+    :root {
+        --panel-max-width: 400px;
     }
 }
 /* ==================== SMALLER SCREENS ==================== */

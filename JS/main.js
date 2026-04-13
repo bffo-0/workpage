@@ -569,8 +569,8 @@ function initSceneSystem() {
 
   const sceneWidth =
     window.innerWidth <= 1440
-      ? 'min(60vw, 760px)'
-      : 'min(68vw, 840px)';
+      ? 'min(54vw, 760px)'
+      : 'min(62vw, 840px)';
 
   const baseStyle = {
     position: 'fixed',
