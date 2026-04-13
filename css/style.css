@@ -1094,6 +1094,7 @@ body {
     transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
+
 .scene-meta.hidden {
     opacity: 0;
     pointer-events: none;
@@ -1209,6 +1210,12 @@ body {
     transform: translate(-50%, -50%) scale(1);
 }
 
+@media screen and (max-width: 1440px) {
+    .scene-meta {
+        width: min(58vw, 420px);
+        bottom: 30px;
+    }
+}
 /* ==================== SMALLER SCREENS ==================== */
 @media screen and (max-width: 1024px) {
     
@@ -1255,40 +1262,6 @@ body {
         gap: 8px;
     }
 
-    #main6 {
-        top: 5%;
-        left: 5%;
-    }
-
-    #main {
-        top: 5%;
-        left: 30%;
-    }
-
-    #main3 {
-        top: 5%;
-        left: 55%;
-    }
-
-    #main7 {
-        top: 5%;
-        left: 80%;
-    }
-
-    #main5 {
-        top: 55%;
-        left: 15%;
-    }
-
-    #main4 {
-        top: 55%;
-        left: 40%;
-    }
-
-    #main2 {
-        top: 55%;
-        left: 65%;
-    }
 }
 
 @media screen and (max-width: 768px) {

@@ -567,11 +567,16 @@ function initSceneSystem() {
 
   if (!imageA || !imageB || !siteData.filmsScenes?.length) return;
 
+  const sceneWidth =
+    window.innerWidth <= 1440
+      ? 'min(60vw, 760px)'
+      : 'min(68vw, 840px)';
+
   const baseStyle = {
     position: 'fixed',
     top: '50%',
     left: '50%',
-    width: 'min(68vw, 840px)',
+    width: sceneWidth,
     aspectRatio: '16 / 10',
     overflow: 'hidden',
     border: '1px solid rgba(26,26,26,0.1)',
