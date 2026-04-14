@@ -1377,11 +1377,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('resize', () => window.setTimeout(syncPanels, 100));
 });
 /* ==================== PORTRAIT DISPLACEMENT (WebGL) ==================== */
-/*
- * Effetto holly.plus: immagine distorta da un displacement map,
- * la distorsione reagisce alla posizione del mouse all'interno del pannello.
- * Il displacement è basato su un campo di rumore Simplex-like calcolato su GPU.
- */
+
 function initPortraitEffect() {
   const canvas = document.getElementById('portraitCanvas');
   if (!canvas) return;
@@ -1563,7 +1559,6 @@ let hoverCurrent = 0.0;
 let idleTarget = 0.42;
 let idleCurrent = 0.42;
 
-  // Il canvas ascolta il mousemove del panel about
   const panel = document.getElementById('aboutSidebar');
   if (panel) {
   panel.addEventListener('mousemove', (e) => {
