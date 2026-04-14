@@ -592,11 +592,30 @@ body {
 }
 
 /* ==================== ABOUT PANEL ==================== */
+/* ==================== ABOUT PANEL ==================== */
+.about-panel {
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(26, 26, 26, 0.2) transparent;
+}
+
+.about-panel::-webkit-scrollbar {
+    width: 3px;
+}
+
+.about-panel::-webkit-scrollbar-thumb {
+    background: rgba(26, 26, 26, 0.2);
+    border-radius: 2px;
+}
+
 .about-sidebar-content {
     display: flex;
     flex-direction: column;
-    height: 100%;
-    overflow: hidden;
+    min-height: max-content;
+    overflow: visible;
 }
 
 .title-container-about {
@@ -637,6 +656,16 @@ body {
     color: var(--text-primary);
 }
 
+.bio-container a {
+    color: var(--text-primary);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+.bio-container a:hover {
+    opacity: 1;
+}
 /*AUDIO*/
 
 .audio-upload-input {
@@ -668,6 +697,7 @@ body {
     align-items: center;
     gap: 18px;
     padding: 10px 0;
+    width: 100%;
 }
 
 .audio-generate-btn {
@@ -692,6 +722,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    padding-bottom: 8px;
 }
 
 .audio-controls label {
@@ -1494,4 +1525,5 @@ body {
     -webkit-backdrop-filter: blur(4px);
     padding-top: 14px;
     padding-bottom: 14px;
+    
 }
