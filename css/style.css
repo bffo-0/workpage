@@ -592,7 +592,6 @@ body {
 }
 
 /* ==================== ABOUT PANEL ==================== */
-/* ==================== ABOUT PANEL ==================== */
 .about-panel {
     overflow-y: auto;
     overflow-x: hidden;
@@ -1413,7 +1412,7 @@ body {
             opacity: 0.65;
         }
     
-        /* su tablet/mobile i pannelli desktop non devono apparire */
+        
         .Sidebar,
         .panel,
         .film-sidebar,
@@ -1502,7 +1501,7 @@ body {
     z-index: 1;
 }
 
-/* Canvas WebGL — occupa tutto il wrap, l'immagine viene disegnata qui */
+/* Canvas WebGL  */
 .portrait-canvas {
     position: absolute;
     inset: 0;
@@ -1515,7 +1514,6 @@ body {
     pointer-events: none;
 }
 
-/* I fader flotano sopra il canvas */
 .about-portrait-wrap .about-audio {
     position: relative;
     z-index: 2;

@@ -1,4 +1,4 @@
-// JS/data.js - dati centralizzati del sito
+// JS/data.js
 export const siteData = {
   works: [
     {
