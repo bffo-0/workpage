@@ -63,6 +63,7 @@ body {
     gap: 14px;
     width: var(--ui-width);
 }
+
 .title-container {
     background: var(--glass-bg);
     backdrop-filter: var(--glass-blur);
@@ -403,7 +404,16 @@ body {
 .installation-panel .closebtn:hover {
     opacity: 1;
 }
+.bio-container a {
+    color: var(--text-primary);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
 
+.bio-container a:hover {
+    opacity: 1;
+}
 .film-sidebar {
     left: 0;
     transform: translateX(-200%);
@@ -442,10 +452,12 @@ body {
 .installation-panel.visible {
     transform: translateX(0);
 }
+
 .installation-panel.overlay-on-film {
     z-index: 1015;
     box-shadow: 0 18px 40px rgba(0, 0, 0, 0.10);
 }
+
 .installation-panel .section {
     display: flex;
     flex-direction: column;
@@ -478,9 +490,11 @@ body {
     max-width: 100%;
     padding-top: 6px;
 }
+
 .film-container:has(.film-content:only-child) {
     align-items: center;
 }
+
 .film-image-block {
     width: 100%;
     display: flex;
@@ -637,7 +651,7 @@ body {
     letter-spacing: 0.18em;
     text-transform: uppercase;
     cursor: pointer;
-    color: rgba(26, 26, 26, 0.55);
+    color: rgba(255, 255, 255, 0.55);
     font-family: inherit;
     transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
@@ -647,6 +661,7 @@ body {
     color: var(--text-primary);
     border-color: rgba(26, 26, 26, 0.45);
 }
+
 .about-audio {
     display: flex;
     flex-direction: column;
@@ -739,6 +754,7 @@ body {
 .audio-controls input[type="range"]:focus {
     outline: none;
 }
+
 .audio-download-btn {
     display: flex;
     align-items: center;
@@ -799,6 +815,7 @@ body {
     opacity: 1;
     transform: translateY(0);
 }
+
 .audio-render-status {
     width: 100%;
     max-width: 180px;
@@ -837,6 +854,7 @@ body {
         transform: translateX(320%);
     }
 }
+
 /* ==================== WORK PANEL ==================== */
 .work-panel .container {
     display: flex;
@@ -1156,6 +1174,7 @@ body {
     margin: 10px 0 14px;
     cursor: pointer;
 }
+
 .installation-trigger-wrap .installation-trigger-image {
     width: min(100%, 320px);
     height: auto;
@@ -1215,40 +1234,43 @@ body {
         width: min(52vw, 400px);
         bottom: 30px;
     }
-        
-            .film-container:has(.film-content:only-child) {
-                align-items: flex-start;
-            }
-        
+
+    .film-container:has(.film-content:only-child) {
+        align-items: flex-start;
+    }
+
 }
+
 @media screen and (max-width: 1440px) {
     :root {
         --panel-max-width: 400px;
     }
 }
+
 /* ==================== SMALLER SCREENS ==================== */
 @media screen and (max-width: 1024px) {
-    
-            .film-img,
-            .installation-trigger-wrap .installation-trigger-image,
-            .film-caption {
-                width: min(100%, 280px);
-            }
-    
-            .film-image-block,
-            .installation-trigger-wrap {
-                margin: 8px 0 12px;
-            }
-    
-            .film-content h2 {
-                margin: 6px 0 8px;
-            }
-    
-            .film-content p {
-                font-size: 0.78rem;
-                line-height: 1.35;
-            }
-        
+
+
+    .film-img,
+    .installation-trigger-wrap .installation-trigger-image,
+    .film-caption {
+        width: min(100%, 280px);
+    }
+
+    .film-image-block,
+    .installation-trigger-wrap {
+        margin: 8px 0 12px;
+    }
+
+    .film-content h2 {
+        margin: 6px 0 8px;
+    }
+
+    .film-content p {
+        font-size: 0.78rem;
+        line-height: 1.35;
+    }
+
     .name {
         font-size: clamp(0.8rem, 1vw, 1rem);
     }
@@ -1271,6 +1293,102 @@ body {
         grid-template-columns: 28px minmax(0, 1fr) 56px;
         gap: 8px;
     }
+        .project-reveal {
+            display: block;
+            position: relative;
+            min-height: 100vh;
+            padding: 96px 18px 32px;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(40px);
+            transition: opacity 0.6s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+    
+        .project-reveal.visible {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+    
+        .project-reveal-inner {
+            width: min(94vw, 860px);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 18px;
+            position: relative;
+        }
+    
+        .project-reveal-close {
+            position: absolute;
+            top: -48px;
+            right: 0;
+            border: none;
+            background: transparent;
+            font-size: 1.4rem;
+            line-height: 1;
+            color: var(--text-primary);
+            opacity: 0.5;
+            cursor: pointer;
+        }
+    
+        .project-reveal-media {
+            width: 100%;
+            border: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.25);
+            overflow: hidden;
+        }
+    
+        .project-reveal-media img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+    
+        .project-reveal-body {
+            background: var(--glass-bg-strong);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--border-color);
+            padding: 20px 18px;
+        }
+    
+        .project-reveal-body h2 {
+            font-size: clamp(1rem, 2.2vw, 1.3rem);
+            margin: 0 0 12px;
+            line-height: 1.15;
+            letter-spacing: -0.03em;
+        }
+    
+        .project-reveal-info p {
+            font-size: 0.82rem;
+            line-height: 1.5;
+            margin: 0 0 6px;
+            opacity: 0.88;
+        }
+    
+        .project-reveal-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            margin-top: 18px;
+        }
+    
+        .project-reveal-actions a {
+            font-size: 0.78rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            opacity: 0.65;
+        }
+    
+        /* su tablet/mobile i pannelli desktop non devono apparire */
+        .Sidebar,
+        .panel,
+        .film-sidebar,
+        .installation-panel {
+            display: none !important;
+        }
 
 }
 
@@ -1283,7 +1401,22 @@ body {
         --ui-width: calc(100vw - 30px);
         --installation-width: calc(100vw - 30px);
     }
-
+        .project-reveal {
+            padding: 88px 15px 28px;
+        }
+    
+        .project-reveal-inner {
+            width: 100%;
+        }
+    
+        .project-reveal-body {
+            padding: 18px 16px;
+        }
+    
+        .project-reveal-actions {
+            flex-direction: column;
+            align-items: flex-start;
+        }
     .main-container {
         gap: 10px;
     }
@@ -1320,4 +1453,45 @@ body {
     .scroll-intro {
         font-size: clamp(2.5rem, 8vw, 6rem);
     }
+}
+
+/* ==================== ABOUT PORTRAIT + FADER OVERLAY ==================== */
+
+.about-portrait-wrap {
+    position: relative;
+    overflow: hidden;
+}
+
+.about-portrait-wrap::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(240, 137, 69, 0.12);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Canvas WebGL — occupa tutto il wrap, l'immagine viene disegnata qui */
+.portrait-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+        z-index: 0;
+    z-index: 0;
+    /* Nessun pointer-event: il mouse passa ai fader */
+    pointer-events: none;
+}
+
+/* I fader flotano sopra il canvas */
+.about-portrait-wrap .about-audio {
+    position: relative;
+    z-index: 2;
+    /* sfondo semitrasparente solo sul pannello dei fader */
+    background: rgba(240, 137, 69, 0.12);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    padding-top: 14px;
+    padding-bottom: 14px;
 }

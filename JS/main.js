@@ -838,35 +838,24 @@ window.addEventListener(
     const isInsideOverlay = e.target.closest('.panel, .film-sidebar, .Sidebar');
     if (isInsideOverlay) return;
 
-    const isTrackpad = Math.abs(e.deltaY) < 80;
+    scrollAccumulator += e.deltaY;
 
-    if (isTrackpad) {
-      const delta = Math.max(-45, Math.min(45, e.deltaY));
-      scrollAccumulator += delta;
+    const threshold = 120;
 
-      const threshold = 110;
-
-      if (scrollAccumulator > threshold) {
-        goForward();
-        scrollAccumulator = 0;
-      }
-
-      if (scrollAccumulator < -threshold) {
-        goBackward();
-        scrollAccumulator = 0;
-      }
-
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        scrollAccumulator = 0;
-      }, 120);
-
-      return;
+    if (scrollAccumulator > threshold) {
+      goForward();
+      scrollAccumulator -= threshold;
     }
 
-    // mouse wheel: risposta diretta
-    if (e.deltaY > 0) goForward();
-    else goBackward();
+    if (scrollAccumulator < -threshold) {
+      goBackward();
+      scrollAccumulator += threshold;
+    }
+
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      scrollAccumulator = 0;
+    }, 120);
   },
   { passive: true }
 );
@@ -1386,4 +1375,256 @@ document.addEventListener('DOMContentLoaded', () => {
   initSceneSystem();
   syncPanels();
   window.addEventListener('resize', () => window.setTimeout(syncPanels, 100));
+});
+/* ==================== PORTRAIT DISPLACEMENT (WebGL) ==================== */
+/*
+ * Effetto holly.plus: immagine distorta da un displacement map,
+ * la distorsione reagisce alla posizione del mouse all'interno del pannello.
+ * Il displacement è basato su un campo di rumore Simplex-like calcolato su GPU.
+ */
+function initPortraitEffect() {
+  const canvas = document.getElementById('portraitCanvas');
+  if (!canvas) return;
+
+  // Immagine da usare — una delle tue, disponibile nel sito
+  const IMG_SRC = 'assets/images/ui/aiai.webp';
+
+  const gl = canvas.getContext('webgl', { alpha: true, premultipliedAlpha: false });
+  if (!gl) return;
+
+  /* ---- Vertex shader ---- */
+  const vsSource = `
+    attribute vec2 a_pos;
+    varying vec2 v_uv;
+    void main() {
+      v_uv = a_pos * 0.5 + 0.5;
+      gl_Position = vec4(a_pos, 0.0, 1.0);
+    }
+  `;
+
+  /* ---- Fragment shader: displacement + vignette ---- */
+  const fsSource = `
+  precision mediump float;
+
+  uniform sampler2D u_image;
+  uniform vec2 u_mouse;
+  uniform float u_hover;
+  uniform float u_time;
+  uniform vec2 u_resolution;
+
+  varying vec2 v_uv;
+
+  vec2 hash2(vec2 p) {
+    p = vec2(dot(p, vec2(127.1, 311.7)), dot(p, vec2(269.5, 183.3)));
+    return -1.0 + 2.0 * fract(sin(p) * 43758.5453123);
+  }
+
+  float noise(vec2 p) {
+    vec2 i = floor(p);
+    vec2 f = fract(p);
+    vec2 u = f * f * (3.0 - 2.0 * f);
+
+    float a = dot(hash2(i + vec2(0.0, 0.0)), f - vec2(0.0, 0.0));
+    float b = dot(hash2(i + vec2(1.0, 0.0)), f - vec2(1.0, 0.0));
+    float c = dot(hash2(i + vec2(0.0, 1.0)), f - vec2(0.0, 1.0));
+    float d = dot(hash2(i + vec2(1.0, 1.0)), f - vec2(1.0, 1.0));
+
+    return mix(mix(a, b, u.x), mix(c, d, u.x), u.y);
+  }
+
+  float fbm(vec2 p) {
+    float v = 0.0;
+    float a = 0.5;
+    mat2 m = mat2(1.6, 1.2, -1.2, 1.6);
+    for (int i = 0; i < 5; i++) {
+      v += a * noise(p);
+      p = m * p;
+      a *= 0.5;
+    }
+    return v;
+  }
+
+  void main() {
+    vec2 uv = v_uv;
+    vec2 aspect = vec2(u_resolution.x / u_resolution.y, 1.0);
+
+    vec2 mouseUV = u_mouse * 0.5 + 0.5;
+    vec2 toMouse = uv - mouseUV;
+    float dist = length(toMouse * aspect);
+    float hoverFalloff = exp(-dist * dist * 4.0);
+
+    float t = u_time * 0.82;
+
+    // campo base sempre vivo
+    float n1 = fbm(uv * 3.0 + vec2(t, -t * 0.7));
+    float n2 = fbm(uv * 3.8 + vec2(-t * 0.8, t * 0.6));
+
+    // onda diagonale larga, sempre attiva
+    float wave = sin((uv.y + uv.x * 0.45) * 14.0 + u_time * 0.75);
+    float wave2 = cos((uv.x - uv.y * 0.35) * 12.0 - u_time * 0.52);
+
+    vec2 baseDisp = vec2(
+      n1 * 0.035 + wave * 0.04,
+      n2 * 0.035 + wave2 * 0.04
+    );
+
+    // boost hover, più nervoso e localizzato
+    float hn1 = fbm(uv * 7.0 + vec2(t * 1.8, -t * 1.4) + u_mouse * 0.6);
+    float hn2 = fbm(uv * 8.0 + vec2(-t * 1.5, t * 1.2) - u_mouse * 0.6);
+
+    vec2 hoverDisp = vec2(hn1, hn2) * 0.05 * hoverFalloff * u_hover;
+
+    // parallax continuo + extra hover
+    vec2 drift = vec2(
+      sin(u_time * 0.91),
+      cos(u_time * 0.87)
+    ) * 0.01;
+
+    vec2 hoverPush = u_mouse * 0.02 * u_hover;
+
+    vec2 sampleUV = uv + baseDisp + hoverDisp + drift + hoverPush;
+    sampleUV = clamp(sampleUV, 0.001, 0.999);
+
+    vec4 col = texture2D(u_image, sampleUV);
+
+    // alone cromatico leggerissimo
+    vec2 chroma = baseDisp * 0.18 + hoverDisp * 0.22;
+    float r = texture2D(u_image, clamp(sampleUV + chroma * 0.18, 0.001, 0.999)).r;
+    float b = texture2D(u_image, clamp(sampleUV - chroma * 0.18, 0.001, 0.999)).b;
+    col.r = mix(col.r, r, 0.22);
+    col.b = mix(col.b, b, 0.22);
+
+    // vignetta leggera
+    vec2 vc = uv - 0.5;
+    float vign = 1.0 - dot(vc, vc) * 1.05;
+    col.rgb *= clamp(vign, 0.0, 1.0);
+
+    float pulse = 0.98 + sin(u_time * 0.6) * 0.02;
+col.rgb *= pulse;
+
+    gl_FragColor = col;
+  }
+`;
+
+  function compileShader(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+
+  const prog = gl.createProgram();
+  gl.attachShader(prog, compileShader(gl.VERTEX_SHADER, vsSource));
+  gl.attachShader(prog, compileShader(gl.FRAGMENT_SHADER, fsSource));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+
+  // Full-screen quad
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const aPos = gl.getAttribLocation(prog, 'a_pos');
+  gl.enableVertexAttribArray(aPos);
+  gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+
+ const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+const uHover = gl.getUniformLocation(prog, 'u_hover');
+const uTime = gl.getUniformLocation(prog, 'u_time');
+const uResolution = gl.getUniformLocation(prog, 'u_resolution');
+
+  // Texture
+  const tex = gl.createTexture();
+  gl.bindTexture(gl.TEXTURE_2D, tex);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+
+  // Pixel placeholder bianco mentre carica
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([240,238,234,255]));
+
+  const img = new Image();
+  img.crossOrigin = 'anonymous';
+  img.onload = () => {
+    gl.bindTexture(gl.TEXTURE_2D, tex);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
+    textureLoaded = true;
+  };
+  img.src = IMG_SRC;
+  let textureLoaded = false;
+
+  // Stato mouse
+let mouseTarget = { x: 0, y: 0 };
+let mouseCurrent = { x: 0, y: 0 };
+
+let hoverTarget = 0.0;
+let hoverCurrent = 0.0;
+
+let idleTarget = 0.42;
+let idleCurrent = 0.42;
+
+  // Il canvas ascolta il mousemove del panel about
+  const panel = document.getElementById('aboutSidebar');
+  if (panel) {
+  panel.addEventListener('mousemove', (e) => {
+  const r = canvas.getBoundingClientRect();
+  const nx = ((e.clientX - r.left) / r.width) * 2 - 1;
+  const ny = -((e.clientY - r.top) / r.height) * 2 + 1;
+
+  mouseTarget.x = nx;
+  mouseTarget.y = ny;
+  hoverTarget = 1.0;
+  idleTarget = 0.5;
+});
+
+panel.addEventListener('mouseenter', () => {
+  hoverTarget = 1.0;
+  idleTarget = 0.5;
+});
+
+panel.addEventListener('mouseleave', () => {
+  hoverTarget = 0.0;
+  idleTarget = 0.42;
+});
+  }
+
+  function resize() {
+    const w = canvas.clientWidth  * window.devicePixelRatio;
+    const h = canvas.clientHeight * window.devicePixelRatio;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+      gl.viewport(0, 0, w, h);
+    }
+  }
+
+ function render(now = 0) {
+  requestAnimationFrame(render);
+  if (!textureLoaded) return;
+
+  resize();
+
+  const time = now * 0.001;
+
+  mouseCurrent.x += (mouseTarget.x - mouseCurrent.x) * 0.035;
+mouseCurrent.y += (mouseTarget.y - mouseCurrent.y) * 0.035;
+  hoverCurrent += (hoverTarget - hoverCurrent) * 0.05;
+
+  gl.clearColor(0, 0, 0, 0);
+  gl.clear(gl.COLOR_BUFFER_BIT);
+
+gl.uniform2f(uMouse, mouseCurrent.x, mouseCurrent.y);
+gl.uniform1f(uHover, hoverCurrent);
+gl.uniform1f(uTime, time);
+gl.uniform2f(uResolution, canvas.width, canvas.height);
+
+  gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+}
+
+  render();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Avvia l'effetto portrait quando il pannello about è già nel DOM
+  initPortraitEffect();
 });
