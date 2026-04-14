@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <title>Tommaso Massimiliano Alfì</title>
 
+  <link rel="canonical" href="https://tommasomassimilianoalfi.com/">
+
   <!-- Favicon -->
   <link rel="icon" href="assets/images/favicons/FAVICONE32X32.png" type="image/png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicon/apple-touch-icon.png">
@@ -70,7 +72,8 @@
         </span>
       </div>
       <div class="nav-item">
-        <a href="mailto:alfi.tommasomassimiliano@proton.me" class="nav-link">
+        <a href="/cdn-cgi/l/email-protection#96f7faf0ffb8e2f9fbfbf7e5f9fbf7e5e5fffbfffafff7f8f9d6e6e4f9e2f9f8b8fbf3"
+          class="nav-link">
           <span class="arrow">➣</span>CONTACT<span class="arrow">➣</span>
         </a>
       </div>
@@ -87,62 +90,76 @@
       <div class="line"></div>
       <div class="bio-container">
         <p>Tommaso Massimiliano Alfì is a composer, experimental producer and sound designer based in Turin.
-His work operates between composition and sound design, exploring hybrid forms through the re-sampling of objects, textures and sonic gestures within his main project, mvrgn.
+          His work operates between composition and sound design, exploring hybrid forms through the re-sampling of
+          objects,
+          textures and sonic gestures within his main project, mvrgn.
 
-He has collaborated with musicians and artists across music and cinema, developing a practice that blurs the boundaries between production, film scoring and sonic construction. His research extends through different modes of listening, focusing on the material, spatial and perceptual behaviour of sound.
+          He has collaborated with musicians and artists across music and cinema, developing a practice that blurs the
+          boundaries
+          between production, film scoring and sonic construction. His research extends through different modes of
+          listening,
+          focusing on the material, spatial and perceptual behaviour of sound.
 
-Since 2024, he is co-founder of the experimental music label Pick Up The Cake, and curates an ongoing mix series for Radio Relativa.
+          Since 2024, he is co-founder of the experimental music label
+          <a href="https://pickupthecake.xyz/" target="_blank" rel="noopener noreferrer">Pick Up The Cake</a>,
+          and curates an ongoing mix series for
+          <a href="https://radiorelativa.eu/resident/pick-up-the-cake-presents-giornata-libera" target="_blank"
+            rel="noopener noreferrer">Radio Relativa</a>.
         </p>
       </div>
-      <div class="about-audio">
-        <label for="audioUpload" class="audio-upload-label">
-          <span>load sound</span>
-        </label>
-        <input type="file" id="audioUpload" class="audio-upload-input" accept="audio/*">
-      
-        <button id="generateSound" class="audio-generate-btn" type="button">
-          generate
-        </button>
-      
-        <div class="audio-controls">
-          <label>
-            grain
-            <input type="range" id="grainSize" min="0.01" max="0.3" step="0.01" value="0.08">
+      <!-- Portrait WebGL + fader sovrapposti -->
+      <div class="about-portrait-wrap">
+        <canvas id="portraitCanvas" class="portrait-canvas"></canvas>
+        <div class="about-audio">
+          <label for="audioUpload" class="audio-upload-label">
+            <span>load sound</span>
           </label>
-      
-          <label>
-            density
-            <input type="range" id="density" min="1" max="40" step="1" value="12">
-          </label>
-      
-          <label>
-            filter
-            <input type="range" id="filterFreq" min="200" max="8000" step="10" value="1200">
-          </label>
-      
-          <label>
-            blur
-            <input type="range" id="blurAmount" min="0" max="1" step="0.01" value="0.35">
-          </label>
-      
-          <label>
-            drift
-            <input type="range" id="driftAmount" min="0" max="1" step="0.01" value="0.22">
-          </label>
-        <button id="downloadSound" class="audio-download-btn" type="button">
-          <span class="download-wrap">
-            <svg class="download-icon" viewBox="0 0 24 24">
-              <path d="M12 3v12M7 10l5 5 5-5M5 21h14" />
-            </svg>
-            <span class="download-label">download</span>
-          </span>
-        </button>
-        <div class="audio-render-status" id="audioRenderStatus" aria-hidden="true">
-  <div class="audio-render-bar"></div>
-</div>
+          <input type="file" id="audioUpload" class="audio-upload-input" accept="audio/*">
+
+          <button id="generateSound" class="audio-generate-btn" type="button">
+            generate
+          </button>
+
+          <div class="audio-controls">
+            <label>
+              grain
+              <input type="range" id="grainSize" min="0.01" max="0.3" step="0.01" value="0.08">
+            </label>
+
+            <label>
+              density
+              <input type="range" id="density" min="1" max="40" step="1" value="12">
+            </label>
+
+            <label>
+              filter
+              <input type="range" id="filterFreq" min="200" max="8000" step="10" value="1200">
+            </label>
+
+            <label>
+              blur
+              <input type="range" id="blurAmount" min="0" max="1" step="0.01" value="0.35">
+            </label>
+
+            <label>
+              drift
+              <input type="range" id="driftAmount" min="0" max="1" step="0.01" value="0.22">
+            </label>
+            <button id="downloadSound" class="audio-download-btn" type="button">
+              <span class="download-wrap">
+                <svg class="download-icon" viewBox="0 0 24 24">
+                  <path d="M12 3v12M7 10l5 5 5-5M5 21h14" />
+                </svg>
+                <span class="download-label">download</span>
+              </span>
+            </button>
+            <div class="audio-render-status" id="audioRenderStatus" aria-hidden="true">
+              <div class="audio-render-bar"></div>
+            </div>
+          </div>
         </div>
-      </div>
-  </div>
+      </div><!-- end about-portrait-wrap -->
+    </div>
   </div>
 
   <!-- ================== INSTALLATION-SIDEBAR ================== -->
