@@ -43,17 +43,14 @@ function getCurrentVideoIndex() {
 }
 
 function updateNavButtons(index) {
-  const isFirst = index === 0;
-  const isLast = index === SIDEBAR_IDS.length - 1;
-
   document.querySelectorAll('.prev-movie').forEach((btn) => {
-    btn.style.opacity = isFirst ? '0.5' : '1';
-    btn.style.pointerEvents = isFirst ? 'none' : 'auto';
+    btn.style.opacity = '1';
+    btn.style.pointerEvents = 'auto';
   });
 
   document.querySelectorAll('.next-movie').forEach((btn) => {
-    btn.style.opacity = isLast ? '0.5' : '1';
-    btn.style.pointerEvents = isLast ? 'none' : 'auto';
+    btn.style.opacity = '1';
+    btn.style.pointerEvents = 'auto';
   });
 }
 
@@ -225,7 +222,7 @@ function applyShareStateFromURL() {
 }
 /* ==================== VIDEO SIDEBARS ==================== */
 
-function openVideoSidebar(id) {
+function openVideoSidebar(id, options = {}) {
   const sidebar = document.getElementById(id);
   if (!sidebar) return;
 
@@ -256,9 +253,13 @@ if (video) {
 }
 
   const idx = SIDEBAR_IDS.indexOf(id);
-  updateNavButtons(idx);
+updateNavButtons(idx);
+
+if (!options.skipSceneSync) {
   syncUIWithVideo(id);
-  setVideoInURL(id);
+}
+
+setVideoInURL(id);
 }
 window.openVideoSidebar = openVideoSidebar;
 
@@ -836,13 +837,13 @@ function initSceneSystem() {
     }
     if (buttonEl) {
       buttonEl.textContent = film.buttonLabel || 'View project';
-      buttonEl.onclick = () => {
-        if (window.innerWidth <= 1024) {
-          openProjectReveal(film, filmIdx);
-        } else {
-          openVideoSidebar(film.videoId);
-        }
-      };
+  buttonEl.onclick = () => {
+  if (window.innerWidth <= 1024) {
+    openProjectReveal(film, filmIdx);
+  } else {
+    openVideoSidebar(film.videoId, { skipSceneSync: true });
+  }
+};
       buttonEl.style.pointerEvents = 'auto';
     }
 
@@ -862,12 +863,11 @@ function initSceneSystem() {
   function getDisplayImagesForFilm(film) {
   if (!film) return [];
 
-  const images = [];
+  if (film.extras?.length) {
+    return film.extras.filter(Boolean);
+  }
 
-  if (film.cover) images.push(film.cover);
-  if (film.extras?.length) images.push(...film.extras);
-
-  return images.filter(Boolean);
+  return film.cover ? [film.cover] : [];
 }
 
   function sendOff(el, dir, asPrev = false) {
@@ -1124,25 +1124,22 @@ window.addEventListener('forceScene', (e) => {
   const targetFilm = getFilm(idx);
   if (!targetFilm) return;
 
-  // se il film è già quello attuale e l'evento arriva dal video panel,
-  // non riaggiornare la homepage
-  if (fromVideoPanel && idx === filmIdx) {
-    return;
-  }
-
   const images = getDisplayImagesForFilm(targetFilm);
-  if (!images.length) return;
+  if (!images.length && !targetFilm.cover) return;
 
   let imageToShow = targetFilm.cover || images[0];
 
-  // Se arriva dal video panel, ruota tra le immagini disponibili del film
   if (fromVideoPanel) {
     const key = targetFilm.videoId || targetFilm.title || String(idx);
     const currentCycle = sceneCycleByFilm[key] || 0;
-    const nextCycle = currentCycle % images.length;
 
-    imageToShow = images[nextCycle];
-    sceneCycleByFilm[key] = nextCycle + 1;
+    if (images.length) {
+      imageToShow = images[currentCycle % images.length];
+      sceneCycleByFilm[key] = currentCycle + 1;
+    }
+  } else {
+    const sameSceneAlreadyOpen = idx === filmIdx && sceneIdx === 0;
+    if (sameSceneAlreadyOpen) return;
   }
 
   filmIdx = idx;
