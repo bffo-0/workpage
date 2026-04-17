@@ -114,7 +114,12 @@ function syncSceneWithVideo(videoId) {
   if (idx === -1) return false;
 
   window.dispatchEvent(
-    new CustomEvent('forceScene', { detail: { index: idx } })
+    new CustomEvent('forceScene', {
+      detail: {
+        index: idx,
+        fromVideoPanel: true
+      }
+    })
   );
 
   return true;
@@ -276,11 +281,16 @@ function navigateVideo(direction) {
   const currentIdx = getCurrentVideoIndex();
   if (currentIdx === -1) return;
 
-  const newIdx = currentIdx + direction;
-  if (newIdx >= 0 && newIdx < SIDEBAR_IDS.length) {
-    openVideoSidebar(SIDEBAR_IDS[newIdx]);
-  }}
-window.navigateVideo = navigateVideo;
+  let newIdx = currentIdx + direction;
+
+  if (newIdx < 0) {
+    newIdx = SIDEBAR_IDS.length - 1;
+  } else if (newIdx >= SIDEBAR_IDS.length) {
+    newIdx = 0;
+  }
+
+  openVideoSidebar(SIDEBAR_IDS[newIdx]);
+}
 
 
 
@@ -796,6 +806,7 @@ function initSceneSystem() {
   let phase = 'enter';
   let filmIdx = 0;
   let sceneIdx = 0;
+  const sceneCycleByFilm = {};
   let coverStep = 0;
   const ILLUM_STEPS = 12;
   let locked = false;
@@ -848,6 +859,16 @@ function initSceneSystem() {
     const extras = f.cover ? (f.scenes || []) : (f.scenes || []).slice(1);
     return { ...f, cover, extras };
   }
+  function getDisplayImagesForFilm(film) {
+  if (!film) return [];
+
+  const images = [];
+
+  if (film.cover) images.push(film.cover);
+  if (film.extras?.length) images.push(...film.extras);
+
+  return images.filter(Boolean);
+}
 
   function sendOff(el, dir, asPrev = false) {
     if (!el) return;
@@ -941,40 +962,50 @@ function initSceneSystem() {
   }
 
   function goForward() {
-    if (locked) return;
-    const film = getFilm(filmIdx);
+  if (locked) return;
+  const film = getFilm(filmIdx);
 
-    if (phase === 'enter') {
-      moveToCenterDark();
-      return;
-    }
+  if (phase === 'enter') {
+    moveToCenterDark();
+    return;
+  }
 
-    if (phase === 'darkin') {
-      if (coverStep < ILLUM_STEPS) {
-        coverStep++;
-        applyIllum(coverStep);
-        if (coverStep === ILLUM_STEPS) {
-          phase = 'scenes';
-        }
-        return;
+  if (phase === 'darkin') {
+    if (coverStep < ILLUM_STEPS) {
+      coverStep++;
+      applyIllum(coverStep);
+      if (coverStep === ILLUM_STEPS) {
+        phase = 'scenes';
       }
-    }
-
-    if (!film) return;
-
-    if (sceneIdx < film.extras.length) {
-      showImage(film.extras[sceneIdx], film);
-      sceneIdx++;
       return;
-    }
-
-    if (filmIdx < films.length - 1) {
-      filmIdx++;
-      sceneIdx = 0;
-      const nextFilm = getFilm(filmIdx);
-      if (nextFilm?.cover) showImage(nextFilm.cover, nextFilm);
     }
   }
+
+  if (!film) return;
+
+  if (sceneIdx < film.extras.length) {
+    showImage(film.extras[sceneIdx], film);
+    sceneIdx++;
+    return;
+  }
+
+  // ultimo frame dell’ultimo film → riparti dal primo
+  if (filmIdx >= films.length - 1) {
+    filmIdx = 0;
+    sceneIdx = 0;
+
+    const firstFilm = getFilm(filmIdx);
+    if (firstFilm?.cover) {
+      showImage(firstFilm.cover, firstFilm);
+    }
+    return;
+  }
+
+  filmIdx++;
+  sceneIdx = 0;
+  const nextFilm = getFilm(filmIdx);
+  if (nextFilm?.cover) showImage(nextFilm.cover, nextFilm);
+}
 
   function goBackward() {
     if (locked) return;
@@ -1086,20 +1117,38 @@ window.addEventListener(
 
 window.addEventListener('forceScene', (e) => {
   const idx = e.detail.index;
+  const fromVideoPanel = !!e.detail.fromVideoPanel;
+
   if (typeof idx !== 'number') return;
 
-  const sameSceneAlreadyOpen = idx === filmIdx && sceneIdx === 0;
+  const targetFilm = getFilm(idx);
+  if (!targetFilm) return;
 
-  // Se la scena giusta è già aperta, non rifare la transizione
-  if (sameSceneAlreadyOpen) return;
+  // se il film è già quello attuale e l'evento arriva dal video panel,
+  // non riaggiornare la homepage
+  if (fromVideoPanel && idx === filmIdx) {
+    return;
+  }
+
+  const images = getDisplayImagesForFilm(targetFilm);
+  if (!images.length) return;
+
+  let imageToShow = targetFilm.cover || images[0];
+
+  // Se arriva dal video panel, ruota tra le immagini disponibili del film
+  if (fromVideoPanel) {
+    const key = targetFilm.videoId || targetFilm.title || String(idx);
+    const currentCycle = sceneCycleByFilm[key] || 0;
+    const nextCycle = currentCycle % images.length;
+
+    imageToShow = images[nextCycle];
+    sceneCycleByFilm[key] = nextCycle + 1;
+  }
 
   filmIdx = idx;
   sceneIdx = 0;
 
-  const film = getFilm(filmIdx);
-  if (film?.cover) {
-    showImage(film.cover, film);
-  }
+  showImage(imageToShow, targetFilm);
 });
 }
 
