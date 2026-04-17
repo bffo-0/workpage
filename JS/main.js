@@ -791,23 +791,32 @@ function initSceneSystem() {
     metaEl = document.createElement('div');
     metaEl.className = 'scene-meta';
     document.body.appendChild(metaEl);
-    metaEl.innerHTML = `
-      <div class="scene-title"></div>
-      <div class="scene-counter"></div>
-      <button class="scene-button" type="button">View project</button>
-    `;
+metaEl.innerHTML = `
+  <div class="scene-title"></div>
+  <div class="scene-counter"></div>
+  <button class="scene-button" type="button">View project</button>
+  <div class="scene-quicknav" id="sceneQuicknav">
+    <div class="scene-quicknav-col left" id="sceneQuicknavLeft"></div>
+    <div class="scene-quicknav-col right" id="sceneQuicknavRight"></div>
+  </div>
+`;
   }
 
   const titleEl = metaEl.querySelector('.scene-title');
   const counterEl = metaEl.querySelector('.scene-counter');
   const buttonEl = metaEl.querySelector('.scene-button');
+  const quicknavEl = metaEl.querySelector('#sceneQuicknav');
+const quicknavLeftEl = metaEl.querySelector('#sceneQuicknavLeft');
+const quicknavRightEl = metaEl.querySelector('#sceneQuicknavRight');
 
   const films = siteData.filmsScenes;
 
   let phase = 'enter';
   let filmIdx = 0;
   let sceneIdx = 0;
+  let introCompleted = false;
   const sceneCycleByFilm = {};
+  let hasCompletedFirstCycle = false;
   let coverStep = 0;
   const ILLUM_STEPS = 12;
   let locked = false;
@@ -822,13 +831,15 @@ function initSceneSystem() {
   }
 
   function hideMeta() {
-    metaEl.style.opacity = '0';
-    metaEl.style.transform = 'translateX(-50%) translateY(10px)';
-    if (buttonEl) {
-      buttonEl.style.pointerEvents = 'none';
-      buttonEl.onclick = null;
-    }
+  metaEl.style.opacity = '0';
+  metaEl.style.transform = 'translateX(-50%) translateY(10px)';
+  if (buttonEl) {
+    buttonEl.style.pointerEvents = 'none';
+    buttonEl.onclick = null;
   }
+
+  hideQuicknav();
+}
 
   function showMeta(film) {
     if (titleEl) titleEl.innerHTML = `<h2>${film.title}</h2><p>${film.role || ''}</p>`;
@@ -847,10 +858,18 @@ function initSceneSystem() {
       buttonEl.style.pointerEvents = 'auto';
     }
 
-    requestAnimationFrame(() => {
-      metaEl.style.opacity = '1';
-      metaEl.style.transform = 'translateX(-50%) translateY(0)';
-    });
+   requestAnimationFrame(() => {
+  metaEl.style.opacity = '1';
+  metaEl.style.transform = 'translateX(-50%) translateY(0)';
+
+  if (hasCompletedFirstCycle) {
+    showQuicknav();
+  } else {
+    hideQuicknav();
+  }
+
+  updateQuicknavActive();
+});
   }
 
   function getFilm(idx) {
@@ -869,7 +888,68 @@ function initSceneSystem() {
 
   return film.cover ? [film.cover] : [];
 }
+function showQuicknav() {
+  if (window.innerWidth <= 1024) return;
+  quicknavEl?.classList.add('visible');
+}
 
+function hideQuicknav() {
+  quicknavEl?.classList.remove('visible');
+}
+
+function updateQuicknavActive() {
+  if (!quicknavEl) return;
+
+  quicknavEl.querySelectorAll('.scene-quicknav-link').forEach((btn, idx) => {
+    btn.classList.toggle('active', idx === filmIdx);
+  });
+}
+
+function jumpToFilm(targetIdx) {
+  if (typeof targetIdx !== 'number') return;
+  if (targetIdx === filmIdx) return;
+
+  const film = getFilm(targetIdx);
+  if (!film?.cover) return;
+
+  filmIdx = targetIdx;
+  sceneIdx = 0;
+  phase = 'scenes';
+  coverStep = ILLUM_STEPS;
+
+  showImage(film.cover, film);
+  updateQuicknavActive();
+}
+
+function buildQuicknav() {
+  if (!quicknavLeftEl || !quicknavRightEl || !films?.length) return;
+
+
+  const midpoint = Math.ceil(films.length / 2);
+  const leftFilms = films.slice(0, midpoint);
+  const rightFilms = films.slice(midpoint);
+
+  leftFilms.forEach((film, idx) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'scene-quicknav-link';
+    btn.textContent = film.title;
+    btn.addEventListener('click', () => jumpToFilm(idx));
+    quicknavLeftEl.appendChild(btn);
+  });
+
+  rightFilms.forEach((film, idx) => {
+    const realIdx = midpoint + idx;
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'scene-quicknav-link';
+    btn.textContent = film.title;
+    btn.addEventListener('click', () => jumpToFilm(realIdx));
+    quicknavRightEl.appendChild(btn);
+  });
+
+  updateQuicknavActive();
+}
   function sendOff(el, dir, asPrev = false) {
     if (!el) return;
     el.style.transition = 'transform 1.1s cubic-bezier(0.16,1,0.3,1), opacity 0.7s ease, filter 0.6s ease';
@@ -915,23 +995,24 @@ function initSceneSystem() {
   }
 
   function moveToCenterDark() {
-    const film = getFilm(0);
-    if (!film) return;
-    phase = 'darkin';
+  const film = getFilm(0);
+  if (!film) return;
+  phase = 'darkin';
+  introCompleted = true;
 
-    hint?.classList.add('hidden');
-    intro?.classList.add('hidden');
+  hint?.classList.add('hidden');
+  intro?.classList.add('hidden');
 
-    layerA.style.transition = 'transform 1.3s cubic-bezier(0.16,1,0.3,1), opacity 0.9s ease';
-    layerA.style.transform = getDirTransform(film.direction || 'right', 'center');
-    layerA.style.opacity = '1';
+  layerA.style.transition = 'transform 1.3s cubic-bezier(0.16,1,0.3,1), opacity 0.9s ease';
+  layerA.style.transform = getDirTransform(film.direction || 'right', 'center');
+  layerA.style.opacity = '1';
 
-    showMeta(film);
-    locked = true;
-    setTimeout(() => {
-      locked = false;
-    }, 1000);
-  }
+  showMeta(film);
+  locked = true;
+  setTimeout(() => {
+    locked = false;
+  }, 1000);
+}
 
   function showImage(src, filmData) {
     const dir = filmData.direction || 'right';
@@ -989,18 +1070,18 @@ function initSceneSystem() {
     return;
   }
 
-  // ultimo frame dell’ultimo film → riparti dal primo
   if (filmIdx >= films.length - 1) {
-    filmIdx = 0;
-    sceneIdx = 0;
+  hasCompletedFirstCycle = true;
 
-    const firstFilm = getFilm(filmIdx);
-    if (firstFilm?.cover) {
-      showImage(firstFilm.cover, firstFilm);
-    }
-    return;
+  filmIdx = 0;
+  sceneIdx = 0;
+
+  const firstFilm = getFilm(filmIdx);
+  if (firstFilm?.cover) {
+    showImage(firstFilm.cover, firstFilm);
   }
-
+  return;
+}
   filmIdx++;
   sceneIdx = 0;
   const nextFilm = getFilm(filmIdx);
@@ -1008,47 +1089,68 @@ function initSceneSystem() {
 }
 
   function goBackward() {
-    if (locked) return;
-    const film = getFilm(filmIdx);
+  if (locked) return;
+  const film = getFilm(filmIdx);
 
-    if (filmIdx === 0 && phase === 'darkin') {
-      if (coverStep > 0) {
-        coverStep--;
-        applyIllum(coverStep);
-      } else {
-        phase = 'enter';
-        layerA.style.transition = 'transform 1.3s cubic-bezier(0.16,1,0.3,1), opacity 0.9s ease';
-        layerA.style.transform = getDirTransform(film?.direction || 'right', 'enter');
-        layerA.style.opacity = '0.55';
-        hint?.classList.remove('hidden');
-        intro?.classList.remove('hidden');
-        hideMeta();
-      }
-      return;
+  // Se siamo ancora nel primissimo stato intro non completato,
+  // permetti il vecchio comportamento di ritorno al welcome.
+  if (filmIdx === 0 && phase === 'darkin' && !introCompleted) {
+    if (coverStep > 0) {
+      coverStep--;
+      applyIllum(coverStep);
+    } else {
+      phase = 'enter';
+      layerA.style.transition = 'transform 1.3s cubic-bezier(0.16,1,0.3,1), opacity 0.9s ease';
+      layerA.style.transform = getDirTransform(film?.direction || 'right', 'enter');
+      layerA.style.opacity = '0.55';
+      hint?.classList.remove('hidden');
+      intro?.classList.remove('hidden');
+      hideMeta();
     }
-
-    if (sceneIdx > 0) {
-      sceneIdx--;
-      const src = sceneIdx === 0 ? film.cover : film.extras[sceneIdx - 1];
-      showImage(src, film);
-      return;
-    }
-
-    if (filmIdx > 0) {
-      filmIdx--;
-      const prevFilm = getFilm(filmIdx);
-      sceneIdx = prevFilm?.extras.length || 0;
-      const src = sceneIdx > 0 ? prevFilm.extras[sceneIdx - 1] : prevFilm?.cover;
-      if (src) showImage(src, prevFilm);
-      return;
-    }
-
-    if (filmIdx === 0 && phase === 'scenes') {
-      phase = 'darkin';
-      coverStep = ILLUM_STEPS;
-    }
+    return;
   }
 
+  // Se siamo dentro una scena/extras dello stesso film, torniamo indietro normalmente
+  if (sceneIdx > 0) {
+    sceneIdx--;
+    const src = sceneIdx === 0 ? film.cover : film.extras[sceneIdx - 1];
+    showImage(src, film);
+    return;
+  }
+
+  // Se siamo su film precedenti al primo, torniamo al film precedente
+  if (filmIdx > 0) {
+    filmIdx--;
+    const prevFilm = getFilm(filmIdx);
+    sceneIdx = prevFilm?.extras.length || 0;
+    const src = sceneIdx > 0 ? prevFilm.extras[sceneIdx - 1] : prevFilm?.cover;
+    if (src) showImage(src, prevFilm);
+    return;
+  }
+
+  // Da qui in poi siamo all'inizio del primo film:
+  // niente ritorno al welcome, andiamo in loop all'ultimo film
+ const lastFilm = getFilm(films.length - 1);
+if (!lastFilm) return;
+
+phase = 'scenes';
+coverStep = ILLUM_STEPS;
+filmIdx = films.length - 1;
+sceneIdx = lastFilm.extras.length || 0;
+
+introCompleted = true;
+hint?.classList.add('hidden');
+intro?.classList.add('hidden');
+
+const src = sceneIdx > 0
+  ? lastFilm.extras[sceneIdx - 1]
+  : lastFilm.cover;
+
+if (src) showImage(src, lastFilm);
+}
+
+buildQuicknav();
+hideQuicknav();
   initFirstImage();
 
 let scrollAccumulator = 0;
