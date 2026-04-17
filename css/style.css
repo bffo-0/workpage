@@ -1139,7 +1139,7 @@ body {
     align-items: center;
     gap: 8px;
     text-align: center;
-    width: min(90vw, 900px);
+    width: min(90vw, 1000px);
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.4s ease, transform 0.4s ease;
@@ -1267,11 +1267,10 @@ body {
 }
 .scene-quicknav {
     display: grid;
-    grid-template-columns: minmax(180px, 1fr) auto minmax(180px, 1fr);
-    align-items: center;
-    column-gap: 34px;
-    width: 100%;
-    max-width: 900px;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    gap: 34px;
+    width: min(86vw, 900px);
     margin-top: 10px;
 
     opacity: 0;
@@ -1366,8 +1365,8 @@ body {
     }
 
     .scene-meta {
-        width: min(88vw, 920px);
-        bottom: 15px;
+        width: min(90vw, 1000px);
+        bottom: 25px;
     }
 }
 

@@ -794,11 +794,9 @@ function initSceneSystem() {
 metaEl.innerHTML = `
   <div class="scene-title"></div>
   <div class="scene-counter"></div>
+  <button class="scene-button" type="button">View project</button>
   <div class="scene-quicknav" id="sceneQuicknav">
     <div class="scene-quicknav-col left" id="sceneQuicknavLeft"></div>
-    <div class="scene-quicknav-center">
-      <button class="scene-button" type="button">View project</button>
-    </div>
     <div class="scene-quicknav-col right" id="sceneQuicknavRight"></div>
   </div>
 `;
