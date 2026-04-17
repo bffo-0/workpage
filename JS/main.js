@@ -29,6 +29,8 @@ function closeAllVideoSidebars() {
       video.currentTime = 0;
     }
   });
+
+  clearShareStateFromURL();
 }
 
 function isVideoSidebarOpen(id) {
@@ -55,6 +57,167 @@ function updateNavButtons(index) {
   });
 }
 
+/* ==================== VIDEO → FILM ==================== */
+
+function getFilmIdFromVideoId(videoId) {
+  if (!siteData.filmInfo) return null;
+
+  return Object.keys(siteData.filmInfo).find(
+    (filmId) => siteData.filmInfo[filmId].videoId === videoId
+  ) || null;
+}
+
+function isVideoInScenes(videoId) {
+  if (!siteData.filmsScenes) return false;
+
+  return siteData.filmsScenes.some((scene) => scene.videoId === videoId);
+}
+
+function closeWorkAndFilmInfo() {
+  document.getElementById('workSidebar')?.classList.remove('visible');
+
+  document.querySelectorAll('.film-sidebar').forEach((el) => {
+    el.classList.remove('visible');
+  });
+
+  showMainContainers();
+  syncAfterToggle();
+}
+
+function openWorkAndFilm(filmId) {
+  const work = document.getElementById('workSidebar');
+  if (!work) return;
+
+  if (!work.classList.contains('visible')) {
+    work.classList.add('visible');
+    hideMainContainers();
+  }
+
+  document.querySelectorAll('.film-sidebar').forEach((el) => {
+    el.classList.remove('visible');
+  });
+
+  const target = document.getElementById(filmId);
+  if (target) {
+    target.classList.add('visible');
+    setFilmInURL(filmId);
+  } else {
+    setWorkInURL();
+  }
+
+  syncPanels();
+}
+function syncSceneWithVideo(videoId) {
+  if (!siteData.filmsScenes) return false;
+
+  const idx = siteData.filmsScenes.findIndex((scene) => scene.videoId === videoId);
+  if (idx === -1) return false;
+
+  window.dispatchEvent(
+    new CustomEvent('forceScene', { detail: { index: idx } })
+  );
+
+  return true;
+}
+
+function syncUIWithVideo(videoId) {
+  const filmId = getFilmIdFromVideoId(videoId);
+  if (!filmId) return;
+
+  const inScenes = isVideoInScenes(videoId);
+
+  if (inScenes) {
+    closeWorkAndFilmInfo();
+    syncSceneWithVideo(videoId);
+  } else {
+    openWorkAndFilm(filmId);
+  }
+}
+
+/* ==================== SHAREABLE URL STATE ==================== */
+
+function setHash(hash) {
+  const cleanHash = hash ? `#${hash.replace(/^#/, '')}` : '';
+  window.history.replaceState({}, '', `${window.location.pathname}${cleanHash}`);
+}
+
+function getFilmBySlug(slug) {
+  return Object.entries(siteData.filmInfo || {}).find(
+    ([, film]) => film.slug === slug
+  ) || null;
+}
+
+function getSlugFromFilmId(filmId) {
+  return siteData.filmInfo?.[filmId]?.slug || null;
+}
+
+function getSlugFromVideoId(videoId) {
+  const match = Object.entries(siteData.filmInfo || {}).find(
+    ([, film]) => film.videoId === videoId
+  );
+  return match?.[1]?.slug || null;
+}
+
+function setWorkInURL() {
+  setHash('work');
+}
+
+function setFilmInURL(filmId) {
+  const slug = getSlugFromFilmId(filmId);
+  if (!slug) return;
+
+  setHash(`work/${slug}`);
+}
+
+function setVideoInURL(videoId) {
+  const slug = getSlugFromVideoId(videoId);
+  if (!slug) return;
+
+  setHash(`work/${slug}/video`);
+}
+
+function setInstallationInURL() {
+  setHash('installation');
+}
+
+function clearShareStateFromURL() {
+  setHash('');
+}
+
+function applyShareStateFromURL() {
+  const hash = window.location.hash.replace(/^#/, '');
+  const parts = hash.split('/').filter(Boolean);
+
+  if (parts[0] === 'installation') {
+    toggleInstallationSidebar();
+    return;
+  }
+
+  if (parts[0] === 'work') {
+    const workPanel = document.getElementById('workSidebar');
+
+    if (workPanel && !workPanel.classList.contains('visible')) {
+      workPanel.classList.add('visible');
+      hideMainContainers();
+      syncAfterToggle();
+    }
+
+    if (parts[1]) {
+      const slug = parts[1];
+      const match = getFilmBySlug(slug);
+      const filmId = match?.[0];
+      const film = match?.[1];
+
+      if (filmId) {
+        openWorkAndFilm(filmId);
+      }
+
+      if (parts[2] === 'video' && film?.videoId && SIDEBAR_IDS.includes(film.videoId)) {
+        openVideoSidebar(film.videoId);
+      }
+    }
+  }
+}
 /* ==================== VIDEO SIDEBARS ==================== */
 
 function openVideoSidebar(id) {
@@ -76,10 +239,21 @@ function openVideoSidebar(id) {
   sidebar.classList.add('open');
 
   const video = sidebar.querySelector('video');
-  if (video) video.play().catch(() => {});
+if (video) {
+  video.muted = true;
+  video.play()
+    .then(() => {
+      window.setTimeout(() => {
+        video.muted = false;
+      }, 300);
+    })
+    .catch(() => {});
+}
 
   const idx = SIDEBAR_IDS.indexOf(id);
   updateNavButtons(idx);
+  syncUIWithVideo(id);
+  setVideoInURL(id);
 }
 window.openVideoSidebar = openVideoSidebar;
 
@@ -93,6 +267,8 @@ function closeVideoSidebar(id) {
     video.pause();
     video.currentTime = 0;
   }
+
+  clearShareStateFromURL();
 }
 window.closeVideoSidebar = closeVideoSidebar;
 
@@ -103,9 +279,10 @@ function navigateVideo(direction) {
   const newIdx = currentIdx + direction;
   if (newIdx >= 0 && newIdx < SIDEBAR_IDS.length) {
     openVideoSidebar(SIDEBAR_IDS[newIdx]);
-  }
-}
+  }}
 window.navigateVideo = navigateVideo;
+
+
 
 /* ==================== PANEL SYNC ==================== */
 
@@ -237,9 +414,11 @@ function toggleFilmInfoSidebar(filmId) {
 
   if (isOpening) {
     panel.classList.add('visible');
+    setFilmInURL(filmId);
     syncPanels();
   } else {
     panel.classList.remove('visible');
+    setWorkInURL();
     syncAfterToggle();
   }
 }
@@ -272,6 +451,7 @@ function closeAllMainPanels() {
   document.querySelectorAll('.film-sidebar').forEach((s) => s.classList.remove('visible'));
   stopInstallationAudio();
   showMainContainers();
+  clearShareStateFromURL();
 }
 
 function toggleAboutSidebar() {
@@ -305,11 +485,13 @@ function toggleWorkSidebar() {
     document.querySelectorAll('.film-sidebar').forEach((s) => s.classList.remove('visible'));
     panel.classList.add('visible');
     hideMainContainers();
+    setWorkInURL();
   } else {
     panel.classList.remove('visible');
     const installOpen = document.getElementById('installationSidebar')?.classList.contains('visible');
     const aboutOpen = document.getElementById('aboutSidebar')?.classList.contains('visible');
     if (!installOpen && !aboutOpen) showMainContainers();
+    clearShareStateFromURL();
   }
 
   syncAfterToggle();
@@ -324,12 +506,14 @@ function toggleInstallationSidebar() {
   if (isOpening) {
     panel.classList.add('visible');
     syncPanels();
+    setInstallationInURL();
 
     const audio = panel.querySelector('audio');
     if (audio) audio.play().catch(() => {});
   } else {
     panel.classList.remove('visible');
     stopInstallationAudio();
+    clearShareStateFromURL();
   }
 
   syncAfterToggle();
@@ -446,7 +630,8 @@ function generateFilmSidebars() {
     }
 
     sidebar.querySelector('.closebtn')?.addEventListener('click', () => {
-      sidebar.classList.remove('visible');
+  sidebar.classList.remove('visible');
+  setWorkInURL();
 
       if (filmId === 'film1') {
         const installationSidebar = document.getElementById('installationSidebar');
@@ -640,7 +825,13 @@ function initSceneSystem() {
     }
     if (buttonEl) {
       buttonEl.textContent = film.buttonLabel || 'View project';
-      buttonEl.onclick = () => openVideoSidebar(film.videoId);
+      buttonEl.onclick = () => {
+        if (window.innerWidth <= 1024) {
+          openProjectReveal(film, filmIdx);
+        } else {
+          openVideoSidebar(film.videoId);
+        }
+      };
       buttonEl.style.pointerEvents = 'auto';
     }
 
@@ -835,7 +1026,10 @@ let scrollTimeout = null;
 window.addEventListener(
   'wheel',
   (e) => {
-    const isInsideOverlay = e.target.closest('.panel, .film-sidebar, .Sidebar');
+    // Su tablet/mobile, quando si è nel livello 2 (body scrollato), non reagire
+    if (window.innerWidth <= 1024 && window.scrollY > window.innerHeight * 0.3) return;
+
+    const isInsideOverlay = e.target.closest('.panel, .film-sidebar, .Sidebar, .project-reveal');
     if (isInsideOverlay) return;
 
     scrollAccumulator += e.deltaY;
@@ -889,6 +1083,24 @@ window.addEventListener(
     },
     { passive: true }
   );
+
+window.addEventListener('forceScene', (e) => {
+  const idx = e.detail.index;
+  if (typeof idx !== 'number') return;
+
+  const sameSceneAlreadyOpen = idx === filmIdx && sceneIdx === 0;
+
+  // Se la scena giusta è già aperta, non rifare la transizione
+  if (sameSceneAlreadyOpen) return;
+
+  filmIdx = idx;
+  sceneIdx = 0;
+
+  const film = getFilm(filmIdx);
+  if (film?.cover) {
+    showImage(film.cover, film);
+  }
+});
 }
 
 /* ==================== EVENTS ==================== */
@@ -1373,9 +1585,157 @@ document.addEventListener('DOMContentLoaded', () => {
   initAudioSystem();
   preloadCriticalImages();
   initSceneSystem();
+  initProjectReveal();
   syncPanels();
+  applyShareStateFromURL();
   window.addEventListener('resize', () => window.setTimeout(syncPanels, 100));
 });
+
+/* ==================== PROJECT REVEAL (tablet/mobile level 2) ==================== */
+
+function openProjectReveal(film, idx) {
+  const reveal = document.getElementById('projectReveal');
+  if (!reveal) return;
+
+  // Popola i dati
+  const counter = reveal.querySelector('.project-reveal-counter');
+  const title   = reveal.querySelector('.project-reveal-title');
+  const role    = reveal.querySelector('.project-reveal-role');
+  const info    = reveal.querySelector('.project-reveal-info');
+  const media   = reveal.querySelector('.project-reveal-media img');
+  const scenes  = reveal.querySelector('.project-reveal-scenes');
+  const watch   = reveal.querySelector('.project-reveal-watch');
+  const link    = reveal.querySelector('.project-reveal-link');
+  const video   = reveal.querySelector('.project-reveal-video video');
+
+  // Cerca i dati in siteData.filmInfo (match per titolo)
+  const filmInfoKey = Object.keys(siteData.filmInfo || {}).find(k =>
+    siteData.filmInfo[k].title === film.title
+  );
+  const filmInfo = filmInfoKey ? siteData.filmInfo[filmInfoKey] : null;
+
+  if (counter) counter.textContent = `${String(idx + 1).padStart(2,'0')} / ${String(siteData.filmsScenes.length).padStart(2,'0')}`;
+  if (title)   title.textContent   = film.title;
+  if (role)    role.textContent    = film.role || '';
+
+  if (info) {
+    info.innerHTML = filmInfo
+      ? filmInfo.info.map(l => `<p>${l}</p>`).join('')
+      : '';
+  }
+
+  if (media) {
+    media.src = film.cover || '';
+    media.alt = film.title;
+  }
+
+  if (scenes) {
+    scenes.innerHTML = '';
+    (film.extras || []).forEach((src, i) => {
+      const img = document.createElement('img');
+      img.src   = src;
+      img.alt   = `${film.title} — scene ${i + 1}`;
+      img.className = 'project-reveal-scene-thumb';
+      img.addEventListener('click', () => {
+        if (media) media.src = src;
+        scenes.querySelectorAll('.project-reveal-scene-thumb').forEach(t => t.classList.remove('active'));
+        img.classList.add('active');
+      });
+      scenes.appendChild(img);
+    });
+  }
+
+  if (watch && film.videoId) {
+    const videoData = siteData.videoSidebars?.[film.videoId];
+    watch.style.display = videoData ? '' : 'none';
+    if (videoData) {
+      if (video) video.src = videoData.videoSrc || '';
+      watch.onclick = () => {
+        const videoEl = reveal.querySelector('.project-reveal-video');
+        if (videoEl) {
+          videoEl.classList.toggle('open');
+          if (videoEl.classList.contains('open')) {
+            video?.play().catch(() => {});
+            watch.textContent = 'Close clip';
+          } else {
+            video?.pause();
+            watch.textContent = 'Watch clip';
+          }
+        }
+      };
+    }
+  } else if (watch) {
+    watch.style.display = 'none';
+  }
+
+  if (link) {
+    if (filmInfo?.link) {
+      link.href          = filmInfo.link;
+      link.style.display = '';
+    } else {
+      link.style.display = 'none';
+    }
+  }
+
+  const videoEl = reveal.querySelector('.project-reveal-video');
+  if (videoEl) videoEl.classList.remove('open');
+  if (video) { video.pause(); video.currentTime = 0; }
+  if (watch) watch.textContent = 'Watch clip';
+
+  // Scivola verso il basso: il livello 2 è a 100vh nel flusso del documento
+  window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
+}
+
+function closeProjectReveal() {
+  const reveal = document.getElementById('projectReveal');
+  if (!reveal) return;
+
+  const video = reveal.querySelector('.project-reveal-video video');
+  if (video) { video.pause(); video.currentTime = 0; }
+
+  const videoEl = reveal.querySelector('.project-reveal-video');
+  if (videoEl) videoEl.classList.remove('open');
+
+  // Risale al livello 1
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function initProjectReveal() {
+  // Crea il DOM del livello 2 se non esiste
+  let reveal = document.getElementById('projectReveal');
+  if (!reveal) {
+    reveal = document.createElement('div');
+    reveal.id        = 'projectReveal';
+    reveal.className = 'project-reveal';
+    reveal.innerHTML = `
+      <button class="project-reveal-close" type="button" aria-label="Back">
+        <span>↑</span><span>back</span>
+      </button>
+      <div class="project-reveal-inner">
+        <div class="project-reveal-media">
+          <img src="" alt="">
+        </div>
+        <div class="project-reveal-body">
+          <p class="project-reveal-counter"></p>
+          <h2 class="project-reveal-title"></h2>
+          <p class="project-reveal-role"></p>
+          <div class="project-reveal-info"></div>
+          <div class="project-reveal-scenes"></div>
+          <div class="project-reveal-actions">
+            <button class="project-reveal-watch" type="button">Watch clip</button>
+            <a class="project-reveal-link" href="#" target="_blank" rel="noopener noreferrer">More info →</a>
+          </div>
+          <div class="project-reveal-video">
+            <video controls preload="none"></video>
+          </div>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(reveal);
+  }
+
+  reveal.querySelector('.project-reveal-close')?.addEventListener('click', closeProjectReveal);
+}
 /* ==================== PORTRAIT DISPLACEMENT (WebGL) ==================== */
 
 function initPortraitEffect() {

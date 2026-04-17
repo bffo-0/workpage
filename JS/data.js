@@ -77,6 +77,7 @@ export const siteData = {
 
   filmInfo: {
  film0: {
+  slug: 'unreliable-object',
   title: 'Unreliable Object',
   info: [
     'Unreliable Object is a radio drama written by Federico Pozuelo and sound-designed by Tommaso Massimiliano Alfì. Drawing on an acousmatic approach inspired by classic radio theater, it explores how we perceive objects, environments, and bodies.',
@@ -88,6 +89,7 @@ export const siteData = {
   link: 'https://www.istitutosvizzero.it/it/installazione/agg-vist-nu-rummore-i-saw-a-noise/'
 },
     film1: {
+      slug: 'threaded-or-shredded-une-fois-de-plus-sans',
       caption: '[threaded or shredded] une fois de plus, sans - installation view Gerrit Rietveld Academie, Amsterdam, 2024.',
       title: '[threaded or shredded] une fois de plus, sans',
       info: [
@@ -100,6 +102,7 @@ export const siteData = {
       link: 'https://rietveldacademie.nl/page/1028292/dariya-trubina'
     },
     film2: {
+      slug: 'night-shift',
       title: 'Night Shift',
       info: [
         'Nino works the night shift as a receptionist in a 2-star hotel.',
@@ -110,6 +113,7 @@ export const siteData = {
       ]
     },
     film3: {
+      slug: 'zanskar-6000',
       title: 'Zanskar 6000',
       info: [
         "Italy, 2024, 19'15'', 16:9, Full HD, stereo sound",
@@ -121,6 +125,7 @@ export const siteData = {
       videoId: 'mySidebar6'
     },
      film5: {
+      slug: 'intermittent-fevers',
       caption: 'Intermittent Fevers, photo from the performance at Ventilator Cinema, Amsterdam, 2023.',
       title: 'Intermittent Fevers',
       info: [
@@ -133,6 +138,7 @@ export const siteData = {
     },
   
     film6: {
+      slug: 'suspended-lives',
       title: 'Suspended Lives',
       info: [
         'Written by Chiara Valenti',
@@ -144,6 +150,7 @@ export const siteData = {
       videoId: 'mySidebar7'
     },
     film7: {
+      slug: 'sleeping-close',
       title: 'Sleeping Close',
       info: [
         "Italy, France 2023, 109', 2:1, Full HD, stereo sound, v.o Italian, with english subtitles",
@@ -155,6 +162,7 @@ export const siteData = {
       videoId: 'mySidebar'
     },
     film8: {
+      slug: 'burden-of-proof',
       title: 'Burden Of Proof',
       info: [
         'Looped Video HD and photo series - 2022',
@@ -166,6 +174,7 @@ export const siteData = {
       videoId: 'mySidebar3'
     },
     film9: {
+      slug: 'once-and-for-all',
       title: 'Once And For All',
       info: [
         "Italy, 2022, 19'15'', 16:9, Full HD",
@@ -176,6 +185,7 @@ export const siteData = {
       videoId: 'mySidebar5'
     },
     film10: {
+      slug: 'a-little-order',
       caption: 'A Little Order, A Little Grace, installation view Como Contemporanea, Como, 2022.',
       title: 'A Little Order, A Little Grace',
       info: [
@@ -188,6 +198,7 @@ export const siteData = {
       imageClass: 'film-img-order'
     },
     film11: {
+      slug: 'despite-the-facts',
       title: 'Despite The Facts',
       info: [
         'Through the narrative of a fictional political crime, the project explores the construction of',
@@ -201,6 +212,7 @@ export const siteData = {
       videoId: 'mySidebar4'
     },
     film12: {
+      slug: 'donne-che-viaggiano-sole',
       title: 'Donne che viaggiano sole',
       info: [
         'Written, edited and directed by Giulio Pereno',

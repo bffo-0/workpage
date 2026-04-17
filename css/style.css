@@ -404,6 +404,7 @@ body {
 .installation-panel .closebtn:hover {
     opacity: 1;
 }
+
 .bio-container a {
     color: var(--text-primary);
     text-decoration: none;
@@ -414,6 +415,7 @@ body {
 .bio-container a:hover {
     opacity: 1;
 }
+
 .film-sidebar {
     left: 0;
     transform: translateX(-200%);
@@ -665,6 +667,7 @@ body {
 .bio-container a:hover {
     opacity: 1;
 }
+
 /*AUDIO*/
 
 .audio-upload-input {
@@ -1258,170 +1261,330 @@ body {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
 }
-
-@media screen and (max-width: 1440px) {
-    .scene-meta {
-        width: min(52vw, 400px);
-        bottom: 30px;
-    }
-
-    .film-container:has(.film-content:only-child) {
-        align-items: flex-start;
-    }
-
+.project-reveal{
+    display: none;
 }
+/* ==================== RESPONSIVE ==================== */
 
+/* ---- 1440px: leggero ridimensionamento pannelli ---- */
 @media screen and (max-width: 1440px) {
     :root {
         --panel-max-width: 400px;
     }
+
+    .scene-meta {
+        width: min(52vw, 400px);
+        bottom: 30px;
+    }
 }
 
-/* ==================== SMALLER SCREENS ==================== */
+/* ---- 1024px: TABLET — due livelli, no pannelli laterali ---- */
 @media screen and (max-width: 1024px) {
 
-
-    .film-img,
-    .installation-trigger-wrap .installation-trigger-image,
-    .film-caption {
-        width: min(100%, 280px);
+    /* Variabili */
+    :root {
+        --panel-max-width: 100vw;
+        --ui-left: 18px;
+        --ui-top: 18px;
     }
 
-    .film-image-block,
-    .installation-trigger-wrap {
-        margin: 8px 0 12px;
-    }
-
-    .film-content h2 {
-        margin: 6px 0 8px;
-    }
-
-    .film-content p {
-        font-size: 0.78rem;
-        line-height: 1.35;
-    }
-
-    .name {
-        font-size: clamp(0.8rem, 1vw, 1rem);
+    /* Header: full width, centrato */
+    .main-container {
+        left: var(--ui-left);
+        right: var(--ui-left);
+        width: auto;
+        align-items: stretch;
     }
 
     .title-container {
-        padding: 11px 22px;
+        padding: 11px 20px;
+    }
+
+    .name {
+        font-size: clamp(0.88rem, 2.2vw, 1.1rem);
     }
 
     .nav-item {
-        padding: 7px 16px;
-        min-width: 92px;
+        padding: 9px 14px;
+        min-width: 0;
     }
 
-    .header-row {
-        grid-template-columns: 28px 1fr 56px;
-        column-gap: 8px;
+    /* Scene images: più strette per lasciare spazio ai bordi */
+    #sceneImage,
+    #sceneImageNext {
+        width: min(82vw, 680px) !important;
     }
 
-    .work-panel [class^="aligned-text"] {
-        grid-template-columns: 28px minmax(0, 1fr) 56px;
+    /* Scene meta: più grande e touch-friendly */
+    .scene-meta {
+        width: min(80vw, 520px);
+        bottom: 28px;
+        gap: 12px;
+    }
+
+    .scene-title h2 {
+        font-size: clamp(1rem, 2.5vw, 1.2rem);
+    }
+
+    .scene-title p {
+        font-size: 0.72rem;
+    }
+
+    .scene-counter {
+        font-size: 0.68rem;
+    }
+
+    .scene-button {
+        padding: 12px 28px;
+        font-size: 0.68rem;
+        letter-spacing: 0.18em;
+        /* Touch target più grande */
+        min-height: 44px;
+    }
+
+    .hint {
+        font-size: 0.7rem;
+        bottom: 16px;
+    }
+
+    .scroll-intro {
+        font-size: clamp(2.8rem, 9vw, 6rem);
+    }
+
+    /* Pannelli laterali: NASCOSTI su tablet, rimpiazzati dal livello 2 */
+    .Sidebar,
+    .panel,
+    .film-sidebar,
+    .installation-panel {
+        display: none !important;
+    }
+
+    /* ---- LAYOUT A DUE LIVELLI VERTICALI ---- */
+    /* html e body diventano alti 200vh — il browser può scorrere tra i due livelli */
+    html {
+        height: 200vh;
+    }
+
+    body {
+        height: 200vh;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        /* scroll-behavior smooth qui NON serve: lo gestiamo via JS per controllo */
+    }
+
+    /* Livello 1: hero/scene — rimane fisso mentre il body scorre */
+    .main-container,
+    .hint,
+    .scroll-intro,
+    .hover-message,
+    #sceneImage,
+    #sceneImageNext,
+    .scene-meta {
+        position: fixed;
+    }
+
+    /* ---- LIVELLO 2: project-reveal ---- */
+    /* Vive nel flusso del documento a partire da 100vh */
+    .project-reveal {
+        display: block;
+        position: absolute;
+        top: 100vh;
+        left: 0;
+        right: 0;
+        min-height: 100vh;
+        background: var(--glass-bg-strong);
+        backdrop-filter: var(--glass-blur);
+        -webkit-backdrop-filter: var(--glass-blur);
+        overflow: visible;
+        z-index: 10;
+        /* Nessuna transizione CSS: è il browser che scorre */
+    }
+
+    .project-reveal-inner {
+        min-height: 100%;
+        padding: 64px 18px 48px;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+
+    /* Back button — sticky in cima al livello 2 */
+    .project-reveal-close {
+        position: sticky;
+        top: 18px;
+        left: 18px;
+        z-index: 10;
+        align-self: flex-start;
+        border: 1px solid var(--border-color);
+        background: var(--glass-bg);
+        backdrop-filter: var(--glass-blur);
+        -webkit-backdrop-filter: var(--glass-blur);
+        padding: 8px 16px;
+        font-size: 0.62rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        cursor: pointer;
+        color: var(--text-primary);
+        font-family: inherit;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        min-height: 38px;
+        margin: 18px 0 0 18px;
+    }
+
+    /* Immagine cover: full width */
+    .project-reveal-media {
+        width: 100%;
+        border: 1px solid var(--border-subtle);
+        background: rgba(200, 198, 194, 0.25);
+        overflow: hidden;
+        margin-bottom: 0;
+    }
+
+    .project-reveal-media img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    /* Info testo */
+    .project-reveal-body {
+        padding: 22px 0 16px;
+        border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .project-reveal-counter {
+        font-size: 0.6rem;
+        letter-spacing: 0.18em;
+        opacity: 0.35;
+        font-variant-numeric: tabular-nums;
+        margin-bottom: 8px;
+    }
+
+    .project-reveal-body h2 {
+        font-size: clamp(1.2rem, 3.5vw, 1.6rem);
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        margin: 0 0 4px;
+        line-height: 1.1;
+    }
+
+    .project-reveal-role {
+        font-size: 0.72rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        opacity: 0.45;
+        margin-bottom: 16px;
+    }
+
+    .project-reveal-info {
+        margin-top: 14px;
+    }
+
+    .project-reveal-info p {
+        font-size: 0.85rem;
+        line-height: 1.6;
+        margin: 0 0 5px;
+        opacity: 0.82;
+    }
+
+    /* Scene extra: striscia orizzontale scrollabile */
+    .project-reveal-scenes {
+        display: flex;
         gap: 8px;
+        overflow-x: auto;
+        padding: 16px 0;
+        border-bottom: 1px solid var(--border-subtle);
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
     }
-        .project-reveal {
-            display: block;
-            position: relative;
-            min-height: 100vh;
-            padding: 96px 18px 32px;
-            opacity: 0;
-            pointer-events: none;
-            transform: translateY(40px);
-            transition: opacity 0.6s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-    
-        .project-reveal.visible {
-            opacity: 1;
-            pointer-events: auto;
-            transform: translateY(0);
-        }
-    
-        .project-reveal-inner {
-            width: min(94vw, 860px);
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 18px;
-            position: relative;
-        }
-    
-        .project-reveal-close {
-            position: absolute;
-            top: -48px;
-            right: 0;
-            border: none;
-            background: transparent;
-            font-size: 1.4rem;
-            line-height: 1;
-            color: var(--text-primary);
-            opacity: 0.5;
-            cursor: pointer;
-        }
-    
-        .project-reveal-media {
-            width: 100%;
-            border: 1px solid var(--border-color);
-            background: rgba(255, 255, 255, 0.25);
-            overflow: hidden;
-        }
-    
-        .project-reveal-media img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-    
-        .project-reveal-body {
-            background: var(--glass-bg-strong);
-            backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur);
-            border: 1px solid var(--border-color);
-            padding: 20px 18px;
-        }
-    
-        .project-reveal-body h2 {
-            font-size: clamp(1rem, 2.2vw, 1.3rem);
-            margin: 0 0 12px;
-            line-height: 1.15;
-            letter-spacing: -0.03em;
-        }
-    
-        .project-reveal-info p {
-            font-size: 0.82rem;
-            line-height: 1.5;
-            margin: 0 0 6px;
-            opacity: 0.88;
-        }
-    
-        .project-reveal-actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            align-items: center;
-            margin-top: 18px;
-        }
-    
-        .project-reveal-actions a {
-            font-size: 0.78rem;
-            color: var(--text-primary);
-            text-decoration: none;
-            opacity: 0.65;
-        }
-    
-        
-        .Sidebar,
-        .panel,
-        .film-sidebar,
-        .installation-panel {
-            display: none !important;
-        }
 
+    .project-reveal-scenes::-webkit-scrollbar {
+        display: none;
+    }
+
+    .project-reveal-scene-thumb {
+        flex-shrink: 0;
+        width: 140px;
+        height: 88px;
+        object-fit: cover;
+        border: 1px solid var(--border-subtle);
+        opacity: 0.7;
+        cursor: pointer;
+        transition: opacity 0.2s ease;
+    }
+
+    .project-reveal-scene-thumb:hover,
+    .project-reveal-scene-thumb.active {
+        opacity: 1;
+        border-color: var(--border-color);
+    }
+
+    /* Azioni: clip + more info */
+    .project-reveal-actions {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 20px 0 0;
+        flex-wrap: wrap;
+    }
+
+    .project-reveal-watch {
+        border: 1px solid var(--border-color);
+        background: transparent;
+        padding: 12px 24px;
+        font-size: 0.65rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        cursor: pointer;
+        color: var(--text-primary);
+        font-family: inherit;
+        min-height: 44px;
+        transition: background 0.15s ease;
+    }
+
+    .project-reveal-watch:hover {
+        background: rgba(26, 26, 26, 0.06);
+    }
+
+    .project-reveal-link {
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        color: var(--text-primary);
+        opacity: 0.45;
+        text-decoration: none;
+        transition: opacity 0.15s;
+    }
+
+    .project-reveal-link:hover {
+        opacity: 0.9;
+    }
+
+    /* Video embed nel livello 2 */
+    .project-reveal-video {
+        width: 100%;
+        margin-top: 24px;
+        border: 1px solid var(--border-subtle);
+        background: rgba(200, 198, 194, 0.15);
+        overflow: hidden;
+        display: none;
+        /* appare solo quando si clicca Watch clip */
+    }
+
+    .project-reveal-video.open {
+        display: block;
+    }
+
+    .project-reveal-video video {
+        width: 100%;
+        display: block;
+        max-height: 40vh;
+    }
 }
 
+/* ---- 768px: MOBILE GRANDE ---- */
 @media screen and (max-width: 768px) {
     :root {
         --ui-left: 15px;
@@ -1431,24 +1594,9 @@ body {
         --ui-width: calc(100vw - 30px);
         --installation-width: calc(100vw - 30px);
     }
-        .project-reveal {
-            padding: 88px 15px 28px;
-        }
-    
-        .project-reveal-inner {
-            width: 100%;
-        }
-    
-        .project-reveal-body {
-            padding: 18px 16px;
-        }
-    
-        .project-reveal-actions {
-            flex-direction: column;
-            align-items: flex-start;
-        }
+
     .main-container {
-        gap: 10px;
+        gap: 8px;
     }
 
     .title-container {
@@ -1456,32 +1604,152 @@ body {
     }
 
     .nav-container {
-        gap: 8px;
+        gap: 6px;
     }
 
     .nav-item {
-        min-width: 0;
-        padding: 8px 12px;
-    }
-
-    .panel,
-    .film-sidebar {
+        padding: 8px 10px;
         min-width: 0;
     }
 
-    .installation-panel {
-        min-width: 0;
-        height: clamp(300px, 46vh, 420px);
+    .nav-link {
+        font-size: 0.6rem;
+        letter-spacing: 0.12em;
     }
 
+    /* Immagine ancora più stretta su mobile */
+    #sceneImage,
+    #sceneImageNext {
+        width: min(92vw, 520px) !important;
+        aspect-ratio: 4 / 3 !important;
+        /* più alta su schermi stretti */
+    }
 
     .scene-meta {
-        bottom: 24px;
-        width: min(86vw, 480px);
+        width: calc(100vw - 30px);
+        bottom: 20px;
+        gap: 10px;
+    }
+
+    .scene-title h2 {
+        font-size: clamp(1rem, 4vw, 1.15rem);
+    }
+
+    .scene-button {
+        width: 100%;
+        max-width: 240px;
+        padding: 14px 20px;
+        font-size: 0.65rem;
     }
 
     .scroll-intro {
-        font-size: clamp(2.5rem, 8vw, 6rem);
+        font-size: clamp(2.5rem, 10vw, 5rem);
+        letter-spacing: 0.14em;
+    }
+
+    .hint {
+        font-size: 0.65rem;
+        letter-spacing: 0.16em;
+    }
+
+    /* Livello 2 su mobile */
+    .project-reveal-inner {
+        padding: 60px 15px 40px;
+    }
+
+    .project-reveal-body h2 {
+        font-size: clamp(1.1rem, 5vw, 1.4rem);
+    }
+
+    .project-reveal-info p {
+        font-size: 0.82rem;
+    }
+
+    .project-reveal-scene-thumb {
+        width: 110px;
+        height: 70px;
+    }
+}
+
+/* ---- 480px: MOBILE PICCOLO ---- */
+@media screen and (max-width: 480px) {
+    :root {
+        --ui-left: 12px;
+        --ui-top: 12px;
+    }
+
+    .name {
+        font-size: clamp(0.78rem, 4vw, 0.95rem);
+        letter-spacing: 0.08em;
+    }
+
+    .info-text {
+        font-size: 0.72rem;
+    }
+
+    .nav-item {
+        padding: 7px 8px;
+    }
+
+    .nav-link {
+        font-size: 0.58rem;
+        letter-spacing: 0.1em;
+    }
+
+    #sceneImage,
+    #sceneImageNext {
+        width: 96vw !important;
+        aspect-ratio: 3 / 2 !important;
+    }
+
+    .scene-meta {
+        width: calc(100vw - 24px);
+        bottom: 16px;
+    }
+
+    .scene-title h2 {
+        font-size: clamp(0.92rem, 4.5vw, 1.05rem);
+    }
+
+    .scene-button {
+        padding: 13px 18px;
+        width: 100%;
+        max-width: 200px;
+    }
+
+    .scroll-intro {
+        font-size: clamp(2rem, 12vw, 4rem);
+    }
+
+    .project-reveal-close {
+        top: 12px;
+        left: 12px;
+        padding: 7px 12px;
+        font-size: 0.58rem;
+    }
+
+    .project-reveal-inner {
+        padding: 54px 12px 36px;
+    }
+
+    .project-reveal-body h2 {
+        font-size: clamp(1rem, 6vw, 1.25rem);
+    }
+
+    .project-reveal-scene-thumb {
+        width: 90px;
+        height: 57px;
+    }
+
+    .project-reveal-actions {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .project-reveal-watch {
+        width: 100%;
+        text-align: center;
     }
 }
 
@@ -1508,7 +1776,7 @@ body {
     width: 100%;
     height: 100%;
     display: block;
-        z-index: 0;
+    z-index: 0;
     z-index: 0;
     /* Nessun pointer-event: il mouse passa ai fader */
     pointer-events: none;
@@ -1523,5 +1791,5 @@ body {
     -webkit-backdrop-filter: blur(4px);
     padding-top: 14px;
     padding-bottom: 14px;
-    
+
 }
