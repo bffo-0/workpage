@@ -411,6 +411,45 @@ function syncAfterToggle() {
   window.setTimeout(syncPanels, 50);
 }
 
+/* ==================== LAYER DEPTH UTILITIES ==================== */
+
+/**
+ * Segna un pannello come "pushed" — scala indietro visivamente
+ * per creare sensazione di profondità quando un nuovo layer lo copre.
+ */
+function pushLayer(el) {
+  if (!el) return;
+  el.classList.remove('layer-pop');
+  el.classList.add('layer-pushed');
+}
+
+/**
+ * Rimuove l'effetto push con animazione di "pop" verso lo spettatore.
+ */
+function popLayer(el) {
+  if (!el) return;
+  el.classList.remove('layer-pushed');
+  el.classList.add('layer-pop');
+  // Rimuove layer-pop dopo la transizione
+  el.addEventListener('transitionend', () => {
+    el.classList.remove('layer-pop');
+  }, { once: true });
+}
+
+/**
+ * Restituisce il pannello principale attualmente visibile (work o about),
+ * e l'eventuale film-sidebar visibile.
+ */
+function getVisibleLayers() {
+  const work  = document.getElementById('workSidebar');
+  const about = document.getElementById('aboutSidebar');
+  const mainPanel = work?.classList.contains('visible')  ? work
+                  : about?.classList.contains('visible') ? about
+                  : null;
+  const filmPanel = document.querySelector('.film-sidebar.visible') || null;
+  return { mainPanel, filmPanel };
+}
+
 /* ==================== FILM INFO SIDEBARS ==================== */
 
 function toggleFilmInfoSidebar(filmId) {
@@ -419,16 +458,28 @@ function toggleFilmInfoSidebar(filmId) {
 
   const isOpening = !panel.classList.contains('visible');
 
+  // Chiudi tutti gli altri film sidebar
   document.querySelectorAll('.film-sidebar').forEach((s) => {
-    if (s.id !== filmId) s.classList.remove('visible');
+    if (s.id !== filmId && s.classList.contains('visible')) {
+      s.classList.remove('visible');
+    }
   });
 
   if (isOpening) {
+    // Push del pannello principale sottostante
+    const { mainPanel } = getVisibleLayers();
+    if (mainPanel) pushLayer(mainPanel);
+
     panel.classList.add('visible');
     setFilmInURL(filmId);
     syncPanels();
   } else {
     panel.classList.remove('visible');
+
+    // Pop del pannello principale che torna in primo piano
+    const { mainPanel } = getVisibleLayers();
+    if (mainPanel) popLayer(mainPanel);
+
     setWorkInURL();
     syncAfterToggle();
   }
@@ -456,10 +507,18 @@ function stopInstallationAudio() {
 }
 
 function closeAllMainPanels() {
-  document.getElementById('aboutSidebar')?.classList.remove('visible');
-  document.getElementById('workSidebar')?.classList.remove('visible');
-  document.getElementById('installationSidebar')?.classList.remove('visible');
-  document.querySelectorAll('.film-sidebar').forEach((s) => s.classList.remove('visible'));
+  const about = document.getElementById('aboutSidebar');
+  const work  = document.getElementById('workSidebar');
+  const install = document.getElementById('installationSidebar');
+
+  about?.classList.remove('visible', 'layer-pushed', 'layer-pop');
+  work?.classList.remove('visible', 'layer-pushed', 'layer-pop');
+  install?.classList.remove('visible');
+
+  document.querySelectorAll('.film-sidebar').forEach((s) => {
+    s.classList.remove('visible', 'layer-pushed', 'layer-pop');
+  });
+
   stopInstallationAudio();
   showMainContainers();
   clearShareStateFromURL();
@@ -472,12 +531,27 @@ function toggleAboutSidebar() {
   const isOpening = !panel.classList.contains('visible');
 
   if (isOpening) {
-    document.getElementById('workSidebar')?.classList.remove('visible');
-    document.querySelectorAll('.film-sidebar').forEach((s) => s.classList.remove('visible'));
+    // Chiudi work e relativi film, rimuovendo push
+    const work = document.getElementById('workSidebar');
+    if (work?.classList.contains('visible')) {
+      work.classList.remove('visible');
+      popLayer(work);
+    }
+    document.querySelectorAll('.film-sidebar').forEach((s) => {
+      s.classList.remove('visible');
+      s.classList.remove('layer-pushed');
+    });
+
     panel.classList.add('visible');
     hideMainContainers();
   } else {
     panel.classList.remove('visible');
+
+    // Rimuovi push da eventuali film sidebar rimasti
+    document.querySelectorAll('.film-sidebar').forEach((s) => {
+      s.classList.remove('layer-pushed');
+    });
+
     const installOpen = document.getElementById('installationSidebar')?.classList.contains('visible');
     if (!installOpen) showMainContainers();
   }
@@ -492,15 +566,27 @@ function toggleWorkSidebar() {
   const isOpening = !panel.classList.contains('visible');
 
   if (isOpening) {
-    document.getElementById('aboutSidebar')?.classList.remove('visible');
-    document.querySelectorAll('.film-sidebar').forEach((s) => s.classList.remove('visible'));
+    const about = document.getElementById('aboutSidebar');
+    if (about?.classList.contains('visible')) {
+      about.classList.remove('visible');
+      popLayer(about);
+    }
+    document.querySelectorAll('.film-sidebar').forEach((s) => {
+      s.classList.remove('visible');
+      s.classList.remove('layer-pushed');
+    });
+
     panel.classList.add('visible');
     hideMainContainers();
     setWorkInURL();
   } else {
     panel.classList.remove('visible');
+    document.querySelectorAll('.film-sidebar').forEach((s) => {
+      s.classList.remove('layer-pushed');
+    });
+
     const installOpen = document.getElementById('installationSidebar')?.classList.contains('visible');
-    const aboutOpen = document.getElementById('aboutSidebar')?.classList.contains('visible');
+    const aboutOpen   = document.getElementById('aboutSidebar')?.classList.contains('visible');
     if (!installOpen && !aboutOpen) showMainContainers();
     clearShareStateFromURL();
   }
@@ -794,9 +880,12 @@ function initSceneSystem() {
 metaEl.innerHTML = `
   <div class="scene-title"></div>
   <div class="scene-counter"></div>
-  <button class="scene-button" type="button">View project</button>
-  <div class="scene-quicknav" id="sceneQuicknav">
+
+  <div class="scene-nav-wrap">
     <div class="scene-quicknav-col left" id="sceneQuicknavLeft"></div>
+
+    <button class="scene-button" type="button">View project</button>
+
     <div class="scene-quicknav-col right" id="sceneQuicknavRight"></div>
   </div>
 `;
@@ -805,7 +894,7 @@ metaEl.innerHTML = `
   const titleEl = metaEl.querySelector('.scene-title');
   const counterEl = metaEl.querySelector('.scene-counter');
   const buttonEl = metaEl.querySelector('.scene-button');
-  const quicknavEl = metaEl.querySelector('#sceneQuicknav');
+const navWrapEl = metaEl.querySelector('.scene-nav-wrap');
 const quicknavLeftEl = metaEl.querySelector('#sceneQuicknavLeft');
 const quicknavRightEl = metaEl.querySelector('#sceneQuicknavRight');
 
@@ -890,17 +979,17 @@ const quicknavRightEl = metaEl.querySelector('#sceneQuicknavRight');
 }
 function showQuicknav() {
   if (window.innerWidth <= 1024) return;
-  quicknavEl?.classList.add('visible');
+  navWrapEl?.classList.add('quicknav-visible');
 }
 
 function hideQuicknav() {
-  quicknavEl?.classList.remove('visible');
+  navWrapEl?.classList.remove('quicknav-visible');
 }
 
 function updateQuicknavActive() {
-  if (!quicknavEl) return;
+  if (!navWrapEl) return;
 
-  quicknavEl.querySelectorAll('.scene-quicknav-link').forEach((btn, idx) => {
+  navWrapEl.querySelectorAll('.scene-quicknav-link').forEach((btn, idx) => {
     btn.classList.toggle('active', idx === filmIdx);
   });
 }
@@ -1256,6 +1345,7 @@ window.addEventListener('forceScene', (e) => {
 function initEventListeners() {
   const navAbout = document.querySelector('.nav-link[data-panel="about"]');
   const navWork = document.querySelector('.nav-link[data-panel="work"]');
+  
 
   navAbout?.addEventListener('click', (e) => {
     e.preventDefault();
@@ -1830,6 +1920,9 @@ function openProjectReveal(film, idx) {
   if (video) { video.pause(); video.currentTime = 0; }
   if (watch) watch.textContent = 'Watch clip';
 
+  // Marca il body come "in-project" per scalare il livello hero
+  document.body.classList.add('in-project');
+
   // Scivola verso il basso: il livello 2 è a 100vh nel flusso del documento
   window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
 }
@@ -1843,6 +1936,9 @@ function closeProjectReveal() {
 
   const videoEl = reveal.querySelector('.project-reveal-video');
   if (videoEl) videoEl.classList.remove('open');
+
+  // Rimuovi lo stato "in-project" — il livello hero torna al suo stato
+  document.body.classList.remove('in-project');
 
   // Risale al livello 1
   window.scrollTo({ top: 0, behavior: 'smooth' });

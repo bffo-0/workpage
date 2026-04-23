@@ -44,7 +44,7 @@ body {
     --panel-bottom-gap: clamp(22px, 2.5vh, 30px);
     --panel-gap: 8px;
 
-    /* questa è la larghezza MASTER di title + about + work + film */
+    /* questa Ã¨ la larghezza MASTER di title + about + work + film */
     --ui-width: min(calc(100vw - (var(--ui-left) * 2)), var(--panel-max-width));
 
     /* installation resta separata */
@@ -1137,9 +1137,9 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     text-align: center;
-    width: min(90vw, 1000px);
+    width: min(94vw, 1100px);
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.4s ease, transform 0.4s ease;
@@ -1192,6 +1192,7 @@ body {
     white-space: nowrap;
     flex-shrink: 0;
 }
+
 .scene-button:hover {
     background: rgba(26, 26, 26, 0.06);
     color: var(--text-primary);
@@ -1262,52 +1263,65 @@ body {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
 }
-.project-reveal{
+
+.project-reveal {
     display: none;
 }
-.scene-quicknav {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: start;
-    gap: 34px;
-    width: min(86vw, 900px);
-    margin-top: 10px;
 
-    opacity: 0;
-    transform: translateY(8px);
-    pointer-events: none;
-    transition: opacity 0.35s ease, transform 0.35s ease;
+.scene-nav-wrap {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 34px;
+    width: min(90vw, 900px);
+    margin-top: 10px;
 }
 
-.scene-quicknav.visible {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
+.scene-button {
+    justify-self: center;
+    margin: 0;
+    white-space: nowrap;
 }
 
 .scene-quicknav-col {
     display: grid;
     grid-template-rows: auto auto;
     row-gap: 10px;
-    align-content: center;
+    min-width: 220px;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease, transform 0.35s ease;
 }
 
 .scene-quicknav-col.left {
     justify-items: end;
     text-align: right;
+    transform: translateX(8px);
 }
 
 .scene-quicknav-col.right {
     justify-items: start;
     text-align: left;
+    transform: translateX(-8px);
+}
+
+.scene-nav-wrap.quicknav-visible .scene-quicknav-col {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0);
 }
 
 .scene-quicknav-center {
     display: flex;
     align-items: center;
     justify-content: center;
+    min-width: max-content;
 }
 
+.scene-quicknav-center .scene-button {
+    margin: 0;
+}
 
 .scene-quicknav-link {
     appearance: none;
@@ -1327,6 +1341,22 @@ body {
     transform: translateY(6px);
     animation: quicknavFade 0.4s ease forwards;
     transition: color 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+}
+
+.scene-quicknav-link:nth-child(1) {
+    animation-delay: 0.05s;
+}
+
+.scene-quicknav-link:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.scene-quicknav-link:nth-child(3) {
+    animation-delay: 0.15s;
+}
+
+.scene-quicknav-link:nth-child(4) {
+    animation-delay: 0.2s;
 }
 
 .scene-quicknav-link:hover {
@@ -1351,13 +1381,16 @@ body {
         transform: translateY(0);
     }
 }
+
 @media screen and (max-width: 1024px) {
     .scene-quicknav {
         display: none !important;
     }
+
     /* ==================== RESPONSIVE ==================== */
-    
+
 }
+
 /* ---- 1440px: leggero ridimensionamento pannelli ---- */
 @media screen and (max-width: 1440px) {
     :root {
@@ -1365,12 +1398,12 @@ body {
     }
 
     .scene-meta {
-        width: min(90vw, 1000px);
-        bottom: 25px;
+        width: min(94vw, 1120px);
+        bottom: 14px;
     }
 }
 
-/* ---- 1024px: TABLET — due livelli, no pannelli laterali ---- */
+/* ---- 1024px: TABLET â€” due livelli, no pannelli laterali ---- */
 @media screen and (max-width: 1024px) {
 
     /* Variabili */
@@ -1401,13 +1434,13 @@ body {
         min-width: 0;
     }
 
-    /* Scene images: più strette per lasciare spazio ai bordi */
+    /* Scene images: piÃ¹ strette per lasciare spazio ai bordi */
     #sceneImage,
     #sceneImageNext {
         width: min(82vw, 680px) !important;
     }
 
-    /* Scene meta: più grande e touch-friendly */
+    /* Scene meta: piÃ¹ grande e touch-friendly */
     .scene-meta {
         width: min(80vw, 520px);
         bottom: 28px;
@@ -1430,7 +1463,7 @@ body {
         padding: 12px 28px;
         font-size: 0.68rem;
         letter-spacing: 0.18em;
-        /* Touch target più grande */
+        /* Touch target piÃ¹ grande */
         min-height: 44px;
     }
 
@@ -1452,7 +1485,7 @@ body {
     }
 
     /* ---- LAYOUT A DUE LIVELLI VERTICALI ---- */
-    /* html e body diventano alti 200vh — il browser può scorrere tra i due livelli */
+    /* html e body diventano alti 200vh â€” il browser puÃ² scorrere tra i due livelli */
     html {
         height: 200vh;
     }
@@ -1464,7 +1497,7 @@ body {
         /* scroll-behavior smooth qui NON serve: lo gestiamo via JS per controllo */
     }
 
-    /* Livello 1: hero/scene — rimane fisso mentre il body scorre */
+    /* Livello 1: hero/scene â€” rimane fisso mentre il body scorre */
     .main-container,
     .hint,
     .scroll-intro,
@@ -1489,7 +1522,7 @@ body {
         -webkit-backdrop-filter: var(--glass-blur);
         overflow: visible;
         z-index: 10;
-        /* Nessuna transizione CSS: è il browser che scorre */
+        /* Nessuna transizione CSS: Ã¨ il browser che scorre */
     }
 
     .project-reveal-inner {
@@ -1500,7 +1533,7 @@ body {
         gap: 0;
     }
 
-    /* Back button — sticky in cima al livello 2 */
+    /* Back button â€” sticky in cima al livello 2 */
     .project-reveal-close {
         position: sticky;
         top: 18px;
@@ -1709,12 +1742,12 @@ body {
         letter-spacing: 0.12em;
     }
 
-    /* Immagine ancora più stretta su mobile */
+    /* Immagine ancora piÃ¹ stretta su mobile */
     #sceneImage,
     #sceneImageNext {
         width: min(92vw, 520px) !important;
         aspect-ratio: 4 / 3 !important;
-        /* più alta su schermi stretti */
+        /* piÃ¹ alta su schermi stretti */
     }
 
     .scene-meta {
@@ -1868,7 +1901,6 @@ body {
     width: 100%;
     height: 100%;
     display: block;
-    z-index: 0;
     z-index: 0;
     /* Nessun pointer-event: il mouse passa ai fader */
     pointer-events: none;
