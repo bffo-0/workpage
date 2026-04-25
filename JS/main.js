@@ -2227,3 +2227,432 @@ document.addEventListener('DOMContentLoaded', () => {
   // Avvia l'effetto portrait quando il pannello about è già nel DOM
   initPortraitEffect();
 });
+/* =========================================================
+   AGENCY SPATIAL MOBILE/TABLET EXPERIENCE — STABLE BUILD
+   Creates a separate, centered open-world interface under 1024px.
+   Desktop/laptop original code remains untouched.
+   ========================================================= */
+
+const AGENCY_MOBILE_BREAKPOINT = 1024;
+const agencyZones = {
+  home: { x: 0, y: 0 },
+  index: { x: 100, y: 0 },
+  about: { x: -100, y: 0 },
+  project: { x: 0, y: 100 },
+  video: { x: 0, y: 200 },
+  installation: { x: -100, y: 100 }
+};
+
+let agencyState = {
+  active: 0,
+  zone: 'home',
+  touchStartX: 0,
+  touchStartY: 0,
+  touchMoved: false,
+  movingTimer: null
+};
+
+function agencyIsMobileMode() {
+  return window.matchMedia(`(max-width: ${AGENCY_MOBILE_BREAKPOINT}px)`).matches;
+}
+
+function agencyEscapeHTML(value = '') {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+function agencyGetWorks() {
+  const works = Array.isArray(siteData?.works) ? siteData.works : [];
+  return works
+    .map((entry, index) => {
+      const film = siteData?.filmInfo?.[entry.id] || {};
+      const scene = (siteData?.filmsScenes || []).find((item) => item.videoId && item.videoId === film.videoId);
+      const rawImage = film.image || scene?.scenes?.[0] || scene?.cover || '';
+      const isInstallation = entry.id === 'film1' || film.type === 'installation' || film.mediaType === 'installation';
+      const info = Array.isArray(film.info) ? film.info : [];
+      return {
+        id: entry.id,
+        index: String(index + 1).padStart(2, '0'),
+        title: film.title || entry.title || 'Untitled',
+        listTitle: entry.title || film.title || 'Untitled',
+        role: entry.title?.split(' - ')?.[1] || info[1] || 'Music / sound',
+        year: entry.year || '',
+        image: rawImage,
+        hasImage: Boolean(rawImage),
+        type: isInstallation ? 'installation' : 'film',
+        caption: film.caption || '',
+        link: film.link || '',
+        videoId: film.videoId || scene?.videoId || '',
+        info,
+        mood: info.slice(0, 2).join(' / ') || film.caption || entry.title || ''
+      };
+    })
+    .filter((item) => item.title);
+}
+
+function agencyGetCurrentWork() {
+  const works = agencyGetWorks();
+  return works[agencyState.active] || works[0] || null;
+}
+
+function agencyGetVideoData(work) {
+  if (!work?.videoId) return null;
+  return siteData?.videoSidebars?.[work.videoId] || null;
+}
+
+function agencySetZone(zone) {
+  const app = document.querySelector('.agency-mobile-app');
+  const world = document.querySelector('.agency-mobile-world');
+  const target = agencyZones[zone] || agencyZones.home;
+  if (!app || !world) return;
+
+  const nextZone = agencyZones[zone] ? zone : 'home';
+  const video = app.querySelector('.agency-video-frame video');
+  const installationAudio = app.querySelector('.agency-installation-audio');
+
+  if (agencyState.zone === nextZone && !app.classList.contains('is-transitioning')) return;
+
+  window.clearTimeout(agencyState.movingTimer);
+  window.clearTimeout(agencyState.veilTimer);
+  window.clearTimeout(agencyState.settleTimer);
+
+  app.classList.add('is-transitioning');
+  app.classList.remove('is-settling');
+  app.dataset.nextZone = nextZone;
+  world.classList.add('is-moving');
+
+  if (video && nextZone !== 'video') {
+    video.pause();
+    video.currentTime = 0;
+  }
+  if (installationAudio && nextZone !== 'installation') {
+    installationAudio.pause();
+    installationAudio.currentTime = 0;
+  }
+
+  agencyState.veilTimer = window.setTimeout(() => {
+    agencyState.zone = nextZone;
+    app.dataset.zone = nextZone;
+    world.style.setProperty('--agency-x', `${target.x}vw`);
+    world.style.setProperty('--agency-y', `${target.y}svh`);
+  }, 210);
+
+  agencyState.movingTimer = window.setTimeout(() => {
+    app.classList.remove('is-transitioning');
+    app.classList.add('is-settling');
+    world.classList.remove('is-moving');
+
+    const nextVideo = app.querySelector('.agency-video-frame video');
+    const nextInstallationAudio = app.querySelector('.agency-installation-audio');
+    if (nextVideo) {
+      if (nextZone === 'video') {
+        nextVideo.currentTime = 0;
+        nextVideo.play().catch(() => {});
+      } else {
+        nextVideo.pause();
+        nextVideo.currentTime = 0;
+      }
+    }
+    if (nextInstallationAudio) {
+      if (nextZone === 'installation') {
+        nextInstallationAudio.play().catch(() => {});
+      } else {
+        nextInstallationAudio.pause();
+        nextInstallationAudio.currentTime = 0;
+      }
+    }
+  }, 1180);
+
+  agencyState.settleTimer = window.setTimeout(() => {
+    app.classList.remove('is-settling');
+    delete app.dataset.nextZone;
+  }, 1980);
+}
+
+function agencyRenderWorkDependentViews() {
+  const app = document.querySelector('.agency-mobile-app');
+  if (!app) return;
+
+  const work = agencyGetCurrentWork();
+  if (!work) return;
+
+  const videoData = agencyGetVideoData(work);
+
+  app.querySelectorAll('[data-agency-current-index]').forEach((el) => { el.textContent = work.index; });
+  app.querySelectorAll('[data-agency-current-year]').forEach((el) => { el.textContent = work.year; });
+  app.querySelectorAll('[data-agency-current-title]').forEach((el) => { el.textContent = work.title; });
+  app.querySelectorAll('[data-agency-current-role]').forEach((el) => { el.textContent = work.role; });
+  app.querySelectorAll('[data-agency-current-mood]').forEach((el) => { el.textContent = work.mood; });
+
+  app.querySelectorAll('[data-agency-current-image]').forEach((img) => {
+    if (work.hasImage && work.image) {
+      img.src = work.image;
+      img.alt = work.title;
+      img.style.visibility = '';
+    } else {
+      img.removeAttribute('src');
+      img.alt = '';
+      img.style.visibility = 'hidden';
+    }
+  });
+
+  app.querySelectorAll('.agency-portal, .agency-project-media').forEach((el) => {
+    el.classList.toggle('agency-no-image', !work.hasImage);
+  });
+
+  app.querySelectorAll('[data-agency-placeholder-title]').forEach((el) => { el.textContent = work.title; });
+
+  const projectMedia = app.querySelector('.agency-project-media');
+  if (projectMedia) {
+    const targetZone = work.type === 'installation' ? 'installation' : 'video';
+    projectMedia.dataset.agencyZone = targetZone;
+    projectMedia.dataset.agencyMediaAction = targetZone;
+  }
+
+  app.querySelectorAll('[data-agency-enter-label]').forEach((el) => {
+    el.textContent = work.type === 'installation' ? 'Enter installation' : 'Enter video';
+  });
+
+  const infoBox = app.querySelector('[data-agency-current-info]');
+  if (infoBox) {
+    infoBox.innerHTML = work.info.slice(0, 4).map((line) => `<p>${agencyEscapeHTML(line)}</p>`).join('');
+  }
+
+  const installationTitle = app.querySelector('[data-agency-installation-title]');
+  if (installationTitle) installationTitle.textContent = work.title;
+
+  const installationCopy = app.querySelector('[data-agency-installation-copy]');
+  if (installationCopy) {
+    installationCopy.innerHTML = work.info.slice(0, 4).map((line) => `<p>${agencyEscapeHTML(line)}</p>`).join('') || agencyEscapeHTML(work.mood);
+  }
+
+  const videoFrame = app.querySelector('.agency-video-frame');
+  if (videoFrame) {
+    if (videoData?.videoSrc) {
+      videoFrame.innerHTML = `<video src="${agencyEscapeHTML(videoData.videoSrc)}" controls playsinline preload="metadata"></video>`;
+    } else {
+      videoFrame.innerHTML = `
+        <div class="agency-video-fallback">
+          <div class="agency-ring"></div>
+          <div class="agency-final-title">No clip attached to this room.</div>
+        </div>
+      `;
+    }
+  }
+}
+
+function agencySetActive(index) {
+  const works = agencyGetWorks();
+  if (!works.length) return;
+  agencyState.active = (index + works.length) % works.length;
+  agencyRenderWorkDependentViews();
+}
+
+function agencyBuildApp() {
+  if (document.querySelector('.agency-mobile-app')) return;
+
+  const works = agencyGetWorks();
+  if (!works.length) return;
+
+  const workRows = works.map((work, index) => `
+    <button class="agency-work-row" type="button" data-agency-work="${index}">
+      <span class="agency-work-index">${agencyEscapeHTML(work.index)}</span>
+      <span class="agency-work-title">${agencyEscapeHTML(work.title)}</span>
+      <span class="agency-work-year">${agencyEscapeHTML(work.year)}</span>
+    </button>
+  `).join('');
+
+  const app = document.createElement('div');
+  app.className = 'agency-mobile-app';
+  app.dataset.zone = 'home';
+  app.setAttribute('aria-label', 'Mobile spatial portfolio');
+  app.innerHTML = `
+    <div class="agency-transition-veil" aria-hidden="true"><div class="agency-veil-line"></div></div>
+    <div class="agency-mobile-world">
+      <section class="agency-zone agency-zone-home" data-zone="home">
+        <div class="agency-topbar">
+          <div>
+            <div class="agency-brand">Tommaso Massimiliano Alfì</div>
+            <div class="agency-role">composer / sound designer</div>
+          </div>
+          <nav class="agency-nav" aria-label="Mobile navigation">
+            <button class="agency-btn agency-micro" type="button" data-agency-zone="index">Index</button>
+            <button class="agency-btn agency-micro" type="button" data-agency-zone="about">Bio</button>
+          </nav>
+        </div>
+
+        <div class="agency-home-stage">
+          <button class="agency-portal" type="button" data-agency-zone="project" aria-label="Open selected project">
+            <img data-agency-current-image src="" alt="">
+            <div class="agency-media-placeholder"><span>No image attached</span><strong data-agency-placeholder-title></strong></div>
+            <div class="agency-portal-meta">
+              <div class="agency-kicker"><span data-agency-current-index></span> / <span data-agency-current-year></span></div>
+              <div class="agency-portal-title" data-agency-current-title></div>
+            </div>
+          </button>
+        </div>
+
+        <div class="agency-home-footer">
+          <div class="agency-hint">Tap image to enter. Swipe horizontally to move through works.</div>
+          <div class="agency-cycle">
+            <button class="agency-btn agency-micro" type="button" data-agency-prev>Prev</button>
+            <button class="agency-btn agency-micro" type="button" data-agency-next>Next</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="agency-zone agency-zone-index" data-zone="index">
+        <div class="agency-zone-inner">
+          <header class="agency-zone-head">
+            <div class="agency-zone-label">Index / spatial list</div>
+            <button class="agency-back" type="button" data-agency-zone="home">Surface</button>
+          </header>
+          <div class="agency-index-list">
+            ${workRows}
+          </div>
+        </div>
+      </section>
+
+      <section class="agency-zone agency-zone-about" data-zone="about">
+        <div class="agency-zone-inner">
+          <header class="agency-zone-head">
+            <div class="agency-zone-label">Bio / quiet chamber</div>
+            <button class="agency-back" type="button" data-agency-zone="home">Surface</button>
+          </header>
+          <div class="agency-about-copy">Sound as space, memory, object and moving image.</div>
+          <div class="agency-about-small">
+            Tommaso Massimiliano Alfì is a composer, experimental producer and sound designer based in Turin. His practice moves between composition, scoring and sonic construction, through listening states, material gestures and temporal rooms.
+          </div>
+        </div>
+      </section>
+
+      <section class="agency-zone agency-zone-project" data-zone="project">
+        <div class="agency-project-grid">
+          <button class="agency-project-media" type="button" data-agency-zone="video" aria-label="Enter video room">
+            <img data-agency-current-image src="" alt="">
+            <div class="agency-media-placeholder"><span>No image attached</span><strong data-agency-placeholder-title></strong></div>
+            <span class="agency-enter-video" data-agency-enter-label>Enter video</span>
+          </button>
+          <div class="agency-project-text">
+            <header class="agency-zone-head">
+              <div class="agency-zone-label">Project room / <span data-agency-current-index></span></div>
+              <button class="agency-back" type="button" data-agency-zone="index">Index</button>
+            </header>
+            <h2 class="agency-project-title" data-agency-current-title></h2>
+            <div class="agency-project-role"><span data-agency-current-year></span> / <span data-agency-current-role></span></div>
+            <div class="agency-project-mood" data-agency-current-mood></div>
+            <div class="agency-project-info" data-agency-current-info></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="agency-zone agency-zone-video" data-zone="video">
+        <div class="agency-video-inner">
+          <button class="agency-video-back" type="button" data-agency-zone="project">Project</button>
+          <div class="agency-video-frame"></div>
+        </div>
+      </section>
+
+      <section class="agency-zone agency-zone-installation" data-zone="installation">
+        <div class="agency-installation-inner">
+          <header class="agency-zone-head">
+            <div class="agency-zone-label">Installation / audio room</div>
+            <button class="agency-back" type="button" data-agency-zone="project">Project</button>
+          </header>
+          <h2 class="agency-installation-title" data-agency-installation-title></h2>
+          <div class="agency-installation-copy" data-agency-installation-copy></div>
+          <audio class="agency-installation-audio" src="Audio Page3/2.dariyasd_proj_quadraphonic_Front.wav" controls preload="none"></audio>
+        </div>
+      </section>
+    </div>
+  `;
+
+  document.body.appendChild(app);
+
+  app.addEventListener('click', (event) => {
+    const zoneButton = event.target.closest('[data-agency-zone]');
+    if (zoneButton) {
+      event.preventDefault();
+      agencySetZone(zoneButton.dataset.agencyZone);
+      return;
+    }
+
+    const workButton = event.target.closest('[data-agency-work]');
+    if (workButton) {
+      event.preventDefault();
+      agencySetActive(parseInt(workButton.dataset.agencyWork, 10));
+      agencySetZone('project');
+      return;
+    }
+
+    if (event.target.closest('[data-agency-next]')) {
+      event.preventDefault();
+      agencySetActive(agencyState.active + 1);
+      return;
+    }
+
+    if (event.target.closest('[data-agency-prev]')) {
+      event.preventDefault();
+      agencySetActive(agencyState.active - 1);
+    }
+  });
+
+  const portal = app.querySelector('.agency-portal');
+  if (portal) {
+    portal.addEventListener('touchstart', (event) => {
+      const touch = event.touches[0];
+      agencyState.touchStartX = touch.clientX;
+      agencyState.touchStartY = touch.clientY;
+      agencyState.touchMoved = false;
+    }, { passive: true });
+
+    portal.addEventListener('touchmove', (event) => {
+      const touch = event.touches[0];
+      const dx = touch.clientX - agencyState.touchStartX;
+      const dy = touch.clientY - agencyState.touchStartY;
+      if (Math.abs(dx) > 18 || Math.abs(dy) > 18) agencyState.touchMoved = true;
+    }, { passive: true });
+
+    portal.addEventListener('touchend', (event) => {
+      const touch = event.changedTouches[0];
+      const dx = touch.clientX - agencyState.touchStartX;
+      const dy = touch.clientY - agencyState.touchStartY;
+      if (Math.abs(dx) > 46 && Math.abs(dx) > Math.abs(dy) * 1.25) {
+        event.preventDefault();
+        agencySetActive(agencyState.active + (dx < 0 ? 1 : -1));
+        return;
+      }
+      if (agencyState.touchMoved) {
+        event.preventDefault();
+      }
+    }, { passive: false });
+  }
+
+  agencyRenderWorkDependentViews();
+  agencySetZone('home');
+}
+
+function agencyUpdateMode() {
+  if (agencyIsMobileMode()) {
+    agencyBuildApp();
+    document.body.classList.add('agency-spatial-active');
+  } else {
+    document.body.classList.remove('agency-spatial-active');
+    const app = document.querySelector('.agency-mobile-app');
+    const video = app?.querySelector('video');
+    if (video) video.pause();
+  }
+}
+
+window.addEventListener('resize', () => {
+  window.clearTimeout(window.__agencyResizeTimer);
+  window.__agencyResizeTimer = window.setTimeout(agencyUpdateMode, 120);
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  agencyUpdateMode();
+});

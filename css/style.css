@@ -44,7 +44,7 @@ body {
     --panel-bottom-gap: clamp(22px, 2.5vh, 30px);
     --panel-gap: 8px;
 
-    /* questa Ã¨ la larghezza MASTER di title + about + work + film */
+    /* questa ÃƒÂ¨ la larghezza MASTER di title + about + work + film */
     --ui-width: min(calc(100vw - (var(--ui-left) * 2)), var(--panel-max-width));
 
     /* installation resta separata */
@@ -1403,7 +1403,7 @@ body {
     }
 }
 
-/* ---- 1024px: TABLET â€” due livelli, no pannelli laterali ---- */
+/* ---- 1024px: TABLET Ã¢â‚¬â€ due livelli, no pannelli laterali ---- */
 @media screen and (max-width: 1024px) {
 
     /* Variabili */
@@ -1434,13 +1434,13 @@ body {
         min-width: 0;
     }
 
-    /* Scene images: piÃ¹ strette per lasciare spazio ai bordi */
+    /* Scene images: piÃƒÂ¹ strette per lasciare spazio ai bordi */
     #sceneImage,
     #sceneImageNext {
         width: min(82vw, 680px) !important;
     }
 
-    /* Scene meta: piÃ¹ grande e touch-friendly */
+    /* Scene meta: piÃƒÂ¹ grande e touch-friendly */
     .scene-meta {
         width: min(80vw, 520px);
         bottom: 28px;
@@ -1463,7 +1463,7 @@ body {
         padding: 12px 28px;
         font-size: 0.68rem;
         letter-spacing: 0.18em;
-        /* Touch target piÃ¹ grande */
+        /* Touch target piÃƒÂ¹ grande */
         min-height: 44px;
     }
 
@@ -1485,7 +1485,7 @@ body {
     }
 
     /* ---- LAYOUT A DUE LIVELLI VERTICALI ---- */
-    /* html e body diventano alti 200vh â€” il browser puÃ² scorrere tra i due livelli */
+    /* html e body diventano alti 200vh Ã¢â‚¬â€ il browser puÃƒÂ² scorrere tra i due livelli */
     html {
         height: 200vh;
     }
@@ -1497,7 +1497,7 @@ body {
         /* scroll-behavior smooth qui NON serve: lo gestiamo via JS per controllo */
     }
 
-    /* Livello 1: hero/scene â€” rimane fisso mentre il body scorre */
+    /* Livello 1: hero/scene Ã¢â‚¬â€ rimane fisso mentre il body scorre */
     .main-container,
     .hint,
     .scroll-intro,
@@ -1522,7 +1522,7 @@ body {
         -webkit-backdrop-filter: var(--glass-blur);
         overflow: visible;
         z-index: 10;
-        /* Nessuna transizione CSS: Ã¨ il browser che scorre */
+        /* Nessuna transizione CSS: ÃƒÂ¨ il browser che scorre */
     }
 
     .project-reveal-inner {
@@ -1533,7 +1533,7 @@ body {
         gap: 0;
     }
 
-    /* Back button â€” sticky in cima al livello 2 */
+    /* Back button Ã¢â‚¬â€ sticky in cima al livello 2 */
     .project-reveal-close {
         position: sticky;
         top: 18px;
@@ -1742,12 +1742,12 @@ body {
         letter-spacing: 0.12em;
     }
 
-    /* Immagine ancora piÃ¹ stretta su mobile */
+    /* Immagine ancora piÃƒÂ¹ stretta su mobile */
     #sceneImage,
     #sceneImageNext {
         width: min(92vw, 520px) !important;
         aspect-ratio: 4 / 3 !important;
-        /* piÃ¹ alta su schermi stretti */
+        /* piÃƒÂ¹ alta su schermi stretti */
     }
 
     .scene-meta {
@@ -1916,4 +1916,1246 @@ body {
     padding-top: 14px;
     padding-bottom: 14px;
 
+}
+
+/* =========================================================
+   AGENCY SPATIAL MOBILE/TABLET EXPERIENCE â€” STABLE BUILD
+   Desktop stays untouched. Under 1024px the original desktop
+   interface is visually replaced by a self-contained spatial world.
+   ========================================================= */
+
+.agency-mobile-app {
+    display: none;
+}
+
+@media (max-width: 1024px) {
+
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden !important;
+        overscroll-behavior: none;
+        background: #f1eff1;
+    }
+
+    body.agency-spatial-active>*:not(.agency-mobile-app):not(script):not(style) {
+        display: none !important;
+    }
+
+    body.agency-spatial-active {
+        position: fixed;
+        inset: 0;
+        overflow: hidden !important;
+        touch-action: none;
+        background: #f1eff1;
+        color: #141416;
+    }
+
+    .agency-mobile-app {
+        position: fixed;
+        inset: 0;
+        display: block;
+        overflow: hidden;
+        z-index: 2147483000;
+        background:
+            radial-gradient(circle at 50% 28%, rgba(255, 255, 255, 0.9), rgba(241, 239, 241, 0.65) 42%, rgba(214, 211, 216, 0.52) 100%);
+        font-family: 'EB Garamond', Georgia, 'Times New Roman', serif;
+        -webkit-font-smoothing: antialiased;
+        user-select: none;
+        -webkit-user-select: none;
+    }
+
+    .agency-mobile-world {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 300vw;
+        height: 400svh;
+        transform: translate3d(calc(-50% + var(--agency-x, 0vw)), calc(-50% + var(--agency-y, 0svh)), 0);
+        transition: transform 1.18s cubic-bezier(0.76, 0, 0.24, 1);
+        will-change: transform;
+    }
+
+    .agency-mobile-world.is-moving {
+        pointer-events: none;
+    }
+
+    .agency-zone {
+        position: absolute;
+        width: min(96vw, 980px);
+        height: 100svh;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        color: #141416;
+    }
+
+    .agency-zone-home {
+        left: 150vw;
+        top: 200svh;
+    }
+
+    .agency-zone-index {
+        left: 50vw;
+        top: 200svh;
+    }
+
+    .agency-zone-about {
+        left: 250vw;
+        top: 200svh;
+    }
+
+    .agency-zone-project {
+        left: 150vw;
+        top: 100svh;
+    }
+
+    .agency-zone-video {
+        left: 150vw;
+        top: 0svh;
+        width: 100vw;
+        max-width: none;
+        background: #09090b;
+        color: #fff;
+    }
+
+    .agency-topbar {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: max(22px, env(safe-area-inset-top));
+        z-index: 20;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 18px;
+        padding: 0 20px;
+        pointer-events: auto;
+        transition: opacity 0.7s ease;
+    }
+
+    .agency-brand,
+    .agency-role,
+    .agency-micro,
+    .agency-zone-label,
+    .agency-kicker,
+    .agency-back,
+    .agency-year,
+    .agency-hint,
+    .agency-work-role {
+        text-transform: uppercase;
+        letter-spacing: 0.28em;
+        font-size: 10px;
+        line-height: 1.35;
+        font-weight: 400;
+    }
+
+    .agency-brand {
+        opacity: 0.58;
+        margin-bottom: 7px;
+    }
+
+    .agency-role {
+        opacity: 0.38;
+        letter-spacing: 0.22em;
+    }
+
+    .agency-nav {
+        display: flex;
+        gap: 18px;
+        align-items: center;
+        flex-shrink: 0;
+    }
+
+    .agency-btn,
+    .agency-back,
+    .agency-work-row,
+    .agency-portal,
+    .agency-project-media,
+    .agency-video-back {
+        border: 0;
+        background: transparent;
+        color: inherit;
+        font: inherit;
+        padding: 0;
+        margin: 0;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+
+    .agency-btn,
+    .agency-back,
+    .agency-video-back {
+        opacity: 0.54;
+        transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .agency-btn:active,
+    .agency-back:active,
+    .agency-video-back:active {
+        transform: scale(0.96);
+    }
+
+    .agency-btn:hover,
+    .agency-back:hover,
+    .agency-video-back:hover {
+        opacity: 1;
+    }
+
+    .agency-home-stage {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 92px 20px 88px;
+        pointer-events: none;
+    }
+
+    .agency-portal {
+        position: relative;
+        display: block;
+        width: min(86vw, 720px);
+        aspect-ratio: 4 / 5;
+        overflow: hidden;
+        background: #09090b;
+        box-shadow: 0 46px 150px rgba(0, 0, 0, 0.24);
+        pointer-events: auto;
+        transform: translateZ(0);
+    }
+
+    @media (min-width: 700px) and (max-width: 1024px) {
+        .agency-portal {
+            aspect-ratio: 16 / 10;
+            width: min(78vw, 760px);
+        }
+    }
+
+    .agency-portal img,
+    .agency-project-media img,
+    .agency-video-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        opacity: 0.91;
+        transform: scale(1.001);
+    }
+
+    .agency-portal::after,
+    .agency-project-media::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.48), transparent 52%, rgba(255, 255, 255, 0.08));
+    }
+
+    .agency-portal-meta {
+        position: absolute;
+        left: 20px;
+        right: 20px;
+        bottom: 20px;
+        z-index: 3;
+        color: #fff;
+    }
+
+    .agency-kicker {
+        opacity: 0.74;
+        margin-bottom: 12px;
+    }
+
+    .agency-portal-title {
+        font-size: clamp(2.45rem, 12vw, 5.6rem);
+        line-height: 0.86;
+        letter-spacing: -0.075em;
+        font-weight: 400;
+        text-wrap: balance;
+    }
+
+    .agency-home-footer {
+        position: absolute;
+        left: 20px;
+        right: 20px;
+        bottom: max(22px, env(safe-area-inset-bottom));
+        z-index: 20;
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 18px;
+        pointer-events: auto;
+    }
+
+    .agency-hint {
+        max-width: 220px;
+        opacity: 0.46;
+        letter-spacing: 0.06em;
+        text-transform: none;
+        font-size: 11px;
+    }
+
+    .agency-cycle {
+        display: flex;
+        gap: 18px;
+    }
+
+    .agency-zone-inner {
+        width: 100%;
+        max-width: 820px;
+        margin: auto;
+        padding: max(30px, env(safe-area-inset-top)) 20px max(34px, env(safe-area-inset-bottom));
+    }
+
+    .agency-zone-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 24px;
+        margin-bottom: clamp(36px, 8vh, 74px);
+    }
+
+    .agency-zone-label {
+        opacity: 0.42;
+        font-size: 9px;
+        letter-spacing: 0.36em;
+    }
+
+    .agency-index-list {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .agency-work-row {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 38px minmax(0, 1fr) auto;
+        align-items: baseline;
+        gap: 16px;
+        padding: clamp(17px, 3.1vh, 30px) 0;
+        border-bottom: 1px solid rgba(20, 20, 22, 0.1);
+        text-align: left;
+    }
+
+    .agency-work-index,
+    .agency-work-year {
+        font-size: 10px;
+        letter-spacing: 0.28em;
+        opacity: 0.38;
+    }
+
+    .agency-work-title {
+        font-size: clamp(2.25rem, 10.5vw, 5.8rem);
+        line-height: 0.88;
+        letter-spacing: -0.078em;
+        font-weight: 400;
+        opacity: 0.84;
+    }
+
+    .agency-about-copy {
+        font-size: clamp(2.5rem, 11vw, 6.6rem);
+        line-height: 0.92;
+        letter-spacing: -0.078em;
+        font-weight: 400;
+        max-width: 820px;
+        text-wrap: balance;
+    }
+
+    .agency-about-small {
+        margin-top: 34px;
+        max-width: 540px;
+        font-size: clamp(0.95rem, 2.6vw, 1.15rem);
+        line-height: 1.65;
+        letter-spacing: 0.01em;
+        opacity: 0.56;
+    }
+
+    .agency-zone-about {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
+    }
+
+    .agency-project-grid {
+        width: 100%;
+        max-width: 980px;
+        margin: auto;
+        padding: max(32px, env(safe-area-inset-top)) 20px max(34px, env(safe-area-inset-bottom));
+        display: grid;
+        gap: 28px;
+        align-items: center;
+    }
+
+    .agency-project-media {
+        position: relative;
+        width: min(72vw, 430px);
+        aspect-ratio: 4 / 5;
+        overflow: hidden;
+        background: #09090b;
+        box-shadow: 0 56px 160px rgba(0, 0, 0, 0.26);
+        justify-self: center;
+    }
+
+    .agency-project-text {
+        width: 100%;
+        max-width: 680px;
+        justify-self: center;
+    }
+
+    .agency-project-title {
+        font-size: clamp(3.2rem, 14vw, 7.6rem);
+        line-height: 0.84;
+        letter-spacing: -0.085em;
+        font-weight: 400;
+        margin: 24px 0 22px;
+        text-wrap: balance;
+    }
+
+    .agency-project-role {
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.28em;
+        opacity: 0.44;
+        line-height: 1.7;
+    }
+
+    .agency-project-mood,
+    .agency-project-info {
+        font-size: clamp(1.1rem, 3.2vw, 1.55rem);
+        line-height: 1.18;
+        letter-spacing: -0.025em;
+        opacity: 0.62;
+        max-width: 620px;
+        margin-top: 28px;
+    }
+
+    .agency-project-info {
+        font-size: 0.92rem;
+        line-height: 1.55;
+        opacity: 0.48;
+    }
+
+    .agency-enter-video {
+        position: absolute;
+        inset: 0;
+        z-index: 4;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: 0.3em;
+        font-size: 10px;
+        opacity: 0;
+        transition: opacity 0.35s ease;
+        background: rgba(0, 0, 0, 0.16);
+    }
+
+    .agency-project-media:active .agency-enter-video,
+    .agency-project-media:hover .agency-enter-video {
+        opacity: 1;
+    }
+
+    .agency-video-inner {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: max(58px, env(safe-area-inset-top)) 18px max(32px, env(safe-area-inset-bottom));
+        background: #09090b;
+        color: #fff;
+    }
+
+    .agency-video-back {
+        position: absolute;
+        left: 20px;
+        top: max(22px, env(safe-area-inset-top));
+        z-index: 4;
+        text-transform: uppercase;
+        letter-spacing: 0.28em;
+        font-size: 10px;
+    }
+
+    .agency-video-frame {
+        width: min(92vw, 980px);
+        max-height: 70svh;
+        aspect-ratio: 16 / 9;
+        background: #000;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 80px 220px rgba(0, 0, 0, 0.5);
+    }
+
+    .agency-video-frame video {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+        background: #000;
+    }
+
+    .agency-video-fallback {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 20px;
+        background: #09090b;
+    }
+
+    .agency-ring {
+        width: 38px;
+        height: 38px;
+        border: 1px solid currentColor;
+        border-radius: 50%;
+        opacity: 0.62;
+        margin-bottom: 22px;
+    }
+
+    .agency-final-title {
+        font-size: clamp(2.3rem, 10vw, 6rem);
+        line-height: 0.9;
+        letter-spacing: -0.075em;
+        max-width: 720px;
+    }
+
+    .agency-mobile-app button:focus-visible {
+        outline: 1px solid rgba(20, 20, 22, 0.32);
+        outline-offset: 6px;
+    }
+
+    @media (min-width: 700px) and (max-width: 1024px) {
+        .agency-project-grid {
+            grid-template-columns: minmax(260px, 0.85fr) minmax(320px, 1.15fr);
+            gap: 46px;
+        }
+
+        .agency-project-media {
+            width: min(38vw, 430px);
+        }
+
+        .agency-zone-inner {
+            max-width: 900px;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .agency-mobile-world {
+            transition-duration: 0.01ms;
+        }
+    }
+}
+
+/* =========================================================
+   DOGSTUDIO-INSPIRED TRANSITION LAYER
+   A cinematic interstitial mask for the mobile/tablet open world.
+   ========================================================= */
+
+@media (max-width: 1024px) {
+    .agency-transition-veil {
+        position: fixed;
+        inset: 0;
+        z-index: 2147483600;
+        pointer-events: none;
+        opacity: 0;
+        overflow: hidden;
+        mix-blend-mode: normal;
+        transition: opacity 0.18s ease;
+    }
+
+    .agency-transition-veil::before,
+    .agency-transition-veil::after {
+        content: '';
+        position: absolute;
+        inset: -12%;
+        background: #08080a;
+        transform: translate3d(-104%, 0, 0) skewX(-6deg);
+        will-change: transform;
+    }
+
+    .agency-transition-veil::after {
+        background: rgba(241, 239, 241, 0.92);
+        transform: translate3d(104%, 0, 0) skewX(-6deg);
+        opacity: 0.92;
+    }
+
+    .agency-veil-line {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 1px;
+        height: 0;
+        z-index: 3;
+        background: rgba(255, 255, 255, 0.66);
+        transform: translate(-50%, -50%);
+        opacity: 0;
+    }
+
+    .agency-mobile-app.is-transitioning {
+        cursor: wait;
+    }
+
+    .agency-mobile-app.is-transitioning .agency-transition-veil {
+        opacity: 1;
+    }
+
+    .agency-mobile-app.is-transitioning .agency-transition-veil::before {
+        animation: agencyBlackVeil 1.12s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+    }
+
+    .agency-mobile-app.is-transitioning .agency-transition-veil::after {
+        animation: agencyPaleVeil 1.12s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+    }
+
+    .agency-mobile-app.is-transitioning .agency-veil-line {
+        animation: agencyVeilLine 1.12s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+    }
+
+    .agency-mobile-app.is-transitioning .agency-mobile-world {
+        filter: blur(7px) saturate(0.72) contrast(0.92);
+        transition:
+            transform 1.18s cubic-bezier(0.76, 0, 0.24, 1),
+            filter 0.42s ease;
+    }
+
+    .agency-mobile-app.is-transitioning .agency-portal img,
+    .agency-mobile-app.is-transitioning .agency-project-media img,
+    .agency-mobile-app.is-transitioning .agency-video-frame video {
+        transform: scale(1.08);
+        filter: blur(4px) brightness(0.82);
+        transition: transform 1.12s cubic-bezier(0.76, 0, 0.24, 1), filter 0.42s ease;
+    }
+
+    .agency-mobile-app.is-settling .agency-zone-head,
+    .agency-mobile-app.is-settling .agency-portal,
+    .agency-mobile-app.is-settling .agency-home-footer,
+    .agency-mobile-app.is-settling .agency-index-list,
+    .agency-mobile-app.is-settling .agency-about-copy,
+    .agency-mobile-app.is-settling .agency-about-small,
+    .agency-mobile-app.is-settling .agency-project-media,
+    .agency-mobile-app.is-settling .agency-project-text,
+    .agency-mobile-app.is-settling .agency-video-frame {
+        animation: agencySettleIn 0.82s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .agency-mobile-app.is-settling .agency-project-text,
+    .agency-mobile-app.is-settling .agency-about-small,
+    .agency-mobile-app.is-settling .agency-home-footer {
+        animation-delay: 0.08s;
+    }
+
+    .agency-mobile-app.is-settling .agency-work-row {
+        animation: agencyRowIn 0.74s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .agency-mobile-app.is-settling .agency-work-row:nth-child(1) {
+        animation-delay: 0.03s;
+    }
+
+    .agency-mobile-app.is-settling .agency-work-row:nth-child(2) {
+        animation-delay: 0.07s;
+    }
+
+    .agency-mobile-app.is-settling .agency-work-row:nth-child(3) {
+        animation-delay: 0.11s;
+    }
+
+    .agency-mobile-app.is-settling .agency-work-row:nth-child(4) {
+        animation-delay: 0.15s;
+    }
+
+    .agency-mobile-app.is-settling .agency-work-row:nth-child(5) {
+        animation-delay: 0.19s;
+    }
+
+    .agency-mobile-app.is-settling .agency-work-row:nth-child(n+6) {
+        animation-delay: 0.23s;
+    }
+
+    .agency-portal img,
+    .agency-project-media img,
+    .agency-video-frame video {
+        transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1), filter 0.55s ease;
+        will-change: transform, filter;
+    }
+
+    .agency-portal:active img,
+    .agency-project-media:active img {
+        transform: scale(1.035);
+        filter: brightness(0.88);
+    }
+
+    .agency-zone::before {
+        content: '';
+        position: absolute;
+        inset: 8vh 8vw;
+        z-index: -1;
+        pointer-events: none;
+        background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.32), transparent 58%);
+        opacity: 0;
+        transform: scale(0.82);
+        transition: opacity 0.9s ease, transform 1.18s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .agency-mobile-app.is-settling .agency-zone::before {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    @keyframes agencyBlackVeil {
+        0% {
+            transform: translate3d(-112%, 0, 0) skewX(-6deg);
+        }
+
+        42% {
+            transform: translate3d(0%, 0, 0) skewX(-6deg);
+        }
+
+        62% {
+            transform: translate3d(0%, 0, 0) skewX(-6deg);
+        }
+
+        100% {
+            transform: translate3d(112%, 0, 0) skewX(-6deg);
+        }
+    }
+
+    @keyframes agencyPaleVeil {
+        0% {
+            transform: translate3d(112%, 0, 0) skewX(-6deg);
+        }
+
+        36% {
+            transform: translate3d(18%, 0, 0) skewX(-6deg);
+        }
+
+        58% {
+            transform: translate3d(18%, 0, 0) skewX(-6deg);
+        }
+
+        100% {
+            transform: translate3d(-112%, 0, 0) skewX(-6deg);
+        }
+    }
+
+    @keyframes agencyVeilLine {
+        0% {
+            height: 0;
+            opacity: 0;
+        }
+
+        30% {
+            height: 72vh;
+            opacity: 0.52;
+        }
+
+        66% {
+            height: 72vh;
+            opacity: 0.32;
+        }
+
+        100% {
+            height: 0;
+            opacity: 0;
+        }
+    }
+
+    @keyframes agencySettleIn {
+        0% {
+            opacity: 0;
+            transform: translate3d(0, 28px, 0) scale(0.985);
+            filter: blur(14px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translate3d(0, 0, 0) scale(1);
+            filter: blur(0);
+        }
+    }
+
+    @keyframes agencyRowIn {
+        0% {
+            opacity: 0;
+            transform: translate3d(-26px, 0, 0);
+            filter: blur(10px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+            filter: blur(0);
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+        .agency-transition-veil,
+        .agency-transition-veil::before,
+        .agency-transition-veil::after,
+        .agency-veil-line,
+        .agency-mobile-app.is-settling .agency-zone-head,
+        .agency-mobile-app.is-settling .agency-portal,
+        .agency-mobile-app.is-settling .agency-home-footer,
+        .agency-mobile-app.is-settling .agency-index-list,
+        .agency-mobile-app.is-settling .agency-about-copy,
+        .agency-mobile-app.is-settling .agency-about-small,
+        .agency-mobile-app.is-settling .agency-project-media,
+        .agency-mobile-app.is-settling .agency-project-text,
+        .agency-mobile-app.is-settling .agency-video-frame,
+        .agency-mobile-app.is-settling .agency-work-row {
+            animation: none !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+}
+
+/* =========================================================
+   FIX: make transition visually undeniable (Dogstudio-like)
+   This block intentionally overrides the previous subtle veil.
+   ========================================================= */
+@media (max-width: 1024px) {
+    .agency-mobile-app.is-transitioning::after {
+        content: attr(data-next-zone);
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        z-index: 2147483646;
+        transform: translate(-50%, -50%);
+        color: rgba(255, 255, 255, 0.82);
+        font-size: clamp(2.6rem, 17vw, 8rem);
+        line-height: 0.82;
+        letter-spacing: -0.08em;
+        text-transform: uppercase;
+        font-weight: 400;
+        pointer-events: none;
+        mix-blend-mode: difference;
+        animation: agencyZoneWord 1.45s cubic-bezier(0.76, 0, 0.24, 1) both;
+    }
+
+    .agency-transition-veil {
+        opacity: 0;
+        background: transparent;
+        transition: none !important;
+    }
+
+    .agency-mobile-app.is-transitioning .agency-transition-veil {
+        opacity: 1 !important;
+    }
+
+    .agency-transition-veil::before {
+        inset: -20%;
+        background: #050506 !important;
+        transform: translate3d(-120%, 0, 0) skewX(-10deg) scaleX(1.25);
+        opacity: 1;
+    }
+
+    .agency-transition-veil::after {
+        inset: -20%;
+        background: #f7f4f6 !important;
+        transform: translate3d(120%, 0, 0) skewX(-10deg) scaleX(1.15);
+        opacity: 0.96;
+    }
+
+    .agency-mobile-app.is-transitioning .agency-transition-veil::before {
+        animation: agencyBlackVeilHard 1.45s cubic-bezier(0.76, 0, 0.24, 1) forwards !important;
+    }
+
+    .agency-mobile-app.is-transitioning .agency-transition-veil::after {
+        animation: agencyPaleVeilHard 1.45s cubic-bezier(0.76, 0, 0.24, 1) forwards !important;
+    }
+
+    .agency-mobile-app.is-transitioning .agency-mobile-world {
+        filter: blur(12px) saturate(0.45) contrast(1.14) brightness(0.78) !important;
+        transform-origin: 50% 50%;
+        transition:
+            transform 1.34s cubic-bezier(0.76, 0, 0.24, 1),
+            filter 0.58s ease !important;
+    }
+
+    .agency-mobile-app.is-transitioning .agency-zone {
+        transform: translate(-50%, -50%) scale(0.965) rotate(-0.6deg);
+        transition: transform 1.2s cubic-bezier(0.76, 0, 0.24, 1);
+    }
+
+    .agency-mobile-app.is-transitioning .agency-portal,
+    .agency-mobile-app.is-transitioning .agency-project-media,
+    .agency-mobile-app.is-transitioning .agency-video-frame {
+        clip-path: inset(8% 10% round 0px);
+        transform: scale(0.92);
+        transition:
+            clip-path 1.2s cubic-bezier(0.76, 0, 0.24, 1),
+            transform 1.2s cubic-bezier(0.76, 0, 0.24, 1) !important;
+    }
+
+    .agency-mobile-app.is-settling .agency-portal,
+    .agency-mobile-app.is-settling .agency-project-media,
+    .agency-mobile-app.is-settling .agency-video-frame {
+        animation: agencyPortalRevealHard 0.95s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .agency-mobile-app.is-settling .agency-brand,
+    .agency-mobile-app.is-settling .agency-role,
+    .agency-mobile-app.is-settling .agency-zone-label,
+    .agency-mobile-app.is-settling .agency-back,
+    .agency-mobile-app.is-settling .agency-project-title,
+    .agency-mobile-app.is-settling .agency-project-role,
+    .agency-mobile-app.is-settling .agency-project-mood,
+    .agency-mobile-app.is-settling .agency-project-info,
+    .agency-mobile-app.is-settling .agency-about-copy,
+    .agency-mobile-app.is-settling .agency-about-small,
+    .agency-mobile-app.is-settling .agency-hint,
+    .agency-mobile-app.is-settling .agency-cycle {
+        animation: agencyTextSliceIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .agency-mobile-app.is-settling .agency-project-role,
+    .agency-mobile-app.is-settling .agency-about-small,
+    .agency-mobile-app.is-settling .agency-cycle {
+        animation-delay: 0.08s;
+    }
+
+    .agency-mobile-app.is-settling .agency-project-mood,
+    .agency-mobile-app.is-settling .agency-project-info {
+        animation-delay: 0.16s;
+    }
+
+    @keyframes agencyBlackVeilHard {
+        0% {
+            transform: translate3d(-125%, 0, 0) skewX(-10deg) scaleX(1.25);
+        }
+
+        34% {
+            transform: translate3d(-3%, 0, 0) skewX(-10deg) scaleX(1.25);
+        }
+
+        62% {
+            transform: translate3d(-3%, 0, 0) skewX(-10deg) scaleX(1.25);
+        }
+
+        100% {
+            transform: translate3d(125%, 0, 0) skewX(-10deg) scaleX(1.25);
+        }
+    }
+
+    @keyframes agencyPaleVeilHard {
+        0% {
+            transform: translate3d(125%, 0, 0) skewX(-10deg) scaleX(1.15);
+        }
+
+        31% {
+            transform: translate3d(12%, 0, 0) skewX(-10deg) scaleX(1.15);
+        }
+
+        60% {
+            transform: translate3d(12%, 0, 0) skewX(-10deg) scaleX(1.15);
+        }
+
+        100% {
+            transform: translate3d(-125%, 0, 0) skewX(-10deg) scaleX(1.15);
+        }
+    }
+
+    @keyframes agencyZoneWord {
+        0% {
+            opacity: 0;
+            transform: translate(-50%, -44%) scale(0.82);
+            filter: blur(18px);
+        }
+
+        32% {
+            opacity: 0;
+            transform: translate(-50%, -44%) scale(0.82);
+            filter: blur(18px);
+        }
+
+        48% {
+            opacity: 0.88;
+            transform: translate(-50%, -50%) scale(1);
+            filter: blur(0);
+        }
+
+        72% {
+            opacity: 0.52;
+            transform: translate(-50%, -50%) scale(1.04);
+            filter: blur(0);
+        }
+
+        100% {
+            opacity: 0;
+            transform: translate(-50%, -56%) scale(1.22);
+            filter: blur(22px);
+        }
+    }
+
+    @keyframes agencyPortalRevealHard {
+        0% {
+            opacity: 0;
+            clip-path: inset(48% 0 48% 0);
+            transform: scale(1.08);
+            filter: blur(14px) brightness(1.25);
+        }
+
+        42% {
+            opacity: 1;
+            clip-path: inset(0 0 0 0);
+            transform: scale(1.02);
+            filter: blur(0) brightness(1.06);
+        }
+
+        100% {
+            opacity: 1;
+            clip-path: inset(0 0 0 0);
+            transform: scale(1);
+            filter: blur(0) brightness(1);
+        }
+    }
+
+    @keyframes agencyTextSliceIn {
+        0% {
+            opacity: 0;
+            transform: translate3d(0, 34px, 0);
+            filter: blur(12px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+            filter: blur(0);
+        }
+    }
+}
+
+/* =========================================================
+   BUGFIX 05 â€” spatial app content integrity
+   - prevent off-screen zones from bleeding into home
+   - keep long home titles inside viewport
+   - support no-image projects and installation audio room
+   ========================================================= */
+
+@media (max-width: 1024px) {
+    .agency-zone {
+        overflow: hidden;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.34s ease;
+    }
+
+    .agency-mobile-app[data-zone="home"] .agency-zone-home,
+    .agency-mobile-app[data-zone="index"] .agency-zone-index,
+    .agency-mobile-app[data-zone="about"] .agency-zone-about,
+    .agency-mobile-app[data-zone="project"] .agency-zone-project,
+    .agency-mobile-app[data-zone="video"] .agency-zone-video,
+    .agency-mobile-app[data-zone="installation"] .agency-zone-installation {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .agency-mobile-app.is-transitioning .agency-zone,
+    .agency-mobile-app.is-settling .agency-zone {
+        transition-duration: 0.18s;
+    }
+
+    .agency-zone-installation {
+        left: 250vw;
+        top: 100svh;
+        width: min(96vw, 980px);
+        height: 100svh;
+        color: #141416;
+    }
+
+    .agency-portal-title {
+        font-size: clamp(1.95rem, 9.8vw, 4.35rem);
+        line-height: 0.9;
+        letter-spacing: -0.064em;
+        max-width: calc(100% - 2px);
+        overflow-wrap: normal;
+    }
+
+    .agency-portal-meta {
+        left: 18px;
+        right: 18px;
+        bottom: 18px;
+        overflow: hidden;
+    }
+
+    .agency-media-placeholder {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-end;
+        padding: 20px;
+        background: radial-gradient(circle at 50% 28%, rgba(255, 255, 255, 0.18), rgba(0, 0, 0, 0.92));
+        color: #fff;
+        pointer-events: none;
+    }
+
+    .agency-media-placeholder span {
+        font-size: 10px;
+        letter-spacing: 0.32em;
+        opacity: 0.62;
+        margin-bottom: 12px;
+    }
+
+    .agency-media-placeholder strong {
+        font-size: clamp(2rem, 9vw, 4.8rem);
+        line-height: 0.88;
+        letter-spacing: -0.07em;
+        font-weight: 400;
+    }
+
+    .agency-no-image .agency-media-placeholder {
+        display: flex;
+    }
+
+    .agency-no-image::after {
+        display: none;
+    }
+
+    .agency-no-image .agency-portal-meta {
+        opacity: 0;
+    }
+
+    .agency-installation-inner {
+        width: 100%;
+        max-width: 820px;
+        margin: auto;
+        padding: max(32px, env(safe-area-inset-top)) 20px max(34px, env(safe-area-inset-bottom));
+    }
+
+    .agency-installation-title {
+        font-size: clamp(2.7rem, 11.6vw, 6.8rem);
+        line-height: 0.88;
+        letter-spacing: -0.08em;
+        font-weight: 400;
+        max-width: 820px;
+        text-wrap: balance;
+    }
+
+    .agency-installation-copy {
+        margin-top: 28px;
+        max-width: 540px;
+        font-size: clamp(1rem, 2.8vw, 1.25rem);
+        line-height: 1.55;
+        opacity: 0.56;
+    }
+
+    .agency-installation-audio {
+        width: min(100%, 620px);
+        margin-top: 42px;
+        filter: grayscale(1) contrast(0.95);
+    }
+
+    .agency-project-media[data-agency-media-action="none"] {
+        cursor: default;
+    }
+
+    .agency-project-media[data-agency-media-action="none"] .agency-enter-video {
+        opacity: 0.22;
+    }
+}
+
+/* =========================================================
+   BUGFIX 06 â€” Works scroll + installation routing support
+   ========================================================= */
+
+@media (max-width: 1024px) {
+
+    body.agency-spatial-active,
+    .agency-mobile-app {
+        touch-action: auto;
+    }
+
+    .agency-zone-index {
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
+        touch-action: pan-y;
+        scrollbar-width: none;
+    }
+
+    .agency-zone-index::-webkit-scrollbar {
+        display: none;
+    }
+
+    .agency-zone-index .agency-zone-inner {
+        min-height: 100svh;
+        margin: 0 auto !important;
+        padding-top: max(32px, env(safe-area-inset-top));
+        padding-bottom: max(72px, env(safe-area-inset-bottom));
+    }
+
+    .agency-index-list {
+        max-height: none !important;
+        overflow: visible !important;
+        padding-bottom: 40px;
+    }
+
+    .agency-work-row {
+        touch-action: manipulation;
+    }
+
+    .agency-zone-installation {
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
+        touch-action: pan-y;
+    }
+
+    .agency-zone-installation .agency-zone-head {
+        margin-bottom: clamp(34px, 7vh, 62px);
+    }
+
+    .agency-installation-audio {
+        display: block;
+    }
+}
+
+/* =========================================================
+   SURGICAL FIX â€” Project room fine scroll only
+   - Does NOT change layout, position, image size, grid, typography
+   - Only allows the project room to scroll smoothly on tablet/mobile
+   ========================================================= */
+
+@media screen and (max-width: 1024px) {
+    .project-reveal {
+        height: 100vh !important;
+        height: 100svh !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
+        scroll-behavior: smooth;
+        scrollbar-width: none;
+        touch-action: pan-y;
+    }
+
+    .project-reveal::-webkit-scrollbar {
+        display: none;
+    }
+
+    .project-reveal-inner {
+        min-height: 100vh;
+        min-height: 100svh;
+        padding-bottom: calc(72px + env(safe-area-inset-bottom)) !important;
+    }
+
+    .project-reveal-media,
+    .project-reveal-body,
+    .project-reveal-scenes,
+    .project-reveal-actions,
+    .project-reveal-video {
+        flex-shrink: 0;
+    }
 }
