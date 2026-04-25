@@ -1928,7 +1928,8 @@ body {
     display: none;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1024px),
+(orientation: landscape) and (max-width: 1366px) and (pointer: coarse) {
 
     html,
     body {
@@ -2457,7 +2458,8 @@ body {
    A cinematic interstitial mask for the mobile/tablet open world.
    ========================================================= */
 
-@media (max-width: 1024px) {
+@media (max-width: 1024px),
+(orientation: landscape) and (max-width: 1366px) and (pointer: coarse) {
     .agency-transition-veil {
         position: fixed;
         inset: 0;
@@ -2720,7 +2722,8 @@ body {
    FIX: make transition visually undeniable (Dogstudio-like)
    This block intentionally overrides the previous subtle veil.
    ========================================================= */
-@media (max-width: 1024px) {
+@media (max-width: 1024px),
+(orientation: landscape) and (max-width: 1366px) and (pointer: coarse) {
     .agency-mobile-app.is-transitioning::after {
         content: attr(data-next-zone);
         position: fixed;
@@ -2939,7 +2942,8 @@ body {
    - support no-image projects and installation audio room
    ========================================================= */
 
-@media (max-width: 1024px) {
+@media (max-width: 1024px),
+(orientation: landscape) and (max-width: 1366px) and (pointer: coarse) {
     .agency-zone {
         overflow: hidden;
         opacity: 0;
@@ -3068,7 +3072,8 @@ body {
    BUGFIX 06 â€” Works scroll + installation routing support
    ========================================================= */
 
-@media (max-width: 1024px) {
+@media (max-width: 1024px),
+(orientation: landscape) and (max-width: 1366px) and (pointer: coarse) {
 
     body.agency-spatial-active,
     .agency-mobile-app {
@@ -3128,7 +3133,8 @@ body {
    - Only allows the project room to scroll smoothly on tablet/mobile
    ========================================================= */
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1024px),
+screen and (orientation: landscape) and (max-width: 1366px) and (pointer: coarse) {
     .project-reveal {
         height: 100vh !important;
         height: 100svh !important;
@@ -3157,5 +3163,20 @@ body {
     .project-reveal-actions,
     .project-reveal-video {
         flex-shrink: 0;
+    }
+}
+
+
+/* =========================================================
+   AGENCY PROJECT MEDIA STATES — no layout changes
+   ========================================================= */
+@media (max-width: 1024px),
+(orientation: landscape) and (max-width: 1366px) and (pointer: coarse) {
+    .agency-project-media.agency-media-disabled {
+        cursor: default;
+    }
+
+    .agency-project-media.agency-media-disabled .agency-enter-video {
+        display: none;
     }
 }

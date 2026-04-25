@@ -2245,6 +2245,7 @@ const agencyZones = {
 
 let agencyState = {
   active: 0,
+  homeActive: 0,
   zone: 'home',
   touchStartX: 0,
   touchStartY: 0,
@@ -2253,7 +2254,9 @@ let agencyState = {
 };
 
 function agencyIsMobileMode() {
-  return window.matchMedia(`(max-width: ${AGENCY_MOBILE_BREAKPOINT}px)`).matches;
+  return window.matchMedia(
+    `(max-width: ${AGENCY_MOBILE_BREAKPOINT}px), (orientation: landscape) and (max-width: 1366px) and (pointer: coarse)`
+  ).matches;
 }
 
 function agencyEscapeHTML(value = '') {
@@ -2271,7 +2274,9 @@ function agencyGetWorks() {
     .map((entry, index) => {
       const film = siteData?.filmInfo?.[entry.id] || {};
       const scene = (siteData?.filmsScenes || []).find((item) => item.videoId && item.videoId === film.videoId);
-      const rawImage = film.image || scene?.scenes?.[0] || scene?.cover || '';
+      const rawImage = entry.id === 'film7'
+        ? 'assets/images/films/film01/cover.webp'
+        : (film.image || scene?.scenes?.[0] || scene?.cover || '');
       const isInstallation = entry.id === 'film1' || film.type === 'installation' || film.mediaType === 'installation';
       const info = Array.isArray(film.info) ? film.info : [];
       return {
@@ -2293,6 +2298,25 @@ function agencyGetWorks() {
     })
     .filter((item) => item.title);
 }
+
+function agencyGetHomeWorks() {
+  return agencyGetWorks().filter((work) => !['film2', 'film12'].includes(work.id));
+}
+
+function agencyGetCurrentHomeWork() {
+  const works = agencyGetHomeWorks();
+  return works[agencyState.homeActive] || works[0] || null;
+}
+
+function agencySetActiveByWorkId(workId) {
+  const works = agencyGetWorks();
+  const index = works.findIndex((work) => work.id === workId);
+  if (index >= 0) {
+    agencyState.active = index;
+    agencyRenderWorkDependentViews();
+  }
+}
+
 
 function agencyGetCurrentWork() {
   const works = agencyGetWorks();
@@ -2378,10 +2402,12 @@ function agencyRenderWorkDependentViews() {
   if (!app) return;
 
   const work = agencyGetCurrentWork();
+  const homeWork = agencyGetCurrentHomeWork() || work;
   if (!work) return;
 
   const videoData = agencyGetVideoData(work);
 
+  // Project / index-selected work
   app.querySelectorAll('[data-agency-current-index]').forEach((el) => { el.textContent = work.index; });
   app.querySelectorAll('[data-agency-current-year]').forEach((el) => { el.textContent = work.year; });
   app.querySelectorAll('[data-agency-current-title]').forEach((el) => { el.textContent = work.title; });
@@ -2400,21 +2426,59 @@ function agencyRenderWorkDependentViews() {
     }
   });
 
-  app.querySelectorAll('.agency-portal, .agency-project-media').forEach((el) => {
+  app.querySelectorAll('.agency-project-media').forEach((el) => {
     el.classList.toggle('agency-no-image', !work.hasImage);
   });
+
+  // Home portal work: excludes Night Shift and Donne che viaggiano sole only from the home carousel.
+  if (homeWork) {
+    app.querySelectorAll('[data-agency-home-index]').forEach((el) => { el.textContent = homeWork.index; });
+    app.querySelectorAll('[data-agency-home-year]').forEach((el) => { el.textContent = homeWork.year; });
+    app.querySelectorAll('[data-agency-home-title]').forEach((el) => { el.textContent = homeWork.title; });
+    app.querySelectorAll('[data-agency-home-image]').forEach((img) => {
+      if (homeWork.hasImage && homeWork.image) {
+        img.src = homeWork.image;
+        img.alt = homeWork.title;
+        img.style.visibility = '';
+      } else {
+        img.removeAttribute('src');
+        img.alt = '';
+        img.style.visibility = 'hidden';
+      }
+    });
+
+    const portal = app.querySelector('.agency-portal');
+    if (portal) {
+      portal.dataset.agencyWorkId = homeWork.id;
+      portal.classList.toggle('agency-no-image', !homeWork.hasImage);
+    }
+
+    app.querySelectorAll('[data-agency-home-placeholder-title]').forEach((el) => { el.textContent = homeWork.title; });
+  }
 
   app.querySelectorAll('[data-agency-placeholder-title]').forEach((el) => { el.textContent = work.title; });
 
   const projectMedia = app.querySelector('.agency-project-media');
+  const mediaAction = work.type === 'installation'
+    ? 'installation'
+    : videoData?.videoSrc
+      ? 'video'
+      : work.link
+        ? 'link'
+        : 'none';
+
   if (projectMedia) {
-    const targetZone = work.type === 'installation' ? 'installation' : 'video';
-    projectMedia.dataset.agencyZone = targetZone;
-    projectMedia.dataset.agencyMediaAction = targetZone;
+    projectMedia.dataset.agencyMediaAction = mediaAction;
+    projectMedia.dataset.agencyMediaLink = work.link || '';
+    projectMedia.classList.toggle('agency-media-disabled', mediaAction === 'none');
+    projectMedia.setAttribute('aria-disabled', mediaAction === 'none' ? 'true' : 'false');
   }
 
   app.querySelectorAll('[data-agency-enter-label]').forEach((el) => {
-    el.textContent = work.type === 'installation' ? 'Enter installation' : 'Enter video';
+    if (mediaAction === 'installation') el.textContent = 'Enter installation';
+    else if (mediaAction === 'video') el.textContent = 'Enter video';
+    else if (mediaAction === 'link') el.textContent = 'More info';
+    else el.textContent = '';
   });
 
   const infoBox = app.querySelector('[data-agency-current-info]');
@@ -2444,11 +2508,17 @@ function agencyRenderWorkDependentViews() {
     }
   }
 }
-
 function agencySetActive(index) {
   const works = agencyGetWorks();
   if (!works.length) return;
+
   agencyState.active = (index + works.length) % works.length;
+
+  const selected = works[agencyState.active];
+  const homeWorks = agencyGetHomeWorks();
+  const homeIndex = homeWorks.findIndex((work) => work.id === selected?.id);
+  if (homeIndex >= 0) agencyState.homeActive = homeIndex;
+
   agencyRenderWorkDependentViews();
 }
 
@@ -2486,12 +2556,12 @@ function agencyBuildApp() {
         </div>
 
         <div class="agency-home-stage">
-          <button class="agency-portal" type="button" data-agency-zone="project" aria-label="Open selected project">
-            <img data-agency-current-image src="" alt="">
-            <div class="agency-media-placeholder"><span>No image attached</span><strong data-agency-placeholder-title></strong></div>
+          <button class="agency-portal" type="button" data-agency-zone="project" data-agency-work-id="" aria-label="Open selected project">
+            <img data-agency-home-image src="" alt="">
+            <div class="agency-media-placeholder"><span>No image attached</span><strong data-agency-home-placeholder-title></strong></div>
             <div class="agency-portal-meta">
-              <div class="agency-kicker"><span data-agency-current-index></span> / <span data-agency-current-year></span></div>
-              <div class="agency-portal-title" data-agency-current-title></div>
+              <div class="agency-kicker"><span data-agency-home-index></span> / <span data-agency-home-year></span></div>
+              <div class="agency-portal-title" data-agency-home-title></div>
             </div>
           </button>
         </div>
@@ -2532,7 +2602,7 @@ function agencyBuildApp() {
 
       <section class="agency-zone agency-zone-project" data-zone="project">
         <div class="agency-project-grid">
-          <button class="agency-project-media" type="button" data-agency-zone="video" aria-label="Enter video room">
+          <button class="agency-project-media" type="button" data-agency-project-media aria-label="Open project media">
             <img data-agency-current-image src="" alt="">
             <div class="agency-media-placeholder"><span>No image attached</span><strong data-agency-placeholder-title></strong></div>
             <span class="agency-enter-video" data-agency-enter-label>Enter video</span>
@@ -2574,9 +2644,33 @@ function agencyBuildApp() {
   document.body.appendChild(app);
 
   app.addEventListener('click', (event) => {
+    const projectMediaButton = event.target.closest('[data-agency-project-media]');
+    if (projectMediaButton) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      const action = projectMediaButton.dataset.agencyMediaAction || 'none';
+      const link = projectMediaButton.dataset.agencyMediaLink || '';
+
+      if (action === 'installation') {
+        agencySetZone('installation');
+      } else if (action === 'video') {
+        agencySetZone('video');
+      } else if (action === 'link' && link) {
+        window.open(link, '_blank', 'noopener,noreferrer');
+      }
+
+      return;
+    }
+
     const zoneButton = event.target.closest('[data-agency-zone]');
     if (zoneButton) {
       event.preventDefault();
+
+      if (zoneButton.classList.contains('agency-portal') && zoneButton.dataset.agencyWorkId) {
+        agencySetActiveByWorkId(zoneButton.dataset.agencyWorkId);
+      }
+
       agencySetZone(zoneButton.dataset.agencyZone);
       return;
     }
@@ -2591,13 +2685,21 @@ function agencyBuildApp() {
 
     if (event.target.closest('[data-agency-next]')) {
       event.preventDefault();
-      agencySetActive(agencyState.active + 1);
+      const homeWorks = agencyGetHomeWorks();
+      if (homeWorks.length) {
+        agencyState.homeActive = (agencyState.homeActive + 1) % homeWorks.length;
+        agencyRenderWorkDependentViews();
+      }
       return;
     }
 
     if (event.target.closest('[data-agency-prev]')) {
       event.preventDefault();
-      agencySetActive(agencyState.active - 1);
+      const homeWorks = agencyGetHomeWorks();
+      if (homeWorks.length) {
+        agencyState.homeActive = (agencyState.homeActive - 1 + homeWorks.length) % homeWorks.length;
+        agencyRenderWorkDependentViews();
+      }
     }
   });
 
@@ -2623,7 +2725,11 @@ function agencyBuildApp() {
       const dy = touch.clientY - agencyState.touchStartY;
       if (Math.abs(dx) > 46 && Math.abs(dx) > Math.abs(dy) * 1.25) {
         event.preventDefault();
-        agencySetActive(agencyState.active + (dx < 0 ? 1 : -1));
+        const homeWorks = agencyGetHomeWorks();
+        if (homeWorks.length) {
+          agencyState.homeActive = (agencyState.homeActive + (dx < 0 ? 1 : -1) + homeWorks.length) % homeWorks.length;
+          agencyRenderWorkDependentViews();
+        }
         return;
       }
       if (agencyState.touchMoved) {
