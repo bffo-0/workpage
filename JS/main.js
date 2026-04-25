@@ -2595,7 +2595,8 @@ function agencyBuildApp() {
           </header>
           <div class="agency-about-copy">Sound as space, memory, object and moving image.</div>
           <div class="agency-about-small">
-            Tommaso Massimiliano Alfì is a composer, experimental producer and sound designer based in Turin. His practice moves between composition, scoring and sonic construction, through listening states, material gestures and temporal rooms.
+            Tommaso Massimiliano Alfì is a composer, experimental producer and sound designer based in Turin. His work operates between composition and sound design, exploring hybrid forms through the re-sampling of objects, textures and sonic gestures within his main project, mvrgn. He has collaborated with musicians and artists across music and cinema, developing a practice that blurs the boundaries between production, film scoring and sonic construction. His research extends through different modes of listening, focusing on the material, spatial and perceptual behaviour of sound. Since 2024, he is co-founder of the experimental music label Pick Up The Cake, and curates an ongoing mix series for Radio Relativa.
+
           </div>
         </div>
       </section>
