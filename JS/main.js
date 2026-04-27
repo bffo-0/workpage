@@ -2244,8 +2244,7 @@ const agencyZones = {
 };
 
 const AGENCY_MAP_MIN_SCALE = 0.38;
-const AGENCY_MAP_EXIT_SCALE = 0.88;
-const agencyMapCenter = { x: 0, y: 100 };
+const AGENCY_MAP_EXIT_SCALE = 0.995;
 
 let agencyState = {
   active: 0,
@@ -2425,23 +2424,15 @@ function agencyApplyWorldView(zone = agencyState.zone, options = {}) {
   const mapMode = !!options.mapMode;
   const zoneTarget = agencyZones[zone] || agencyZones.home;
 
-  // Smooth camera math:
-  // scale 1   => camera is centered on the active zone
-  // scale min => camera is centered on the full world/map center
-  // This avoids the jump that happened when entering map mode.
-  const mapProgress = mapMode
-    ? agencyClamp((1 - scale) / (1 - AGENCY_MAP_MIN_SCALE), 0, 1)
-    : 0;
-  const target = {
-    x: zoneTarget.x + (agencyMapCenter.x - zoneTarget.x) * mapProgress,
-    y: zoneTarget.y + (agencyMapCenter.y - zoneTarget.y) * mapProgress
-  };
-
+  // Camera math:
+  // In map mode we keep the active zone as the camera anchor. This means
+  // a pinch-out from Home stays centered on Home instead of drifting toward
+  // an artificial map center. Two-finger pan then moves the camera freely.
   const panX = mapMode && Number.isFinite(options.panX) ? options.panX : 0;
   const panY = mapMode && Number.isFinite(options.panY) ? options.panY : 0;
 
-  world.style.setProperty('--agency-x', `${target.x}vw`);
-  world.style.setProperty('--agency-y', `${target.y}svh`);
+  world.style.setProperty('--agency-x', `${zoneTarget.x}vw`);
+  world.style.setProperty('--agency-y', `${zoneTarget.y}svh`);
   world.style.setProperty('--agency-scale', String(scale));
   world.style.setProperty('--agency-pan-x', `${panX}px`);
   world.style.setProperty('--agency-pan-y', `${panY}px`);
@@ -3010,14 +3001,23 @@ function agencyBuildApp() {
 
     // Pinch out (fingers further apart) zooms out into the map; pinch in zooms back in.
     const nextScale = agencyClamp(agencyState.pinchStartScale / Math.max(ratio, 0.01), AGENCY_MAP_MIN_SCALE, 1);
-    const shouldUseMap = agencyState.mapMode || nextScale < 0.94;
+    const shouldUseMap = agencyState.mapMode || nextScale < 0.98;
 
-    const nextPanX = shouldUseMap
-      ? agencyState.pinchStartPanX + (midpoint.x - agencyState.pinchStartMidX)
-      : 0;
-    const nextPanY = shouldUseMap
-      ? agencyState.pinchStartPanY + (midpoint.y - agencyState.pinchStartMidY)
-      : 0;
+    let nextPanX = 0;
+    let nextPanY = 0;
+
+    if (shouldUseMap) {
+      const viewportCenterX = window.innerWidth / 2;
+      const viewportCenterY = window.innerHeight / 2;
+      const scaleRatio = nextScale / Math.max(agencyState.pinchStartScale, 0.001);
+
+      // Keep the content under the two-finger midpoint stable while scaling,
+      // and also allow the midpoint itself to drag the world. This makes
+      // zooming into specific parts of the world continuous instead of
+      // always zooming around the screen center.
+      nextPanX = (midpoint.x - viewportCenterX) - scaleRatio * ((agencyState.pinchStartMidX - viewportCenterX) - agencyState.pinchStartPanX);
+      nextPanY = (midpoint.y - viewportCenterY) - scaleRatio * ((agencyState.pinchStartMidY - viewportCenterY) - agencyState.pinchStartPanY);
+    }
 
     agencyScheduleWorldView(agencyState.zone, {
       mapMode: shouldUseMap,
