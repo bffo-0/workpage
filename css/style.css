@@ -3197,7 +3197,9 @@ screen and (orientation: landscape) and (max-width: 1366px) and (pointer: coarse
     }
 
     .agency-mobile-app {
-        touch-action: pan-y pinch-zoom;
+        /* Custom pinch/pan owns the MQ world. Native browser gestures would
+           steal touchmove events and make the map feel blocked or jumpy. */
+        touch-action: none;
     }
 
     .agency-mobile-app.is-map-mode,
