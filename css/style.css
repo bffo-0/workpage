@@ -3197,9 +3197,7 @@ screen and (orientation: landscape) and (max-width: 1366px) and (pointer: coarse
     }
 
     .agency-mobile-app {
-        /* Custom pinch/pan owns the MQ world. Native browser gestures would
-           steal touchmove events and make the map feel blocked or jumpy. */
-        touch-action: none;
+        touch-action: pan-y pinch-zoom;
     }
 
     .agency-mobile-app.is-map-mode,
@@ -3483,5 +3481,371 @@ screen and (orientation: landscape) and (max-width: 1366px) and (pointer: coarse
         margin-top: 0;
         margin-bottom: 0;
         padding-bottom: max(72px, env(safe-area-inset-bottom));
+    }
+}
+
+/* =========================================================
+   WEIRD BEAUTIFUL — design sperimentale agency spatial
+   Ispired by: Holly.plus, Pentagram, Dogstudio, Studio Dumbar
+   ========================================================= */
+
+@media (max-width: 1024px),
+(orientation: landscape) and (max-width: 1366px) and (pointer: coarse) {
+
+    /* ── Sfondo: grain texture + gradiente drammatico ── */
+    .agency-mobile-app {
+        background:
+            url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.038'/%3E%3C/svg%3E"),
+            radial-gradient(ellipse 130% 80% at 18% 12%, rgba(255, 255, 255, 0.88) 0, rgba(241, 239, 241, 0.72) 36%, rgba(214, 211, 216, 0.55) 72%, rgba(196, 192, 200, 0.42) 100%) !important;
+        background-size: 512px 512px, cover !important;
+    }
+
+    /* ── Brand: condensed, optical ── */
+    .agency-brand {
+        font-size: 11px !important;
+        letter-spacing: 0.32em !important;
+        opacity: 0.62 !important;
+        font-variant: all-small-caps !important;
+        text-transform: uppercase !important;
+    }
+
+    .agency-role {
+        font-size: 9.5px !important;
+        letter-spacing: 0.18em !important;
+        opacity: 0.32 !important;
+        font-style: italic !important;
+    }
+
+    /* ── Portal: no radius, hard shadow, vignette overlay ── */
+    .agency-portal {
+        border-radius: 0 !important;
+        box-shadow:
+            0 2px 0 rgba(20, 20, 22, 0.12),
+            0 62px 180px rgba(20, 20, 22, 0.32) !important;
+        clip-path: inset(0);
+    }
+
+    .agency-portal::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        background:
+            repeating-linear-gradient(0deg,
+                transparent,
+                transparent 3px,
+                rgba(0, 0, 0, 0.022) 3px,
+                rgba(0, 0, 0, 0.022) 4px);
+        pointer-events: none;
+    }
+
+    /* ── Portal title: oversized, condensed ── */
+    .agency-portal-title {
+        font-size: clamp(2.8rem, 14vw, 6.4rem) !important;
+        line-height: 0.82 !important;
+        letter-spacing: -0.09em !important;
+        font-style: italic !important;
+        mix-blend-mode: difference !important;
+        color: #fff !important;
+    }
+
+    .agency-kicker {
+        letter-spacing: 0.42em !important;
+        font-size: 9px !important;
+        opacity: 0.62 !important;
+        mix-blend-mode: difference !important;
+        color: #fff !important;
+    }
+
+    /* ── Nav buttons: minimal slash ── */
+    .agency-btn.agency-micro {
+        position: relative;
+        font-size: 9.5px !important;
+        letter-spacing: 0.3em !important;
+        opacity: 0.5 !important;
+        padding: 2px 0 !important;
+    }
+
+    .agency-btn.agency-micro::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: currentColor;
+        transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .agency-btn.agency-micro:active::after {
+        width: 100%;
+    }
+
+    /* ── Works index: editorial newspaper ── */
+    .agency-work-title {
+        font-size: clamp(2.45rem, 11.2vw, 6.2rem) !important;
+        line-height: 0.85 !important;
+        letter-spacing: -0.085em !important;
+        font-style: italic !important;
+        opacity: 0.78 !important;
+        transition: opacity 0.2s ease, letter-spacing 0.3s ease !important;
+    }
+
+    .agency-work-row:active .agency-work-title {
+        opacity: 1 !important;
+        letter-spacing: -0.065em !important;
+    }
+
+    .agency-work-index {
+        font-size: 9px !important;
+        letter-spacing: 0.35em !important;
+        opacity: 0.3 !important;
+        font-variant-numeric: tabular-nums !important;
+        align-self: start !important;
+        padding-top: 0.5em !important;
+    }
+
+    .agency-work-year {
+        font-size: 9px !important;
+        letter-spacing: 0.28em !important;
+        opacity: 0.3 !important;
+        font-variant-numeric: tabular-nums !important;
+        align-self: start !important;
+        padding-top: 0.5em !important;
+    }
+
+    .agency-work-row {
+        border-bottom: 1px solid rgba(20, 20, 22, 0.08) !important;
+        padding: clamp(18px, 3.4vh, 32px) 0 !important;
+        gap: 20px !important;
+        align-items: start !important;
+    }
+
+    /* ── About: headline poetry ── */
+    .agency-about-copy {
+        font-size: clamp(2.8rem, 12.5vw, 7.2rem) !important;
+        line-height: 0.88 !important;
+        letter-spacing: -0.085em !important;
+        font-weight: 400 !important;
+        font-style: italic !important;
+        max-width: 860px !important;
+        margin-bottom: 48px !important;
+    }
+
+    .agency-about-small {
+        font-size: clamp(1rem, 2.8vw, 1.22rem) !important;
+        line-height: 1.72 !important;
+        letter-spacing: 0.005em !important;
+        opacity: 0.52 !important;
+        max-width: 560px !important;
+    }
+
+    .agency-about-small a {
+        border-bottom: 1px solid rgba(20, 20, 22, 0.25);
+        text-decoration: none;
+        color: inherit;
+        transition: border-color 0.2s ease;
+    }
+
+    /* ── Zone label + back: subtle counter ── */
+    .agency-zone-label {
+        font-size: 8.5px !important;
+        letter-spacing: 0.42em !important;
+        opacity: 0.35 !important;
+        text-transform: uppercase !important;
+    }
+
+    .agency-back {
+        font-size: 9px !important;
+        letter-spacing: 0.32em !important;
+        opacity: 0.42 !important;
+        padding-bottom: 2px !important;
+        border-bottom: 1px solid rgba(20, 20, 22, 0.18) !important;
+        transition: opacity 0.2s ease, border-color 0.2s ease !important;
+    }
+
+    .agency-back:active {
+        opacity: 0.9 !important;
+        border-color: rgba(20, 20, 22, 0.55) !important;
+    }
+
+    /* ── Project room ── */
+    .agency-project-title {
+        font-size: clamp(3.6rem, 16vw, 8.8rem) !important;
+        line-height: 0.82 !important;
+        letter-spacing: -0.095em !important;
+        font-style: italic !important;
+        font-weight: 400 !important;
+        text-wrap: balance !important;
+    }
+
+    .agency-project-role {
+        font-size: 9px !important;
+        letter-spacing: 0.38em !important;
+        opacity: 0.38 !important;
+        margin-top: 18px !important;
+    }
+
+    .agency-project-mood {
+        font-size: clamp(1.1rem, 3.4vw, 1.55rem) !important;
+        line-height: 1.22 !important;
+        letter-spacing: -0.02em !important;
+        opacity: 0.55 !important;
+        margin-top: 32px !important;
+        font-style: italic !important;
+    }
+
+    .agency-project-info {
+        font-size: 0.88rem !important;
+        line-height: 1.65 !important;
+        letter-spacing: 0.008em !important;
+        opacity: 0.42 !important;
+        margin-top: 20px !important;
+    }
+
+    .agency-project-media {
+        border-radius: 0 !important;
+        box-shadow:
+            0 2px 0 rgba(20, 20, 22, 0.1),
+            0 72px 200px rgba(20, 20, 22, 0.28) !important;
+    }
+
+    /* Hover overlay sul media: number + slash */
+    .agency-enter-video {
+        font-size: 9px !important;
+        letter-spacing: 0.44em !important;
+        opacity: 0 !important;
+        background: rgba(0, 0, 0, 0.22) !important;
+        backdrop-filter: blur(4px) !important;
+    }
+
+    /* ── Hint footer ── */
+    .agency-hint {
+        font-size: 10px !important;
+        letter-spacing: 0.12em !important;
+        opacity: 0.38 !important;
+        font-style: italic !important;
+        text-transform: none !important;
+        max-width: 200px !important;
+        line-height: 1.5 !important;
+    }
+
+    .agency-cycle .agency-btn {
+        font-size: 9px !important;
+        letter-spacing: 0.28em !important;
+        opacity: 0.44 !important;
+        padding: 6px 0 !important;
+        border-bottom: 1px solid rgba(20, 20, 22, 0.14) !important;
+    }
+
+    /* ── Installation room: silent and spatial ── */
+    .agency-installation-title {
+        font-size: clamp(2.9rem, 12.8vw, 7.4rem) !important;
+        letter-spacing: -0.09em !important;
+        line-height: 0.86 !important;
+        font-style: italic !important;
+    }
+
+    .agency-installation-copy {
+        font-size: clamp(1rem, 2.8vw, 1.22rem) !important;
+        line-height: 1.72 !important;
+        opacity: 0.48 !important;
+    }
+
+    .agency-installation-audio {
+        filter: grayscale(1) contrast(0.82) brightness(1.06) !important;
+        opacity: 0.62 !important;
+        margin-top: 52px !important;
+    }
+
+    /* ── Video zone: cinema grain ── */
+    .agency-zone-video {
+        background:
+            url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.92' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E"),
+            #06060a !important;
+        background-size: 256px 256px, cover !important;
+    }
+
+    .agency-video-back {
+        font-size: 9px !important;
+        letter-spacing: 0.38em !important;
+        color: rgba(255, 255, 255, 0.38) !important;
+        padding-bottom: 2px !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.14) !important;
+    }
+
+    .agency-video-frame {
+        border-radius: 0 !important;
+        box-shadow:
+            0 0 0 1px rgba(255, 255, 255, 0.06),
+            0 100px 260px rgba(0, 0, 0, 0.72) !important;
+    }
+
+    /* ── Map mode: lo sfondo si rivela ── */
+    .agency-mobile-app.is-map-mode {
+        background:
+            url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E"),
+            radial-gradient(ellipse 120% 90% at 50% 50%, rgba(230, 226, 232, 0.98) 0%, rgba(200, 196, 208, 0.95) 100%) !important;
+        background-size: 512px 512px, cover !important;
+    }
+
+    .agency-map-node {
+        border-radius: 0 !important;
+        font-size: 9px !important;
+        letter-spacing: 0.36em !important;
+        background: rgba(241, 239, 241, 0.82) !important;
+        border-color: rgba(20, 20, 22, 0.16) !important;
+        padding: 10px 14px !important;
+        backdrop-filter: blur(20px) saturate(140%) !important;
+    }
+
+    .agency-map-grid {
+        background-image:
+            linear-gradient(to right, rgba(20, 20, 22, 0.07) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(20, 20, 22, 0.07) 1px, transparent 1px) !important;
+        background-size: 16vw 16svh !important;
+    }
+
+    /* ── Zone settle in: più drammatico ── */
+    .agency-mobile-app.is-settling .agency-about-copy,
+    .agency-mobile-app.is-settling .agency-installation-title,
+    .agency-mobile-app.is-settling .agency-project-title {
+        animation: agencyTitleWipe 1.05s cubic-bezier(0.22, 1, 0.36, 1) both !important;
+    }
+
+    @keyframes agencyTitleWipe {
+        0% {
+            opacity: 0;
+            transform: translate3d(0, 52px, 0) skewY(1.5deg);
+            filter: blur(22px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translate3d(0, 0, 0) skewY(0deg);
+            filter: blur(0);
+        }
+    }
+
+    /* ── Pinch hint: più elegante ── */
+    .agency-pinch-hint {
+        border-radius: 0 !important;
+        border-color: rgba(20, 20, 22, 0.1) !important;
+        background: rgba(241, 239, 241, 0.62) !important;
+    }
+
+    .agency-pinch-label {
+        font-style: italic !important;
+        letter-spacing: 0.28em !important;
+        font-size: 8.5px !important;
+        opacity: 0.68 !important;
+    }
+
+    /* ── Transizione velo: più drammatica ── */
+    .agency-mobile-app.is-transitioning::after {
+        font-style: italic !important;
+        letter-spacing: -0.065em !important;
+        mix-blend-mode: overlay !important;
+        color: rgba(255, 255, 255, 0.72) !important;
     }
 }

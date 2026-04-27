@@ -2267,11 +2267,6 @@ let agencyState = {
   pinchStartPanX: 0,
   pinchStartPanY: 0,
   pinchGestureActive: false,
-  mapDragActive: false,
-  mapDragStartX: 0,
-  mapDragStartY: 0,
-  mapDragStartPanX: 0,
-  mapDragStartPanY: 0,
   pinchRaf: null,
   pendingWorldView: null,
   pinchHintTimer: null
@@ -2977,25 +2972,7 @@ function agencyBuildApp() {
   });
 
   app.addEventListener('touchstart', (event) => {
-    const touchCount = event.touches?.length || 0;
-
-    // Map drag: once the world is zoomed out, one finger must move the camera.
-    // This is separate from the pinch gesture so panning does not depend on
-    // continuously keeping two fingers perfectly stable.
-    if (touchCount === 1 && agencyState.mapMode) {
-      event.preventDefault();
-      const touch = event.touches[0];
-      agencyState.mapDragActive = true;
-      agencyState.mapDragStartX = touch.clientX;
-      agencyState.mapDragStartY = touch.clientY;
-      agencyState.mapDragStartPanX = agencyState.mapPanX;
-      agencyState.mapDragStartPanY = agencyState.mapPanY;
-      agencyState.touchMoved = true;
-      app.classList.add('is-pinching-map');
-      return;
-    }
-
-    if (touchCount === 2) {
+    if (event.touches?.length === 2) {
       event.preventDefault();
       agencyHidePinchHint(true);
 
@@ -3007,33 +2984,13 @@ function agencyBuildApp() {
       agencyState.pinchStartPanX = agencyState.mapMode ? agencyState.mapPanX : 0;
       agencyState.pinchStartPanY = agencyState.mapMode ? agencyState.mapPanY : 0;
       agencyState.pinchGestureActive = true;
-      agencyState.mapDragActive = false;
       agencyState.touchMoved = true;
       app.classList.add('is-pinching-map');
     }
   }, { passive: false });
 
   app.addEventListener('touchmove', (event) => {
-    const touchCount = event.touches?.length || 0;
-
-    // One-finger pan in map mode. This is the missing behaviour: after pinch-out
-    // the world behaves like a canvas/map, so dragging moves the camera.
-    if (touchCount === 1 && agencyState.mapMode && agencyState.mapDragActive) {
-      event.preventDefault();
-      const touch = event.touches[0];
-      const nextPanX = agencyState.mapDragStartPanX + (touch.clientX - agencyState.mapDragStartX);
-      const nextPanY = agencyState.mapDragStartPanY + (touch.clientY - agencyState.mapDragStartY);
-
-      agencyScheduleWorldView(agencyState.zone, {
-        mapMode: true,
-        scale: agencyState.mapScale,
-        panX: nextPanX,
-        panY: nextPanY
-      });
-      return;
-    }
-
-    if (touchCount !== 2 || !agencyState.pinchStartDistance) return;
+    if (event.touches?.length !== 2 || !agencyState.pinchStartDistance) return;
 
     event.preventDefault();
     agencyHidePinchHint(true);
@@ -3042,7 +2999,7 @@ function agencyBuildApp() {
     const midpoint = agencyTouchMidpoint(event.touches);
     const ratio = distance / Math.max(agencyState.pinchStartDistance, 1);
 
-    // Pinch out (fingers further apart) zooms out into the map; pinch in zooms back in.
+    // Pinch out → zoom out into map; pinch in → zoom back
     const nextScale = agencyClamp(agencyState.pinchStartScale / Math.max(ratio, 0.01), AGENCY_MAP_MIN_SCALE, 1);
     const shouldUseMap = agencyState.mapMode || nextScale < 0.98;
 
@@ -3052,14 +3009,22 @@ function agencyBuildApp() {
     if (shouldUseMap) {
       const viewportCenterX = window.innerWidth / 2;
       const viewportCenterY = window.innerHeight / 2;
-      const startScale = Math.max(agencyState.pinchStartScale, 0.001);
-      const scaleRatio = nextScale / startScale;
 
-      // Focus-preserving zoom + two-finger pan:
-      // the point under the midpoint stays stable while scaling, and the
-      // midpoint movement itself drags the world.
-      nextPanX = (midpoint.x - viewportCenterX) - scaleRatio * ((agencyState.pinchStartMidX - viewportCenterX) - agencyState.pinchStartPanX);
-      nextPanY = (midpoint.y - viewportCenterY) - scaleRatio * ((agencyState.pinchStartMidY - viewportCenterY) - agencyState.pinchStartPanY);
+      // Anchor point: keep the content under the two-finger midpoint stable
+      // AND allow free panning in both X and Y as fingers move
+      const scaleChange = nextScale / Math.max(agencyState.pinchStartScale, 0.001);
+
+      // What was under the midpoint at pinch start (in screen space, relative to center)
+      const anchorX = agencyState.pinchStartMidX - viewportCenterX;
+      const anchorY = agencyState.pinchStartMidY - viewportCenterY;
+
+      // Where the midpoint is now
+      const currentX = midpoint.x - viewportCenterX;
+      const currentY = midpoint.y - viewportCenterY;
+
+      // New pan: current midpoint position minus scaled anchor, plus start pan scaled
+      nextPanX = currentX - scaleChange * (anchorX - agencyState.pinchStartPanX);
+      nextPanY = currentY - scaleChange * (anchorY - agencyState.pinchStartPanY);
     }
 
     agencyScheduleWorldView(agencyState.zone, {
@@ -3071,34 +3036,64 @@ function agencyBuildApp() {
   }, { passive: false });
 
   app.addEventListener('touchend', (event) => {
-    const remainingTouches = event.touches?.length || 0;
-    if (remainingTouches >= 2) return;
+    if (event.touches?.length >= 2) return;
+    if (!agencyState.pinchStartDistance) return;
 
     const appEl = document.querySelector('.agency-mobile-app');
+    const shouldOpenMap = agencyState.mapScale < AGENCY_MAP_EXIT_SCALE;
 
-    if (agencyState.pinchStartDistance) {
-      const shouldOpenMap = agencyState.mapScale < AGENCY_MAP_EXIT_SCALE;
+    agencyState.pinchStartDistance = 0;
+    agencyState.pinchStartScale = 1;
+    agencyState.pinchStartMidX = 0;
+    agencyState.pinchStartMidY = 0;
+    agencyState.pinchStartPanX = agencyState.mapPanX;
+    agencyState.pinchStartPanY = agencyState.mapPanY;
+    agencyState.pinchGestureActive = false;
+    appEl?.classList.remove('is-pinching-map');
 
-      agencyState.pinchStartDistance = 0;
-      agencyState.pinchStartScale = 1;
-      agencyState.pinchStartMidX = 0;
-      agencyState.pinchStartMidY = 0;
-      agencyState.pinchStartPanX = agencyState.mapPanX;
-      agencyState.pinchStartPanY = agencyState.mapPanY;
-      agencyState.pinchGestureActive = false;
-
-      if (shouldOpenMap) {
-        agencySetMapMode(true, agencyClamp(agencyState.mapScale, AGENCY_MAP_MIN_SCALE, AGENCY_MAP_EXIT_SCALE));
-      } else {
-        agencySetMapMode(false);
-      }
-    }
-
-    if (remainingTouches === 0) {
-      agencyState.mapDragActive = false;
-      appEl?.classList.remove('is-pinching-map');
+    if (shouldOpenMap) {
+      agencySetMapMode(true, agencyClamp(agencyState.mapScale, AGENCY_MAP_MIN_SCALE, AGENCY_MAP_EXIT_SCALE));
+    } else {
+      agencySetMapMode(false);
     }
   }, { passive: false });
+
+  // ── Single-finger pan when in map mode ──
+  let _panTouchId = null;
+  let _panStartX = 0;
+  let _panStartY = 0;
+  let _panStartPanX = 0;
+  let _panStartPanY = 0;
+
+  app.addEventListener('touchstart', (ev) => {
+    if (ev.touches?.length === 1 && agencyState.mapMode && !agencyState.pinchGestureActive) {
+      _panTouchId    = ev.touches[0].identifier;
+      _panStartX     = ev.touches[0].clientX;
+      _panStartY     = ev.touches[0].clientY;
+      _panStartPanX  = agencyState.mapPanX;
+      _panStartPanY  = agencyState.mapPanY;
+    }
+  }, { passive: true, capture: true });
+
+  app.addEventListener('touchmove', (ev) => {
+    if (!agencyState.mapMode || agencyState.pinchGestureActive || ev.touches?.length !== 1) return;
+    if (ev.touches[0].identifier !== _panTouchId) return;
+    ev.preventDefault();
+    const dx = ev.touches[0].clientX - _panStartX;
+    const dy = ev.touches[0].clientY - _panStartY;
+    agencyApplyWorldView(agencyState.zone, {
+      mapMode: true,
+      scale: agencyState.mapScale,
+      panX: _panStartPanX + dx,
+      panY: _panStartPanY + dy
+    });
+  }, { passive: false });
+
+  app.addEventListener('touchend', (ev) => {
+    if (ev.changedTouches?.[0]?.identifier === _panTouchId) {
+      _panTouchId = null;
+    }
+  }, { passive: true });
 
   const portal = app.querySelector('.agency-portal');
   if (portal) {
