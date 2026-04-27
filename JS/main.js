@@ -2243,6 +2243,10 @@ const agencyZones = {
   installation: { x: -100, y: 100 }
 };
 
+const AGENCY_MAP_MIN_SCALE = 0.38;
+const AGENCY_MAP_EXIT_SCALE = 0.88;
+const agencyMapCenter = { x: 0, y: 100 };
+
 let agencyState = {
   active: 0,
   homeActive: 0,
@@ -2257,7 +2261,15 @@ let agencyState = {
   mapScale: 1,
   pinchStartDistance: 0,
   pinchStartScale: 1,
+  pinchStartMidX: 0,
+  pinchStartMidY: 0,
+  mapPanX: 0,
+  mapPanY: 0,
+  pinchStartPanX: 0,
+  pinchStartPanY: 0,
   pinchGestureActive: false,
+  pinchRaf: null,
+  pendingWorldView: null,
   pinchHintTimer: null
 };
 
@@ -2359,6 +2371,26 @@ function agencyTouchDistance(touches) {
   return Math.hypot(dx, dy);
 }
 
+function agencyTouchMidpoint(touches) {
+  if (!touches || touches.length < 2) return { x: 0, y: 0 };
+  return {
+    x: (touches[0].clientX + touches[1].clientX) / 2,
+    y: (touches[0].clientY + touches[1].clientY) / 2
+  };
+}
+
+function agencyScheduleWorldView(zone, options = {}) {
+  agencyState.pendingWorldView = { zone, options };
+  if (agencyState.pinchRaf) return;
+
+  agencyState.pinchRaf = window.requestAnimationFrame(() => {
+    agencyState.pinchRaf = null;
+    const pending = agencyState.pendingWorldView;
+    agencyState.pendingWorldView = null;
+    if (pending) agencyApplyWorldView(pending.zone, pending.options);
+  });
+}
+
 function agencyHidePinchHint(persist = false) {
   const app = document.querySelector('.agency-mobile-app');
   if (!app) return;
@@ -2389,23 +2421,40 @@ function agencyApplyWorldView(zone = agencyState.zone, options = {}) {
   const world = document.querySelector('.agency-mobile-world');
   if (!app || !world) return;
 
-  const scale = Number.isFinite(options.scale) ? options.scale : 1;
+  const scale = Number.isFinite(options.scale) ? agencyClamp(options.scale, AGENCY_MAP_MIN_SCALE, 1) : 1;
   const mapMode = !!options.mapMode;
-  const target = mapMode
-    ? { x: 0, y: 100 * agencyClamp(scale, 0.38, 1) }
-    : (agencyZones[zone] || agencyZones.home);
+  const zoneTarget = agencyZones[zone] || agencyZones.home;
+
+  // Smooth camera math:
+  // scale 1   => camera is centered on the active zone
+  // scale min => camera is centered on the full world/map center
+  // This avoids the jump that happened when entering map mode.
+  const mapProgress = mapMode
+    ? agencyClamp((1 - scale) / (1 - AGENCY_MAP_MIN_SCALE), 0, 1)
+    : 0;
+  const target = {
+    x: zoneTarget.x + (agencyMapCenter.x - zoneTarget.x) * mapProgress,
+    y: zoneTarget.y + (agencyMapCenter.y - zoneTarget.y) * mapProgress
+  };
+
+  const panX = mapMode && Number.isFinite(options.panX) ? options.panX : 0;
+  const panY = mapMode && Number.isFinite(options.panY) ? options.panY : 0;
 
   world.style.setProperty('--agency-x', `${target.x}vw`);
   world.style.setProperty('--agency-y', `${target.y}svh`);
   world.style.setProperty('--agency-scale', String(scale));
+  world.style.setProperty('--agency-pan-x', `${panX}px`);
+  world.style.setProperty('--agency-pan-y', `${panY}px`);
 
   agencyState.mapMode = mapMode;
   agencyState.mapScale = scale;
+  agencyState.mapPanX = panX;
+  agencyState.mapPanY = panY;
   app.classList.toggle('is-map-mode', mapMode);
   app.dataset.view = mapMode ? 'map' : 'zone';
 }
 
-function agencySetMapMode(enabled, scale = enabled ? 0.38 : 1) {
+function agencySetMapMode(enabled, scale = enabled ? AGENCY_MAP_MIN_SCALE : 1) {
   const app = document.querySelector('.agency-mobile-app');
   if (!app) return;
 
@@ -2420,8 +2469,15 @@ function agencySetMapMode(enabled, scale = enabled ? 0.38 : 1) {
     const installationAudio = app.querySelector('.agency-installation-audio');
     if (video) video.pause();
     if (installationAudio) installationAudio.pause();
-    agencyApplyWorldView(agencyState.zone, { mapMode: true, scale });
+    agencyApplyWorldView(agencyState.zone, {
+      mapMode: true,
+      scale,
+      panX: agencyState.mapPanX,
+      panY: agencyState.mapPanY
+    });
   } else {
+    agencyState.mapPanX = 0;
+    agencyState.mapPanY = 0;
     agencyApplyWorldView(agencyState.zone, { mapMode: false, scale: 1 });
   }
 }
@@ -2484,9 +2540,13 @@ function agencyZoomFromMapToZone(zone) {
   app.dataset.zone = nextZone;
   app.dataset.view = 'map-zooming';
 
+  agencyState.mapPanX = 0;
+  agencyState.mapPanY = 0;
   world.style.setProperty('--agency-x', `${target.x}vw`);
   world.style.setProperty('--agency-y', `${target.y}svh`);
   world.style.setProperty('--agency-scale', '1');
+  world.style.setProperty('--agency-pan-x', '0px');
+  world.style.setProperty('--agency-pan-y', '0px');
 
   agencyState.movingTimer = window.setTimeout(() => {
     agencyState.mapMode = false;
@@ -2528,12 +2588,16 @@ function agencySetZone(zone) {
 
   agencyState.mapMode = false;
   agencyState.mapScale = 1;
+  agencyState.mapPanX = 0;
+  agencyState.mapPanY = 0;
   app.classList.remove('is-map-mode', 'is-settling');
   app.dataset.view = 'zone';
   app.classList.add('is-transitioning');
   app.dataset.nextZone = agencyGetZoneLabel(nextZone);
   world.classList.add('is-moving');
   world.style.setProperty('--agency-scale', '1');
+  world.style.setProperty('--agency-pan-x', '0px');
+  world.style.setProperty('--agency-pan-y', '0px');
 
   if (video && nextZone !== 'video') {
     video.pause();
@@ -2823,22 +2887,12 @@ function agencyBuildApp() {
         </div>
       </section>
 
-     <section class="agency-zone agency-zone-video" data-zone="video">
-  <div class="agency-video-inner">
-    <button class="agency-video-back" type="button" data-agency-zone="project">Project</button>
-
-    <div class="agency-video-frame">
-      <video
-        class="agency-map-video"
-        src="assets/videos/ZANSKAR 6000 music_02.mp4"
-        muted
-        loop
-        playsinline
-        preload="metadata"
-      ></video>
-    </div>
-  </div>
-</section>
+      <section class="agency-zone agency-zone-video" data-zone="video">
+        <div class="agency-video-inner">
+          <button class="agency-video-back" type="button" data-agency-zone="project">Project</button>
+          <div class="agency-video-frame"></div>
+        </div>
+      </section>
 
       <section class="agency-zone agency-zone-installation" data-zone="installation">
         <div class="agency-installation-inner">
@@ -2861,7 +2915,9 @@ function agencyBuildApp() {
     const mapNode = event.target.closest('[data-agency-map-zone]');
     if (mapNode) {
       event.preventDefault();
-      agencySetZone(mapNode.dataset.agencyMapZone);
+      if (agencyState.mapMode) {
+        agencyZoomFromMapToZone(mapNode.dataset.agencyMapZone);
+      }
       return;
     }
 
@@ -2928,10 +2984,17 @@ function agencyBuildApp() {
     if (event.touches?.length === 2) {
       event.preventDefault();
       agencyHidePinchHint(true);
+
+      const midpoint = agencyTouchMidpoint(event.touches);
       agencyState.pinchStartDistance = agencyTouchDistance(event.touches);
       agencyState.pinchStartScale = agencyState.mapMode ? agencyState.mapScale : 1;
+      agencyState.pinchStartMidX = midpoint.x;
+      agencyState.pinchStartMidY = midpoint.y;
+      agencyState.pinchStartPanX = agencyState.mapMode ? agencyState.mapPanX : 0;
+      agencyState.pinchStartPanY = agencyState.mapMode ? agencyState.mapPanY : 0;
       agencyState.pinchGestureActive = true;
       agencyState.touchMoved = true;
+      app.classList.add('is-pinching-map');
     }
   }, { passive: false });
 
@@ -2942,34 +3005,49 @@ function agencyBuildApp() {
     agencyHidePinchHint(true);
 
     const distance = agencyTouchDistance(event.touches);
-    const ratio = distance / agencyState.pinchStartDistance;
-    const gestureAmount = Math.abs(ratio - 1);
+    const midpoint = agencyTouchMidpoint(event.touches);
+    const ratio = distance / Math.max(agencyState.pinchStartDistance, 1);
 
-    let nextScale;
-    if (agencyState.mapMode) {
-      // In map mode, spreading fingers zooms further out; closing fingers zooms back in.
-      nextScale = agencyClamp(agencyState.pinchStartScale / Math.max(ratio, 0.01), 0.38, 1);
-    } else {
-      // From a room, any clear two-finger pinch/spread opens the map by reducing the world scale.
-      nextScale = agencyClamp(1 - gestureAmount * 1.85, 0.38, 1);
-    }
+    // Pinch out (fingers further apart) zooms out into the map; pinch in zooms back in.
+    const nextScale = agencyClamp(agencyState.pinchStartScale / Math.max(ratio, 0.01), AGENCY_MAP_MIN_SCALE, 1);
+    const shouldUseMap = agencyState.mapMode || nextScale < 0.94;
 
-    if (nextScale < 0.86) {
-      agencyApplyWorldView(agencyState.zone, { mapMode: true, scale: nextScale });
-    } else {
-      agencyApplyWorldView(agencyState.zone, { mapMode: false, scale: nextScale });
-    }
+    const nextPanX = shouldUseMap
+      ? agencyState.pinchStartPanX + (midpoint.x - agencyState.pinchStartMidX)
+      : 0;
+    const nextPanY = shouldUseMap
+      ? agencyState.pinchStartPanY + (midpoint.y - agencyState.pinchStartMidY)
+      : 0;
+
+    agencyScheduleWorldView(agencyState.zone, {
+      mapMode: shouldUseMap,
+      scale: nextScale,
+      panX: nextPanX,
+      panY: nextPanY
+    });
   }, { passive: false });
 
   app.addEventListener('touchend', (event) => {
     if (event.touches?.length >= 2) return;
     if (!agencyState.pinchStartDistance) return;
 
-    const shouldOpenMap = agencyState.mapScale < 0.82;
+    const appEl = document.querySelector('.agency-mobile-app');
+    const shouldOpenMap = agencyState.mapScale < AGENCY_MAP_EXIT_SCALE;
+
     agencyState.pinchStartDistance = 0;
     agencyState.pinchStartScale = 1;
+    agencyState.pinchStartMidX = 0;
+    agencyState.pinchStartMidY = 0;
+    agencyState.pinchStartPanX = agencyState.mapPanX;
+    agencyState.pinchStartPanY = agencyState.mapPanY;
     agencyState.pinchGestureActive = false;
-    agencySetMapMode(shouldOpenMap);
+    appEl?.classList.remove('is-pinching-map');
+
+    if (shouldOpenMap) {
+      agencySetMapMode(true, agencyClamp(agencyState.mapScale, AGENCY_MAP_MIN_SCALE, AGENCY_MAP_EXIT_SCALE));
+    } else {
+      agencySetMapMode(false);
+    }
   }, { passive: false });
 
   const portal = app.querySelector('.agency-portal');
