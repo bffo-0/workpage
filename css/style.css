@@ -3182,245 +3182,174 @@ screen and (orientation: landscape) and (max-width: 1366px) and (pointer: coarse
 }
 
 /* =========================================================
-   BUGFIX 07 â€” Agency mobile overflow inside media queries
-   - Root cause: generic .agency-zone overflow:hidden was clipping
-     child/zone scroll areas on mobile/tablet.
-   - Keep clipping only where needed: home portal/media frames/video frame.
+   MQ ONLY â€” Agency spatial pinch-out map mode
+   Adds a camera-to-map state without touching desktop/laptop UI.
    ========================================================= */
-
 @media (max-width: 1024px),
 (orientation: landscape) and (max-width: 1366px) and (pointer: coarse) {
-
-    body.agency-spatial-active,
-    .agency-mobile-app {
-        touch-action: auto !important;
-    }
 
     .agency-mobile-world {
-        overflow: visible !important;
+        transform:
+            translate3d(calc(-50% + var(--agency-x, 0vw)), calc(-50% + var(--agency-y, 0svh)), 0) scale(var(--agency-scale, 1)) !important;
+        transform-origin: 50% 50%;
     }
 
-    .agency-zone {
-        overflow: visible !important;
-        min-height: 100svh;
+    .agency-map-toggle {
+        position: fixed;
+        right: max(18px, env(safe-area-inset-right));
+        bottom: max(18px, env(safe-area-inset-bottom));
+        z-index: 2147483450;
+        border: 1px solid rgba(20, 20, 22, 0.18);
+        background: rgba(241, 239, 241, 0.56);
+        backdrop-filter: blur(14px) saturate(120%);
+        -webkit-backdrop-filter: blur(14px) saturate(120%);
+        color: rgba(20, 20, 22, 0.58);
+        padding: 10px 14px;
+        font: inherit;
+        font-size: 10px;
+        line-height: 1;
+        letter-spacing: 0.26em;
+        text-transform: uppercase;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+        transition: opacity 0.25s ease, color 0.25s ease, background 0.25s ease;
     }
 
-    .agency-zone-home,
-    .agency-portal,
-    .agency-project-media,
-    .agency-video-frame {
-        overflow: hidden !important;
+    .agency-map-toggle:hover,
+    .agency-mobile-app.is-map-mode .agency-map-toggle {
+        color: rgba(20, 20, 22, 0.92);
+        background: rgba(255, 255, 255, 0.72);
     }
 
-    .agency-zone-index,
-    .agency-zone-about,
-    .agency-zone-project,
-    .agency-zone-video,
-    .agency-zone-installation {
-        overflow-y: auto !important;
-        overflow-x: hidden !important;
-        -webkit-overflow-scrolling: touch;
-        overscroll-behavior: contain;
-        touch-action: pan-y;
-        scrollbar-width: none;
-    }
-
-    .agency-zone-index::-webkit-scrollbar,
-    .agency-zone-about::-webkit-scrollbar,
-    .agency-zone-project::-webkit-scrollbar,
-    .agency-zone-video::-webkit-scrollbar,
-    .agency-zone-installation::-webkit-scrollbar {
-        display: none;
-    }
-
-    .agency-zone-index .agency-zone-inner,
-    .agency-zone-about .agency-zone-inner,
-    .agency-zone-installation .agency-installation-inner {
-        min-height: 100%;
-        margin: 0 auto !important;
-        padding-top: max(32px, env(safe-area-inset-top));
-        padding-bottom: max(72px, env(safe-area-inset-bottom));
-    }
-
-    .agency-project-grid,
-    .agency-video-inner {
-        min-height: 100%;
-        margin: 0 auto !important;
-        padding-top: max(58px, env(safe-area-inset-top));
-        padding-bottom: max(72px, env(safe-area-inset-bottom));
-    }
-
-    .agency-project-title,
-    .agency-installation-title,
-    .agency-work-title,
-    .agency-about-copy,
-    .agency-portal-title {
-        overflow-wrap: anywhere;
-        word-break: normal;
-    }
-
-    .agency-project-info,
-    .agency-project-mood,
-    .agency-about-small,
-    .agency-installation-copy {
-        overflow-wrap: anywhere;
-    }
-
-    .agency-about-small a {
-        color: inherit;
-        text-decoration: underline;
-        text-underline-offset: 0.18em;
-        text-decoration-thickness: 1px;
-    }
-
-    .agency-mobile-app.is-transitioning .agency-zone,
-    .agency-mobile-app.is-settling .agency-zone {
-        transition-duration: 0.18s;
-    }
-
-    .agency-mobile-app.is-transitioning .agency-zone {
-        opacity: 1;
-    }
-
-    .agency-mobile-app:not(.is-transitioning)[data-zone="home"] .agency-zone:not(.agency-zone-home),
-    .agency-mobile-app:not(.is-transitioning)[data-zone="index"] .agency-zone:not(.agency-zone-index),
-    .agency-mobile-app:not(.is-transitioning)[data-zone="about"] .agency-zone:not(.agency-zone-about),
-    .agency-mobile-app:not(.is-transitioning)[data-zone="project"] .agency-zone:not(.agency-zone-project),
-    .agency-mobile-app:not(.is-transitioning)[data-zone="video"] .agency-zone:not(.agency-zone-video),
-    .agency-mobile-app:not(.is-transitioning)[data-zone="installation"] .agency-zone:not(.agency-zone-installation) {
+    .agency-map-grid {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
         opacity: 0;
         pointer-events: none;
-    }
-}
-
-@media (max-height: 700px) and (orientation: landscape) and (pointer: coarse) {
-    .agency-project-grid {
-        grid-template-columns: minmax(180px, 0.75fr) minmax(260px, 1.25fr) !important;
-        gap: 24px !important;
-        align-items: center;
+        background-image:
+            linear-gradient(to right, rgba(20, 20, 22, 0.12) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(20, 20, 22, 0.12) 1px, transparent 1px);
+        background-size: 18vw 18svh;
+        transition: opacity 0.42s ease;
     }
 
-    .agency-project-media {
-        width: min(30vw, 300px) !important;
+    .agency-mobile-app.is-map-mode .agency-map-grid {
+        opacity: 0.55;
     }
 
-    .agency-project-title {
-        font-size: clamp(2.2rem, 8vw, 4.8rem) !important;
-        margin: 12px 0 12px !important;
+    .agency-map-node {
+        position: absolute;
+        z-index: 30;
+        display: block;
+        transform: translate(-50%, -50%);
+        border: 1px solid rgba(20, 20, 22, 0.2);
+        background: rgba(241, 239, 241, 0.78);
+        backdrop-filter: blur(12px) saturate(120%);
+        -webkit-backdrop-filter: blur(12px) saturate(120%);
+        color: rgba(20, 20, 22, 0.62);
+        padding: 11px 14px;
+        font: inherit;
+        font-size: 10px;
+        line-height: 1;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        opacity: 0;
+        pointer-events: none;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+        transition: opacity 0.32s ease, color 0.2s ease, background 0.2s ease, transform 0.2s ease;
     }
 
-    .agency-project-mood,
-    .agency-project-info {
-        margin-top: 14px !important;
+    .agency-map-node-home {
+        left: 150vw;
+        top: 200svh;
     }
 
-    .agency-zone-head {
-        margin-bottom: clamp(22px, 5vh, 40px) !important;
-    }
-}
-
-/* =========================================================
-   PROJECT MOBILE/TABLET â€” NO OVERLAP FIX
-   Keep the project zone scrollable, but let the project layout
-   size itself by content instead of forcing a 100svh centered grid.
-   ========================================================= */
-
-@media (max-width: 1024px),
-(orientation: landscape) and (max-width: 1366px) and (pointer: coarse) {
-    .agency-zone-project {
-        height: 100svh;
-        min-height: 100svh;
-        overflow-y: auto !important;
-        overflow-x: hidden !important;
-        -webkit-overflow-scrolling: touch;
-        touch-action: pan-y;
+    .agency-map-node-index {
+        left: 50vw;
+        top: 200svh;
     }
 
-    .agency-zone-project .agency-project-grid {
-        min-height: auto !important;
-        height: auto !important;
-        margin: 0 auto !important;
-        box-sizing: border-box;
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-auto-rows: auto;
-        align-content: start;
-        align-items: start;
-        justify-items: center;
-        gap: clamp(22px, 5svh, 44px) !important;
-        padding-top: max(72px, env(safe-area-inset-top)) !important;
-        padding-bottom: max(96px, env(safe-area-inset-bottom)) !important;
+    .agency-map-node-about {
+        left: 250vw;
+        top: 200svh;
     }
 
-    .agency-zone-project .agency-project-media,
-    .agency-zone-project .agency-project-text {
-        position: relative;
-        z-index: 1;
-        grid-column: 1;
-        min-width: 0;
-        max-width: 100%;
+    .agency-map-node-project {
+        left: 150vw;
+        top: 100svh;
     }
 
-    .agency-zone-project .agency-project-media {
-        width: min(70vw, 390px) !important;
-        flex: none;
-        margin: 0 auto !important;
+    .agency-map-node-video {
+        left: 150vw;
+        top: 0svh;
     }
 
-    .agency-zone-project .agency-project-text {
-        width: min(100%, 680px);
-        margin: 0 auto !important;
-    }
-}
-
-@media (min-width: 700px) and (max-width: 1024px) and (min-height: 701px) {
-    .agency-zone-project .agency-project-grid {
-        grid-template-columns: minmax(240px, 0.9fr) minmax(0, 1.1fr) !important;
-        align-items: center;
-        align-content: center;
+    .agency-map-node-installation {
+        left: 250vw;
+        top: 100svh;
     }
 
-    .agency-zone-project .agency-project-media {
-        grid-column: 1;
-        width: min(38vw, 430px) !important;
+    .agency-mobile-app.is-map-mode .agency-map-node {
+        opacity: 1;
+        pointer-events: auto;
     }
 
-    .agency-zone-project .agency-project-text {
-        grid-column: 2;
-    }
-}
-
-@media (max-height: 700px) and (orientation: landscape) and (pointer: coarse) {
-    .agency-zone-project .agency-project-grid {
-        grid-template-columns: minmax(150px, 0.72fr) minmax(0, 1.28fr) !important;
-        gap: clamp(18px, 4vw, 32px) !important;
-        align-items: center;
-        align-content: start;
-        padding-top: max(52px, env(safe-area-inset-top)) !important;
-        padding-bottom: max(64px, env(safe-area-inset-bottom)) !important;
+    .agency-map-node:hover,
+    .agency-map-node:active {
+        color: rgba(20, 20, 22, 0.95);
+        background: rgba(255, 255, 255, 0.88);
+        transform: translate(-50%, -50%) scale(1.04);
     }
 
-    .agency-zone-project .agency-project-media {
-        grid-column: 1;
-        width: min(28vw, 260px) !important;
+    .agency-mobile-app.is-map-mode .agency-zone {
+        opacity: 0.44 !important;
+        pointer-events: none !important;
+        overflow: hidden !important;
+        transition: opacity 0.32s ease, transform 0.32s ease;
     }
 
-    .agency-zone-project .agency-project-text {
-        grid-column: 2;
-    }
-}
-
-@media (max-width: 699px) {
-    .agency-zone-project .agency-project-grid {
-        grid-template-columns: 1fr !important;
-    }
-
-    .agency-zone-project .agency-project-media,
-    .agency-zone-project .agency-project-text {
-        grid-column: 1 !important;
+    .agency-mobile-app.is-map-mode[data-zone="home"] .agency-zone-home,
+    .agency-mobile-app.is-map-mode[data-zone="index"] .agency-zone-index,
+    .agency-mobile-app.is-map-mode[data-zone="about"] .agency-zone-about,
+    .agency-mobile-app.is-map-mode[data-zone="project"] .agency-zone-project,
+    .agency-mobile-app.is-map-mode[data-zone="video"] .agency-zone-video,
+    .agency-mobile-app.is-map-mode[data-zone="installation"] .agency-zone-installation {
+        opacity: 0.68 !important;
     }
 
-    .agency-zone-project .agency-project-media {
-        width: min(78vw, 340px) !important;
+    .agency-mobile-app.is-map-mode .agency-topbar,
+    .agency-mobile-app.is-map-mode .agency-home-footer,
+    .agency-mobile-app.is-map-mode .agency-zone-head,
+    .agency-mobile-app.is-map-mode .agency-project-info,
+    .agency-mobile-app.is-map-mode .agency-project-mood,
+    .agency-mobile-app.is-map-mode .agency-about-small,
+    .agency-mobile-app.is-map-mode .agency-installation-copy,
+    .agency-mobile-app.is-map-mode .agency-video-back {
+        opacity: 0 !important;
+        pointer-events: none !important;
+    }
+
+    .agency-mobile-app.is-map-mode .agency-project-media,
+    .agency-mobile-app.is-map-mode .agency-portal,
+    .agency-mobile-app.is-map-mode .agency-video-frame {
+        box-shadow: 0 28px 90px rgba(0, 0, 0, 0.18);
+    }
+
+    .agency-mobile-app.is-map-mode.is-transitioning::after {
+        content: none;
+    }
+
+    .agency-mobile-app.is-map-zooming .agency-map-node,
+    .agency-mobile-app.is-map-zooming .agency-map-toggle {
+        pointer-events: none !important;
+    }
+
+    .agency-mobile-app.is-map-zooming .agency-map-node {
+        opacity: 0 !important;
+        transition-duration: 0.18s;
     }
 }

@@ -2250,7 +2250,13 @@ let agencyState = {
   touchStartX: 0,
   touchStartY: 0,
   touchMoved: false,
-  movingTimer: null
+  movingTimer: null,
+  veilTimer: null,
+  settleTimer: null,
+  mapMode: false,
+  mapScale: 1,
+  pinchStartDistance: 0,
+  pinchStartScale: 1
 };
 
 function agencyIsMobileMode() {
@@ -2328,34 +2334,177 @@ function agencyGetVideoData(work) {
   return siteData?.videoSidebars?.[work.videoId] || null;
 }
 
-function agencySetZone(zone) {
+function agencyGetZoneLabel(zone) {
+  const labels = {
+    home: 'home',
+    index: 'works',
+    about: 'about',
+    project: 'project',
+    video: 'video',
+    installation: 'installation'
+  };
+  return labels[zone] || zone || '';
+}
+
+function agencyClamp(value, min, max) {
+  return Math.max(min, Math.min(max, value));
+}
+
+function agencyTouchDistance(touches) {
+  if (!touches || touches.length < 2) return 0;
+  const dx = touches[0].clientX - touches[1].clientX;
+  const dy = touches[0].clientY - touches[1].clientY;
+  return Math.hypot(dx, dy);
+}
+
+function agencyApplyWorldView(zone = agencyState.zone, options = {}) {
   const app = document.querySelector('.agency-mobile-app');
   const world = document.querySelector('.agency-mobile-world');
-  const target = agencyZones[zone] || agencyZones.home;
+  if (!app || !world) return;
+
+  const scale = Number.isFinite(options.scale) ? options.scale : 1;
+  const mapMode = !!options.mapMode;
+  const target = mapMode
+    ? { x: 0, y: 100 * agencyClamp(scale, 0.38, 1) }
+    : (agencyZones[zone] || agencyZones.home);
+
+  world.style.setProperty('--agency-x', `${target.x}vw`);
+  world.style.setProperty('--agency-y', `${target.y}svh`);
+  world.style.setProperty('--agency-scale', String(scale));
+
+  agencyState.mapMode = mapMode;
+  agencyState.mapScale = scale;
+  app.classList.toggle('is-map-mode', mapMode);
+  app.dataset.view = mapMode ? 'map' : 'zone';
+}
+
+function agencySetMapMode(enabled, scale = enabled ? 0.38 : 1) {
+  const app = document.querySelector('.agency-mobile-app');
+  if (!app) return;
+
+  window.clearTimeout(agencyState.movingTimer);
+  window.clearTimeout(agencyState.veilTimer);
+  window.clearTimeout(agencyState.settleTimer);
+  app.classList.remove('is-transitioning', 'is-settling');
+  delete app.dataset.nextZone;
+
+  if (enabled) {
+    const video = app.querySelector('.agency-video-frame video');
+    const installationAudio = app.querySelector('.agency-installation-audio');
+    if (video) video.pause();
+    if (installationAudio) installationAudio.pause();
+    agencyApplyWorldView(agencyState.zone, { mapMode: true, scale });
+  } else {
+    agencyApplyWorldView(agencyState.zone, { mapMode: false, scale: 1 });
+  }
+}
+
+function agencyActivateZoneMedia(nextZone, app) {
+  if (!app) return;
+
+  const nextVideo = app.querySelector('.agency-video-frame video');
+  const nextInstallationAudio = app.querySelector('.agency-installation-audio');
+
+  if (nextVideo) {
+    if (nextZone === 'video') {
+      nextVideo.currentTime = 0;
+      nextVideo.play().catch(() => {});
+    } else {
+      nextVideo.pause();
+      nextVideo.currentTime = 0;
+    }
+  }
+
+  if (nextInstallationAudio) {
+    if (nextZone === 'installation') {
+      nextInstallationAudio.play().catch(() => {});
+    } else {
+      nextInstallationAudio.pause();
+      nextInstallationAudio.currentTime = 0;
+    }
+  }
+}
+
+function agencyZoomFromMapToZone(zone) {
+  const app = document.querySelector('.agency-mobile-app');
+  const world = document.querySelector('.agency-mobile-world');
   if (!app || !world) return;
 
   const nextZone = agencyZones[zone] ? zone : 'home';
-  const video = app.querySelector('.agency-video-frame video');
-  const installationAudio = app.querySelector('.agency-installation-audio');
-
-  if (agencyState.zone === nextZone && !app.classList.contains('is-transitioning')) return;
+  const target = agencyZones[nextZone] || agencyZones.home;
 
   window.clearTimeout(agencyState.movingTimer);
   window.clearTimeout(agencyState.veilTimer);
   window.clearTimeout(agencyState.settleTimer);
 
-  app.classList.add('is-transitioning');
-  app.classList.remove('is-settling');
-  const zoneLabelMap = {
-  index: 'works',
-  project: 'project',
-  about: 'about',
-  video: 'video',
-  home: 'home'
-};
+  const video = app.querySelector('.agency-video-frame video');
+  const installationAudio = app.querySelector('.agency-installation-audio');
+  if (video && nextZone !== 'video') {
+    video.pause();
+    video.currentTime = 0;
+  }
+  if (installationAudio && nextZone !== 'installation') {
+    installationAudio.pause();
+    installationAudio.currentTime = 0;
+  }
 
-app.dataset.nextZone = zoneLabelMap[nextZone] || nextZone;
+  app.classList.remove('is-transitioning', 'is-settling');
+  app.classList.add('is-map-zooming');
   world.classList.add('is-moving');
+  delete app.dataset.nextZone;
+
+  agencyState.zone = nextZone;
+  app.dataset.zone = nextZone;
+  app.dataset.view = 'map-zooming';
+
+  world.style.setProperty('--agency-x', `${target.x}vw`);
+  world.style.setProperty('--agency-y', `${target.y}svh`);
+  world.style.setProperty('--agency-scale', '1');
+
+  agencyState.movingTimer = window.setTimeout(() => {
+    agencyState.mapMode = false;
+    agencyState.mapScale = 1;
+    app.classList.remove('is-map-mode', 'is-map-zooming');
+    app.classList.add('is-settling');
+    app.dataset.view = 'zone';
+    world.classList.remove('is-moving');
+    agencyActivateZoneMedia(nextZone, app);
+  }, 980);
+
+  agencyState.settleTimer = window.setTimeout(() => {
+    app.classList.remove('is-settling');
+  }, 1560);
+}
+
+function agencySetZone(zone) {
+  const app = document.querySelector('.agency-mobile-app');
+  const world = document.querySelector('.agency-mobile-world');
+  if (!app || !world) return;
+
+  const nextZone = agencyZones[zone] ? zone : 'home';
+  const target = agencyZones[nextZone] || agencyZones.home;
+  const video = app.querySelector('.agency-video-frame video');
+  const installationAudio = app.querySelector('.agency-installation-audio');
+
+  if (agencyState.mapMode && !app.classList.contains('is-transitioning')) {
+    agencyZoomFromMapToZone(nextZone);
+    return;
+  }
+
+  if (agencyState.zone === nextZone && !agencyState.mapMode && !app.classList.contains('is-transitioning')) return;
+
+  window.clearTimeout(agencyState.movingTimer);
+  window.clearTimeout(agencyState.veilTimer);
+  window.clearTimeout(agencyState.settleTimer);
+
+  agencyState.mapMode = false;
+  agencyState.mapScale = 1;
+  app.classList.remove('is-map-mode', 'is-settling');
+  app.dataset.view = 'zone';
+  app.classList.add('is-transitioning');
+  app.dataset.nextZone = agencyGetZoneLabel(nextZone);
+  world.classList.add('is-moving');
+  world.style.setProperty('--agency-scale', '1');
 
   if (video && nextZone !== 'video') {
     video.pause();
@@ -2371,6 +2520,7 @@ app.dataset.nextZone = zoneLabelMap[nextZone] || nextZone;
     app.dataset.zone = nextZone;
     world.style.setProperty('--agency-x', `${target.x}vw`);
     world.style.setProperty('--agency-y', `${target.y}svh`);
+    world.style.setProperty('--agency-scale', '1');
   }, 210);
 
   agencyState.movingTimer = window.setTimeout(() => {
@@ -2547,10 +2697,19 @@ function agencyBuildApp() {
   const app = document.createElement('div');
   app.className = 'agency-mobile-app';
   app.dataset.zone = 'home';
+  app.dataset.view = 'zone';
   app.setAttribute('aria-label', 'Mobile spatial portfolio');
   app.innerHTML = `
     <div class="agency-transition-veil" aria-hidden="true"><div class="agency-veil-line"></div></div>
+    <button class="agency-map-toggle" type="button" data-agency-map-toggle aria-label="Open spatial map">Map</button>
     <div class="agency-mobile-world">
+      <div class="agency-map-grid" aria-hidden="true"></div>
+      <button class="agency-map-node agency-map-node-home" type="button" data-agency-map-zone="home">Home</button>
+      <button class="agency-map-node agency-map-node-index" type="button" data-agency-map-zone="index">Works</button>
+      <button class="agency-map-node agency-map-node-about" type="button" data-agency-map-zone="about">About</button>
+      <button class="agency-map-node agency-map-node-project" type="button" data-agency-map-zone="project">Project</button>
+      <button class="agency-map-node agency-map-node-video" type="button" data-agency-map-zone="video">Video</button>
+      <button class="agency-map-node agency-map-node-installation" type="button" data-agency-map-zone="installation">Installation</button>
       <section class="agency-zone agency-zone-home" data-zone="home">
         <div class="agency-topbar">
           <div>
@@ -2586,8 +2745,8 @@ function agencyBuildApp() {
       <section class="agency-zone agency-zone-index" data-zone="index">
         <div class="agency-zone-inner">
           <header class="agency-zone-head">
-            <div class="agency-zone-label">Works</div>
-            <button class="agency-back" type="button" data-agency-zone="home">Home</button>
+            <div class="agency-zone-label">Works / spatial list</div>
+            <button class="agency-back" type="button" data-agency-zone="home">Surface</button>
           </header>
           <div class="agency-index-list">
             ${workRows}
@@ -2598,8 +2757,8 @@ function agencyBuildApp() {
       <section class="agency-zone agency-zone-about" data-zone="about">
         <div class="agency-zone-inner">
           <header class="agency-zone-head">
-            <div class="agency-zone-label">About</div>
-            <button class="agency-back" type="button" data-agency-zone="home">Home</button>
+            <div class="agency-zone-label">Bio / quiet chamber</div>
+            <button class="agency-back" type="button" data-agency-zone="home">Surface</button>
           </header>
           <div class="agency-about-copy">Sound as space, memory, object and moving image.</div>
           <div class="agency-about-small">
@@ -2653,6 +2812,20 @@ function agencyBuildApp() {
   document.body.appendChild(app);
 
   app.addEventListener('click', (event) => {
+    const mapToggle = event.target.closest('[data-agency-map-toggle]');
+    if (mapToggle) {
+      event.preventDefault();
+      agencySetMapMode(!agencyState.mapMode);
+      return;
+    }
+
+    const mapNode = event.target.closest('[data-agency-map-zone]');
+    if (mapNode) {
+      event.preventDefault();
+      agencySetZone(mapNode.dataset.agencyMapZone);
+      return;
+    }
+
     const projectMediaButton = event.target.closest('[data-agency-project-media]');
     if (projectMediaButton) {
       event.preventDefault();
@@ -2711,6 +2884,39 @@ function agencyBuildApp() {
       }
     }
   });
+
+  app.addEventListener('touchstart', (event) => {
+    if (event.touches?.length === 2) {
+      agencyState.pinchStartDistance = agencyTouchDistance(event.touches);
+      agencyState.pinchStartScale = agencyState.mapMode ? agencyState.mapScale : 1;
+      agencyState.touchMoved = true;
+    }
+  }, { passive: true });
+
+  app.addEventListener('touchmove', (event) => {
+    if (event.touches?.length !== 2 || !agencyState.pinchStartDistance) return;
+
+    event.preventDefault();
+    const distance = agencyTouchDistance(event.touches);
+    const ratio = distance / agencyState.pinchStartDistance;
+    const nextScale = agencyClamp(agencyState.pinchStartScale * ratio, 0.38, 1);
+
+    if (nextScale < 0.82) {
+      agencyApplyWorldView(agencyState.zone, { mapMode: true, scale: nextScale });
+    } else {
+      agencyApplyWorldView(agencyState.zone, { mapMode: false, scale: nextScale });
+    }
+  }, { passive: false });
+
+  app.addEventListener('touchend', (event) => {
+    if (event.touches?.length >= 2) return;
+    if (!agencyState.pinchStartDistance) return;
+
+    const shouldOpenMap = agencyState.mapScale < 0.78;
+    agencyState.pinchStartDistance = 0;
+    agencyState.pinchStartScale = 1;
+    agencySetMapMode(shouldOpenMap);
+  }, { passive: true });
 
   const portal = app.querySelector('.agency-portal');
   if (portal) {
