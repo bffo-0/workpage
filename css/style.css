@@ -44,7 +44,7 @@ body {
     --panel-bottom-gap: clamp(22px, 2.5vh, 30px);
     --panel-gap: 8px;
 
-    /* questa ÃƒÂ¨ la larghezza MASTER di title + about + work + film */
+    /* questa ÃƒÆ’Ã‚Â¨ la larghezza MASTER di title + about + work + film */
     --ui-width: min(calc(100vw - (var(--ui-left) * 2)), var(--panel-max-width));
 
     /* installation resta separata */
@@ -1403,7 +1403,7 @@ body {
     }
 }
 
-/* ---- 1024px: TABLET Ã¢â‚¬â€ due livelli, no pannelli laterali ---- */
+/* ---- 1024px: TABLET ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â due livelli, no pannelli laterali ---- */
 @media screen and (max-width: 1024px) {
 
     /* Variabili */
@@ -1434,13 +1434,13 @@ body {
         min-width: 0;
     }
 
-    /* Scene images: piÃƒÂ¹ strette per lasciare spazio ai bordi */
+    /* Scene images: piÃƒÆ’Ã‚Â¹ strette per lasciare spazio ai bordi */
     #sceneImage,
     #sceneImageNext {
         width: min(82vw, 680px) !important;
     }
 
-    /* Scene meta: piÃƒÂ¹ grande e touch-friendly */
+    /* Scene meta: piÃƒÆ’Ã‚Â¹ grande e touch-friendly */
     .scene-meta {
         width: min(80vw, 520px);
         bottom: 28px;
@@ -1463,7 +1463,7 @@ body {
         padding: 12px 28px;
         font-size: 0.68rem;
         letter-spacing: 0.18em;
-        /* Touch target piÃƒÂ¹ grande */
+        /* Touch target piÃƒÆ’Ã‚Â¹ grande */
         min-height: 44px;
     }
 
@@ -1485,7 +1485,7 @@ body {
     }
 
     /* ---- LAYOUT A DUE LIVELLI VERTICALI ---- */
-    /* html e body diventano alti 200vh Ã¢â‚¬â€ il browser puÃƒÂ² scorrere tra i due livelli */
+    /* html e body diventano alti 200vh ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â il browser puÃƒÆ’Ã‚Â² scorrere tra i due livelli */
     html {
         height: 200vh;
     }
@@ -1497,7 +1497,7 @@ body {
         /* scroll-behavior smooth qui NON serve: lo gestiamo via JS per controllo */
     }
 
-    /* Livello 1: hero/scene Ã¢â‚¬â€ rimane fisso mentre il body scorre */
+    /* Livello 1: hero/scene ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â rimane fisso mentre il body scorre */
     .main-container,
     .hint,
     .scroll-intro,
@@ -1522,7 +1522,7 @@ body {
         -webkit-backdrop-filter: var(--glass-blur);
         overflow: visible;
         z-index: 10;
-        /* Nessuna transizione CSS: ÃƒÂ¨ il browser che scorre */
+        /* Nessuna transizione CSS: ÃƒÆ’Ã‚Â¨ il browser che scorre */
     }
 
     .project-reveal-inner {
@@ -1533,7 +1533,7 @@ body {
         gap: 0;
     }
 
-    /* Back button Ã¢â‚¬â€ sticky in cima al livello 2 */
+    /* Back button ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â sticky in cima al livello 2 */
     .project-reveal-close {
         position: sticky;
         top: 18px;
@@ -1742,12 +1742,12 @@ body {
         letter-spacing: 0.12em;
     }
 
-    /* Immagine ancora piÃƒÂ¹ stretta su mobile */
+    /* Immagine ancora piÃƒÆ’Ã‚Â¹ stretta su mobile */
     #sceneImage,
     #sceneImageNext {
         width: min(92vw, 520px) !important;
         aspect-ratio: 4 / 3 !important;
-        /* piÃƒÂ¹ alta su schermi stretti */
+        /* piÃƒÆ’Ã‚Â¹ alta su schermi stretti */
     }
 
     .scene-meta {
@@ -1919,7 +1919,7 @@ body {
 }
 
 /* =========================================================
-   AGENCY SPATIAL MOBILE/TABLET EXPERIENCE â€” STABLE BUILD
+   AGENCY SPATIAL MOBILE/TABLET EXPERIENCE Ã¢â‚¬â€ STABLE BUILD
    Desktop stays untouched. Under 1024px the original desktop
    interface is visually replaced by a self-contained spatial world.
    ========================================================= */
@@ -2936,7 +2936,7 @@ body {
 }
 
 /* =========================================================
-   BUGFIX 05 â€” spatial app content integrity
+   BUGFIX 05 Ã¢â‚¬â€ spatial app content integrity
    - prevent off-screen zones from bleeding into home
    - keep long home titles inside viewport
    - support no-image projects and installation audio room
@@ -3069,7 +3069,7 @@ body {
 }
 
 /* =========================================================
-   BUGFIX 06 â€” Works scroll + installation routing support
+   BUGFIX 06 Ã¢â‚¬â€ Works scroll + installation routing support
    ========================================================= */
 
 @media (max-width: 1024px),
@@ -3128,7 +3128,7 @@ body {
 }
 
 /* =========================================================
-   SURGICAL FIX â€” Project room fine scroll only
+   SURGICAL FIX Ã¢â‚¬â€ Project room fine scroll only
    - Does NOT change layout, position, image size, grid, typography
    - Only allows the project room to scroll smoothly on tablet/mobile
    ========================================================= */
@@ -3168,7 +3168,7 @@ screen and (orientation: landscape) and (max-width: 1366px) and (pointer: coarse
 
 
 /* =========================================================
-   AGENCY PROJECT MEDIA STATES — no layout changes
+   AGENCY PROJECT MEDIA STATES â€” no layout changes
    ========================================================= */
 @media (max-width: 1024px),
 (orientation: landscape) and (max-width: 1366px) and (pointer: coarse) {
@@ -3178,5 +3178,249 @@ screen and (orientation: landscape) and (max-width: 1366px) and (pointer: coarse
 
     .agency-project-media.agency-media-disabled .agency-enter-video {
         display: none;
+    }
+}
+
+/* =========================================================
+   BUGFIX 07 â€” Agency mobile overflow inside media queries
+   - Root cause: generic .agency-zone overflow:hidden was clipping
+     child/zone scroll areas on mobile/tablet.
+   - Keep clipping only where needed: home portal/media frames/video frame.
+   ========================================================= */
+
+@media (max-width: 1024px),
+(orientation: landscape) and (max-width: 1366px) and (pointer: coarse) {
+
+    body.agency-spatial-active,
+    .agency-mobile-app {
+        touch-action: auto !important;
+    }
+
+    .agency-mobile-world {
+        overflow: visible !important;
+    }
+
+    .agency-zone {
+        overflow: visible !important;
+        min-height: 100svh;
+    }
+
+    .agency-zone-home,
+    .agency-portal,
+    .agency-project-media,
+    .agency-video-frame {
+        overflow: hidden !important;
+    }
+
+    .agency-zone-index,
+    .agency-zone-about,
+    .agency-zone-project,
+    .agency-zone-video,
+    .agency-zone-installation {
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
+        touch-action: pan-y;
+        scrollbar-width: none;
+    }
+
+    .agency-zone-index::-webkit-scrollbar,
+    .agency-zone-about::-webkit-scrollbar,
+    .agency-zone-project::-webkit-scrollbar,
+    .agency-zone-video::-webkit-scrollbar,
+    .agency-zone-installation::-webkit-scrollbar {
+        display: none;
+    }
+
+    .agency-zone-index .agency-zone-inner,
+    .agency-zone-about .agency-zone-inner,
+    .agency-zone-installation .agency-installation-inner {
+        min-height: 100%;
+        margin: 0 auto !important;
+        padding-top: max(32px, env(safe-area-inset-top));
+        padding-bottom: max(72px, env(safe-area-inset-bottom));
+    }
+
+    .agency-project-grid,
+    .agency-video-inner {
+        min-height: 100%;
+        margin: 0 auto !important;
+        padding-top: max(58px, env(safe-area-inset-top));
+        padding-bottom: max(72px, env(safe-area-inset-bottom));
+    }
+
+    .agency-project-title,
+    .agency-installation-title,
+    .agency-work-title,
+    .agency-about-copy,
+    .agency-portal-title {
+        overflow-wrap: anywhere;
+        word-break: normal;
+    }
+
+    .agency-project-info,
+    .agency-project-mood,
+    .agency-about-small,
+    .agency-installation-copy {
+        overflow-wrap: anywhere;
+    }
+
+    .agency-about-small a {
+        color: inherit;
+        text-decoration: underline;
+        text-underline-offset: 0.18em;
+        text-decoration-thickness: 1px;
+    }
+
+    .agency-mobile-app.is-transitioning .agency-zone,
+    .agency-mobile-app.is-settling .agency-zone {
+        transition-duration: 0.18s;
+    }
+
+    .agency-mobile-app.is-transitioning .agency-zone {
+        opacity: 1;
+    }
+
+    .agency-mobile-app:not(.is-transitioning)[data-zone="home"] .agency-zone:not(.agency-zone-home),
+    .agency-mobile-app:not(.is-transitioning)[data-zone="index"] .agency-zone:not(.agency-zone-index),
+    .agency-mobile-app:not(.is-transitioning)[data-zone="about"] .agency-zone:not(.agency-zone-about),
+    .agency-mobile-app:not(.is-transitioning)[data-zone="project"] .agency-zone:not(.agency-zone-project),
+    .agency-mobile-app:not(.is-transitioning)[data-zone="video"] .agency-zone:not(.agency-zone-video),
+    .agency-mobile-app:not(.is-transitioning)[data-zone="installation"] .agency-zone:not(.agency-zone-installation) {
+        opacity: 0;
+        pointer-events: none;
+    }
+}
+
+@media (max-height: 700px) and (orientation: landscape) and (pointer: coarse) {
+    .agency-project-grid {
+        grid-template-columns: minmax(180px, 0.75fr) minmax(260px, 1.25fr) !important;
+        gap: 24px !important;
+        align-items: center;
+    }
+
+    .agency-project-media {
+        width: min(30vw, 300px) !important;
+    }
+
+    .agency-project-title {
+        font-size: clamp(2.2rem, 8vw, 4.8rem) !important;
+        margin: 12px 0 12px !important;
+    }
+
+    .agency-project-mood,
+    .agency-project-info {
+        margin-top: 14px !important;
+    }
+
+    .agency-zone-head {
+        margin-bottom: clamp(22px, 5vh, 40px) !important;
+    }
+}
+
+/* =========================================================
+   PROJECT MOBILE/TABLET â€” NO OVERLAP FIX
+   Keep the project zone scrollable, but let the project layout
+   size itself by content instead of forcing a 100svh centered grid.
+   ========================================================= */
+
+@media (max-width: 1024px),
+(orientation: landscape) and (max-width: 1366px) and (pointer: coarse) {
+    .agency-zone-project {
+        height: 100svh;
+        min-height: 100svh;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        -webkit-overflow-scrolling: touch;
+        touch-action: pan-y;
+    }
+
+    .agency-zone-project .agency-project-grid {
+        min-height: auto !important;
+        height: auto !important;
+        margin: 0 auto !important;
+        box-sizing: border-box;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-auto-rows: auto;
+        align-content: start;
+        align-items: start;
+        justify-items: center;
+        gap: clamp(22px, 5svh, 44px) !important;
+        padding-top: max(72px, env(safe-area-inset-top)) !important;
+        padding-bottom: max(96px, env(safe-area-inset-bottom)) !important;
+    }
+
+    .agency-zone-project .agency-project-media,
+    .agency-zone-project .agency-project-text {
+        position: relative;
+        z-index: 1;
+        grid-column: 1;
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .agency-zone-project .agency-project-media {
+        width: min(70vw, 390px) !important;
+        flex: none;
+        margin: 0 auto !important;
+    }
+
+    .agency-zone-project .agency-project-text {
+        width: min(100%, 680px);
+        margin: 0 auto !important;
+    }
+}
+
+@media (min-width: 700px) and (max-width: 1024px) and (min-height: 701px) {
+    .agency-zone-project .agency-project-grid {
+        grid-template-columns: minmax(240px, 0.9fr) minmax(0, 1.1fr) !important;
+        align-items: center;
+        align-content: center;
+    }
+
+    .agency-zone-project .agency-project-media {
+        grid-column: 1;
+        width: min(38vw, 430px) !important;
+    }
+
+    .agency-zone-project .agency-project-text {
+        grid-column: 2;
+    }
+}
+
+@media (max-height: 700px) and (orientation: landscape) and (pointer: coarse) {
+    .agency-zone-project .agency-project-grid {
+        grid-template-columns: minmax(150px, 0.72fr) minmax(0, 1.28fr) !important;
+        gap: clamp(18px, 4vw, 32px) !important;
+        align-items: center;
+        align-content: start;
+        padding-top: max(52px, env(safe-area-inset-top)) !important;
+        padding-bottom: max(64px, env(safe-area-inset-bottom)) !important;
+    }
+
+    .agency-zone-project .agency-project-media {
+        grid-column: 1;
+        width: min(28vw, 260px) !important;
+    }
+
+    .agency-zone-project .agency-project-text {
+        grid-column: 2;
+    }
+}
+
+@media (max-width: 699px) {
+    .agency-zone-project .agency-project-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .agency-zone-project .agency-project-media,
+    .agency-zone-project .agency-project-text {
+        grid-column: 1 !important;
+    }
+
+    .agency-zone-project .agency-project-media {
+        width: min(78vw, 340px) !important;
     }
 }
