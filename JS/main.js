@@ -2346,7 +2346,15 @@ function agencySetZone(zone) {
 
   app.classList.add('is-transitioning');
   app.classList.remove('is-settling');
-  app.dataset.nextZone = nextZone;
+  const zoneLabelMap = {
+  index: 'works',
+  project: 'project',
+  about: 'about',
+  video: 'video',
+  home: 'home'
+};
+
+app.dataset.nextZone = zoneLabelMap[nextZone] || nextZone;
   world.classList.add('is-moving');
 
   if (video && nextZone !== 'video') {
@@ -2550,7 +2558,7 @@ function agencyBuildApp() {
             <div class="agency-role">composer / sound designer</div>
           </div>
           <nav class="agency-nav" aria-label="Mobile navigation">
-            <button class="agency-btn agency-micro" type="button" data-agency-zone="index">Index</button>
+            <button class="agency-btn agency-micro" type="button" data-agency-zone="index">Works</button>
             <button class="agency-btn agency-micro" type="button" data-agency-zone="about">Bio</button>
           </nav>
         </div>
@@ -2578,8 +2586,8 @@ function agencyBuildApp() {
       <section class="agency-zone agency-zone-index" data-zone="index">
         <div class="agency-zone-inner">
           <header class="agency-zone-head">
-            <div class="agency-zone-label">Index / spatial list</div>
-            <button class="agency-back" type="button" data-agency-zone="home">Surface</button>
+            <div class="agency-zone-label">Works</div>
+            <button class="agency-back" type="button" data-agency-zone="home">Home</button>
           </header>
           <div class="agency-index-list">
             ${workRows}
@@ -2590,8 +2598,8 @@ function agencyBuildApp() {
       <section class="agency-zone agency-zone-about" data-zone="about">
         <div class="agency-zone-inner">
           <header class="agency-zone-head">
-            <div class="agency-zone-label">Bio / quiet chamber</div>
-            <button class="agency-back" type="button" data-agency-zone="home">Surface</button>
+            <div class="agency-zone-label">About</div>
+            <button class="agency-back" type="button" data-agency-zone="home">Home</button>
           </header>
           <div class="agency-about-copy">Sound as space, memory, object and moving image.</div>
           <div class="agency-about-small">
@@ -2611,7 +2619,7 @@ function agencyBuildApp() {
           <div class="agency-project-text">
             <header class="agency-zone-head">
               <div class="agency-zone-label">Project room / <span data-agency-current-index></span></div>
-              <button class="agency-back" type="button" data-agency-zone="index">Index</button>
+              <button class="agency-back" type="button" data-agency-zone="index">Works</button>
             </header>
             <h2 class="agency-project-title" data-agency-current-title></h2>
             <div class="agency-project-role"><span data-agency-current-year></span> / <span data-agency-current-role></span></div>
