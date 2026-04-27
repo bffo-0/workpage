@@ -44,7 +44,7 @@ body {
     --panel-bottom-gap: clamp(22px, 2.5vh, 30px);
     --panel-gap: 8px;
 
-    /* questa ÃƒÆ’Ã‚Â¨ la larghezza MASTER di title + about + work + film */
+    /* questa ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¨ la larghezza MASTER di title + about + work + film */
     --ui-width: min(calc(100vw - (var(--ui-left) * 2)), var(--panel-max-width));
 
     /* installation resta separata */
@@ -1403,7 +1403,7 @@ body {
     }
 }
 
-/* ---- 1024px: TABLET ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â due livelli, no pannelli laterali ---- */
+/* ---- 1024px: TABLET ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â due livelli, no pannelli laterali ---- */
 @media screen and (max-width: 1024px) {
 
     /* Variabili */
@@ -1434,13 +1434,13 @@ body {
         min-width: 0;
     }
 
-    /* Scene images: piÃƒÆ’Ã‚Â¹ strette per lasciare spazio ai bordi */
+    /* Scene images: piÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¹ strette per lasciare spazio ai bordi */
     #sceneImage,
     #sceneImageNext {
         width: min(82vw, 680px) !important;
     }
 
-    /* Scene meta: piÃƒÆ’Ã‚Â¹ grande e touch-friendly */
+    /* Scene meta: piÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¹ grande e touch-friendly */
     .scene-meta {
         width: min(80vw, 520px);
         bottom: 28px;
@@ -1463,7 +1463,7 @@ body {
         padding: 12px 28px;
         font-size: 0.68rem;
         letter-spacing: 0.18em;
-        /* Touch target piÃƒÆ’Ã‚Â¹ grande */
+        /* Touch target piÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¹ grande */
         min-height: 44px;
     }
 
@@ -1485,7 +1485,7 @@ body {
     }
 
     /* ---- LAYOUT A DUE LIVELLI VERTICALI ---- */
-    /* html e body diventano alti 200vh ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â il browser puÃƒÆ’Ã‚Â² scorrere tra i due livelli */
+    /* html e body diventano alti 200vh ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â il browser puÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â² scorrere tra i due livelli */
     html {
         height: 200vh;
     }
@@ -1497,7 +1497,7 @@ body {
         /* scroll-behavior smooth qui NON serve: lo gestiamo via JS per controllo */
     }
 
-    /* Livello 1: hero/scene ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â rimane fisso mentre il body scorre */
+    /* Livello 1: hero/scene ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â rimane fisso mentre il body scorre */
     .main-container,
     .hint,
     .scroll-intro,
@@ -1522,7 +1522,7 @@ body {
         -webkit-backdrop-filter: var(--glass-blur);
         overflow: visible;
         z-index: 10;
-        /* Nessuna transizione CSS: ÃƒÆ’Ã‚Â¨ il browser che scorre */
+        /* Nessuna transizione CSS: ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¨ il browser che scorre */
     }
 
     .project-reveal-inner {
@@ -1533,7 +1533,7 @@ body {
         gap: 0;
     }
 
-    /* Back button ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â sticky in cima al livello 2 */
+    /* Back button ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â sticky in cima al livello 2 */
     .project-reveal-close {
         position: sticky;
         top: 18px;
@@ -1742,12 +1742,12 @@ body {
         letter-spacing: 0.12em;
     }
 
-    /* Immagine ancora piÃƒÆ’Ã‚Â¹ stretta su mobile */
+    /* Immagine ancora piÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¹ stretta su mobile */
     #sceneImage,
     #sceneImageNext {
         width: min(92vw, 520px) !important;
         aspect-ratio: 4 / 3 !important;
-        /* piÃƒÆ’Ã‚Â¹ alta su schermi stretti */
+        /* piÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¹ alta su schermi stretti */
     }
 
     .scene-meta {
@@ -1919,7 +1919,7 @@ body {
 }
 
 /* =========================================================
-   AGENCY SPATIAL MOBILE/TABLET EXPERIENCE Ã¢â‚¬â€ STABLE BUILD
+   AGENCY SPATIAL MOBILE/TABLET EXPERIENCE ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â STABLE BUILD
    Desktop stays untouched. Under 1024px the original desktop
    interface is visually replaced by a self-contained spatial world.
    ========================================================= */
@@ -2936,7 +2936,7 @@ body {
 }
 
 /* =========================================================
-   BUGFIX 05 Ã¢â‚¬â€ spatial app content integrity
+   BUGFIX 05 ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â spatial app content integrity
    - prevent off-screen zones from bleeding into home
    - keep long home titles inside viewport
    - support no-image projects and installation audio room
@@ -3069,7 +3069,7 @@ body {
 }
 
 /* =========================================================
-   BUGFIX 06 Ã¢â‚¬â€ Works scroll + installation routing support
+   BUGFIX 06 ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â Works scroll + installation routing support
    ========================================================= */
 
 @media (max-width: 1024px),
@@ -3128,7 +3128,7 @@ body {
 }
 
 /* =========================================================
-   SURGICAL FIX Ã¢â‚¬â€ Project room fine scroll only
+   SURGICAL FIX ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â Project room fine scroll only
    - Does NOT change layout, position, image size, grid, typography
    - Only allows the project room to scroll smoothly on tablet/mobile
    ========================================================= */
@@ -3168,7 +3168,7 @@ screen and (orientation: landscape) and (max-width: 1366px) and (pointer: coarse
 
 
 /* =========================================================
-   AGENCY PROJECT MEDIA STATES â€” no layout changes
+   AGENCY PROJECT MEDIA STATES Ã¢â‚¬â€ no layout changes
    ========================================================= */
 @media (max-width: 1024px),
 (orientation: landscape) and (max-width: 1366px) and (pointer: coarse) {
@@ -3182,7 +3182,7 @@ screen and (orientation: landscape) and (max-width: 1366px) and (pointer: coarse
 }
 
 /* =========================================================
-   MQ ONLY â€” Agency spatial pinch-out map mode
+   MQ ONLY Ã¢â‚¬â€ Agency spatial pinch-out map mode
    Adds a camera-to-map state without touching desktop/laptop UI.
    ========================================================= */
 @media (max-width: 1024px),
@@ -3445,7 +3445,7 @@ screen and (orientation: landscape) and (max-width: 1366px) and (pointer: coarse
 
 
 /* =========================================================
-   MQ ONLY â€” Restore internal scroll inside open-world rooms
+   MQ ONLY Ã¢â‚¬â€ Restore internal scroll inside open-world rooms
    Body remains locked; only the active room scrolls when needed.
    ========================================================= */
 @media (max-width: 1024px),
@@ -3485,14 +3485,14 @@ screen and (orientation: landscape) and (max-width: 1366px) and (pointer: coarse
 }
 
 /* =========================================================
-   WEIRD BEAUTIFUL — design sperimentale agency spatial
+   WEIRD BEAUTIFUL â€” design sperimentale agency spatial
    Ispired by: Holly.plus, Pentagram, Dogstudio, Studio Dumbar
    ========================================================= */
 
 @media (max-width: 1024px),
 (orientation: landscape) and (max-width: 1366px) and (pointer: coarse) {
 
-    /* ── Sfondo: grain texture + gradiente drammatico ── */
+    /* â”€â”€ Sfondo: grain texture + gradiente drammatico â”€â”€ */
     .agency-mobile-app {
         background:
             url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.038'/%3E%3C/svg%3E"),
@@ -3500,7 +3500,7 @@ screen and (orientation: landscape) and (max-width: 1366px) and (pointer: coarse
         background-size: 512px 512px, cover !important;
     }
 
-    /* ── Brand: condensed, optical ── */
+    /* â”€â”€ Brand: condensed, optical â”€â”€ */
     .agency-brand {
         font-size: 11px !important;
         letter-spacing: 0.32em !important;
@@ -3516,7 +3516,7 @@ screen and (orientation: landscape) and (max-width: 1366px) and (pointer: coarse
         font-style: italic !important;
     }
 
-    /* ── Portal: no radius, hard shadow, vignette overlay ── */
+    /* â”€â”€ Portal: no radius, hard shadow, vignette overlay â”€â”€ */
     .agency-portal {
         border-radius: 0 !important;
         box-shadow:
@@ -3539,7 +3539,7 @@ screen and (orientation: landscape) and (max-width: 1366px) and (pointer: coarse
         pointer-events: none;
     }
 
-    /* ── Portal title: oversized, condensed ── */
+    /* â”€â”€ Portal title: oversized, condensed â”€â”€ */
     .agency-portal-title {
         font-size: clamp(2.8rem, 14vw, 6.4rem) !important;
         line-height: 0.82 !important;
@@ -3557,7 +3557,7 @@ screen and (orientation: landscape) and (max-width: 1366px) and (pointer: coarse
         color: #fff !important;
     }
 
-    /* ── Nav buttons: minimal slash ── */
+    /* â”€â”€ Nav buttons: minimal slash â”€â”€ */
     .agency-btn.agency-micro {
         position: relative;
         font-size: 9.5px !important;
@@ -3581,7 +3581,7 @@ screen and (orientation: landscape) and (max-width: 1366px) and (pointer: coarse
         width: 100%;
     }
 
-    /* ── Works index: editorial newspaper ── */
+    /* â”€â”€ Works index: editorial newspaper â”€â”€ */
     .agency-work-title {
         font-size: clamp(2.45rem, 11.2vw, 6.2rem) !important;
         line-height: 0.85 !important;
@@ -3621,7 +3621,7 @@ screen and (orientation: landscape) and (max-width: 1366px) and (pointer: coarse
         align-items: start !important;
     }
 
-    /* ── About: headline poetry ── */
+    /* â”€â”€ About: headline poetry â”€â”€ */
     .agency-about-copy {
         font-size: clamp(2.8rem, 12.5vw, 7.2rem) !important;
         line-height: 0.88 !important;
@@ -3647,7 +3647,7 @@ screen and (orientation: landscape) and (max-width: 1366px) and (pointer: coarse
         transition: border-color 0.2s ease;
     }
 
-    /* ── Zone label + back: subtle counter ── */
+    /* â”€â”€ Zone label + back: subtle counter â”€â”€ */
     .agency-zone-label {
         font-size: 8.5px !important;
         letter-spacing: 0.42em !important;
@@ -3669,7 +3669,7 @@ screen and (orientation: landscape) and (max-width: 1366px) and (pointer: coarse
         border-color: rgba(20, 20, 22, 0.55) !important;
     }
 
-    /* ── Project room ── */
+    /* â”€â”€ Project room â”€â”€ */
     .agency-project-title {
         font-size: clamp(3.6rem, 16vw, 8.8rem) !important;
         line-height: 0.82 !important;
@@ -3719,7 +3719,7 @@ screen and (orientation: landscape) and (max-width: 1366px) and (pointer: coarse
         backdrop-filter: blur(4px) !important;
     }
 
-    /* ── Hint footer ── */
+    /* â”€â”€ Hint footer â”€â”€ */
     .agency-hint {
         font-size: 10px !important;
         letter-spacing: 0.12em !important;
@@ -3738,7 +3738,7 @@ screen and (orientation: landscape) and (max-width: 1366px) and (pointer: coarse
         border-bottom: 1px solid rgba(20, 20, 22, 0.14) !important;
     }
 
-    /* ── Installation room: silent and spatial ── */
+    /* â”€â”€ Installation room: silent and spatial â”€â”€ */
     .agency-installation-title {
         font-size: clamp(2.9rem, 12.8vw, 7.4rem) !important;
         letter-spacing: -0.09em !important;
@@ -3758,7 +3758,7 @@ screen and (orientation: landscape) and (max-width: 1366px) and (pointer: coarse
         margin-top: 52px !important;
     }
 
-    /* ── Video zone: cinema grain ── */
+    /* â”€â”€ Video zone: cinema grain â”€â”€ */
     .agency-zone-video {
         background:
             url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.92' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E"),
@@ -3781,7 +3781,7 @@ screen and (orientation: landscape) and (max-width: 1366px) and (pointer: coarse
             0 100px 260px rgba(0, 0, 0, 0.72) !important;
     }
 
-    /* ── Map mode: lo sfondo si rivela ── */
+    /* â”€â”€ Map mode: lo sfondo si rivela â”€â”€ */
     .agency-mobile-app.is-map-mode {
         background:
             url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E"),
@@ -3806,7 +3806,7 @@ screen and (orientation: landscape) and (max-width: 1366px) and (pointer: coarse
         background-size: 16vw 16svh !important;
     }
 
-    /* ── Zone settle in: più drammatico ── */
+    /* â”€â”€ Zone settle in: piÃ¹ drammatico â”€â”€ */
     .agency-mobile-app.is-settling .agency-about-copy,
     .agency-mobile-app.is-settling .agency-installation-title,
     .agency-mobile-app.is-settling .agency-project-title {
@@ -3827,7 +3827,7 @@ screen and (orientation: landscape) and (max-width: 1366px) and (pointer: coarse
         }
     }
 
-    /* ── Pinch hint: più elegante ── */
+    /* â”€â”€ Pinch hint: piÃ¹ elegante â”€â”€ */
     .agency-pinch-hint {
         border-radius: 0 !important;
         border-color: rgba(20, 20, 22, 0.1) !important;
@@ -3841,11 +3841,65 @@ screen and (orientation: landscape) and (max-width: 1366px) and (pointer: coarse
         opacity: 0.68 !important;
     }
 
-    /* ── Transizione velo: più drammatica ── */
+    /* â”€â”€ Transizione velo: piÃ¹ drammatica â”€â”€ */
     .agency-mobile-app.is-transitioning::after {
         font-style: italic !important;
         letter-spacing: -0.065em !important;
         mix-blend-mode: overlay !important;
         color: rgba(255, 255, 255, 0.72) !important;
+    }
+}
+
+/* =========================================================
+   MQ ONLY â€” Pinch-in tunnel from map to focused zone
+   Keeps desktop untouched. Active only in agency mobile map transitions.
+   ========================================================= */
+@media (max-width: 1024px),
+(orientation: landscape) and (max-width: 1366px) and (pointer: coarse) {
+    .agency-mobile-app.is-map-tunnel .agency-mobile-world {
+        transition:
+            transform 1.12s cubic-bezier(0.76, 0, 0.24, 1),
+            filter 1.12s cubic-bezier(0.76, 0, 0.24, 1) !important;
+        filter: saturate(1.08) contrast(1.04);
+    }
+
+    .agency-mobile-app.is-map-tunnel::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        z-index: 2147483400;
+        pointer-events: none;
+        opacity: 0;
+        background:
+            radial-gradient(circle at 50% 50%, transparent 0 38%, rgba(8, 8, 10, 0.10) 62%, rgba(8, 8, 10, 0.32) 100%);
+        animation: agencyTunnelPulse 1.08s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+    }
+
+    .agency-mobile-app.is-map-tunnel .agency-map-grid {
+        opacity: 0 !important;
+        transition-duration: 0.22s;
+    }
+
+    .agency-mobile-app.is-map-tunnel .agency-zone {
+        transition:
+            opacity 0.42s ease,
+            transform 1.12s cubic-bezier(0.76, 0, 0.24, 1) !important;
+    }
+
+    @keyframes agencyTunnelPulse {
+        0% {
+            opacity: 0;
+            transform: scale(1.05);
+        }
+
+        42% {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        100% {
+            opacity: 0;
+            transform: scale(0.96);
+        }
     }
 }
