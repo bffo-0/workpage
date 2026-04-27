@@ -2256,7 +2256,9 @@ let agencyState = {
   mapMode: false,
   mapScale: 1,
   pinchStartDistance: 0,
-  pinchStartScale: 1
+  pinchStartScale: 1,
+  pinchGestureActive: false,
+  pinchHintTimer: null
 };
 
 function agencyIsMobileMode() {
@@ -2355,6 +2357,31 @@ function agencyTouchDistance(touches) {
   const dx = touches[0].clientX - touches[1].clientX;
   const dy = touches[0].clientY - touches[1].clientY;
   return Math.hypot(dx, dy);
+}
+
+function agencyHidePinchHint(persist = false) {
+  const app = document.querySelector('.agency-mobile-app');
+  if (!app) return;
+  app.classList.remove('is-pinch-hint-visible');
+  window.clearTimeout(agencyState.pinchHintTimer);
+  if (persist) {
+    try { window.sessionStorage.setItem('agencyPinchHintSeen', '1'); } catch (_) {}
+  }
+}
+
+function agencyShowInitialPinchHint() {
+  const app = document.querySelector('.agency-mobile-app');
+  if (!app) return;
+
+  let alreadySeen = false;
+  try { alreadySeen = window.sessionStorage.getItem('agencyPinchHintSeen') === '1'; } catch (_) {}
+  if (alreadySeen || agencyState.zone !== 'home') return;
+
+  app.classList.add('is-pinch-hint-visible');
+  window.clearTimeout(agencyState.pinchHintTimer);
+  agencyState.pinchHintTimer = window.setTimeout(() => {
+    agencyHidePinchHint(true);
+  }, 5200);
 }
 
 function agencyApplyWorldView(zone = agencyState.zone, options = {}) {
@@ -2485,6 +2512,8 @@ function agencySetZone(zone) {
   const target = agencyZones[nextZone] || agencyZones.home;
   const video = app.querySelector('.agency-video-frame video');
   const installationAudio = app.querySelector('.agency-installation-audio');
+
+  if (nextZone !== 'home') agencyHidePinchHint(true);
 
   if (agencyState.mapMode && !app.classList.contains('is-transitioning')) {
     agencyZoomFromMapToZone(nextZone);
@@ -2701,7 +2730,13 @@ function agencyBuildApp() {
   app.setAttribute('aria-label', 'Mobile spatial portfolio');
   app.innerHTML = `
     <div class="agency-transition-veil" aria-hidden="true"><div class="agency-veil-line"></div></div>
-    <button class="agency-map-toggle" type="button" data-agency-map-toggle aria-label="Open spatial map">Map</button>
+    <div class="agency-pinch-hint" aria-hidden="true">
+      <span class="agency-pinch-fingers">
+        <span class="agency-pinch-finger agency-pinch-finger-left"></span>
+        <span class="agency-pinch-finger agency-pinch-finger-right"></span>
+      </span>
+      <span class="agency-pinch-label">pinch out</span>
+    </div>
     <div class="agency-mobile-world">
       <div class="agency-map-grid" aria-hidden="true"></div>
       <button class="agency-map-node agency-map-node-home" type="button" data-agency-map-zone="home">Home</button>
@@ -2788,12 +2823,22 @@ function agencyBuildApp() {
         </div>
       </section>
 
-      <section class="agency-zone agency-zone-video" data-zone="video">
-        <div class="agency-video-inner">
-          <button class="agency-video-back" type="button" data-agency-zone="project">Project</button>
-          <div class="agency-video-frame"></div>
-        </div>
-      </section>
+     <section class="agency-zone agency-zone-video" data-zone="video">
+  <div class="agency-video-inner">
+    <button class="agency-video-back" type="button" data-agency-zone="project">Project</button>
+
+    <div class="agency-video-frame">
+      <video
+        class="agency-map-video"
+        src="assets/videos/ZANSKAR 6000 music_02.mp4"
+        muted
+        loop
+        playsinline
+        preload="metadata"
+      ></video>
+    </div>
+  </div>
+</section>
 
       <section class="agency-zone agency-zone-installation" data-zone="installation">
         <div class="agency-installation-inner">
@@ -2812,13 +2857,7 @@ function agencyBuildApp() {
   document.body.appendChild(app);
 
   app.addEventListener('click', (event) => {
-    const mapToggle = event.target.closest('[data-agency-map-toggle]');
-    if (mapToggle) {
-      event.preventDefault();
-      agencySetMapMode(!agencyState.mapMode);
-      return;
-    }
-
+    agencyHidePinchHint(true);
     const mapNode = event.target.closest('[data-agency-map-zone]');
     if (mapNode) {
       event.preventDefault();
@@ -2887,21 +2926,35 @@ function agencyBuildApp() {
 
   app.addEventListener('touchstart', (event) => {
     if (event.touches?.length === 2) {
+      event.preventDefault();
+      agencyHidePinchHint(true);
       agencyState.pinchStartDistance = agencyTouchDistance(event.touches);
       agencyState.pinchStartScale = agencyState.mapMode ? agencyState.mapScale : 1;
+      agencyState.pinchGestureActive = true;
       agencyState.touchMoved = true;
     }
-  }, { passive: true });
+  }, { passive: false });
 
   app.addEventListener('touchmove', (event) => {
     if (event.touches?.length !== 2 || !agencyState.pinchStartDistance) return;
 
     event.preventDefault();
+    agencyHidePinchHint(true);
+
     const distance = agencyTouchDistance(event.touches);
     const ratio = distance / agencyState.pinchStartDistance;
-    const nextScale = agencyClamp(agencyState.pinchStartScale * ratio, 0.38, 1);
+    const gestureAmount = Math.abs(ratio - 1);
 
-    if (nextScale < 0.82) {
+    let nextScale;
+    if (agencyState.mapMode) {
+      // In map mode, spreading fingers zooms further out; closing fingers zooms back in.
+      nextScale = agencyClamp(agencyState.pinchStartScale / Math.max(ratio, 0.01), 0.38, 1);
+    } else {
+      // From a room, any clear two-finger pinch/spread opens the map by reducing the world scale.
+      nextScale = agencyClamp(1 - gestureAmount * 1.85, 0.38, 1);
+    }
+
+    if (nextScale < 0.86) {
       agencyApplyWorldView(agencyState.zone, { mapMode: true, scale: nextScale });
     } else {
       agencyApplyWorldView(agencyState.zone, { mapMode: false, scale: nextScale });
@@ -2912,11 +2965,12 @@ function agencyBuildApp() {
     if (event.touches?.length >= 2) return;
     if (!agencyState.pinchStartDistance) return;
 
-    const shouldOpenMap = agencyState.mapScale < 0.78;
+    const shouldOpenMap = agencyState.mapScale < 0.82;
     agencyState.pinchStartDistance = 0;
     agencyState.pinchStartScale = 1;
+    agencyState.pinchGestureActive = false;
     agencySetMapMode(shouldOpenMap);
-  }, { passive: true });
+  }, { passive: false });
 
   const portal = app.querySelector('.agency-portal');
   if (portal) {
@@ -2955,6 +3009,7 @@ function agencyBuildApp() {
 
   agencyRenderWorkDependentViews();
   agencySetZone('home');
+  window.setTimeout(agencyShowInitialPinchHint, 700);
 }
 
 function agencyUpdateMode() {

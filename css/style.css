@@ -2020,6 +2020,13 @@ body {
         background: #09090b;
         color: #fff;
     }
+        .agency-map-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            background: #000;
+        }
 
     .agency-topbar {
         position: absolute;
@@ -3194,32 +3201,111 @@ screen and (orientation: landscape) and (max-width: 1366px) and (pointer: coarse
         transform-origin: 50% 50%;
     }
 
-    .agency-map-toggle {
-        position: fixed;
-        right: max(18px, env(safe-area-inset-right));
-        bottom: max(18px, env(safe-area-inset-bottom));
-        z-index: 2147483450;
-        border: 1px solid rgba(20, 20, 22, 0.18);
-        background: rgba(241, 239, 241, 0.56);
-        backdrop-filter: blur(14px) saturate(120%);
-        -webkit-backdrop-filter: blur(14px) saturate(120%);
-        color: rgba(20, 20, 22, 0.58);
-        padding: 10px 14px;
-        font: inherit;
-        font-size: 10px;
-        line-height: 1;
-        letter-spacing: 0.26em;
-        text-transform: uppercase;
-        cursor: pointer;
-        -webkit-tap-highlight-color: transparent;
-        touch-action: manipulation;
-        transition: opacity 0.25s ease, color 0.25s ease, background 0.25s ease;
+    .agency-mobile-app {
+        touch-action: none;
     }
 
-    .agency-map-toggle:hover,
-    .agency-mobile-app.is-map-mode .agency-map-toggle {
-        color: rgba(20, 20, 22, 0.92);
-        background: rgba(255, 255, 255, 0.72);
+    .agency-pinch-hint {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        z-index: 2147483450;
+        width: 178px;
+        min-height: 126px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        transform: translate(-50%, -50%) scale(0.96);
+        border: 1px solid rgba(20, 20, 22, 0.12);
+        background: rgba(241, 239, 241, 0.58);
+        backdrop-filter: blur(18px) saturate(120%);
+        -webkit-backdrop-filter: blur(18px) saturate(120%);
+        color: rgba(20, 20, 22, 0.56);
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.38s ease, transform 0.38s ease;
+    }
+
+    .agency-mobile-app.is-pinch-hint-visible[data-zone="home"]:not(.is-map-mode):not(.is-map-zooming):not(.is-transitioning) .agency-pinch-hint {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    .agency-pinch-fingers {
+        position: relative;
+        width: 92px;
+        height: 54px;
+        display: block;
+    }
+
+    .agency-pinch-finger {
+        position: absolute;
+        top: 6px;
+        width: 24px;
+        height: 42px;
+        border: 1px solid rgba(20, 20, 22, 0.42);
+        border-radius: 999px;
+        background:
+            linear-gradient(to bottom, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.12));
+        box-shadow:
+            inset 0 9px 0 rgba(255, 255, 255, 0.22),
+            0 10px 22px rgba(20, 20, 22, 0.06);
+        animation: agencyPinchOut 1.75s ease-in-out infinite;
+    }
+
+    .agency-pinch-finger::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 7px;
+        width: 8px;
+        height: 1px;
+        transform: translateX(-50%);
+        background: rgba(20, 20, 22, 0.22);
+    }
+
+    .agency-pinch-finger-left {
+        left: 34px;
+        transform: rotate(-10deg);
+        --pinch-x: -24px;
+        --pinch-r: -18deg;
+    }
+
+    .agency-pinch-finger-right {
+        right: 34px;
+        transform: rotate(10deg);
+        --pinch-x: 24px;
+        --pinch-r: 18deg;
+    }
+
+    .agency-pinch-label {
+        font-size: 9px;
+        line-height: 1.35;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    @keyframes agencyPinchOut {
+
+        0%,
+        18% {
+            transform: translate3d(0, 0, 0) rotate(0deg) scale(0.96);
+            opacity: 0.38;
+        }
+
+        55% {
+            transform: translate3d(var(--pinch-x), 0, 0) rotate(var(--pinch-r)) scale(1);
+            opacity: 0.9;
+        }
+
+        100% {
+            transform: translate3d(var(--pinch-x), 0, 0) rotate(var(--pinch-r)) scale(1);
+            opacity: 0;
+        }
     }
 
     .agency-map-grid {
@@ -3343,8 +3429,7 @@ screen and (orientation: landscape) and (max-width: 1366px) and (pointer: coarse
         content: none;
     }
 
-    .agency-mobile-app.is-map-zooming .agency-map-node,
-    .agency-mobile-app.is-map-zooming .agency-map-toggle {
+    .agency-mobile-app.is-map-zooming .agency-map-node {
         pointer-events: none !important;
     }
 
