@@ -2244,7 +2244,7 @@ const agencyZones = {
 };
 
 const AGENCY_MAP_MIN_SCALE = 0.36;
-const AGENCY_TUNNEL_TRIGGER_SCALE = 0.86;
+const AGENCY_TUNNEL_TRIGGER_SCALE = 0.78;
 
 let agencyState = {
   active: 0,
@@ -2487,27 +2487,61 @@ function agencySetMapMode(enabled, scale = enabled ? AGENCY_MAP_MIN_SCALE : 1) {
   }
 }
 
-function agencyGetNearestMapZone(maxDistance = Math.max(window.innerWidth, window.innerHeight) * 0.32) {
+function agencyGetNearestMapZone(
+  maxDistance = Math.max(window.innerWidth, window.innerHeight) * 0.42,
+  point = { x: window.innerWidth / 2, y: window.innerHeight / 2 }
+) {
   const app = document.querySelector('.agency-mobile-app');
-  if (!app || !agencyState.mapMode) return null;
-  const centerX = window.innerWidth / 2;
-  const centerY = window.innerHeight / 2;
+  if (!app || !agencyState.mapMode || !point) return null;
+
+  const directHits = document.elementsFromPoint(point.x, point.y);
+  for (const el of directHits) {
+    const workCard = el.closest?.('[data-agency-map-work]');
+    if (workCard && app.contains(workCard)) {
+      agencySetActive(parseInt(workCard.dataset.agencyMapWork, 10));
+      return 'project';
+    }
+
+    const zoneNode = el.closest?.('[data-agency-map-zone]');
+    if (zoneNode && app.contains(zoneNode)) {
+      return zoneNode.dataset.agencyMapZone;
+    }
+  }
+
   let nearest = null;
   let nearestDistance = Infinity;
+  const candidates = [
+    ...app.querySelectorAll('[data-agency-map-zone]'),
+    ...app.querySelectorAll('[data-agency-map-work]')
+  ];
 
-  app.querySelectorAll('[data-agency-map-zone]').forEach((node) => {
+  candidates.forEach((node) => {
     const rect = node.getBoundingClientRect();
     if (!rect.width || !rect.height) return;
+
     const nodeX = rect.left + rect.width / 2;
     const nodeY = rect.top + rect.height / 2;
-    const distance = Math.hypot(nodeX - centerX, nodeY - centerY);
+    const distance = Math.hypot(nodeX - point.x, nodeY - point.y);
+
     if (distance < nearestDistance) {
       nearestDistance = distance;
-      nearest = node.dataset.agencyMapZone;
+      if (node.matches('[data-agency-map-work]')) {
+        nearest = {
+          zone: 'project',
+          workIndex: parseInt(node.dataset.agencyMapWork, 10)
+        };
+      } else {
+        nearest = {
+          zone: node.dataset.agencyMapZone
+        };
+      }
     }
   });
 
-  return nearestDistance <= maxDistance ? nearest : null;
+  if (!nearest || nearestDistance > maxDistance) return null;
+
+  if (Number.isFinite(nearest.workIndex)) agencySetActive(nearest.workIndex);
+  return nearest.zone;
 }
 
 function agencyActivateZoneMedia(nextZone, app) {
@@ -2577,8 +2611,9 @@ function agencyZoomFromMapToZone(zone) {
   world.style.setProperty('--agency-pan-y', '0px');
 
   agencyState.movingTimer = window.setTimeout(() => {
-    agencyState.mapMode = false;
-    agencyState.mapScale = 1;
+    agencyApplyWorldView(nextZone, { mapMode: false, scale: 1 });
+    agencyState.zone = nextZone;
+    app.dataset.zone = nextZone;
     app.classList.remove('is-map-mode', 'is-map-tunnel');
     app.classList.add('is-settling');
     app.dataset.view = 'zone';
@@ -2847,19 +2882,19 @@ function agencyBuildApp() {
       <button class="agency-map-node agency-map-node-installation" type="button" data-agency-map-zone="installation">Installation</button>
       <div class="agency-map-materials" aria-hidden="false">
         ${mapWorkCards}
-        <div class="agency-map-about-card">
+        <button class="agency-map-about-card" type="button" data-agency-map-zone="about">
           <span>About</span>
           <strong>sound as space, memory, object and moving image</strong>
           <em>includes granular sound tool</em>
-        </div>
-        <div class="agency-map-video-preview">
+        </button>
+        <button class="agency-map-video-preview" type="button" data-agency-map-zone="video">
           <video src="${mapVideoSrc}" muted loop playsinline preload="metadata"></video>
           <span>video preview</span>
-        </div>
-        <div class="agency-map-installation-card">
+        </button>
+        <button class="agency-map-installation-card" type="button" data-agency-map-zone="installation">
           <span>installation</span>
           <strong>[threaded or shredded]</strong>
-        </div>
+        </button>
       </div>
 
       <section class="agency-zone agency-zone-home" data-zone="home">
@@ -2915,6 +2950,9 @@ function agencyBuildApp() {
           <div class="agency-about-copy">Sound as space, memory, object and moving image.</div>
           <div class="agency-about-small">
             Tommaso Massimiliano Alfì is a composer, experimental producer and sound designer based in Turin. His work operates between composition and sound design, exploring hybrid forms through the re-sampling of objects, textures and sonic gestures within his main project, mvrgn. He has collaborated with musicians and artists across music and cinema, developing a practice that blurs the boundaries between production, film scoring and sonic construction. His research extends through different modes of listening, focusing on the material, spatial and perceptual behaviour of sound. Since 2024, he is co-founder of the experimental music label Pick Up The Cake, and curates an ongoing mix series for Radio Relativa.
+          </div>
+          <div class="agency-about-portrait" aria-label="Portrait image from desktop about module">
+            <img src="assets/images/ui/aiai.webp" alt="Tommaso Massimiliano Alfì" loading="lazy">
           </div>
           <div class="agency-about-audio" data-agency-audio-module>
             <label for="agencyAudioUpload" class="agency-audio-upload-label"><span>load sound</span></label>
@@ -3133,8 +3171,11 @@ function agencyHandleTouchMove(event) {
       panY: nextPanY
     });
 
-    if (!agencyState.pinchTunnelFired && ratio > 1.18 && nextScale >= AGENCY_TUNNEL_TRIGGER_SCALE) {
-      const nearestZone = agencyGetNearestMapZone();
+    if (!agencyState.pinchTunnelFired && ratio > 1.12 && nextScale >= AGENCY_TUNNEL_TRIGGER_SCALE) {
+      const nearestZone = agencyGetNearestMapZone(
+        Math.max(window.innerWidth, window.innerHeight) * 0.46,
+        midpoint
+      );
       if (nearestZone) {
         agencyState.pinchTunnelFired = true;
         agencyZoomFromMapToZone(nearestZone);
