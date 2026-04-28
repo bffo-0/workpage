@@ -3406,3 +3406,267 @@ body {
         filter: saturate(1.08) contrast(1.04) brightness(0.96) blur(0.15px);
     }
 }
+
+/* =========================================================
+   MQ OPEN WORLD COMPLETE V2 â€” layout, contained video, portrait audio background
+   ========================================================= */
+@media (max-width: 1024px),
+(orientation: landscape) and (max-width: 1366px) and (pointer: coarse) {
+
+    /* Prevent content overlap inside active rooms */
+    .agency-zone:not(.agency-zone-home) {
+        box-sizing: border-box;
+    }
+
+    .agency-zone-inner,
+    .agency-project-grid,
+    .agency-installation-inner {
+        box-sizing: border-box;
+    }
+
+    .agency-zone-index .agency-zone-inner,
+    .agency-zone-about .agency-zone-inner,
+    .agency-zone-installation .agency-installation-inner {
+        margin: 0 auto;
+        min-height: 100%;
+        padding-top: max(32px, env(safe-area-inset-top));
+        padding-bottom: max(44px, env(safe-area-inset-bottom));
+    }
+
+    .agency-project-grid {
+        min-height: 100%;
+        grid-template-columns: 1fr;
+        justify-items: center;
+        align-content: start;
+        row-gap: clamp(22px, 5svh, 44px);
+    }
+
+    .agency-project-media {
+        width: min(72vw, 430px) !important;
+        max-width: 430px;
+        aspect-ratio: 4 / 5 !important;
+    }
+
+    .agency-project-text {
+        max-width: min(680px, calc(100vw - 40px));
+    }
+
+    .agency-project-title {
+        font-size: clamp(2.55rem, 12.2vw, 6.8rem);
+    }
+
+    .agency-work-title {
+        font-size: clamp(1.65rem, 8.8vw, 5.1rem);
+    }
+
+    .agency-about-copy {
+        font-size: clamp(2.05rem, 9.6vw, 6rem);
+    }
+
+    .agency-about-small,
+    .agency-project-info,
+    .agency-project-mood,
+    .agency-installation-copy {
+        overflow-wrap: anywhere;
+    }
+
+    /* Map materials: smaller and less collision-prone */
+    .agency-map-work-card {
+        width: clamp(104px, 18vw, 190px) !important;
+        padding: 8px !important;
+    }
+
+    .agency-map-work-title {
+        font-size: clamp(0.72rem, 1.9vw, 1.18rem) !important;
+        line-height: 1.02 !important;
+    }
+
+    .agency-map-work-image {
+        aspect-ratio: 4 / 3 !important;
+        margin-bottom: 6px !important;
+    }
+
+    .agency-map-about-card,
+    .agency-map-installation-card {
+        width: clamp(150px, 30vw, 320px) !important;
+    }
+
+    /* Video preview belongs inside the Video room, never outside the world */
+    .agency-video-map-preview {
+        position: absolute;
+        inset: 50% auto auto 50%;
+        width: min(88vw, 920px);
+        aspect-ratio: 16 / 9;
+        transform: translate(-50%, -50%);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: #000;
+        overflow: hidden;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 2;
+        font: inherit;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .agency-video-map-preview video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        opacity: 0.72;
+        filter: contrast(1.08) saturate(0.92) brightness(0.78);
+    }
+
+    .agency-video-map-preview span {
+        position: absolute;
+        left: 14px;
+        bottom: 14px;
+        z-index: 3;
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 9px;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+    }
+
+    .agency-mobile-app.is-map-mode .agency-zone-video .agency-video-map-preview,
+    .agency-mobile-app.is-map-tunnel .agency-zone-video .agency-video-map-preview {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .agency-mobile-app.is-map-mode .agency-zone-video .agency-video-frame,
+    .agency-mobile-app.is-map-tunnel .agency-zone-video .agency-video-frame {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .agency-mobile-app:not(.is-map-mode):not(.is-map-tunnel) .agency-video-map-preview {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    /* Hide obsolete floating preview if any stale markup remains */
+    .agency-map-video-preview {
+        display: none !important;
+    }
+
+    /* About: portrait becomes the background of the granular player */
+    .agency-about-audio-with-portrait {
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+        min-height: clamp(520px, 78svh, 760px);
+        width: min(100%, 620px);
+        padding: 0 !important;
+        border: 1px solid rgba(20, 20, 22, 0.14);
+        background: rgba(240, 137, 69, 0.12);
+        backdrop-filter: blur(4px) saturate(118%);
+        -webkit-backdrop-filter: blur(4px) saturate(118%);
+    }
+
+    .agency-about-audio-portrait,
+    .agency-portrait-canvas,
+    .agency-about-audio-portrait img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .agency-about-audio-portrait {
+        z-index: 0;
+        overflow: hidden;
+        pointer-events: none;
+        background: rgba(240, 137, 69, 0.12);
+    }
+
+    .agency-portrait-canvas {
+        z-index: 2;
+        display: block;
+        opacity: 0.92;
+        pointer-events: none;
+    }
+
+    .agency-about-audio-portrait img {
+        z-index: 1;
+        object-fit: cover;
+        transform: rotate(-90deg) scale(1.28);
+        transform-origin: 50% 50%;
+        opacity: 0.34;
+        filter: saturate(1.08) contrast(1.04) brightness(0.96) blur(0.15px);
+    }
+
+    .agency-about-audio-with-portrait::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 3;
+        pointer-events: none;
+        background:
+            radial-gradient(circle at 36% 28%, rgba(255, 255, 255, 0.18), transparent 34%),
+            rgba(240, 137, 69, 0.12);
+        mix-blend-mode: soft-light;
+    }
+
+    .agency-about-audio-panel {
+        position: relative;
+        z-index: 4;
+        min-height: inherit;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 18px 16px max(18px, env(safe-area-inset-bottom));
+        background: linear-gradient(to top, rgba(241, 239, 241, 0.72), rgba(241, 239, 241, 0.18) 55%, rgba(241, 239, 241, 0.04));
+    }
+
+    .agency-about-audio-panel .agency-audio-controls {
+        background: rgba(241, 239, 241, 0.36);
+        border: 1px solid rgba(20, 20, 22, 0.1);
+        backdrop-filter: blur(8px) saturate(120%);
+        -webkit-backdrop-filter: blur(8px) saturate(120%);
+        padding: 12px;
+    }
+
+    /* In map mode, zones are landmarks; tap works but children don't steal the click */
+    .agency-mobile-app.is-map-mode .agency-zone {
+        pointer-events: auto;
+    }
+
+    .agency-mobile-app.is-map-mode .agency-zone * {
+        pointer-events: none;
+    }
+
+    .agency-mobile-app.is-map-mode .agency-map-node,
+    .agency-mobile-app.is-map-mode .agency-map-materials,
+    .agency-mobile-app.is-map-mode .agency-map-materials *,
+    .agency-mobile-app.is-map-mode .agency-zone-video .agency-video-map-preview,
+    .agency-mobile-app.is-map-mode .agency-zone-video .agency-video-map-preview * {
+        pointer-events: auto;
+    }
+
+    .agency-mobile-app.is-map-tunnel .agency-zone {
+        opacity: 0.92;
+        filter: saturate(1) contrast(1);
+    }
+
+    @media (max-height: 700px) {
+        .agency-project-grid {
+            grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+            align-items: start;
+            column-gap: 20px;
+        }
+
+        .agency-project-media {
+            width: min(38vw, 320px) !important;
+        }
+
+        .agency-project-title {
+            font-size: clamp(2rem, 8.5vw, 4.8rem);
+        }
+
+        .agency-about-audio-with-portrait {
+            min-height: 620px;
+        }
+    }
+}

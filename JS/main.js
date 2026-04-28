@@ -2447,7 +2447,7 @@ function agencyApplyWorldView(zone = agencyState.zone, options = {}) {
   app.classList.toggle('is-map-mode', mapMode);
   app.dataset.view = mapMode ? 'map' : 'zone';
 
-  const mapVideo = app.querySelector('.agency-map-video-preview video');
+  const mapVideo = app.querySelector('.agency-video-map-preview video');
   if (mapVideo) {
     if (mapMode) {
       mapVideo.muted = true;
@@ -2618,6 +2618,8 @@ function agencyZoomFromMapToZone(zone) {
 
   agencyState.movingTimer = window.setTimeout(() => {
     agencyApplyWorldView(nextZone, { mapMode: false, scale: 1 });
+    const targetZoneEl = app.querySelector(`.agency-zone[data-zone="${nextZone}"]`);
+    if (targetZoneEl) targetZoneEl.scrollTop = 0;
     agencyState.zone = nextZone;
     app.dataset.zone = nextZone;
     app.classList.remove('is-map-mode', 'is-map-tunnel');
@@ -2687,6 +2689,8 @@ function agencySetZone(zone) {
   }, 210);
 
   agencyState.movingTimer = window.setTimeout(() => {
+    const targetZoneEl = app.querySelector(`.agency-zone[data-zone="${nextZone}"]`);
+    if (targetZoneEl) targetZoneEl.scrollTop = 0;
     app.classList.remove('is-transitioning');
     app.classList.add('is-settling');
     world.classList.remove('is-moving');
@@ -2786,12 +2790,14 @@ function agencyRenderWorkDependentViews() {
     infoBox.innerHTML = work.info.slice(0, 4).map((line) => `<p>${agencyEscapeHTML(line)}</p>`).join('');
   }
 
+  const installationWork = siteData?.filmInfo?.film1 || null;
   const installationTitle = app.querySelector('[data-agency-installation-title]');
-  if (installationTitle) installationTitle.textContent = work.title;
+  if (installationTitle) installationTitle.textContent = installationWork?.title || '[threaded or shredded] une fois de plus, sans';
 
   const installationCopy = app.querySelector('[data-agency-installation-copy]');
   if (installationCopy) {
-    installationCopy.innerHTML = work.info.slice(0, 4).map((line) => `<p>${agencyEscapeHTML(line)}</p>`).join('') || agencyEscapeHTML(work.mood);
+    const fixedInfo = Array.isArray(installationWork?.info) ? installationWork.info : [];
+    installationCopy.innerHTML = fixedInfo.map((line) => `<p>${agencyEscapeHTML(line)}</p>`).join('');
   }
 
   const videoFrame = app.querySelector('.agency-video-frame');
@@ -2808,7 +2814,7 @@ function agencyRenderWorkDependentViews() {
     }
   }
 
-  const mapVideo = app.querySelector('.agency-map-video-preview video');
+  const mapVideo = app.querySelector('.agency-video-map-preview video');
   if (mapVideo && previewVideoSrc && mapVideo.getAttribute('src') !== previewVideoSrc) {
     mapVideo.src = previewVideoSrc;
     mapVideo.load();
@@ -2827,13 +2833,25 @@ function agencySetActive(index) {
 }
 
 function agencyBuildMapWorkCards(works) {
-  const startX = 16;
-  const startY = 146;
+  const positions = [
+    { left: 38, top: 156 },
+    { left: 66, top: 236 },
+    { left: 32, top: 226 },
+    { left: 82, top: 174 },
+    { left: 118, top: 132 },
+    { left: 182, top: 134 },
+    { left: 220, top: 164 },
+    { left: 236, top: 228 },
+    { left: 194, top: 246 },
+    { left: 128, top: 258 },
+    { left: 72, top: 112 },
+    { left: 244, top: 104 }
+  ];
+
   return works.map((work, index) => {
-    const col = index % 3;
-    const row = Math.floor(index / 3);
-    const left = startX + col * 25;
-    const top = startY + row * 34;
+    const pos = positions[index % positions.length];
+    const left = pos.left;
+    const top = pos.top + Math.floor(index / positions.length) * 22;
     const image = work.hasImage && work.image
       ? `<img src="${agencyEscapeHTML(work.image)}" alt="${agencyEscapeHTML(work.title)}" loading="lazy">`
       : `<div class="agency-map-work-empty">${agencyEscapeHTML(work.index)}</div>`;
@@ -2892,10 +2910,6 @@ function agencyBuildApp() {
           <span>About</span>
           <strong>sound as space, memory, object and moving image</strong>
           <em>includes granular sound tool</em>
-        </button>
-        <button class="agency-map-video-preview" type="button" data-agency-map-zone="video">
-          <video src="${mapVideoSrc}" muted loop playsinline preload="metadata"></video>
-          <span>video preview</span>
         </button>
         <button class="agency-map-installation-card" type="button" data-agency-map-zone="installation">
           <span>installation</span>
@@ -2957,10 +2971,12 @@ function agencyBuildApp() {
           <div class="agency-about-small">
             Tommaso Massimiliano Alfì is a composer, experimental producer and sound designer based in Turin. His work operates between composition and sound design, exploring hybrid forms through the re-sampling of objects, textures and sonic gestures within his main project, mvrgn. He has collaborated with musicians and artists across music and cinema, developing a practice that blurs the boundaries between production, film scoring and sonic construction. His research extends through different modes of listening, focusing on the material, spatial and perceptual behaviour of sound. Since 2024, he is co-founder of the experimental music label Pick Up The Cake, and curates an ongoing mix series for Radio Relativa.
           </div>
-          <div class="agency-about-portrait" aria-label="Portrait image from desktop about module">
-            <img src="assets/images/ui/aiai.webp" alt="Tommaso Massimiliano Alfì" loading="lazy">
-          </div>
-          <div class="agency-about-audio" data-agency-audio-module>
+          <div class="agency-about-audio agency-about-audio-with-portrait" data-agency-audio-module>
+            <div class="agency-about-audio-portrait" aria-hidden="true">
+              <canvas id="agencyPortraitCanvas" class="agency-portrait-canvas"></canvas>
+              <img src="assets/images/ui/aiai.webp" alt="" loading="lazy">
+            </div>
+            <div class="agency-about-audio-panel">
             <label for="agencyAudioUpload" class="agency-audio-upload-label"><span>load sound</span></label>
             <input type="file" id="agencyAudioUpload" class="agency-audio-upload-input" accept="audio/*">
             <button id="agencyGenerateSound" class="agency-audio-generate-btn" type="button">generate</button>
@@ -2972,6 +2988,7 @@ function agencyBuildApp() {
               <label>drift <input type="range" id="agencyDriftAmount" min="0" max="1" step="0.01" value="0.22"></label>
               <button id="agencyDownloadSound" class="agency-audio-download-btn" type="button">download</button>
               <div class="agency-audio-render-status" id="agencyAudioRenderStatus" aria-hidden="true"><div class="agency-audio-render-bar"></div></div>
+            </div>
             </div>
           </div>
         </div>
@@ -3000,6 +3017,10 @@ function agencyBuildApp() {
       <section class="agency-zone agency-zone-video" data-zone="video">
         <div class="agency-video-inner">
           <button class="agency-video-back" type="button" data-agency-zone="project">Project</button>
+          <button class="agency-video-map-preview" type="button" data-agency-map-zone="video" aria-label="Video preview landmark">
+            <video src="${mapVideoSrc}" muted loop playsinline preload="metadata"></video>
+            <span>video preview</span>
+          </button>
           <div class="agency-video-frame"></div>
         </div>
       </section>
@@ -3022,6 +3043,7 @@ function agencyBuildApp() {
 
   agencyBindAppEvents(app);
   agencyInitAudioSystem(app);
+  agencyInitMobilePortraitEffect(app);
   agencyRenderWorkDependentViews();
   agencySetZone('home');
   agencyShowInitialPinchHint();
@@ -3270,6 +3292,59 @@ function agencyHandleTouchEnd(event) {
     }
     if (agencyState.touchMoved) event.preventDefault();
   }
+}
+
+function agencyInitMobilePortraitEffect(app) {
+  const canvas = app?.querySelector('#agencyPortraitCanvas');
+  if (!canvas || canvas.dataset.ready === 'true') return;
+  canvas.dataset.ready = 'true';
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  const img = new Image();
+  img.src = 'assets/images/ui/aiai.webp';
+  let running = true;
+
+  function resize() {
+    const rect = canvas.getBoundingClientRect();
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const w = Math.max(1, Math.floor(rect.width * dpr));
+    const h = Math.max(1, Math.floor(rect.height * dpr));
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width = w;
+      canvas.height = h;
+    }
+  }
+
+  function draw(time = 0) {
+    if (!running || !document.body.contains(canvas)) return;
+    resize();
+    const w = canvas.width;
+    const h = canvas.height;
+    ctx.clearRect(0, 0, w, h);
+    if (img.complete && img.naturalWidth) {
+      ctx.save();
+      ctx.translate(w / 2, h / 2);
+      ctx.rotate(-Math.PI / 2);
+      const scale = Math.max(h / img.naturalWidth, w / img.naturalHeight) * 1.28;
+      const dw = img.naturalWidth * scale;
+      const dh = img.naturalHeight * scale;
+      const strip = Math.max(2, Math.floor(7 * (window.devicePixelRatio || 1)));
+      for (let y = -dh / 2; y < dh / 2; y += strip) {
+        const sourceY = (y + dh / 2) / scale;
+        const sourceH = Math.min(strip / scale + 1, img.naturalHeight - sourceY);
+        const wave = Math.sin((y * 0.035) + time * 0.0012) * 5 * (window.devicePixelRatio || 1);
+        ctx.drawImage(img, 0, sourceY, img.naturalWidth, sourceH, -dw / 2 + wave, y, dw, strip);
+      }
+      ctx.restore();
+      ctx.fillStyle = 'rgba(240, 137, 69, 0.12)';
+      ctx.fillRect(0, 0, w, h);
+    }
+    window.requestAnimationFrame(draw);
+  }
+
+  img.onload = () => window.requestAnimationFrame(draw);
+  window.addEventListener('resize', resize, { passive: true });
 }
 
 function agencyInitAudioSystem(app) {
