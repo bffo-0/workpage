@@ -2506,6 +2506,12 @@ function agencyGetNearestMapZone(
     if (zoneNode && app.contains(zoneNode)) {
       return zoneNode.dataset.agencyMapZone;
     }
+
+    const zoneEl = el.closest?.('.agency-zone[data-zone]');
+    if (zoneEl && app.contains(zoneEl)) {
+      const zone = zoneEl.dataset.zone;
+      if (agencyZones[zone]) return zone;
+    }
   }
 
   let nearest = null;
@@ -3042,6 +3048,16 @@ function agencyBindAppEvents(app) {
       return;
     }
 
+    if (agencyState.mapMode) {
+      const mapZone = event.target.closest('.agency-zone[data-zone]');
+      if (mapZone && app.contains(mapZone)) {
+        event.preventDefault();
+        event.stopPropagation();
+        agencyZoomFromMapToZone(mapZone.dataset.zone);
+        return;
+      }
+    }
+
     const projectMediaButton = event.target.closest('[data-agency-project-media]');
     if (projectMediaButton) {
       event.preventDefault();
@@ -3119,6 +3135,9 @@ function agencyHandleTouchStart(event) {
     event.preventDefault();
     const touch = event.touches[0];
     agencyState.mapDragActive = true;
+    agencyState.mapTapCandidate = true;
+    agencyState.mapTapStartX = touch.clientX;
+    agencyState.mapTapStartY = touch.clientY;
     agencyState.dragStartX = touch.clientX;
     agencyState.dragStartY = touch.clientY;
     agencyState.dragStartPanX = agencyState.mapPanX;
@@ -3187,8 +3206,11 @@ function agencyHandleTouchMove(event) {
   if (event.touches.length === 1 && agencyState.mapMode && agencyState.mapDragActive) {
     event.preventDefault();
     const touch = event.touches[0];
-    const nextPanX = agencyState.dragStartPanX + (touch.clientX - agencyState.dragStartX);
-    const nextPanY = agencyState.dragStartPanY + (touch.clientY - agencyState.dragStartY);
+    const movedX = touch.clientX - agencyState.dragStartX;
+    const movedY = touch.clientY - agencyState.dragStartY;
+    if (Math.hypot(movedX, movedY) > 10) agencyState.mapTapCandidate = false;
+    const nextPanX = agencyState.dragStartPanX + movedX;
+    const nextPanY = agencyState.dragStartPanY + movedY;
     agencyScheduleWorldView(agencyState.zone, {
       mapMode: true,
       scale: agencyState.mapScale,
@@ -3214,7 +3236,22 @@ function agencyHandleTouchEnd(event) {
   }
 
   if (event.touches.length === 0) {
+    if (agencyState.mapMode && agencyState.mapDragActive && agencyState.mapTapCandidate && event.changedTouches?.length) {
+      const touch = event.changedTouches[0];
+      const targetZone = agencyGetNearestMapZone(
+        Math.max(window.innerWidth, window.innerHeight) * 0.5,
+        { x: touch.clientX, y: touch.clientY }
+      );
+      agencyState.mapDragActive = false;
+      agencyState.mapTapCandidate = false;
+      if (targetZone) {
+        event.preventDefault();
+        agencyZoomFromMapToZone(targetZone);
+        return;
+      }
+    }
     agencyState.mapDragActive = false;
+    agencyState.mapTapCandidate = false;
   }
 
   const portal = event.target.closest('.agency-portal');
