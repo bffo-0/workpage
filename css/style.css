@@ -2690,12 +2690,11 @@ body {
     .agency-project-grid {
         width: 100%;
         max-width: 980px;
-        margin: 0 auto;
+        margin: auto;
         padding: max(32px, env(safe-area-inset-top)) 20px max(34px, env(safe-area-inset-bottom));
         display: grid;
         gap: 28px;
-        align-items: start;
-        min-height: auto;
+        align-items: center;
     }
 
     .agency-project-media {
@@ -2706,14 +2705,12 @@ body {
         background: #09090b;
         box-shadow: 0 56px 160px rgba(0, 0, 0, 0.26);
         justify-self: center;
-        flex-shrink: 0;
     }
 
     .agency-project-text {
         width: 100%;
         max-width: 680px;
         justify-self: center;
-        min-width: 0;
     }
 
     .agency-project-title {
@@ -2723,7 +2720,6 @@ body {
         font-weight: 400;
         margin: 24px 0 22px;
         text-wrap: balance;
-        overflow-wrap: anywhere;
     }
 
     .agency-project-role {
@@ -2742,7 +2738,6 @@ body {
         opacity: 0.62;
         max-width: 620px;
         margin-top: 28px;
-        overflow-wrap: anywhere;
     }
 
     .agency-project-info {
@@ -3293,17 +3288,6 @@ body {
    ========================================================= */
 @media (max-width: 1024px),
 (orientation: landscape) and (max-width: 1366px) and (pointer: coarse) {
-    .agency-project-grid {
-        margin: auto;
-        align-items: center;
-        min-height: auto;
-    }
-
-    .agency-project-media {
-        width: min(72vw, 430px);
-        aspect-ratio: 4 / 5;
-        flex-shrink: 0;
-    }
 
     .agency-portal {
         width: min(86vw, 720px);
@@ -3419,7 +3403,6 @@ body {
     }
 
     .agency-zone-inner,
-    .agency-project-grid,
     .agency-installation-inner {
         box-sizing: border-box;
     }
@@ -3433,27 +3416,6 @@ body {
         padding-bottom: max(44px, env(safe-area-inset-bottom));
     }
 
-    .agency-project-grid {
-        min-height: 100%;
-        grid-template-columns: 1fr;
-        justify-items: center;
-        align-content: start;
-        row-gap: clamp(22px, 5svh, 44px);
-    }
-
-    .agency-project-media {
-        width: min(72vw, 430px) !important;
-        max-width: 430px;
-        aspect-ratio: 4 / 5 !important;
-    }
-
-    .agency-project-text {
-        max-width: min(680px, calc(100vw - 40px));
-    }
-
-    .agency-project-title {
-        font-size: clamp(2.55rem, 12.2vw, 6.8rem);
-    }
 
     .agency-work-title {
         font-size: clamp(1.65rem, 8.8vw, 5.1rem);
@@ -3464,8 +3426,6 @@ body {
     }
 
     .agency-about-small,
-    .agency-project-info,
-    .agency-project-mood,
     .agency-installation-copy {
         overflow-wrap: anywhere;
     }
@@ -3651,20 +3611,6 @@ body {
     }
 
     @media (max-height: 700px) {
-        .agency-project-grid {
-            grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-            align-items: start;
-            column-gap: 20px;
-        }
-
-        .agency-project-media {
-            width: min(38vw, 320px) !important;
-        }
-
-        .agency-project-title {
-            font-size: clamp(2rem, 8.5vw, 4.8rem);
-        }
-
         .agency-about-audio-with-portrait {
             min-height: 620px;
         }
