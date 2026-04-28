@@ -2227,9 +2227,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Avvia l'effetto portrait quando il pannello about è già nel DOM
   initPortraitEffect();
 });
+
 /* =========================================================
-   AGENCY SPATIAL MOBILE/TABLET EXPERIENCE — STABLE BUILD
-   Creates a separate, centered open-world interface under 1024px.
+   AGENCY SPATIAL MOBILE/TABLET EXPERIENCE — OPEN WORLD MQ
    Desktop/laptop original code remains untouched.
    ========================================================= */
 
@@ -2243,8 +2243,8 @@ const agencyZones = {
   installation: { x: -100, y: 100 }
 };
 
-const AGENCY_MAP_MIN_SCALE = 0.38;
-const AGENCY_MAP_EXIT_SCALE = 0.995;
+const AGENCY_MAP_MIN_SCALE = 0.36;
+const AGENCY_TUNNEL_TRIGGER_SCALE = 0.86;
 
 let agencyState = {
   active: 0,
@@ -2258,18 +2258,25 @@ let agencyState = {
   settleTimer: null,
   mapMode: false,
   mapScale: 1,
+  mapPanX: 0,
+  mapPanY: 0,
   pinchStartDistance: 0,
   pinchStartScale: 1,
   pinchStartMidX: 0,
   pinchStartMidY: 0,
-  mapPanX: 0,
-  mapPanY: 0,
   pinchStartPanX: 0,
   pinchStartPanY: 0,
   pinchGestureActive: false,
+  pinchTunnelFired: false,
+  dragStartX: 0,
+  dragStartY: 0,
+  dragStartPanX: 0,
+  dragStartPanY: 0,
+  mapDragActive: false,
   pinchRaf: null,
   pendingWorldView: null,
-  pinchHintTimer: null
+  pinchHintTimer: null,
+  agencyAudioReady: false
 };
 
 function agencyIsMobileMode() {
@@ -2285,6 +2292,10 @@ function agencyEscapeHTML(value = '') {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#039;');
+}
+
+function agencyClamp(value, min, max) {
+  return Math.max(min, Math.min(max, value));
 }
 
 function agencyGetWorks() {
@@ -2327,6 +2338,11 @@ function agencyGetCurrentHomeWork() {
   return works[agencyState.homeActive] || works[0] || null;
 }
 
+function agencyGetCurrentWork() {
+  const works = agencyGetWorks();
+  return works[agencyState.active] || works[0] || null;
+}
+
 function agencySetActiveByWorkId(workId) {
   const works = agencyGetWorks();
   const index = works.findIndex((work) => work.id === workId);
@@ -2336,15 +2352,15 @@ function agencySetActiveByWorkId(workId) {
   }
 }
 
-
-function agencyGetCurrentWork() {
-  const works = agencyGetWorks();
-  return works[agencyState.active] || works[0] || null;
-}
-
 function agencyGetVideoData(work) {
   if (!work?.videoId) return null;
   return siteData?.videoSidebars?.[work.videoId] || null;
+}
+
+function agencyGetFirstVideoSrc() {
+  const videos = siteData?.videoSidebars || {};
+  const first = Object.values(videos).find((item) => item?.videoSrc);
+  return first?.videoSrc || 'assets/videos/ZANSKAR 6000 music_02.mp4';
 }
 
 function agencyGetZoneLabel(zone) {
@@ -2357,10 +2373,6 @@ function agencyGetZoneLabel(zone) {
     installation: 'installation'
   };
   return labels[zone] || zone || '';
-}
-
-function agencyClamp(value, min, max) {
-  return Math.max(min, Math.min(max, value));
 }
 
 function agencyTouchDistance(touches) {
@@ -2403,16 +2415,12 @@ function agencyHidePinchHint(persist = false) {
 function agencyShowInitialPinchHint() {
   const app = document.querySelector('.agency-mobile-app');
   if (!app) return;
-
   let alreadySeen = false;
   try { alreadySeen = window.sessionStorage.getItem('agencyPinchHintSeen') === '1'; } catch (_) {}
   if (alreadySeen || agencyState.zone !== 'home') return;
-
   app.classList.add('is-pinch-hint-visible');
   window.clearTimeout(agencyState.pinchHintTimer);
-  agencyState.pinchHintTimer = window.setTimeout(() => {
-    agencyHidePinchHint(true);
-  }, 5200);
+  agencyState.pinchHintTimer = window.setTimeout(() => agencyHidePinchHint(true), 5200);
 }
 
 function agencyApplyWorldView(zone = agencyState.zone, options = {}) {
@@ -2422,17 +2430,12 @@ function agencyApplyWorldView(zone = agencyState.zone, options = {}) {
 
   const scale = Number.isFinite(options.scale) ? agencyClamp(options.scale, AGENCY_MAP_MIN_SCALE, 1) : 1;
   const mapMode = !!options.mapMode;
-  const zoneTarget = agencyZones[zone] || agencyZones.home;
-
-  // Camera math:
-  // In map mode we keep the active zone as the camera anchor. This means
-  // a pinch-out from Home stays centered on Home instead of drifting toward
-  // an artificial map center. Two-finger pan then moves the camera freely.
+  const target = agencyZones[zone] || agencyZones.home;
   const panX = mapMode && Number.isFinite(options.panX) ? options.panX : 0;
   const panY = mapMode && Number.isFinite(options.panY) ? options.panY : 0;
 
-  world.style.setProperty('--agency-x', `${zoneTarget.x}vw`);
-  world.style.setProperty('--agency-y', `${zoneTarget.y}svh`);
+  world.style.setProperty('--agency-x', `${target.x}vw`);
+  world.style.setProperty('--agency-y', `${target.y}svh`);
   world.style.setProperty('--agency-scale', String(scale));
   world.style.setProperty('--agency-pan-x', `${panX}px`);
   world.style.setProperty('--agency-pan-y', `${panY}px`);
@@ -2443,6 +2446,17 @@ function agencyApplyWorldView(zone = agencyState.zone, options = {}) {
   agencyState.mapPanY = panY;
   app.classList.toggle('is-map-mode', mapMode);
   app.dataset.view = mapMode ? 'map' : 'zone';
+
+  const mapVideo = app.querySelector('.agency-map-video-preview video');
+  if (mapVideo) {
+    if (mapMode) {
+      mapVideo.muted = true;
+      mapVideo.loop = true;
+      mapVideo.play().catch(() => {});
+    } else {
+      mapVideo.pause();
+    }
+  }
 }
 
 function agencySetMapMode(enabled, scale = enabled ? AGENCY_MAP_MIN_SCALE : 1) {
@@ -2452,7 +2466,7 @@ function agencySetMapMode(enabled, scale = enabled ? AGENCY_MAP_MIN_SCALE : 1) {
   window.clearTimeout(agencyState.movingTimer);
   window.clearTimeout(agencyState.veilTimer);
   window.clearTimeout(agencyState.settleTimer);
-  app.classList.remove('is-transitioning', 'is-settling');
+  app.classList.remove('is-transitioning', 'is-settling', 'is-map-tunnel');
   delete app.dataset.nextZone;
 
   if (enabled) {
@@ -2473,9 +2487,31 @@ function agencySetMapMode(enabled, scale = enabled ? AGENCY_MAP_MIN_SCALE : 1) {
   }
 }
 
+function agencyGetNearestMapZone(maxDistance = Math.max(window.innerWidth, window.innerHeight) * 0.32) {
+  const app = document.querySelector('.agency-mobile-app');
+  if (!app || !agencyState.mapMode) return null;
+  const centerX = window.innerWidth / 2;
+  const centerY = window.innerHeight / 2;
+  let nearest = null;
+  let nearestDistance = Infinity;
+
+  app.querySelectorAll('[data-agency-map-zone]').forEach((node) => {
+    const rect = node.getBoundingClientRect();
+    if (!rect.width || !rect.height) return;
+    const nodeX = rect.left + rect.width / 2;
+    const nodeY = rect.top + rect.height / 2;
+    const distance = Math.hypot(nodeX - centerX, nodeY - centerY);
+    if (distance < nearestDistance) {
+      nearestDistance = distance;
+      nearest = node.dataset.agencyMapZone;
+    }
+  });
+
+  return nearestDistance <= maxDistance ? nearest : null;
+}
+
 function agencyActivateZoneMedia(nextZone, app) {
   if (!app) return;
-
   const nextVideo = app.querySelector('.agency-video-frame video');
   const nextInstallationAudio = app.querySelector('.agency-installation-audio');
 
@@ -2523,16 +2559,17 @@ function agencyZoomFromMapToZone(zone) {
   }
 
   app.classList.remove('is-transitioning', 'is-settling');
-  app.classList.add('is-map-zooming');
+  app.classList.add('is-map-mode', 'is-map-tunnel');
   world.classList.add('is-moving');
-  delete app.dataset.nextZone;
+  app.dataset.nextZone = agencyGetZoneLabel(nextZone);
+  app.dataset.view = 'map-tunnel';
 
   agencyState.zone = nextZone;
   app.dataset.zone = nextZone;
-  app.dataset.view = 'map-zooming';
-
   agencyState.mapPanX = 0;
   agencyState.mapPanY = 0;
+  agencyState.mapScale = 1;
+
   world.style.setProperty('--agency-x', `${target.x}vw`);
   world.style.setProperty('--agency-y', `${target.y}svh`);
   world.style.setProperty('--agency-scale', '1');
@@ -2542,16 +2579,17 @@ function agencyZoomFromMapToZone(zone) {
   agencyState.movingTimer = window.setTimeout(() => {
     agencyState.mapMode = false;
     agencyState.mapScale = 1;
-    app.classList.remove('is-map-mode', 'is-map-zooming');
+    app.classList.remove('is-map-mode', 'is-map-tunnel');
     app.classList.add('is-settling');
     app.dataset.view = 'zone';
+    delete app.dataset.nextZone;
     world.classList.remove('is-moving');
     agencyActivateZoneMedia(nextZone, app);
-  }, 980);
+  }, 1050);
 
   agencyState.settleTimer = window.setTimeout(() => {
     app.classList.remove('is-settling');
-  }, 1560);
+  }, 1650);
 }
 
 function agencySetZone(zone) {
@@ -2581,7 +2619,7 @@ function agencySetZone(zone) {
   agencyState.mapScale = 1;
   agencyState.mapPanX = 0;
   agencyState.mapPanY = 0;
-  app.classList.remove('is-map-mode', 'is-settling');
+  app.classList.remove('is-map-mode', 'is-map-tunnel', 'is-settling');
   app.dataset.view = 'zone';
   app.classList.add('is-transitioning');
   app.dataset.nextZone = agencyGetZoneLabel(nextZone);
@@ -2611,26 +2649,7 @@ function agencySetZone(zone) {
     app.classList.remove('is-transitioning');
     app.classList.add('is-settling');
     world.classList.remove('is-moving');
-
-    const nextVideo = app.querySelector('.agency-video-frame video');
-    const nextInstallationAudio = app.querySelector('.agency-installation-audio');
-    if (nextVideo) {
-      if (nextZone === 'video') {
-        nextVideo.currentTime = 0;
-        nextVideo.play().catch(() => {});
-      } else {
-        nextVideo.pause();
-        nextVideo.currentTime = 0;
-      }
-    }
-    if (nextInstallationAudio) {
-      if (nextZone === 'installation') {
-        nextInstallationAudio.play().catch(() => {});
-      } else {
-        nextInstallationAudio.pause();
-        nextInstallationAudio.currentTime = 0;
-      }
-    }
+    agencyActivateZoneMedia(nextZone, app);
   }, 1180);
 
   agencyState.settleTimer = window.setTimeout(() => {
@@ -2648,8 +2667,8 @@ function agencyRenderWorkDependentViews() {
   if (!work) return;
 
   const videoData = agencyGetVideoData(work);
+  const previewVideoSrc = videoData?.videoSrc || agencyGetFirstVideoSrc();
 
-  // Project / index-selected work
   app.querySelectorAll('[data-agency-current-index]').forEach((el) => { el.textContent = work.index; });
   app.querySelectorAll('[data-agency-current-year]').forEach((el) => { el.textContent = work.year; });
   app.querySelectorAll('[data-agency-current-title]').forEach((el) => { el.textContent = work.title; });
@@ -2672,7 +2691,6 @@ function agencyRenderWorkDependentViews() {
     el.classList.toggle('agency-no-image', !work.hasImage);
   });
 
-  // Home portal work: excludes Night Shift and Donne che viaggiano sole only from the home carousel.
   if (homeWork) {
     app.querySelectorAll('[data-agency-home-index]').forEach((el) => { el.textContent = homeWork.index; });
     app.querySelectorAll('[data-agency-home-year]').forEach((el) => { el.textContent = homeWork.year; });
@@ -2694,7 +2712,6 @@ function agencyRenderWorkDependentViews() {
       portal.dataset.agencyWorkId = homeWork.id;
       portal.classList.toggle('agency-no-image', !homeWork.hasImage);
     }
-
     app.querySelectorAll('[data-agency-home-placeholder-title]').forEach((el) => { el.textContent = homeWork.title; });
   }
 
@@ -2749,19 +2766,44 @@ function agencyRenderWorkDependentViews() {
       `;
     }
   }
+
+  const mapVideo = app.querySelector('.agency-map-video-preview video');
+  if (mapVideo && previewVideoSrc && mapVideo.getAttribute('src') !== previewVideoSrc) {
+    mapVideo.src = previewVideoSrc;
+    mapVideo.load();
+  }
 }
+
 function agencySetActive(index) {
   const works = agencyGetWorks();
   if (!works.length) return;
-
   agencyState.active = (index + works.length) % works.length;
-
   const selected = works[agencyState.active];
   const homeWorks = agencyGetHomeWorks();
   const homeIndex = homeWorks.findIndex((work) => work.id === selected?.id);
   if (homeIndex >= 0) agencyState.homeActive = homeIndex;
-
   agencyRenderWorkDependentViews();
+}
+
+function agencyBuildMapWorkCards(works) {
+  const startX = 16;
+  const startY = 146;
+  return works.map((work, index) => {
+    const col = index % 3;
+    const row = Math.floor(index / 3);
+    const left = startX + col * 25;
+    const top = startY + row * 34;
+    const image = work.hasImage && work.image
+      ? `<img src="${agencyEscapeHTML(work.image)}" alt="${agencyEscapeHTML(work.title)}" loading="lazy">`
+      : `<div class="agency-map-work-empty">${agencyEscapeHTML(work.index)}</div>`;
+    return `
+      <button class="agency-map-work-card" type="button" data-agency-map-work="${index}" style="left:${left}vw;top:${top}svh">
+        <span class="agency-map-work-image">${image}</span>
+        <span class="agency-map-work-meta">${agencyEscapeHTML(work.index)} / ${agencyEscapeHTML(work.year)}</span>
+        <span class="agency-map-work-title">${agencyEscapeHTML(work.title)}</span>
+      </button>
+    `;
+  }).join('');
 }
 
 function agencyBuildApp() {
@@ -2777,6 +2819,9 @@ function agencyBuildApp() {
       <span class="agency-work-year">${agencyEscapeHTML(work.year)}</span>
     </button>
   `).join('');
+
+  const mapWorkCards = agencyBuildMapWorkCards(works);
+  const mapVideoSrc = agencyEscapeHTML(agencyGetFirstVideoSrc());
 
   const app = document.createElement('div');
   app.className = 'agency-mobile-app';
@@ -2800,6 +2845,23 @@ function agencyBuildApp() {
       <button class="agency-map-node agency-map-node-project" type="button" data-agency-map-zone="project">Project</button>
       <button class="agency-map-node agency-map-node-video" type="button" data-agency-map-zone="video">Video</button>
       <button class="agency-map-node agency-map-node-installation" type="button" data-agency-map-zone="installation">Installation</button>
+      <div class="agency-map-materials" aria-hidden="false">
+        ${mapWorkCards}
+        <div class="agency-map-about-card">
+          <span>About</span>
+          <strong>sound as space, memory, object and moving image</strong>
+          <em>includes granular sound tool</em>
+        </div>
+        <div class="agency-map-video-preview">
+          <video src="${mapVideoSrc}" muted loop playsinline preload="metadata"></video>
+          <span>video preview</span>
+        </div>
+        <div class="agency-map-installation-card">
+          <span>installation</span>
+          <strong>[threaded or shredded]</strong>
+        </div>
+      </div>
+
       <section class="agency-zone agency-zone-home" data-zone="home">
         <div class="agency-topbar">
           <div>
@@ -2824,7 +2886,7 @@ function agencyBuildApp() {
         </div>
 
         <div class="agency-home-footer">
-          <div class="agency-hint">Tap image to enter. Swipe horizontally to move through works.</div>
+          <div class="agency-hint">Tap image to enter. Pinch out to reveal the world.</div>
           <div class="agency-cycle">
             <button class="agency-btn agency-micro" type="button" data-agency-prev>Prev</button>
             <button class="agency-btn agency-micro" type="button" data-agency-next>Next</button>
@@ -2845,7 +2907,7 @@ function agencyBuildApp() {
       </section>
 
       <section class="agency-zone agency-zone-about" data-zone="about">
-        <div class="agency-zone-inner">
+        <div class="agency-zone-inner agency-about-inner">
           <header class="agency-zone-head">
             <div class="agency-zone-label">Bio / quiet chamber</div>
             <button class="agency-back" type="button" data-agency-zone="home">Surface</button>
@@ -2853,7 +2915,20 @@ function agencyBuildApp() {
           <div class="agency-about-copy">Sound as space, memory, object and moving image.</div>
           <div class="agency-about-small">
             Tommaso Massimiliano Alfì is a composer, experimental producer and sound designer based in Turin. His work operates between composition and sound design, exploring hybrid forms through the re-sampling of objects, textures and sonic gestures within his main project, mvrgn. He has collaborated with musicians and artists across music and cinema, developing a practice that blurs the boundaries between production, film scoring and sonic construction. His research extends through different modes of listening, focusing on the material, spatial and perceptual behaviour of sound. Since 2024, he is co-founder of the experimental music label Pick Up The Cake, and curates an ongoing mix series for Radio Relativa.
-
+          </div>
+          <div class="agency-about-audio" data-agency-audio-module>
+            <label for="agencyAudioUpload" class="agency-audio-upload-label"><span>load sound</span></label>
+            <input type="file" id="agencyAudioUpload" class="agency-audio-upload-input" accept="audio/*">
+            <button id="agencyGenerateSound" class="agency-audio-generate-btn" type="button">generate</button>
+            <div class="agency-audio-controls">
+              <label>grain <input type="range" id="agencyGrainSize" min="0.01" max="0.3" step="0.01" value="0.08"></label>
+              <label>density <input type="range" id="agencyDensity" min="1" max="40" step="1" value="12"></label>
+              <label>filter <input type="range" id="agencyFilterFreq" min="200" max="8000" step="10" value="1200"></label>
+              <label>blur <input type="range" id="agencyBlurAmount" min="0" max="1" step="0.01" value="0.35"></label>
+              <label>drift <input type="range" id="agencyDriftAmount" min="0" max="1" step="0.01" value="0.22"></label>
+              <button id="agencyDownloadSound" class="agency-audio-download-btn" type="button">download</button>
+              <div class="agency-audio-render-status" id="agencyAudioRenderStatus" aria-hidden="true"><div class="agency-audio-render-bar"></div></div>
+            </div>
           </div>
         </div>
       </section>
@@ -2901,14 +2976,31 @@ function agencyBuildApp() {
 
   document.body.appendChild(app);
 
+  agencyBindAppEvents(app);
+  agencyInitAudioSystem(app);
+  agencyRenderWorkDependentViews();
+  agencySetZone('home');
+  agencyShowInitialPinchHint();
+}
+
+function agencyBindAppEvents(app) {
   app.addEventListener('click', (event) => {
-    agencyHidePinchHint(true);
+    const mapWork = event.target.closest('[data-agency-map-work]');
+    if (mapWork) {
+      event.preventDefault();
+      event.stopPropagation();
+      if (!agencyState.mapMode) return;
+      agencySetActive(parseInt(mapWork.dataset.agencyMapWork, 10));
+      agencyZoomFromMapToZone('project');
+      return;
+    }
+
     const mapNode = event.target.closest('[data-agency-map-zone]');
     if (mapNode) {
       event.preventDefault();
-      if (agencyState.mapMode) {
-        agencyZoomFromMapToZone(mapNode.dataset.agencyMapZone);
-      }
+      event.stopPropagation();
+      if (!agencyState.mapMode) return;
+      agencyZoomFromMapToZone(mapNode.dataset.agencyMapZone);
       return;
     }
 
@@ -2916,29 +3008,20 @@ function agencyBuildApp() {
     if (projectMediaButton) {
       event.preventDefault();
       event.stopPropagation();
-
       const action = projectMediaButton.dataset.agencyMediaAction || 'none';
       const link = projectMediaButton.dataset.agencyMediaLink || '';
-
-      if (action === 'installation') {
-        agencySetZone('installation');
-      } else if (action === 'video') {
-        agencySetZone('video');
-      } else if (action === 'link' && link) {
-        window.open(link, '_blank', 'noopener,noreferrer');
-      }
-
+      if (action === 'installation') agencySetZone('installation');
+      else if (action === 'video') agencySetZone('video');
+      else if (action === 'link' && link) window.open(link, '_blank', 'noopener,noreferrer');
       return;
     }
 
     const zoneButton = event.target.closest('[data-agency-zone]');
     if (zoneButton) {
       event.preventDefault();
-
       if (zoneButton.classList.contains('agency-portal') && zoneButton.dataset.agencyWorkId) {
         agencySetActiveByWorkId(zoneButton.dataset.agencyWorkId);
       }
-
       agencySetZone(zoneButton.dataset.agencyZone);
       return;
     }
@@ -2971,168 +3054,417 @@ function agencyBuildApp() {
     }
   });
 
-  app.addEventListener('touchstart', (event) => {
-    if (event.touches?.length === 2) {
-      event.preventDefault();
-      agencyHidePinchHint(true);
+  app.addEventListener('touchstart', agencyHandleTouchStart, { passive: false });
+  app.addEventListener('touchmove', agencyHandleTouchMove, { passive: false });
+  app.addEventListener('touchend', agencyHandleTouchEnd, { passive: false });
+  app.addEventListener('touchcancel', agencyHandleTouchEnd, { passive: false });
+}
 
-      const midpoint = agencyTouchMidpoint(event.touches);
-      agencyState.pinchStartDistance = agencyTouchDistance(event.touches);
-      agencyState.pinchStartScale = agencyState.mapMode ? agencyState.mapScale : 1;
-      agencyState.pinchStartMidX = midpoint.x;
-      agencyState.pinchStartMidY = midpoint.y;
-      agencyState.pinchStartPanX = agencyState.mapMode ? agencyState.mapPanX : 0;
-      agencyState.pinchStartPanY = agencyState.mapMode ? agencyState.mapPanY : 0;
-      agencyState.pinchGestureActive = true;
-      agencyState.touchMoved = true;
-      app.classList.add('is-pinching-map');
-    }
-  }, { passive: false });
-
-  app.addEventListener('touchmove', (event) => {
-    if (event.touches?.length !== 2 || !agencyState.pinchStartDistance) return;
-
+function agencyHandleTouchStart(event) {
+  if (event.touches.length === 2) {
     event.preventDefault();
     agencyHidePinchHint(true);
-
-    const distance = agencyTouchDistance(event.touches);
     const midpoint = agencyTouchMidpoint(event.touches);
-    const ratio = distance / Math.max(agencyState.pinchStartDistance, 1);
+    agencyState.pinchGestureActive = true;
+    agencyState.pinchTunnelFired = false;
+    agencyState.mapDragActive = false;
+    agencyState.pinchStartDistance = agencyTouchDistance(event.touches) || 1;
+    agencyState.pinchStartScale = agencyState.mapMode ? agencyState.mapScale : 1;
+    agencyState.pinchStartMidX = midpoint.x;
+    agencyState.pinchStartMidY = midpoint.y;
+    agencyState.pinchStartPanX = agencyState.mapMode ? agencyState.mapPanX : 0;
+    agencyState.pinchStartPanY = agencyState.mapMode ? agencyState.mapPanY : 0;
+    return;
+  }
 
-    // Pinch out → zoom out into map; pinch in → zoom back
-    const nextScale = agencyClamp(agencyState.pinchStartScale / Math.max(ratio, 0.01), AGENCY_MAP_MIN_SCALE, 1);
-    const shouldUseMap = agencyState.mapMode || nextScale < 0.98;
+  if (event.touches.length === 1 && agencyState.mapMode) {
+    event.preventDefault();
+    const touch = event.touches[0];
+    agencyState.mapDragActive = true;
+    agencyState.dragStartX = touch.clientX;
+    agencyState.dragStartY = touch.clientY;
+    agencyState.dragStartPanX = agencyState.mapPanX;
+    agencyState.dragStartPanY = agencyState.mapPanY;
+    return;
+  }
 
-    let nextPanX = 0;
-    let nextPanY = 0;
+  const portal = event.target.closest('.agency-portal');
+  if (portal && event.touches.length === 1) {
+    const touch = event.touches[0];
+    agencyState.touchStartX = touch.clientX;
+    agencyState.touchStartY = touch.clientY;
+    agencyState.touchMoved = false;
+  }
+}
 
-    if (shouldUseMap) {
-      const viewportCenterX = window.innerWidth / 2;
-      const viewportCenterY = window.innerHeight / 2;
+function agencyHandleTouchMove(event) {
+  if (event.touches.length === 2 && agencyState.pinchGestureActive) {
+    event.preventDefault();
+    const distance = agencyTouchDistance(event.touches) || agencyState.pinchStartDistance || 1;
+    const midpoint = agencyTouchMidpoint(event.touches);
+    const ratio = distance / (agencyState.pinchStartDistance || distance);
+    const midpointDx = midpoint.x - agencyState.pinchStartMidX;
+    const midpointDy = midpoint.y - agencyState.pinchStartMidY;
 
-      // Anchor point: keep the content under the two-finger midpoint stable
-      // AND allow free panning in both X and Y as fingers move
-      const scaleChange = nextScale / Math.max(agencyState.pinchStartScale, 0.001);
+    let nextScale = agencyState.pinchStartScale * ratio;
 
-      // What was under the midpoint at pinch start (in screen space, relative to center)
-      const anchorX = agencyState.pinchStartMidX - viewportCenterX;
-      const anchorY = agencyState.pinchStartMidY - viewportCenterY;
-
-      // Where the midpoint is now
-      const currentX = midpoint.x - viewportCenterX;
-      const currentY = midpoint.y - viewportCenterY;
-
-      // New pan: current midpoint position minus scaled anchor, plus start pan scaled
-      nextPanX = currentX - scaleChange * (anchorX - agencyState.pinchStartPanX);
-      nextPanY = currentY - scaleChange * (anchorY - agencyState.pinchStartPanY);
+    if (!agencyState.mapMode && ratio < 0.96) {
+      nextScale = agencyClamp(ratio, AGENCY_MAP_MIN_SCALE, 0.98);
+      agencySetMapMode(true, nextScale);
+      agencyState.pinchStartScale = nextScale;
+      agencyState.pinchStartDistance = distance;
+      agencyState.pinchStartMidX = midpoint.x;
+      agencyState.pinchStartMidY = midpoint.y;
+      agencyState.pinchStartPanX = agencyState.mapPanX;
+      agencyState.pinchStartPanY = agencyState.mapPanY;
+      return;
     }
 
+    if (!agencyState.mapMode) return;
+
+    nextScale = agencyClamp(nextScale, AGENCY_MAP_MIN_SCALE, 1);
+    const nextPanX = agencyState.pinchStartPanX + midpointDx;
+    const nextPanY = agencyState.pinchStartPanY + midpointDy;
+
     agencyScheduleWorldView(agencyState.zone, {
-      mapMode: shouldUseMap,
+      mapMode: true,
       scale: nextScale,
       panX: nextPanX,
       panY: nextPanY
     });
-  }, { passive: false });
 
-  app.addEventListener('touchend', (event) => {
-    if (event.touches?.length >= 2) return;
-    if (!agencyState.pinchStartDistance) return;
-
-    const appEl = document.querySelector('.agency-mobile-app');
-    const shouldOpenMap = agencyState.mapScale < AGENCY_MAP_EXIT_SCALE;
-
-    agencyState.pinchStartDistance = 0;
-    agencyState.pinchStartScale = 1;
-    agencyState.pinchStartMidX = 0;
-    agencyState.pinchStartMidY = 0;
-    agencyState.pinchStartPanX = agencyState.mapPanX;
-    agencyState.pinchStartPanY = agencyState.mapPanY;
-    agencyState.pinchGestureActive = false;
-    appEl?.classList.remove('is-pinching-map');
-
-    if (shouldOpenMap) {
-      agencySetMapMode(true, agencyClamp(agencyState.mapScale, AGENCY_MAP_MIN_SCALE, AGENCY_MAP_EXIT_SCALE));
-    } else {
-      agencySetMapMode(false);
-    }
-  }, { passive: false });
-
-  // ── Single-finger pan when in map mode ──
-  let _panTouchId = null;
-  let _panStartX = 0;
-  let _panStartY = 0;
-  let _panStartPanX = 0;
-  let _panStartPanY = 0;
-
-  app.addEventListener('touchstart', (ev) => {
-    if (ev.touches?.length === 1 && agencyState.mapMode && !agencyState.pinchGestureActive) {
-      _panTouchId    = ev.touches[0].identifier;
-      _panStartX     = ev.touches[0].clientX;
-      _panStartY     = ev.touches[0].clientY;
-      _panStartPanX  = agencyState.mapPanX;
-      _panStartPanY  = agencyState.mapPanY;
-    }
-  }, { passive: true, capture: true });
-
-  app.addEventListener('touchmove', (ev) => {
-    if (!agencyState.mapMode || agencyState.pinchGestureActive || ev.touches?.length !== 1) return;
-    if (ev.touches[0].identifier !== _panTouchId) return;
-    ev.preventDefault();
-    const dx = ev.touches[0].clientX - _panStartX;
-    const dy = ev.touches[0].clientY - _panStartY;
-    agencyApplyWorldView(agencyState.zone, {
-      mapMode: true,
-      scale: agencyState.mapScale,
-      panX: _panStartPanX + dx,
-      panY: _panStartPanY + dy
-    });
-  }, { passive: false });
-
-  app.addEventListener('touchend', (ev) => {
-    if (ev.changedTouches?.[0]?.identifier === _panTouchId) {
-      _panTouchId = null;
-    }
-  }, { passive: true });
-
-  const portal = app.querySelector('.agency-portal');
-  if (portal) {
-    portal.addEventListener('touchstart', (event) => {
-      const touch = event.touches[0];
-      agencyState.touchStartX = touch.clientX;
-      agencyState.touchStartY = touch.clientY;
-      agencyState.touchMoved = false;
-    }, { passive: true });
-
-    portal.addEventListener('touchmove', (event) => {
-      const touch = event.touches[0];
-      const dx = touch.clientX - agencyState.touchStartX;
-      const dy = touch.clientY - agencyState.touchStartY;
-      if (Math.abs(dx) > 18 || Math.abs(dy) > 18) agencyState.touchMoved = true;
-    }, { passive: true });
-
-    portal.addEventListener('touchend', (event) => {
-      const touch = event.changedTouches[0];
-      const dx = touch.clientX - agencyState.touchStartX;
-      const dy = touch.clientY - agencyState.touchStartY;
-      if (Math.abs(dx) > 46 && Math.abs(dx) > Math.abs(dy) * 1.25) {
-        event.preventDefault();
-        const homeWorks = agencyGetHomeWorks();
-        if (homeWorks.length) {
-          agencyState.homeActive = (agencyState.homeActive + (dx < 0 ? 1 : -1) + homeWorks.length) % homeWorks.length;
-          agencyRenderWorkDependentViews();
-        }
-        return;
+    if (!agencyState.pinchTunnelFired && ratio > 1.18 && nextScale >= AGENCY_TUNNEL_TRIGGER_SCALE) {
+      const nearestZone = agencyGetNearestMapZone();
+      if (nearestZone) {
+        agencyState.pinchTunnelFired = true;
+        agencyZoomFromMapToZone(nearestZone);
       }
-      if (agencyState.touchMoved) {
-        event.preventDefault();
-      }
-    }, { passive: false });
+    }
+    return;
   }
 
-  agencyRenderWorkDependentViews();
-  agencySetZone('home');
-  window.setTimeout(agencyShowInitialPinchHint, 700);
+  if (event.touches.length === 1 && agencyState.mapMode && agencyState.mapDragActive) {
+    event.preventDefault();
+    const touch = event.touches[0];
+    const nextPanX = agencyState.dragStartPanX + (touch.clientX - agencyState.dragStartX);
+    const nextPanY = agencyState.dragStartPanY + (touch.clientY - agencyState.dragStartY);
+    agencyScheduleWorldView(agencyState.zone, {
+      mapMode: true,
+      scale: agencyState.mapScale,
+      panX: nextPanX,
+      panY: nextPanY
+    });
+    return;
+  }
+
+  const portal = event.target.closest('.agency-portal');
+  if (portal && event.touches.length === 1) {
+    const touch = event.touches[0];
+    const dx = touch.clientX - agencyState.touchStartX;
+    const dy = touch.clientY - agencyState.touchStartY;
+    if (Math.abs(dx) > 18 || Math.abs(dy) > 18) agencyState.touchMoved = true;
+  }
+}
+
+function agencyHandleTouchEnd(event) {
+  if (event.touches.length < 2) {
+    agencyState.pinchGestureActive = false;
+    agencyState.pinchTunnelFired = false;
+  }
+
+  if (event.touches.length === 0) {
+    agencyState.mapDragActive = false;
+  }
+
+  const portal = event.target.closest('.agency-portal');
+  if (portal && event.changedTouches?.length && !agencyState.mapMode) {
+    const touch = event.changedTouches[0];
+    const dx = touch.clientX - agencyState.touchStartX;
+    const dy = touch.clientY - agencyState.touchStartY;
+    if (Math.abs(dx) > 46 && Math.abs(dx) > Math.abs(dy) * 1.25) {
+      event.preventDefault();
+      const homeWorks = agencyGetHomeWorks();
+      if (homeWorks.length) {
+        agencyState.homeActive = (agencyState.homeActive + (dx < 0 ? 1 : -1) + homeWorks.length) % homeWorks.length;
+        agencyRenderWorkDependentViews();
+      }
+      return;
+    }
+    if (agencyState.touchMoved) event.preventDefault();
+  }
+}
+
+function agencyInitAudioSystem(app) {
+  if (!app || agencyState.agencyAudioReady) return;
+  agencyState.agencyAudioReady = true;
+
+  let audioCtx = null;
+  let buffer = null;
+  let isPlaying = false;
+  let grainTimeout = null;
+  let activeNodes = [];
+  let outputBus = null;
+
+  const grainSizeEl = app.querySelector('#agencyGrainSize');
+  const densityEl = app.querySelector('#agencyDensity');
+  const filterFreqEl = app.querySelector('#agencyFilterFreq');
+  const blurAmountEl = app.querySelector('#agencyBlurAmount');
+  const driftAmountEl = app.querySelector('#agencyDriftAmount');
+  const generateBtn = app.querySelector('#agencyGenerateSound');
+  const downloadBtn = app.querySelector('#agencyDownloadSound');
+  const audioUpload = app.querySelector('#agencyAudioUpload');
+  const renderStatus = app.querySelector('#agencyAudioRenderStatus');
+
+  if (!generateBtn && !downloadBtn && !audioUpload) return;
+
+  function showRenderStatus() {
+    renderStatus?.classList.add('visible');
+    renderStatus?.setAttribute('aria-hidden', 'false');
+  }
+
+  function hideRenderStatus() {
+    renderStatus?.classList.remove('visible');
+    renderStatus?.setAttribute('aria-hidden', 'true');
+  }
+
+  function ensureAudioSetup() {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (!outputBus) {
+      outputBus = audioCtx.createGain();
+      outputBus.gain.value = 1;
+      outputBus.connect(audioCtx.destination);
+    }
+  }
+
+  function createNoiseBuffer(ctx, seconds = 2) {
+    const newBuffer = ctx.createBuffer(1, ctx.sampleRate * seconds, ctx.sampleRate);
+    const data = newBuffer.getChannelData(0);
+    for (let i = 0; i < data.length; i++) data[i] = (Math.random() * 2 - 1) * 0.3;
+    return newBuffer;
+  }
+
+  function createImpulseResponse(ctx, duration = 1.8, decay = 2.5) {
+    const length = Math.floor(ctx.sampleRate * duration);
+    const impulse = ctx.createBuffer(2, length, ctx.sampleRate);
+    for (let ch = 0; ch < impulse.numberOfChannels; ch++) {
+      const channel = impulse.getChannelData(ch);
+      for (let i = 0; i < length; i++) {
+        const n = length - i;
+        channel[i] = (Math.random() * 2 - 1) * Math.pow(n / length, decay);
+      }
+    }
+    return impulse;
+  }
+
+  function stopGranular() {
+    if (grainTimeout) {
+      clearTimeout(grainTimeout);
+      grainTimeout = null;
+    }
+    activeNodes.forEach((node) => {
+      try { if (typeof node.stop === 'function') node.stop(); } catch (_) {}
+      try { node.disconnect(); } catch (_) {}
+    });
+    activeNodes = [];
+  }
+
+  function startGranular() {
+    function triggerGrain() {
+      if (!isPlaying || !audioCtx || !buffer || !outputBus) return;
+
+      const source = audioCtx.createBufferSource();
+      source.buffer = buffer;
+      const dryGain = audioCtx.createGain();
+      const wetGain = audioCtx.createGain();
+      const masterGain = audioCtx.createGain();
+      const filter = audioCtx.createBiquadFilter();
+      const convolver = audioCtx.createConvolver();
+      const pan = audioCtx.createStereoPanner();
+
+      const grainSize = parseFloat(grainSizeEl?.value || '0.08');
+      const density = parseFloat(densityEl?.value || '12');
+      const baseFilterFreq = parseFloat(filterFreqEl?.value || '1200');
+      const blurAmount = parseFloat(blurAmountEl?.value || '0.35');
+      const driftAmount = parseFloat(driftAmountEl?.value || '0.22');
+      const driftSpread = baseFilterFreq * driftAmount * 1.4;
+      const driftedFreq = Math.max(120, baseFilterFreq + (Math.random() * 2 - 1) * driftSpread);
+      const randomPan = (Math.random() * 2 - 1) * (0.15 + driftAmount * 0.65);
+      const playbackSpread = 1 + (Math.random() * 2 - 1) * (driftAmount * 0.22);
+
+      filter.type = 'bandpass';
+      filter.frequency.value = driftedFreq;
+      filter.Q.value = 2 + driftAmount * 8;
+      pan.pan.value = randomPan;
+      source.playbackRate.value = playbackSpread;
+      convolver.buffer = createImpulseResponse(audioCtx, 1.4 + blurAmount * 2, 2.2);
+      dryGain.gain.value = 1 - blurAmount * 0.75;
+      wetGain.gain.value = blurAmount * 0.85;
+      masterGain.gain.value = 0.42;
+
+      const now = audioCtx.currentTime;
+      dryGain.gain.setValueAtTime(0, now);
+      wetGain.gain.setValueAtTime(0, now);
+      dryGain.gain.linearRampToValueAtTime((1 - blurAmount * 0.75) * 0.9, now + grainSize * 0.45);
+      dryGain.gain.linearRampToValueAtTime(0, now + grainSize);
+      wetGain.gain.linearRampToValueAtTime((blurAmount * 0.85) * 0.8, now + grainSize * 0.55);
+      wetGain.gain.linearRampToValueAtTime(0, now + grainSize * 1.15);
+
+      source.connect(filter);
+      filter.connect(dryGain);
+      filter.connect(convolver);
+      convolver.connect(wetGain);
+      dryGain.connect(pan);
+      wetGain.connect(pan);
+      pan.connect(masterGain);
+      masterGain.connect(outputBus);
+      activeNodes.push(source, filter, convolver, dryGain, wetGain, pan, masterGain);
+
+      const maxOffset = Math.max(0, buffer.duration - grainSize);
+      const offset = Math.random() * maxOffset;
+      source.start(now, offset, grainSize);
+      grainTimeout = window.setTimeout(triggerGrain, 1000 / density);
+    }
+    triggerGrain();
+  }
+
+  function audioBufferToWav(audioBuffer) {
+    const numChannels = audioBuffer.numberOfChannels;
+    const sampleRate = audioBuffer.sampleRate;
+    const format = 1;
+    const bitDepth = 16;
+    const channelData = [];
+    for (let ch = 0; ch < numChannels; ch++) channelData.push(audioBuffer.getChannelData(ch));
+    const samples = audioBuffer.length;
+    const blockAlign = numChannels * bitDepth / 8;
+    const byteRate = sampleRate * blockAlign;
+    const dataSize = samples * blockAlign;
+    const arrayBuffer = new ArrayBuffer(44 + dataSize);
+    const view = new DataView(arrayBuffer);
+    let offset = 0;
+    const writeString = (str) => { for (let i = 0; i < str.length; i++) view.setUint8(offset++, str.charCodeAt(i)); };
+    const write16 = (value) => { view.setUint16(offset, value, true); offset += 2; };
+    const write32 = (value) => { view.setUint32(offset, value, true); offset += 4; };
+    writeString('RIFF'); write32(36 + dataSize); writeString('WAVE'); writeString('fmt ');
+    write32(16); write16(format); write16(numChannels); write32(sampleRate); write32(byteRate);
+    write16(blockAlign); write16(bitDepth); writeString('data'); write32(dataSize);
+    for (let i = 0; i < samples; i++) {
+      for (let ch = 0; ch < numChannels; ch++) {
+        let sample = Math.max(-1, Math.min(1, channelData[ch][i]));
+        const intSample = sample < 0 ? sample * 0x8000 : sample * 0x7fff;
+        view.setInt16(offset, intSample, true);
+        offset += 2;
+      }
+    }
+    return new Blob([arrayBuffer], { type: 'audio/wav' });
+  }
+
+  function downloadBlob(blob, filename) {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
+  async function renderOfflineTexture(durationSeconds = 8) {
+    ensureAudioSetup();
+    const sampleRate = 44100;
+    const length = Math.floor(sampleRate * durationSeconds);
+    const offlineCtx = new OfflineAudioContext(2, length, sampleRate);
+    const srcBuffer = buffer || createNoiseBuffer(audioCtx || offlineCtx, 2);
+    const grainSize = parseFloat(grainSizeEl?.value || '0.08');
+    const density = parseFloat(densityEl?.value || '12');
+    const baseFilterFreq = parseFloat(filterFreqEl?.value || '1200');
+    const blurAmount = parseFloat(blurAmountEl?.value || '0.35');
+    const driftAmount = parseFloat(driftAmountEl?.value || '0.22');
+    const impulse = createImpulseResponse(offlineCtx, 1.4 + blurAmount * 2, 2.2);
+    const interval = 1 / density;
+
+    for (let t = 0; t < durationSeconds; t += interval) {
+      const source = offlineCtx.createBufferSource();
+      source.buffer = srcBuffer;
+      const filter = offlineCtx.createBiquadFilter();
+      const convolver = offlineCtx.createConvolver();
+      const dryGain = offlineCtx.createGain();
+      const wetGain = offlineCtx.createGain();
+      const pan = offlineCtx.createStereoPanner();
+      const masterGain = offlineCtx.createGain();
+      const driftSpread = baseFilterFreq * driftAmount * 1.4;
+      const driftedFreq = Math.max(120, baseFilterFreq + (Math.random() * 2 - 1) * driftSpread);
+      filter.type = 'bandpass';
+      filter.frequency.value = driftedFreq;
+      filter.Q.value = 2 + driftAmount * 8;
+      convolver.buffer = impulse;
+      pan.pan.value = (Math.random() * 2 - 1) * (0.15 + driftAmount * 0.65);
+      source.playbackRate.value = 1 + (Math.random() * 2 - 1) * (driftAmount * 0.22);
+      dryGain.gain.setValueAtTime(0, t);
+      wetGain.gain.setValueAtTime(0, t);
+      dryGain.gain.linearRampToValueAtTime((1 - blurAmount * 0.75) * 0.9, t + grainSize * 0.45);
+      dryGain.gain.linearRampToValueAtTime(0, t + grainSize);
+      wetGain.gain.linearRampToValueAtTime((blurAmount * 0.85) * 0.8, t + grainSize * 0.55);
+      wetGain.gain.linearRampToValueAtTime(0, t + grainSize * 1.15);
+      masterGain.gain.value = 0.42;
+      source.connect(filter);
+      filter.connect(dryGain);
+      filter.connect(convolver);
+      convolver.connect(wetGain);
+      dryGain.connect(pan);
+      wetGain.connect(pan);
+      pan.connect(masterGain);
+      masterGain.connect(offlineCtx.destination);
+      const maxOffset = Math.max(0, srcBuffer.duration - grainSize);
+      source.start(t, Math.random() * maxOffset, grainSize);
+    }
+    return offlineCtx.startRendering();
+  }
+
+  audioUpload?.addEventListener('change', async (event) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    ensureAudioSetup();
+    try {
+      const arrayBuffer = await file.arrayBuffer();
+      buffer = await audioCtx.decodeAudioData(arrayBuffer.slice(0));
+    } catch (err) {
+      console.error('Agency audio upload error:', err);
+    }
+  });
+
+  generateBtn?.addEventListener('click', async () => {
+    ensureAudioSetup();
+    if (audioCtx.state === 'suspended') await audioCtx.resume();
+    if (!buffer) buffer = createNoiseBuffer(audioCtx, 2);
+    if (!isPlaying) {
+      isPlaying = true;
+      generateBtn.textContent = 'stop';
+      startGranular();
+    } else {
+      isPlaying = false;
+      generateBtn.textContent = 'generate';
+      stopGranular();
+    }
+  });
+
+  downloadBtn?.addEventListener('click', async () => {
+    try {
+      if (isPlaying) {
+        isPlaying = false;
+        if (generateBtn) generateBtn.textContent = 'generate';
+        stopGranular();
+      }
+      showRenderStatus();
+      const renderedBuffer = await renderOfflineTexture(8);
+      const wavBlob = audioBufferToWav(renderedBuffer);
+      hideRenderStatus();
+      downloadBlob(wavBlob, 'acousmatic-texture.wav');
+    } catch (err) {
+      hideRenderStatus();
+      console.error('Agency download render error:', err);
+    }
+  });
 }
 
 function agencyUpdateMode() {
@@ -3142,6 +3474,7 @@ function agencyUpdateMode() {
   } else {
     document.body.classList.remove('agency-spatial-active');
     const app = document.querySelector('.agency-mobile-app');
+    app?.classList.remove('is-map-mode', 'is-map-tunnel', 'is-transitioning', 'is-settling');
     const video = app?.querySelector('video');
     if (video) video.pause();
   }
